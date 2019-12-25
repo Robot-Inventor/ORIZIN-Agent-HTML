@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <link rel="icon" href="../image/favicon.ico">
+        <title>ORIZIN Agent</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
+    </head>
+    <body>
+        <header>
+        </header>
+        <main>
+            <div class="fill_panel">
+                <h2>設定</h2>
+                テーマ　
+                <select id="theme">
+                    <option value="light">ライトテーマ(デフォルト)</option>
+                    <option value="dark">ダークテーマ</option>
+                </select>
+                <br>
+                <span class="button" onclick="save_setting()">適用</span>
+            </div>
+        </main>
+        <script src="../javascript/jquery-3.4.1.min.js"></script>
+        <script src="../javascript/basic.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            function save_setting() {
+                eel.change_theme(document.getElementById("theme").value);
+                location.reload();
+            };
+        </script>
+    </body>
+</html>

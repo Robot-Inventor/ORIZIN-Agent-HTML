@@ -1,0 +1,57 @@
+﻿<div class="title">
+    <img src="../image/menu_icon.svg" class="menu_open_button"><h1 style="display: inline;"><a href="index.html"><img src="../image/title.svg" alt="ORIZIN Agent" style="height: 5vh;"></a></h1>
+</div>
+<div class="side_menu_bar_overlay">
+</div>
+<div class="side_menu_bar">
+    <div class="setting_button">
+        設定
+    </div>
+    <div class="oss_license">
+        オープンソスソフトウェアライセンス
+    </div>
+    <div class="about_oa">
+        About ORIZIN Agent
+    </div>
+</div>
+<script>
+    var page_change_time = 300;
+    function open_menu() {
+        jQuery(".side_menu_bar_overlay").fadeIn(page_change_time);
+            jQuery(".side_menu_bar").animate({
+            left: "0vw"
+        }, page_change_time);
+    } 
+    function close_menu() {
+        jQuery(".side_menu_bar_overlay").fadeOut(page_change_time);
+        jQuery(".side_menu_bar").animate({
+            left: "-30vw"
+        }, page_change_time);
+    }
+    function move_page(place) {
+        close_menu();
+        setTimeout(function() {
+            location.href = place;
+        }, page_change_time);
+    }
+    jQuery(function() {
+        jQuery(".menu_open_button").click(function() {
+            open_menu();
+        });
+        jQuery(".side_menu_bar_overlay").click(function() {
+            close_menu();
+        });
+        jQuery(".side_menu_bar_overlay div").click(function() {
+            close_menu();
+        });
+        jQuery(".setting_button").click(function() {
+            move_page("setting.html");
+        });  
+        jQuery(".oss_license").click(function() {
+            move_page("oss_license.html");
+        });
+        jQuery(".about_oa").click(function() {
+            move_page("about_oa.html");
+        });
+    });
+</script>

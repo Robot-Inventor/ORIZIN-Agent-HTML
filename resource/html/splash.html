@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="preload" href="../css/layout.css" as="style">
+        <link rel="preload" href="../css/light_theme.css" as="style">
+        <link rel="preload" href="../css/dark_theme.css" as="style">
+        <link rel="preload" href="../javascript/jquery-3.4.1.min.js" as="script">
+        <link rel="preload" href="../javascript/basic.js" as="script">
+        <link rel="preload" href="../image/loading.svg" as="image">
+        <link rel="preload" href="../image/loading2.svg" as="image">
+        <link rel="preload" href="../image/loading3.svg" as="image">
+        <link rel="preload" href="../image/logo.svg" as="image">
+        <link rel="preload" href="../image/favicon.ico" as="image">
+        <link rel="preload" href="../image/title.svg" as="image">
+        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <link rel="icon" href="../image/favicon.ico">
+        <title>ORIZIN Agent</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
+    </head>
+    <body>
+        <header>
+        </header>
+        <main>
+            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg3); color: gray; text-align: center;">
+                <div class="loading_div">
+                    <img src="../image/loading1.svg" class="loading">
+                    <img src="../image/loading2.svg" class="loading loading2">
+                    <img src="../image/loading3.svg" class="loading loading3">
+                    <div class="message">
+                        <h1>ORIZIN Agent HTML Based</h1>
+                        <h2>Now Loading... Pleas waite.</h2><br>
+                        Preloading and cacheing...
+                        <noscript>
+                            <br>******JavaScriptが無効になっています。ブラウザの設定で有効にしてください。******
+                        </noscript>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <style>
+            .loading_div {
+                margin: 0;
+                padding: 0;
+                width: 100vw;
+                height: 100vh;
+                position: relative;
+            }
+            .loading {
+                width: 30vw;
+                position: absolute;
+                top: 0;
+                left: 35vw;
+            }
+            .loading2 {
+                animation: loading_animation2 5s linear -2s infinite;
+            }
+            @keyframes loading_animation2 {
+                0%{
+                    transform: rotate(0deg);
+                }
+                100%{
+                    transform: rotate(-360deg);
+                }
+            }
+            .loading3 {
+                animation: loading_animation3 5s linear -2s infinite;
+            }
+            @keyframes loading_animation3 {
+                0%{
+                    transform: rotate(0deg);
+                }
+                100%{
+                    transform: rotate(360deg);
+                }
+            }
+            .message {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                text-align: center;
+                width: 100vw;
+                padding-bottom: 2em;
+            }
+        </style>
+        <script src="../javascript/jquery-3.4.1.min.js"></script>
+        <script src="../javascript/basic.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            jQuery(window).on("load", function () {
+                if ("speechSynthesis" in window) {
+                } else {
+                    alert("ご利用のブラウザは音声合成(TTS / Text To Speech)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support TTS(Text To Speech). Please use the latest browser that supports Web Speech API.")
+                }
+                if ('webkitSpeechRecognition' in window) {
+                } else {
+                    alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support speech recognition(Speech To Text / STT). Please use latest browser that supports Web Speech API.")
+                }
+                setTimeout(function() {
+                    location.replace('index.html');
+                }, 2000);
+            });
+        </script>
+    </body>
+</html>

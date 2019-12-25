@@ -1,0 +1,9 @@
+:root {
+	--bg1: rgb(221, 221, 221);
+	--bg2: rgb(238, 238, 238);
+	--bg3: rgb(255, 255, 255);
+	--text: rgba(34, 34, 34, 0.8);
+	--bg2_shadow: rgba(17, 17, 17, 0.8);
+	--bg3_shadow: rgba(17, 17, 17, 0.4);
+	--theme_color: #ff6a00;
+}
