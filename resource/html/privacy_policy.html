@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <link rel="icon" href="../image/favicon.ico">
+        <title>ORIZIN Agent</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
+    </head>
+    <body>
+        <header>
+        </header>
+        <main>
+            <div class="fill_panel" style="overflow: scroll;">
+                <h2>プライバシーポリシー</h2>
+                <pre class="privacy_policy"></pre>
+            </div>
+        </main>
+        <script src="../javascript/jquery-3.4.1.min.js"></script>
+        <script src="../javascript/basic.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            jQuery(function() {
+                jQuery(".privacy_policy").load("../privacy_policy.txt");
+            });
+        </script>
+    </body>
+</html>
