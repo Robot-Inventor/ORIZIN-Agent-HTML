@@ -1,0 +1,74 @@
+<div class="outline">
+    <div class="eye">
+        <div></div>
+    </div>
+    <div class="eye">
+        <div></div>
+    </div>
+</div>
+<style type="text/css">
+    :root {
+        --face_width: 90vw;
+        --face_color: #ff6a00;
+        --eye_outline_color: #ff6a00;
+        --eye_fill_color: #ff6a00;
+        --animation_time: 30s;
+    }
+    html, body, main {
+        background: black;
+    }
+    .outline {
+        width: var(--face_width);
+        height: calc(var(--face_width)*21/50);
+        background: transparent;
+        border: solid calc(var(--face_width)/100) var(--face_color);
+        border-radius: calc(var(--face_width)*21/100);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    .eye {
+        width: calc(var(--face_width)*9/50);
+        height: calc(var(--face_width)*9/50);
+        background: transparent;
+        border: solid calc(var(--face_width)/100) var(--eye_outline_color);
+        border-radius: calc(var(--face_width)/10);
+        margin: calc(var(--face_width)*6/50);
+        display: inline-block;
+    }
+    .eye div {
+        margin: calc(var(--face_width)/50);
+        width: calc(var(--face_width)*7/50);
+        height: calc(var(--face_width)*7/50);
+        background: var(--eye_fill_color);
+        border-radius: calc(var(--face_width)*7/50);
+        animation: eye_blink var(--animation_time) linear 5s infinite normal;
+    }
+    @keyframes eye_blink {
+        0% {
+            height: calc(var(--face_width)*7/50);
+        }
+        0.25% {
+            height: 0;
+            margin-top: calc(var(--face_width)*9/100);
+        }
+        0.5% {
+            height: 0;
+            margin-top: calc(var(--face_width)*9/100);
+        }
+        0.75% {
+            height: calc(var(--face_width)*7/50);
+            margin-top: calc(var(--face_width)/50);
+        }
+    }
+    .mouth {
+        width: 1calc(var(--face_width)/10);
+        height: calc(var(--face_width)*6/50);
+        background: transparent;
+        border: solid 20px #00ffff;
+        border-top: none;
+        filter: drop-shadow(0 0 10px #009999);
+        border-radius: 0 0 1calc(var(--face_width)/10) 1calc(var(--face_width)/10);
+        margin-left: calc(var(--face_width)*9/50);
+    }
+</style>

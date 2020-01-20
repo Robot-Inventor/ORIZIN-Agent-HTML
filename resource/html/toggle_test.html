@@ -1,0 +1,72 @@
+<div class="switch">
+  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+  <label for="cmn-toggle-1"></label>
+</div>
+ 
+<div class="switch">
+  <input id="cmn-toggle-4" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+  <label for="cmn-toggle-4"></label>
+</div>
+ 
+<div class="switch">
+  <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+  <label for="cmn-toggle-7" data-on="Yes" data-off="No"></label>
+</div>
+<style>
+:root {
+  --toggle_width: 30vw;
+  --toggle_height: calc(var(--toggle_width) / 2.5);
+  --background_status_off: #f1f1f1;
+  --background_status_on: black;
+}
+.switch {
+  width: var(--toggle_width);
+  height: var(--toggle_height);
+}
+.cmn-toggle {
+  position: absolute;
+  display: none;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+input.cmn-toggle-round + label {
+  padding: 2px;
+  width: var(--toggle_width);
+  height: var(--toggle_height);
+  background-color: #dddddd;
+  border-radius: var(--toggle_height);
+}
+input.cmn-toggle-round + label:before,
+input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: var(--background_status_off);
+  border-radius: var(--toggle_height);
+  transition: background 0.3s;
+}
+input.cmn-toggle-round + label:after {
+  width: var(--toggle_height);
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: margin 0.3s;
+}
+input.cmn-toggle-round:checked + label:before {
+  background-color: var(--background_status_on);
+}
+input.cmn-toggle-round:checked + label:after {
+  margin-left: calc(var(--toggle_width) - var(--toggle_height));
+}
+</style>
