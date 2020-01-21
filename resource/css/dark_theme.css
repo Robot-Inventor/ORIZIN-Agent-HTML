@@ -1,8 +1,7 @@
 :root {
-	--bg1: rgb(34, 34, 34);
-	--bg2: rgb(51, 51, 51);
-	--bg3: rgb(68, 68, 68);
-	--text: rgba(200, 200, 200, 0.8);
-	--shadow: rgba(17, 17, 17, 0.8);
-	--theme_color: #ff6a00;
+	--bg: #121212;
+	--card_bg: #424242;
+	--text: #FFFFFF;
+	--shadow: rgba(0, 0, 0, 0.26);
+	--theme_color: #FF6A00;
 }

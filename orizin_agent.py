@@ -4,6 +4,8 @@ import eel
 import random
 import re
 import subprocess
+import webbrowser
+import sys
 
 @eel.expose
 def load_dictionary():
@@ -91,6 +93,10 @@ def make_response(not_adjusted_question):
     elif judge(question, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return "イースターエッグを起動します。"
+    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ"]):
+        url = "google.com/search?q=" + question
+        webbrowser.open(url)
+        return question + "を検索します。"
     else:
         return search_response(question)
 

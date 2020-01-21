@@ -32,20 +32,38 @@ The meaning of the words are shown below:
 
 ## Releases
 
-### [v0.1.2.0dev-Albatross] -2020-01-21
+### [Unreleased]
 #### Added
-- 108 responses were added to dictionary.
+- You can use tkinter instead of web browser for GUI now.
+- You can choose your favorite colors for UI now.
+
+#### Changed
+- Behavior became a little faster than before by optimizing variable types.
+
+### [v0.2.3.0dev-Albatross] - 2020-01-22
+#### Added
+- 3 responses were added to the dictionary, so there are 261 responses in total.
+- Added Google Search Function. If you ask questions to ORIZIN Agent, it'll open the default web browser and search the questions.
+
+#### Changed
+- Fixed some dictionary format error.
+- Changed privacy_policy.txt for Google Search Function.
+- The UI design was made similar to the Material Design.
+
+### [v0.1.2.0dev-Albatross] - 2020-01-21
+#### Added
+- 108 responses were added to the dictionary, so there are 258 responses in total.
 
 #### Changed
 - The panel layout supports vertical screens by changing panel layout and panel size.
 
-### [v0.0.1.0dev-Albatross] -2019-12-26
+### [v0.0.1.0dev-Albatross] - 2019-12-26
 #### Added
 - privacy_policy.txt was added.
 
 #### Notice
 In this release, there were some changes, but the version was not changed.
 
-### [v0.0.1.0dev-Albatross] -2019-12-25
+### [v0.0.1.0dev-Albatross] - 2019-12-25
 #### Added
 - All files of ORIZIN Agent HTML Based was released.

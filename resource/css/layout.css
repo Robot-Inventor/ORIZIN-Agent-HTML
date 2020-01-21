@@ -13,7 +13,7 @@ html, body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    background: var(--bg1);
+    background: var(--bg);
     color: var(--text);
     overflow: hidden;
 }
@@ -38,7 +38,7 @@ main {
     margin: 0;
     padding: 2vh;
     background: var(--theme_color);
-    box-shadow: 3px 3px 10px var(--shadow);
+    box-shadow: 0 2px 5px var(--shadow);
     color: white;
 }
 
@@ -56,9 +56,9 @@ header h1 {
     .main_control_panel {
         width: calc(100vw - 8vh);
         height: 32vh;
-        background: var(--bg2);
-        border-radius: 10px;
-        box-shadow: 3px 3px 10px var(--bg2_shadow);
+        background: var(--card_bg);
+        border-radius: 3px;
+        box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
         text-align: center;
@@ -67,9 +67,9 @@ header h1 {
     .bottom_control_panel {
         width: calc(100vw - 8vh);
         height: 19vh;
-        background: var(--bg2);
-        border-radius: 10px;
-        box-shadow: 3px 3px 10px var(--bg2_shadow);
+        background: var(--card_bg);
+        border-radius: 3px;
+        box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
         text-align: center;
@@ -81,9 +81,9 @@ header h1 {
     .main_control_panel {
         width: calc(100vw - 8vh);
         height: 55vh;
-        background: var(--bg2);
-        border-radius: 10px;
-        box-shadow: 3px 3px 10px var(--bg2_shadow);
+        background: var(--card_bg);
+        border-radius: 3px;
+        box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
         text-align: center;
@@ -92,9 +92,9 @@ header h1 {
     .bottom_control_panel {
         width: calc((100vw - 15vh)/2);
         height: 19vh;
-        background: var(--bg2);
-        border-radius: 10px;
-        box-shadow: 3px 3px 10px var(--bg2_shadow);
+        background: var(--card_bg);
+        border-radius: 3px;
+        box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         margin-right: 0;
         padding: 2vh;
@@ -107,29 +107,27 @@ header h1 {
 
 
 .main_control_panel:hover {
-    background: var(--bg3);
-    box-shadow: 10px 10px 10px var(--bg3_shadow);
+    box-shadow: 2px 5px 5px var(--shadow);
 }
 
 .bottom_control_panel:hover {
-    background: var(--bg3);
-    box-shadow: 10px 10px 10px var(--bg3_shadow);
+    box-shadow: 2px 5px 5px var(--shadow);
 }
 
 .fill_panel {
     width: calc(100vw - 8vh);
     height: 82vh;
-    background: var(--bg2);
-    border-radius: 10px;
-    box-shadow: 3px 3px 10px var(--bg2_shadow);
+    background: var(--card_bg);
+    border-radius: 3px;
+    box-shadow: 0 2px 5px var(--shadow);
     margin: 2vh;
     padding: 2vh;
     transition: 0.3s;
 }
 
 .fill_panel:hover {
-    background: var(--bg3);
-    box-shadow: 10px 10px 10px var(--bg3_shadow);
+    background: var(--card_bg);
+    box-shadow: 2px 5px 5px var(--shadow);
 }
 
 .side_menu_bar_overlay {
@@ -145,7 +143,7 @@ header h1 {
 }
 
 .side_menu_bar {
-    background: var(--bg2);
+    background: var(--bg);
     width: 30vw;
     height: 100vh;
     padding-top: 10vh;
@@ -156,9 +154,9 @@ header h1 {
 }
 
 .side_menu_bar div {
-    background: var(--bg3);
-    margin-bottom: 1vh;
-    width: 100% - 4vh;
+    background: var(--card_bg);
+    margin-top: 1vh;
+    width: calc(100% - 4vh);
     min-height: 10vh;
     padding: 2vh;
 }
@@ -219,15 +217,16 @@ a {
     padding: 0.3em 1em;
     color: var(--theme_color);
     border: solid 2px var(--theme_color);
-    border-radius: 1.6em;
+    border-radius: 3px;
     text-decoration: none;
     margin: 10px 10px 10px 0px;
     transition: 0.3s;
+    background: transparent;
 }
 
 .button:hover, button:hover {
     background: var(--theme_color);
-    color: white;
+    color: var(--text_color);
 }
 
 .pre {
