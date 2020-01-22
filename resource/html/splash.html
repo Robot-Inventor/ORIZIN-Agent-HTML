@@ -21,8 +21,6 @@
         <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
     </head>
     <body>
-        <header>
-        </header>
         <main>
             <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg3); color: gray; text-align: center;">
                 <div class="loading_div">
@@ -87,8 +85,23 @@
         </style>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/push.min.js"></script>
         <script src="/eel.js"></script>
         <script>
+            async function check_update() {
+                result = await eel.check_update()();
+                if (result == true) {
+                    Push.create("ORIZIN Agent", {
+                        body: "アップデートがあります。最新バージョンが利用可能です。",
+                        icon: "../image/favicon.ico",
+                        onClick: function() {
+                            window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
+                            this.close();
+                        }
+                    });
+                }
+            }
+            check_update();
             jQuery(window).on("load", function () {
                 if ("speechSynthesis" in window) {
                 } else {

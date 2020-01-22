@@ -21,17 +21,41 @@
                     <option value="dark">ダークテーマ</option>
                 </select>
                 <br>
+                アップデートを確認　<button onclick="check_update()">実行</button>
+                <br>
                 <button onclick="save_setting()">適用</button>
             </div>
         </main>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/push.min.js"></script>
         <script src="/eel.js"></script>
         <script>
             function save_setting() {
                 eel.change_theme(document.getElementById("theme").value);
                 location.reload();
-            };
+            }
+            async function check_update() {
+                result = await eel.check_update()();
+                if (result == true) {
+                    Push.create("ORIZIN Agent", {
+                        body: "アップデートがあります。最新バージョンが利用可能です。",
+                        icon: "../image/favicon.ico",
+                        onClick: function() {
+                            window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
+                            this.close();
+                        }
+                    });
+                } else {
+                    Push.create("ORIZIN Agent", {
+                        body: "アップデートはありません。既に最新のバージョンです。",
+                        icon: "../image/favicon.ico",
+                        onClick: function() {
+                            this.close();
+                        }
+                    });
+                }
+            }
         </script>
     </body>
 </html>

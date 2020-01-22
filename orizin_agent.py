@@ -5,6 +5,7 @@ import random
 import re
 import subprocess
 import webbrowser
+import urllib.request
 import sys
 
 @eel.expose
@@ -93,12 +94,22 @@ def make_response(not_adjusted_question):
     elif judge(question, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return "イースターエッグを起動します。"
-    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ"]):
-        url = "google.com/search?q=" + question
-        webbrowser.open(url)
+    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく"]):
+        webbrowser.open_new("https://google.com/search?q=" + question)
         return question + "を検索します。"
     else:
         return search_response(question)
+ 
+@eel.expose
+def check_update():
+    info_file = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/information.txt").read().decode()
+    f = open("resource/information.txt")
+    local_info_file = f.read()
+    f.close()
+    if info_file != local_info_file:
+        return True
+    else:
+        return False
 
 
 load_dictionary()

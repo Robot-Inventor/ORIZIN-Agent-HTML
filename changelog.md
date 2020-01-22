@@ -40,15 +40,29 @@ The meaning of the words are shown below:
 #### Changed
 - Behavior became a little faster than before by optimizing variable types.
 
+### [v0.3.4.0dev-Albatross] - 2020-01-23
+#### Added
+- Added Auto Update Checker with a push notification, and Manual Update Checker. Because of this, oss_license.html was modified.
+
+#### Changed
+- Changed the background color of selected text.
+- Google Search Function is more useful now.
+
+#### Fixed
+- Fixed the issue that default web browser was not used in Google Search Function.
+- Fixed the issue that app bar was shown in splash screen.
+
 ### [v0.2.3.0dev-Albatross] - 2020-01-22
 #### Added
 - 3 responses were added to the dictionary, so there are 261 responses in total.
 - Added Google Search Function. If you ask questions to ORIZIN Agent, it'll open the default web browser and search the questions.
 
 #### Changed
-- Fixed some dictionary format error.
 - Changed privacy_policy.txt for Google Search Function.
 - The UI design was made similar to the Material Design.
+
+#### Fixed
+- Fixed some dictionary format error.
 
 ### [v0.1.2.0dev-Albatross] - 2020-01-21
 #### Added
