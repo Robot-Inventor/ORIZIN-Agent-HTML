@@ -40,13 +40,23 @@ The meaning of the words are shown below:
 #### Changed
 - Behavior became a little faster than before by optimizing variable types.
 
+### [v0.4.5.0dev-Albatross] - 2020-1-23
+#### Added
+- 10 responses were added to the dictionary, so there are 271 responses in total.
+- The Space Battle Ship Game as the easter egg is now available.
+- Added the Flag Page. You can see it from the Settings Page.
+
+#### Changed
+- The behavior in dictionary error is changed. The error message is shown in the new window made by tkinter.
+- Google Search Function became more useful.
+
 ### [v0.3.4.0dev-Albatross] - 2020-01-23
 #### Added
 - Added Auto Update Checker with a push notification, and Manual Update Checker. Because of this, oss_license.html was modified.
 
 #### Changed
 - Changed the background color of selected text.
-- Google Search Function is more useful now.
+- Google Search Function became more useful.
 
 #### Fixed
 - Fixed the issue that default web browser was not used in Google Search Function.

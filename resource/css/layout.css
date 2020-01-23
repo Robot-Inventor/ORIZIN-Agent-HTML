@@ -18,11 +18,19 @@
 
 *::selection {
     background: var(--theme_color);
-    color: var(--text_color);
+    color: white;
 }
 
 *:focus {
     outline: none;
+}
+
+.important {
+    color: var(--theme_color);
+}
+
+.warning {
+    color: red;
 }
 
 html, body {
@@ -259,4 +267,8 @@ a {
 img {
     max-width: 100%;
     max-height: 100%;
+}
+
+ul {
+    list-style-type: disc;
 }

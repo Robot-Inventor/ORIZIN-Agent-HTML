@@ -15,14 +15,21 @@
         <main>
             <div class="fill_panel">
                 <h2>設定</h2>
-                テーマ　
-                <select id="theme">
-                    <option value="light">ライトテーマ(デフォルト)</option>
-                    <option value="dark">ダークテーマ</option>
-                </select>
-                <br>
-                アップデートを確認　<button onclick="check_update()">実行</button>
-                <br>
+                <ul>
+                    <li>
+                        テーマ
+                        <select id="theme">
+                            <option value="light">ライトテーマ(デフォルト)</option>
+                            <option value="dark">ダークテーマ</option>
+                        </select>
+                    </li>
+                    <li>
+                        アップデートを確認　<button onclick="check_update()">実行</button>
+                    </li>
+                    <li>
+                        <a href="flag.html">試験機能</a>
+                    </li>
+                </ul>
                 <button onclick="save_setting()">適用</button>
             </div>
         </main>
@@ -37,9 +44,9 @@
             }
             async function check_update() {
                 result = await eel.check_update()();
-                if (result == true) {
+                if (result[0] == "true") {
                     Push.create("ORIZIN Agent", {
-                        body: "アップデートがあります。最新バージョンが利用可能です。",
+                        body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。",
                         icon: "../image/favicon.ico",
                         onClick: function() {
                             window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
@@ -48,7 +55,7 @@
                     });
                 } else {
                     Push.create("ORIZIN Agent", {
-                        body: "アップデートはありません。既に最新のバージョンです。",
+                        body: "アップデートはありません。既に最新のバージョン" + result[1] + "です。",
                         icon: "../image/favicon.ico",
                         onClick: function() {
                             this.close();

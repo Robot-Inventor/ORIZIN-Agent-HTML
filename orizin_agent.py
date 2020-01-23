@@ -7,6 +7,8 @@ import subprocess
 import webbrowser
 import urllib.request
 import sys
+import tkinter as tk
+from tkinter import messagebox
 
 @eel.expose
 def load_dictionary():
@@ -27,7 +29,10 @@ def load_dictionary():
             if dictionary_checker[0:dictionary_checker.find("\n")].count(":") != 1:
                 bad_point += '\n"' + dictionary_checker[0:dictionary_checker.find('\n')] + '"(' + str(num + 1) + '行目)'
             dictionary_checker = dictionary_checker[dictionary_checker.find('\n') + 1:]
-        print("***エラー***\n辞書ファイルの単語リストの数(" + str(index) + "個）と応答の数(" + str(dictionary_file.count(":")) + "個）が一致しません。正常に動作しない可能性があります。\n" + "問題のある箇所:" + bad_point)
+        root = tk.Tk()
+        root.withdraw()
+        dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", "エラー\n辞書ファイルの単語リストの数(" + str(index) + "個）と応答の数(" + str(dictionary_file.count(":")) + "個）が一致しません。正常に動作しない可能性があります。\n" + "問題のある箇所:" + bad_point)
+        sys.exit()
     dictionary = dictionary_file
     f.close()
 
@@ -94,11 +99,15 @@ def make_response(not_adjusted_question):
     elif judge(question, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return "イースターエッグを起動します。"
-    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく"]):
+    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
         webbrowser.open_new("https://google.com/search?q=" + question)
         return question + "を検索します。"
     else:
         return search_response(question)
+
+def check_version_from_info(file):
+    result = file[file.find("Version : "):].replace("Version : ", "")
+    return result[:result.find("\n")]
  
 @eel.expose
 def check_update():
@@ -106,10 +115,12 @@ def check_update():
     f = open("resource/information.txt")
     local_info_file = f.read()
     f.close()
+    current_version = check_version_from_info(local_info_file)
+    new_version = check_version_from_info(info_file)
     if info_file != local_info_file:
-        return True
+        return ["true", current_version, new_version]
     else:
-        return False
+        return ["false", current_version, new_version]
 
 
 load_dictionary()

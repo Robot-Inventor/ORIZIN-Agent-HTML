@@ -5,8 +5,7 @@ import tkinter as tk
 import time
 import random
 import re
-import atexit
-import subprocess
+import sys
 
 
 startMessage = True
@@ -15,15 +14,16 @@ shipY = 200
 rivalBeam = []
 rivalBeamCount = 0
 beamSpeed = 400
-gameOver = 0
 
 
 def shutdown(event):
-    quit()
+    root.withdraw()
+    sys.exit()
 
 
 def autoShutdown():
-    quit()
+    root.withdraw()
+    sys.exit()
 
 
 def spacePressed(event):
@@ -36,7 +36,6 @@ def spacePressed(event):
         howToPlay = tk.Label(gameCanvas, text='矢印キーで左右へ', bg='black', fg='red', font=('', 13, 'bold', 'roman', 'normal', 'normal'))
         howToPlay.pack(anchor=tk.NW, expand=1)
         root.after(beamSpeed, moveThings)
-        beamSound()
         changeBeamSpeed()
 
 
@@ -75,11 +74,8 @@ def moveThings():
         gameCanvas.create_line(int(rivalBeamX), int(rivalBeamY) + 20, int(rivalBeamX), int(rivalBeamY) + 40, fill='yellow', tag=rivalBeamID)
         rivalBeam[YPrace] = str(int(rivalBeamY) + 20)
         if int(rivalBeam[YPrace]) <= 200 and int(rivalBeam[YPrace]) >= 180 and int(rivalBeam[XPrace]) >= shipX and int(rivalBeam[XPrace]) <= shipX + 20:
-            global gameOver
-            gameOver += 1
             gameOver = tk.Label(gameCanvas, text='Game Over', bg='black', fg='red', font=('', 30, 'bold', 'roman', 'normal', 'normal'))
             gameOver.pack(side=tk.TOP, expand=0, fill=tk.BOTH)
-            beamSound('/home/pi/ORIZIN_Agent/sounds/soundEffects/wav/bomb1.wav')
             root.after(3000, autoShutdown)
         if int(rivalBeam[YPrace]) <= 0:
             rivalBeam.pop(0)
@@ -94,29 +90,11 @@ def moveThings():
     root.after(beamSpeed, moveThings)
 
 
-def playSound(soundFile):
-    command = 'aplay ' + soundFile
-    global soundPlayer
-    soundPlayer = subprocess.Popen(command.split())
-
-
-def beamSound(soundFile='/home/pi/ORIZIN_Agent/sounds/soundEffects/wav/laser1.wav'):
-    command = 'aplay ' + soundFile
-    subprocess.Popen(command.split())
-    root.after(1000, beamSound)
-
-
-def stopSound():
-    soundPlayer.terminate()
-
-
 def changeBeamSpeed():
     global beamSpeed
     beamSpeed -= 2
     root.after(300, changeBeamSpeed)
 
-
-atexit.register(stopSound)
 
 
 root = tk.Tk()
@@ -127,8 +105,6 @@ root.bind('<Control-q>', shutdown)
 root.bind('<Left>', leftPressed)
 root.bind('<Right>', rightPressed)
 root.bind('<space>', spacePressed)
-
-playSound('/home/pi/ORIZIN_Agent/sounds/musics/wav/natsuhasummer.wav')
 
 gameCanvas = tk.Canvas(root, bg='black')
 gameCanvas.pack(anchor=tk.NW, expand=1, fill=tk.BOTH)

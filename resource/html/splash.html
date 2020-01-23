@@ -90,9 +90,9 @@
         <script>
             async function check_update() {
                 result = await eel.check_update()();
-                if (result == true) {
+                if (result[0] == "true") {
                     Push.create("ORIZIN Agent", {
-                        body: "アップデートがあります。最新バージョンが利用可能です。",
+                        body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。",
                         icon: "../image/favicon.ico",
                         onClick: function() {
                             window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
