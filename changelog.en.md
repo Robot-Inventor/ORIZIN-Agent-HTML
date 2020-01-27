@@ -40,6 +40,11 @@ The meaning of the words are shown below:
 #### Changed
 - Behavior became a little faster than before by optimizing variable types.
 
+### [v0.5.7.1dev-Albatross] - 2020-01-27
+#### Fixed
+- Fixed the issue that the update contents are not shown on the push notification of Update Checker.
+- Fixed the issue that responses are not shown in the screen.
+
 ### [v0.5.6.0dev-Albatross] - 2020-01-27
 #### Added
 - Added ripple effect to the buttons. Because of this, oss_license.html was modified.

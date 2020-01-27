@@ -112,7 +112,7 @@ def check_version_from_info(file):
 @eel.expose
 def check_update():
     info_file = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/information.txt").read().decode()
-    update_message = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/update_message.txt").read().decode()
+    update_message = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/update_message.txt").read().decode()
     f = open("resource/information.txt")
     local_info_file = f.read()
     f.close()

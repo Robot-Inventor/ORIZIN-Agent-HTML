@@ -40,6 +40,11 @@ Edition : ORIZIN Agent HTML Based
 #### 変更
 - Behavior became a little faster than before by optimizing variable types.
 
+### [v0.5.7.1dev-Albatross] - 2020-01-27
+#### 修正
+- アップデートを確認した際にプッシュ通知にアップデートの内容がうまく表示されない問題を修正しました。
+- 入力内容と応答が表示されない問題を修正しました。
+
 ### [v0.5.6.0dev-Albatross] - 2020-01-27
 #### 追加
 - ボタンにリップルエフェクトを追加しました。また，それに伴いoss_license.htmlを変更しました。
