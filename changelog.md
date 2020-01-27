@@ -1,93 +1,97 @@
 # Change Log
-All notable changes to this project will be documented in this file.
+このプロジェクトに対するすべての重要な変更は、このファイルに文書化されます。
 
-## Information
+## 情報
 Series Name : ORIZIN Agent  
 Edition : ORIZIN Agent HTML Based
 
-To read other information, check resource/information.txt.
+他の情報を読むには，resource/information.txtを参照してください。
 
-## Versioning
-The meaning of the version, "a.b.c.de-f" is shown below:
+## バージョニング
+"a.b.c.de-f"というバージョン番号の意味は以下の通りです。
 
-|Place|Meaning|Character Type|Minimum|
+|位置|意味|文字の種類|最小値|
 |:-----:|:-------:|:--:|:--:|
-|a|Major Version|Number|0|
-|b|Minor Version|Number|0|
-|c|Build (Total Version)|Number|1|
-|d|Revision|Number|0|
-|e|Release|Alphabet (dev or nothing)|N/A|
-|f|Development Code Name|Alphabet|N/A|
+|a|メジャーバージョン|数字|0|
+|b|マイナーバージョン|数字|0|
+|c|ビルド（累積バージョン）|数字|1|
+|d|リビジョン|数字|0|
+|e|リリース|アルファベット（dev または なし）|N/A|
+|f|開発コードネーム|アルファベット|N/A|
 
-The meaning of the words are shown below:
+それぞれの言葉の意味は以下の通りです。
 
-|Word|Meaning|
+|言葉|意味|
 |:-----:|:-------:|
-|Major Version|Big functions were added or there are big changes in UI.|
-|Minor Version|Small functions were added or there are small changes in UI.|
-|Build (Total Version)|When the version was changed, this number increase.|
-|Revision|There are bug fixes or changed comments in the program.|
-|Release|If the program is "Develop", the value is "dev".|
-|Development Code Name|Code name of the major (or minor) version.|
+|メジャーバージョン|大きな機能の追加またはUIの大きな変更|
+|マイナーバージョン|小さな機能の追加またはUIの小さな変更|
+|ビルド（累積バージョン）|バージョン番号が変わるたびにこの数字が増えます|
+|リビジョン|バグの修正またはプログラム中のコメントの変更|
+|リリース|プログラムがDevelop版の場合"dev"になる|
+|開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
-## Releases
+## リリース
 
 ### [Unreleased]
-#### Added
+#### 追加
 - You can use tkinter instead of web browser for GUI now.
 - You can choose your favorite colors for UI now.
 
-#### Changed
+#### 変更
 - Behavior became a little faster than before by optimizing variable types.
 
-### [v0.4.5.0dev-Albatross] - 2020-1-23
-#### Added
-- 10 responses were added to the dictionary, so there are 271 responses in total.
-- The Space Battle Ship Game as the easter egg is now available.
-- Added the Flag Page. You can see it from the Settings Page.
+### [v0.5.6.0dev-Albatross] - 2020-01-27
+#### 追加
+- ボタンにリップルエフェクトを追加しました。また，それに伴いoss_license.htmlを変更しました。
+- アップデートを確認した際にプッシュ通知でアップデートの内容が表示されるようになりました。
 
-#### Changed
-- The behavior in dictionary error is changed. The error message is shown in the new window made by tkinter.
-- Google Search Function became more useful.
+### [v0.4.5.0dev-Albatross] - 2020-01-23
+#### 追加
+- 10通りの応答を辞書に追加し，応答は全てで271通りになりました。
+- 試験機能ページを追加しました。設定ページから見ることができます。
+
+#### 変更
+- 辞書エラーの際の挙動が変更になりました。tkinter
+- Google検索機能がより使いやすくなりました。
 
 ### [v0.3.4.0dev-Albatross] - 2020-01-23
-#### Added
-- Added Auto Update Checker with a push notification, and Manual Update Checker. Because of this, oss_license.html was modified.
+#### 追加
+- プッシュ通知付きのオートアップデートチェッカーとマニュアルアップデートチェッカーを追加しました。また，それに伴いoss_license.htmlを変更しました。
 
-#### Changed
-- Changed the background color of selected text.
-- Google Search Function became more useful.
+#### 変更
+- 選択されたテキストの背景色を変更しました。
+- Google検索機能がより使いやすくなりました。
 
-#### Fixed
-- Fixed the issue that default web browser was not used in Google Search Function.
-- Fixed the issue that app bar was shown in splash screen.
+#### 修正
+- Google検索機能でデフォルトのWEBブラウザが使われない問題を修正しました。
+- スプラッシュ画面でアプリバーが表示されてしまう問題を修正しました。
 
 ### [v0.2.3.0dev-Albatross] - 2020-01-22
-#### Added
-- 3 responses were added to the dictionary, so there are 261 responses in total.
-- Added Google Search Function. If you ask questions to ORIZIN Agent, it'll open the default web browser and search the questions.
+#### 追加
+- 3通りの応答を辞書に追加し，応答は全てで261通りになりました。
+- Google検索機能を追加しました。ORIZIN Agentに質問するとデフォルトのWEBブラウザで質問が検索されます。
 
-#### Changed
-- Changed privacy_policy.txt for Google Search Function.
-- The UI design was made similar to the Material Design.
+#### 変更
+- privacy_policy.txtをGoogle検索機能のために変更しました。
+- UIのデザインをマテリアルデザインに近づけました。
 
-#### Fixed
-- Fixed some dictionary format error.
+#### 修正
+- 辞書の書式のミスを修正しました。
 
 ### [v0.1.2.0dev-Albatross] - 2020-01-21
-#### Added
-- 108 responses were added to the dictionary, so there are 258 responses in total.
+#### 追加
+- 108通りの応答を辞書に追加し，応答は全てで258通りになりました。
 
-#### Changed
-- The panel layout supports vertical screens by changing panel layout and panel size.
+#### 変更
+- パネルレイアウトとパネルサイズを変更することで縦画面をサポートしました。
 
 ### [v0.0.1.0dev-Albatross] - 2019-12-26
-#### Added
-- privacy_policy.txt was added.
+#### 追加
+- privacy_policy.txtが追加されました。
 
 #### Notice
-In this release, there were some changes, but the version was not changed.
+- このリリースでは，幾つかの変更がありましたが，バージョン番号は変更されませんでした。
 
 ### [v0.0.1.0dev-Albatross] - 2019-12-25
-#### Added
-- All files of ORIZIN Agent HTML Based was released.
+#### 追加
+- ORIZIN Agent HTML Basedのすべてのファイルがリリースされました。

@@ -24,18 +24,19 @@
                         </select>
                     </li>
                     <li>
-                        アップデートを確認　<button onclick="check_update()">実行</button>
+                        アップデートを確認　<button onclick="check_update()" class="ripple_effect">実行</button>
                     </li>
                     <li>
-                        <a href="flag.html">試験機能</a>
+                        <a href="flag.html" class="ripple_effect">試験機能</a>
                     </li>
                 </ul>
-                <button onclick="save_setting()">適用</button>
+                <button onclick="save_setting()" class="ripple_effect">適用</button>
             </div>
         </main>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/push.min.js"></script>
+        <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
         <script>
             function save_setting() {
@@ -46,7 +47,7 @@
                 result = await eel.check_update()();
                 if (result[0] == "true") {
                     Push.create("ORIZIN Agent", {
-                        body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。",
+                        body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
                         icon: "../image/favicon.ico",
                         onClick: function() {
                             window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");

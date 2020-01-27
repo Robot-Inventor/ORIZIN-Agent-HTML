@@ -14,11 +14,11 @@
         </header>
         <main>
             <div class="main_control_panel">
-                <div id="waiting">
+                <div id="waiting" class="ripple_effect">
                   	<img src="../image/logo.svg" class="logo waiting_mark" id="start_recognition"><br>
                     マークをクリックするかスペースキーを押して話しかけてみてください。
                 </div>
-                <div id="listening">
+                <div id="listening" class="ripple_effect">
                     <img src="../image/listening.svg" class="logo listening_mark"><br>
                     マークをクリックするかスペースキーを押して話しかけてみてください。<br>
                     音声認識中...
@@ -26,13 +26,14 @@
             </div>
             <div class="bottom_control_panel">
                 <textarea id="requestForm">ここにテキストを入力してください。入力されたテキストに対する応答を読み上げます。</textarea>
-                <button type="button" id="startButton">実行</button>
+                <button type="button" id="startButton" class="ripple_effect">実行</button>
             </div>
-            <div class="bottom_control_panel" id="result_area">
+            <div class="bottom_control_panel result_area ripple_effect">
             </div>
         </main>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
         <script>
             eel.expose(alert);
