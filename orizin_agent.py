@@ -1,129 +1,74 @@
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 
 import eel
-import random
-import re
-import subprocess
-import webbrowser
-import urllib.request
 import sys
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
+import oa_core as core
+import distutils.util
+import re
 
 @eel.expose
-def load_dictionary():
-    f = open("resource/dictionary/dictionary.odic", encoding="utf-8_sig")
-    global dictionary
-    global index
-    dictionary_file = f.read()
-    index = dictionary_file.count("\n") + 1
-    if index != dictionary_file.count(":"):
-        bigger_num = 0
-        if index > dictionary_file.count(":"):
-            bigger_num = index
-        else:
-            bigger_num = dictionary_file.count(":")
-        dictionary_checker = dictionary_file
-        bad_point = ""
-        for num in range(bigger_num):
-            if dictionary_checker[0:dictionary_checker.find("\n")].count(":") != 1:
-                bad_point += '\n"' + dictionary_checker[0:dictionary_checker.find('\n')] + '"(' + str(num + 1) + '行目)'
-            dictionary_checker = dictionary_checker[dictionary_checker.find('\n') + 1:]
-        root = tk.Tk()
-        root.withdraw()
-        dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", "エラー\n辞書ファイルの単語リストの数(" + str(index) + "個）と応答の数(" + str(dictionary_file.count(":")) + "個）が一致しません。正常に動作しない可能性があります。\n" + "問題のある箇所:" + bad_point)
-        sys.exit()
-    dictionary = dictionary_file
-    f.close()
-
-
-@eel.expose
-def change_theme(theme):
-    cssFilePath = "resource/css/layout.css"
-    cssFile = open(cssFilePath, mode="r")
-    oldCss = cssFile.read()
-    cssFile.close
-    if theme == "dark":
-        newCss = '@import url("dark_theme.css");' + oldCss[oldCss.find(";") + 1:]
+def change_theme(_theme):
+    _css_file_path = "resource/css/layout.css"
+    _css_file = open(_css_file_path, mode="r")
+    _old_css = _css_file.read()
+    _css_file.close
+    if _theme == "dark":
+        _new_css = '@import url("dark_theme.css");' + _old_css[_old_css.find(";") + 1:]
     else:
-        newCss = '@import url("light_theme.css");' + oldCss[oldCss.find(";") + 1:]
-    cssFile = open(cssFilePath, mode="w")
-    cssFile.write(newCss)
-    cssFile.close()
+        _new_css = '@import url("light_theme.css");' + _old_css[_old_css.find(";") + 1:]
+    _css_file = open(_css_file_path, mode="w")
+    _css_file.write(_new_css)
+    _css_file.close()
     return
 
-def remove_unnecessary(sentence):
-    return sentence.translate(str.maketrans({" ": None, "　": None, "・": None, "_": None}))
-
-def fullpitch_to_highpitch(sentence):
-    return sentence.translate(str.maketrans("ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-
-def adjust_question(sentence):
-    return remove_unnecessary(fullpitch_to_highpitch(sentence.lower()))
-
-def judge(character, array):
-    for num in range(len(array)):
-        if array[num] in character:
-            return True
-    return False
-
-def search_response(request):
-    global response
-    global knownQuestion
-    knownQuestion = False
-    candidate_for_dictionary = re.split("[\n:]", dictionary)[::2]
-    candidate_for_response = re.split("[\n:]", dictionary)[1::2]
-    for num in range(index):
-        if judge(request, candidate_for_dictionary[num].split("/")):
-            response_and_insert_content = candidate_for_response[num].split("/")
-            return response_and_insert_content[0]
-            knownQuestion = True
-            break
-    if knownQuestion == False:
-        f = open("resource/dictionary/unknownQuestions.txt", "a", encoding="utf-8_sig")
-        f.write(request + "\n")
-        f.close()
-        return "そうですか。"
+@eel.expose
+def load_flag(_flag_name):
+    _f = open("resource/setting/flag.oflg")
+    _flag_file = _f.read()
+    _f.close()
+    if _flag_name in _flag_file:
+        _flag_file = _flag_file[_flag_file.find(_flag_name):]
+        return core.convert_to_bool(re.split(":", _flag_file[:_flag_file.find("\n")])[1])
+    else:
+        return False
 
 @eel.expose
-def make_response(not_adjusted_question):
-    question = adjust_question(not_adjusted_question)
-    if judge(question, ["じゃんけん", "ジャンケン"]):
-        randomInt = random.randint(0, 2)
-        if randomInt == 0:
-            return "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はグーです。"
-        elif randomInt == 1:
-            return "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はチョキです。"
-        else:
-            return "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はパーです。"
-    elif judge(question, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
-        subprocess.Popen(["python", "resource/python/easter_egg.py"])
-        return "イースターエッグを起動します。"
-    elif judge(question, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
-        webbrowser.open_new("https://google.com/search?q=" + question)
-        return question + "を検索します。"
+def set_flag(_flag_name, _flag_value):
+    _f = open("resource/setting/flag.oflg", mode="r")
+    _flag_file = _f.read()
+    _f.close()
+    if _flag_name in _flag_file:
+        _rewriting_place = _flag_file[_flag_file.find(_flag_name):].strip() + "\n"
+        _rewriting_place = _rewriting_place[:_rewriting_place.find("\n") + 1]
+        _f = open("resource/setting/flag.oflg", mode="w")
+        _f.write(_flag_file.replace(_rewriting_place.strip(), _rewriting_place[:_rewriting_place.find(":") + 1] + str(_flag_value)))
+        _f.close()
+        return
     else:
-        return search_response(question)
+        _new_flag_file = _flag_file.strip() + "\n" + _flag_name + ":" + str(_flag_value)
+        _f = open("resource/setting/flag.oflg", mode="w")
+        _f.write(_new_flag_file.strip())
+        _f.close()
+        return
 
-def check_version_from_info(file):
-    result = file[file.find("Version : "):].replace("Version : ", "")
-    return result[:result.find("\n")]
- 
+@eel.expose
+def make_response(_not_normalized_query):
+    return core.respond(dictionary, core.normalize(_not_normalized_query))
+
 @eel.expose
 def check_update():
-    info_file = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/information.txt").read().decode()
-    update_message = urllib.request.urlopen("https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/update_message.txt").read().decode()
-    f = open("resource/information.txt")
-    local_info_file = f.read()
-    f.close()
-    current_version = check_version_from_info(local_info_file)
-    new_version = check_version_from_info(info_file)
-    if info_file != local_info_file:
-        return ["true", current_version, new_version, update_message]
-    else:
-        return ["false", current_version, new_version, update_message]
+    return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/update_message.txt")
 
-
-load_dictionary()
+try:
+    dictionary = core.load_dictionary("resource/dictionary/dictionary.odic")
+except Exception as error_message:
+    root = tk.Tk()
+    root.withdraw()
+    dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
+    sys.exit()
 eel.init("resource")
 eel.start("/html/splash.html")

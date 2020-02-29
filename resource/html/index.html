@@ -36,18 +36,17 @@
         <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
         <script>
-            eel.expose(alert);
             function start_speak(content) {
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
             }
             async function response(content) {
                 let script = await eel.make_response(content)();
-                jQuery("#result_area").append(">>" + content + "<br>" + script + "<br>");
+                jQuery("#result_area").append(">>" + content + "<br>" + script[1] + "<br>");
                 jQuery("#result_area").animate({
                     scrollTop: jQuery(document).height()
                 },300);
-                start_speak(script);
+                start_speak(script[0]);
             }
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');

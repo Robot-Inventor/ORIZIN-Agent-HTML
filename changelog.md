@@ -34,11 +34,18 @@ Edition : ORIZIN Agent HTML Based
 
 ### [Unreleased]
 #### 追加
-- You can use tkinter instead of web browser for GUI now.
-- You can choose your favorite colors for UI now.
+- GUIの表示にWEBブラウザの代わりにtkinterを選択できるようになります。
+- UIにあなたの好きな色を指定できるようになります。
 
 #### 変更
-- Behavior became a little faster than before by optimizing variable types.
+- 変数型の最適化による動作速度の改善
+
+### [v0.5.8.2dev-Albatross] - 2020-02-29
+#### 追加
+- 52通りの応答を辞書に追加し，応答は全てで323通りになりました。
+
+#### 修正
+- リファクタリングを行いました。動作の変更はありません。
 
 ### [v0.5.7.1dev-Albatross] - 2020-01-27
 #### 修正

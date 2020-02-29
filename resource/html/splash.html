@@ -29,7 +29,7 @@
                     <img src="../image/loading3.svg" class="loading loading3">
                     <div class="message">
                         <h1>ORIZIN Agent HTML Based</h1>
-                        <h2>Now Loading... Pleas waite.</h2><br>
+                        <h2>Now Loading... Please waite.</h2><br>
                         Preloading and cacheing...
                         <noscript>
                             <br>******JavaScriptが無効になっています。ブラウザの設定で有効にしてください。******
@@ -95,13 +95,12 @@
                         body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
                         icon: "../image/favicon.ico",
                         onClick: function() {
-                            window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
+                            open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML-Based", "newwindow");
                             this.close();
                         }
                     });
                 }
             }
-            check_update();
             jQuery(window).on("load", function () {
                 if ("speechSynthesis" in window) {
                 } else {
@@ -111,6 +110,7 @@
                 } else {
                     alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support speech recognition(Speech To Text / STT). Please use latest browser that supports Web Speech API.")
                 }
+                check_update();
                 setTimeout(function() {
                     location.replace('index.html');
                 }, 2000);
