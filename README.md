@@ -1,4 +1,4 @@
-# ORIZIN Agent HTML Based
+# ORIZIN Agent HTML
 ORIZIN Agentは，GitHUb上でMITライセンスの下に公開されているオープンソースのAIアシスタントです。日本語での会話を行うことができます。本ソフトウェアは，HTMLを使用しており，GUIの表示のためにEelというPythonライブラリを使用します。また，HTMLファイルやCSSファイルを編集することでGUIをカスタマイズすることができます。
 
 ORIZIN Agent is an open-source AI assistant which was published on GitHub under the MIT License. It is for conversation in Japanese language. This software is based on HTML, so it uses Eel, a Python library for GUI. If you want to customize GUI, you can do it by editing the HTML files or the CSS files.

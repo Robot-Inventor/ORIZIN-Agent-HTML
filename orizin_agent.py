@@ -61,7 +61,7 @@ def make_response(_not_normalized_query):
 
 @eel.expose
 def check_update():
-    return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML-Based/master/update_message.txt")
+    return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
 
 try:
     dictionary = core.load_dictionary("resource/dictionary/dictionary.odic")

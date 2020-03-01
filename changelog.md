@@ -3,7 +3,7 @@
 
 ## 情報
 Series Name : ORIZIN Agent  
-Edition : ORIZIN Agent HTML Based
+Edition : ORIZIN Agent HTML
 
 他の情報を読むには，resource/information.txtを参照してください。
 
@@ -39,6 +39,10 @@ Edition : ORIZIN Agent HTML Based
 
 #### 変更
 - 変数型の最適化による動作速度の改善
+
+### [v0.6.9.0dev-Albatross] - 2020-03-01
+#### 修正
+- リポジトリ名及びソフトウェア名を「ORIZIN Agent HTML Based」から「ORIZIN Agent HTML」に変更しました。
 
 ### [v0.5.8.2dev-Albatross] - 2020-02-29
 #### 追加
