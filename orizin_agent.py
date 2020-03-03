@@ -26,7 +26,7 @@ def change_theme(_theme):
     return
 
 @eel.expose
-def load_flag(_flag_name):
+def read_flag(_flag_name):
     _f = open("resource/setting/flag.oflg")
     _flag_file = _f.read()
     _f.close()
@@ -63,12 +63,13 @@ def make_response(_not_normalized_query):
 def check_update():
     return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
 
-try:
-    dictionary = core.load_dictionary("resource/dictionary/dictionary.odic")
-except Exception as error_message:
-    root = tk.Tk()
-    root.withdraw()
-    dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
-    sys.exit()
-eel.init("resource")
-eel.start("/html/splash.html")
+if __name__ == "__main__":
+    try:
+        dictionary = core.load_dictionary("resource/dictionary/dictionary.odic")
+    except Exception as error_message:
+        root = tk.Tk()
+        root.withdraw()
+        dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
+        sys.exit()
+    eel.init("resource")
+    eel.start("/html/splash.html")
