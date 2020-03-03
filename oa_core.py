@@ -46,6 +46,21 @@ def respond(_dictionary, _query):
     elif judge(_query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
+    elif judge(_query, ["予定", "よてい", "カレンダ", "かれんだ", "calender", "リマインダ", "リマインド", "りまいんだ", "りまいんど", "remind", "メモ", "めも"]):
+        webbrowser.open_new("https://calendar.google.com/")
+        return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
+    elif judge(_query, ["マップ", "まっぷ", "地図", "ちず", "場所", "ばしょ", "どこ", "何処", "行き方", "いきかた", "ゆきかた", "行きかた", "いき方", "ゆき方", "案内", "あんない", "道"]):
+        webbrowser.open_new("https://google.com/maps/search/" + _query)
+        return ["Googleマップで" + _query + "を検索します。", "Googleマップで" + _query + "を検索します。"]
+    elif judge(_query, ["タイマ", "たいま"]):
+        webbrowser.open_new("https://google.com/search?q=timer&hl=en")
+        return ["タイマーを表示します。", "タイマーを表示します"]
+    elif judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
+        webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
+        return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]
+    elif judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
+        webbrowser.open_new("https://google.com/search?q=電卓")
+        return ["電卓を開きます。", "電卓を開きます。"]
     elif judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
         webbrowser.open_new("https://google.com/search?q=" + _query)
         return ["Googleで「" + _query + "」を検索します。", "Googleで「" + _query + "」を検索します。"]
@@ -75,11 +90,11 @@ def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
     _downloaded_file_content = _f.read()
     _f.close()
     _current_version = get_version(_downloaded_file_content)
-    _latest_version = get_version(_remote_file_content)
-    if _current_version == _latest_version:
-        return ["false", _current_version, _latest_version, _update_message]
+    _remote_version = get_version(_remote_file_content)
+    if _current_version == _remote_version:
+        return ["false", _current_version, _remote_version, _update_message]
     else:
-        return ["true", _current_version, _latest_version, _update_message]
+        return ["true", _current_version, _remote_version, _update_message]
 
 def convert_to_bool(_value):
     _value = normalize(str(_value))
