@@ -16,15 +16,33 @@
             <div class="fill_panel">
                 <h2>試験機能</h2>
                 <span class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</span>
-                <ul>
-                    <li>
-                        まだ試験機能はありません。追加されるまでお待ちください。
-                    </li>
-                </ul>
+                <hr>
+                <span>
+                    Googleで時刻を検索
+                    <select id="search_time_with_google">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <button onclick="set_all_flag()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
+        <script>
+            async function read_flag(flag_name) {
+                flag_value = await eel.read_flag(flag_name)();
+                if (flag_value == true) {
+                    document.getElementById(flag_name).selectedIndex = 1;
+                }
+            }
+            read_flag("search_time_with_google");
+            function set_all_flag() {
+                eel.set_flag("search_time_with_google", document.getElementById("search_time_with_google").value);
+            }
+        </script>
     </body>
 </html>

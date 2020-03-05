@@ -15,22 +15,20 @@
         <main>
             <div class="fill_panel">
                 <h2>設定</h2>
-                <ul>
-                    <li>
-                        テーマ
-                        <select id="theme">
-                            <option value="light">ライトテーマ(デフォルト)</option>
-                            <option value="dark">ダークテーマ</option>
-                        </select>
-                    </li>
-                    <li>
-                        アップデートを確認　<button onclick="check_update()" class="ripple_effect">実行</button>
-                    </li>
-                    <li>
-                        <a href="flag.html" class="ripple_effect">試験機能</a>
-                    </li>
-                </ul>
-                <button onclick="save_setting()" class="ripple_effect">適用</button>
+                <hr>
+                <h3>テーマ</h3>
+                <select id="theme">
+                    <option value="light">ライトテーマ(デフォルト)</option>
+                    <option value="dark">ダークテーマ</option>
+                </select>
+                <hr>
+                <h3>アップデートを確認</h3>
+                <button onclick="check_update()" class="ripple_effect">実行</button>
+                <hr>
+                <h3>試験機能</h3>
+                <a href="flag.html" class="ripple_effect">試験機能を設定</a>
+                <hr>
+                <button onclick="save_setting()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
         <script src="../javascript/jquery-3.4.1.min.js"></script>

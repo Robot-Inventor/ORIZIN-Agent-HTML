@@ -7,8 +7,8 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 import oa_core as core
-import distutils.util
 import re
+import webbrowser
 
 @eel.expose
 def change_theme(_theme):
@@ -27,37 +27,50 @@ def change_theme(_theme):
 
 @eel.expose
 def read_flag(_flag_name):
-    _f = open("resource/setting/flag.oflg")
-    _flag_file = _f.read()
-    _f.close()
-    if _flag_name in _flag_file:
-        _flag_file = _flag_file[_flag_file.find(_flag_name):]
-        return core.convert_to_bool(re.split(":", _flag_file[:_flag_file.find("\n")])[1])
-    else:
-        return False
+    return core.read_flag("resource/setting/flag.oflg", _flag_name)
 
 @eel.expose
 def set_flag(_flag_name, _flag_value):
-    _f = open("resource/setting/flag.oflg", mode="r")
-    _flag_file = _f.read()
-    _f.close()
-    if _flag_name in _flag_file:
-        _rewriting_place = _flag_file[_flag_file.find(_flag_name):].strip() + "\n"
-        _rewriting_place = _rewriting_place[:_rewriting_place.find("\n") + 1]
-        _f = open("resource/setting/flag.oflg", mode="w")
-        _f.write(_flag_file.replace(_rewriting_place.strip(), _rewriting_place[:_rewriting_place.find(":") + 1] + str(_flag_value)))
-        _f.close()
-        return
-    else:
-        _new_flag_file = _flag_file.strip() + "\n" + _flag_name + ":" + str(_flag_value)
-        _f = open("resource/setting/flag.oflg", mode="w")
-        _f.write(_new_flag_file.strip())
-        _f.close()
-        return
+    core.set_flag("resource/setting/flag.oflg", _flag_name, _flag_value)
+    return
 
 @eel.expose
 def make_response(_not_normalized_query):
-    return core.respond(dictionary, core.normalize(_not_normalized_query))
+    _query = core.normalize(_not_normalized_query)
+    if core.judge(_query, ["じゃんけん", "ジャンケン"]):
+        _random_int = random.randint(0, 2)
+        if _random_int == 0:
+            return ["ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はグーです。", "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はグーです。"]
+        elif _random_int == 1:
+            return ["ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はチョキです。", "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はチョキです。"]
+        else:
+            return ["ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はパーです。", "ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私はパーです。"]
+    elif core.judge(_query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
+        subprocess.Popen(["python", "resource/python/easter_egg.py"])
+        return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
+    elif core.judge(_query, ["予定", "よてい", "カレンダ", "かれんだ", "calender", "リマインダ", "リマインド", "りまいんだ", "りまいんど", "remind", "メモ", "めも"]):
+        webbrowser.open_new("https://calendar.google.com/")
+        return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
+    elif core.judge(_query, ["マップ", "まっぷ", "地図", "ちず", "場所", "ばしょ", "どこ", "何処", "行き方", "いきかた", "ゆきかた", "行きかた", "いき方", "ゆき方", "案内", "あんない", "道"]):
+        webbrowser.open_new("https://google.com/maps/search/" + _query)
+        return ["Googleマップで" + _query + "を検索します。", "Googleマップで" + _query + "を検索します。"]
+    elif core.judge(_query, ["タイマ", "たいま"]):
+        webbrowser.open_new("https://google.com/search?q=timer&hl=en")
+        return ["タイマーを表示します。", "タイマーを表示します"]
+    elif core.judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
+        webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
+        return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]
+    elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
+        webbrowser.open_new("https://google.com/search?q=電卓")
+        return ["電卓を開きます。", "電卓を開きます。"]
+    elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
+        webbrowser.open_new("https://google.com/search?q=" + _query)
+        return ["Googleで「" + _query + "」を検索します。", "Googleで「" + _query + "」を検索します。"]
+    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい"]) and read_flag("search_time_with_google") == True:
+        webbrowser.open_new("https://google.com/search?q=今何時")
+        return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
+    else:
+        return core.respond(dictionary, _query)
 
 @eel.expose
 def check_update():
