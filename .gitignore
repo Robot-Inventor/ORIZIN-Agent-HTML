@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Experimental functions' settings
-resource/setting/flag.oflg
+resource/setting/flag.otfd

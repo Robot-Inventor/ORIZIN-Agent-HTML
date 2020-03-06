@@ -27,11 +27,11 @@ def change_theme(_theme):
 
 @eel.expose
 def read_flag(_flag_name):
-    return core.read_flag("resource/setting/flag.oflg", _flag_name)
+    return core.read_flag("resource/setting/flag.otfd", _flag_name)
 
 @eel.expose
 def set_flag(_flag_name, _flag_value):
-    core.set_flag("resource/setting/flag.oflg", _flag_name, _flag_value)
+    core.set_flag("resource/setting/flag.otfd", _flag_name, _flag_value)
     return
 
 @eel.expose
@@ -78,7 +78,7 @@ def check_update():
 
 if __name__ == "__main__":
     try:
-        dictionary = core.load_dictionary("resource/dictionary/dictionary.odic")
+        dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
     except Exception as error_message:
         root = tk.Tk()
         root.withdraw()
