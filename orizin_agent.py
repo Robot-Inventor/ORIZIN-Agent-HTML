@@ -6,24 +6,69 @@ import sys
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import filedialog
 import oa_core as core
 import re
 import webbrowser
+import os
+import pathlib
 
 @eel.expose
-def change_theme(_theme):
+def change_theme(_css_theme_path):
+##    _css_path = ""
+##    if _theme == "light":
+##        _css_path = "light_theme.css"
+##    else:
+##        _css_path = "dark_theme.css"
+##    core.write_setting("resource/setting/setting.otfd", "css_theme_path", _css_path)
     _css_file_path = "resource/css/layout.css"
     _css_file = open(_css_file_path, mode="r")
     _old_css = _css_file.read()
-    _css_file.close
-    if _theme == "dark":
-        _new_css = '@import url("dark_theme.css");' + _old_css[_old_css.find(";") + 1:]
-    else:
-        _new_css = '@import url("light_theme.css");' + _old_css[_old_css.find(";") + 1:]
+    _css_file.close()
+    if os.path.exists("resource/css/" + _css_theme_path) == False:
+        _light_theme_file = open("resource/css/theme/light_theme.css", mode="r")
+        _light_theme = _light_theme_file.read()
+        _light_theme_file.close()
+        _new_theme = open("resource/css/" + _css_theme_path, mode="w")
+        _new_theme.write(_light_theme)
+        _new_theme.close()
+    _new_css = '@import url("' + _css_theme_path + '");' + _old_css[_old_css.find(";") + 1:]
     _css_file = open(_css_file_path, mode="w")
     _css_file.write(_new_css)
     _css_file.close()
+    write_setting("theme", _css_theme_path)
     return
+
+@eel.expose
+def write_custom_css_theme(_value):
+    if len(_value) == 5:
+        _custom_css_data = ":root {\n    --bg: " + _value[0] + ";\n    --card_bg: " + _value[1] + ";\n    --text: " + _value[2] + ";\n    --shadow: " + _value[3] +";\n    --theme_color: " + _value[4] + ";\n}"
+        _f = open("resource/css/theme/custom_theme.css", mode="w")
+        _f.write(_custom_css_data)
+        _f.close()
+        return
+    else:
+        root = tk.Tk()
+        root.withdraw()
+        error = messagebox.showerror("ORIZIN Agent　エラー", "カスタムCSSテーマに不正な値を書き込もうとしています。")
+        root.destroy()
+        return
+
+@eel.expose
+def ask_css_theme_file():
+    root = tk.Tk()
+    root.withdraw()
+    _css_theme_path = filedialog.askopenfilename(filetypes=[("css", ".css")], initialdir="resource/css/theme/")
+    if os.path.exists(_css_theme_path) == False:
+        return ""
+    return pathlib.Path(_css_theme_path).relative_to(pathlib.Path("resource/css/").resolve())
+
+@eel.expose
+def read_setting(_setting_name):
+    return core.read_setting("resource/setting/setting.otfd", _setting_name)
+
+def write_setting(_setting_name, _setting_value):
+    return core.write_setting("resource/setting/setting.otfd", _setting_name, _setting_value)
 
 @eel.expose
 def read_flag(_flag_name):
@@ -75,6 +120,7 @@ def make_response(_not_normalized_query):
 @eel.expose
 def check_update():
     return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
+
 
 if __name__ == "__main__":
     try:

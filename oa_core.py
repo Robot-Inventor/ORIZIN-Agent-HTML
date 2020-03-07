@@ -5,6 +5,7 @@ import random
 import re
 import urllib.request
 import subprocess
+import os
 
 
 def normalize(_sentence):
@@ -76,30 +77,41 @@ def convert_to_bool(_value):
     else:
         return False
 
-def read_flag(_flag_file_path, _flag_name):
-    _f = open(_flag_file_path)
-    _flag_file = _f.read()
-    _f.close()
-    if _flag_name in _flag_file:
-        _flag_file = _flag_file[_flag_file.find(_flag_name):]
-        return convert_to_bool(re.split(":", _flag_file[:_flag_file.find("\n")])[1])
+def read_setting(_setting_file_path, _setting_name):
+    if os.path.exists(_setting_file_path) == False:
+        _f = open(_setting_file_path, mode="w")
+        return None
     else:
-        return False
+        _f = open(_setting_file_path, mode="r")
+        _setting_file = _f.read()
+        _f.close()
+        if _setting_name in _setting_file:
+            _setting_file = _setting_file[_setting_file.find(_setting_name):]
+            return (re.split(":", _setting_file[:_setting_file.find("\n")])[1]).replace("&#47", ":").replace("&#58", "/")
+        else:
+            return None
+
+def write_setting(_setting_file_path, _setting_name, _setting_value):
+    _f = open(_setting_file_path, mode="r")
+    _setting_file = _f.read()
+    _f.close()
+    if _setting_name in _setting_file:
+        _rewriting_place = _setting_file[_setting_file.find(_setting_name):].strip() + "\n"
+        _rewriting_place = _rewriting_place[:_rewriting_place.find("\n") + 1]
+        _f = open(_setting_file_path, mode="w")
+        _f.write(_setting_file.replace(_rewriting_place.strip(), _rewriting_place[:_rewriting_place.find(":") + 1] + str(_setting_value).replace(":", "&#47").replace("/", "&#58")))
+        _f.close()
+        return
+    else:
+        _new_setting_file = _setting_file.strip() + "\n" + _setting_name + ":" + str(_setting_value).replace(":", "&#47").replace("/", "&#58")
+        _f = open(_setting_file_path, mode="w")
+        _f.write(_new_setting_file.strip())
+        _f.close()
+        return
+
+def read_flag(_flag_file_path, _flag_name):
+    return convert_to_bool(read_setting(_flag_file_path, _flag_name))
 
 def set_flag(_flag_file_path, _flag_name, _flag_value):
-    _f = open(_flag_file_path, mode="r")
-    _flag_file = _f.read()
-    _f.close()
-    if _flag_name in _flag_file:
-        _rewriting_place = _flag_file[_flag_file.find(_flag_name):].strip() + "\n"
-        _rewriting_place = _rewriting_place[:_rewriting_place.find("\n") + 1]
-        _f = open(_flag_file_path, mode="w")
-        _f.write(_flag_file.replace(_rewriting_place.strip(), _rewriting_place[:_rewriting_place.find(":") + 1] + str(_flag_value)))
-        _f.close()
-        return
-    else:
-        _new_flag_file = _flag_file.strip() + "\n" + _flag_name + ":" + str(_flag_value)
-        _f = open(_flag_file_path, mode="w")
-        _f.write(_new_flag_file.strip())
-        _f.close()
-        return
+    write_setting(_flag_file_path, _flag_name, str(convert_to_bool(_flag_value)))
+    return

@@ -128,5 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Experimental functions' settings
+# ORIZIN Agent settings
 resource/setting/flag.otfd
+resource/setting/setting.otfd
+resource/css/theme/custom_theme.css

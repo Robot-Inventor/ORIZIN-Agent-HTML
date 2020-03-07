@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+        <link rel="icon" href="../image/favicon.ico">
+        <title>ORIZIN Agent</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
+    </head>
+    <body>
+        <header>
+        </header>
+        <main>
+            <div class="fill_panel">
+                <h2>カスタムCSSテーマの設定</h2>
+                <ul>
+                    <li>背景色<div id="bg"></div></li>
+                    <li>カードの背景色<div id="card_bg"></div></li>
+                    <li>文字色<div id="text"></div></li>
+                    <li>影の色<div id="shadow"></div></li>
+                    <li>テーマ色<div id="theme_color"></div></li>
+                </ul>
+                <button onclick="save_theme()" class="ripple_effect">設定を適用</button>
+            </div>
+        </main>
+        <script src="../javascript/jquery-3.4.1.min.js"></script>
+        <script src="../javascript/basic.js"></script>
+        <script src="../javascript/ripple.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            css_data = ["#fafafa", "#ffffff", "rgba(0, 0, 0, 0.87)", "rgba(0, 0, 0, 0.26)", "#ff6a00"];
+            const bg = Pickr.create({
+                el: "#bg",
+                theme: "classic",
+                default: "#fafafa",
+                swatches: [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ],
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                },
+                strings: {
+                    save: "決定",
+                    clear: "リセット",
+                    cancel: "キャンセル"
+                }
+            });
+            bg.on("save", (color, instance) => {
+                css_data[0] = color.toHEXA().toString();
+            });
+            const card_bg = Pickr.create({
+                el: "#card_bg",
+                theme: "classic",
+                default: "#ffffff",
+                swatches: [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ],
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                },
+                strings: {
+                    save: "決定",
+                    clear: "リセット",
+                    cancel: "キャンセル"
+                }
+            });
+            card_bg.on("save", (color, instance) => {
+                css_data[1] = color.toHEXA().toString();
+            });
+            const text = Pickr.create({
+                el: "#text",
+                theme: "classic",
+                default: "rgba(0, 0, 0, 0.87)",
+                swatches: [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ],
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                },
+                strings: {
+                    save: "決定",
+                    clear: "リセット",
+                    cancel: "キャンセル"
+                }
+            });
+            text.on("save", (color, instance) => {
+                css_data[2] = color.toHEXA().toString();
+            });
+            const shadow = Pickr.create({
+                el: "#shadow",
+                theme: "classic",
+                default: "rgba(0, 0, 0, 0.26)",
+                swatches: [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ],
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                },
+                strings: {
+                    save: "決定",
+                    clear: "リセット",
+                    cancel: "キャンセル"
+                }
+            });
+            shadow.on("save", (color, instance) => {
+                css_data[3] = color.toHEXA().toString();
+            });
+            const theme_color = Pickr.create({
+                el: "#theme_color",
+                theme: "classic",
+                default: "#ff6a00",
+                swatches: [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ],
+                components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                },
+                strings: {
+                    save: "決定",
+                    clear: "リセット",
+                    cancel: "キャンセル"
+                }
+            });
+            theme_color.on("save", (color, instance) => {
+                css_data[4] = color.toHEXA().toString();
+            });
+            function save_theme() {
+                eel.write_custom_css_theme(css_data);
+                location.reload();
+            }
+        </script>
+    </body>
+</html>
