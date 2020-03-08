@@ -102,12 +102,12 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
         webbrowser.open_new("https://google.com/search?q=電卓")
         return ["電卓を開きます。", "電卓を開きます。"]
-    elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
-        webbrowser.open_new("https://google.com/search?q=" + _query)
-        return ["Googleで「" + _query + "」を検索します。", "Googleで「" + _query + "」を検索します。"]
     elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい"]) and read_flag("search_time_with_google") == True:
         webbrowser.open_new("https://google.com/search?q=今何時")
         return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
+    elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
+        webbrowser.open_new("https://google.com/search?q=" + _query)
+        return ["Googleで「" + _query + "」を検索します。", "Googleで「" + _query + "」を検索します。"]
     else:
         return core.respond(dictionary, _query)
 
