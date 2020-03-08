@@ -132,3 +132,4 @@ dmypy.json
 resource/setting/flag.otfd
 resource/setting/setting.otfd
 resource/css/theme/custom_theme.css
+resource/dictionary/unknownQuestions.txt

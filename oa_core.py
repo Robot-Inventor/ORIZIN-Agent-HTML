@@ -80,6 +80,7 @@ def convert_to_bool(_value):
 def read_setting(_setting_file_path, _setting_name):
     if os.path.exists(_setting_file_path) == False:
         _f = open(_setting_file_path, mode="w")
+        _f.close()
         return None
     else:
         _f = open(_setting_file_path, mode="r")
@@ -92,6 +93,9 @@ def read_setting(_setting_file_path, _setting_name):
             return None
 
 def write_setting(_setting_file_path, _setting_name, _setting_value):
+    if os.path.exists(_setting_file_path) == False:
+        _f = open(_setting_file_path, mode="w")
+        _f.close()
     _f = open(_setting_file_path, mode="r")
     _setting_file = _f.read()
     _f.close()
@@ -114,4 +118,49 @@ def read_flag(_flag_file_path, _flag_name):
 
 def set_flag(_flag_file_path, _flag_name, _flag_value):
     write_setting(_flag_file_path, _flag_name, str(convert_to_bool(_flag_value)))
+    return
+
+def solve_setting_conflict(_default_setting_file_path, _current_setting_file_path):
+    if os.path.exists(_default_setting_file_path) == False:
+        raise Exception(_default_setting_file_path + "にデフォルト設定ファイルがありません。")
+    if os.path.exists(_current_setting_file_path) == False:
+        _f = open(_current_setting_file_path, mode="w")
+        _f.close()
+    _f = open(_default_setting_file_path, mode="r")
+    _default_setting = _f.read()
+    _un_sorted_default_setting = _default_setting
+    _f.close()
+    _f = open(_current_setting_file_path, mode="r")
+    _current_setting = _f.read()
+    _un_sorted_current_setting = _current_setting
+    _f.close()
+    _default_setting_list = sorted(_default_setting.strip().split("\n"))
+    _default_setting = "\n".join(_default_setting_list) + "\n"
+    _default_index_list = []
+    for _num in range(len(_default_setting_list)):
+        _default_index_list.append(_default_setting_list[_num].split(":")[0])
+    _current_setting_list = sorted(_current_setting.strip().split("\n"))
+    _current_setting = "\n".join(_current_setting_list) + "\n"
+    _current_index_list = []
+    for _num in range(len(_current_setting_list)):
+        _current_index_list.append(_current_setting_list[_num].split(":")[0])
+    if _default_index_list != _current_index_list:
+        _need_to_add = list(set(_default_index_list) - set(_current_index_list))
+        for _num in range(len(_need_to_add)):
+            _current_setting_list.append(_default_setting[_default_setting.find(_need_to_add[_num]):_default_setting.find("\n", _default_setting.find(_need_to_add[_num]))])
+        _need_to_delete = list(set(_current_index_list) - set(_default_index_list))
+        for _num in range(len(_need_to_delete)):
+            _current_setting_list.remove(_current_setting[_current_setting.find(_need_to_delete[_num]):_current_setting.find("\n", _current_setting.find(_need_to_delete[_num]))])
+        _current_setting_list.sort()
+        _current_setting = "\n".join(_current_setting_list)
+        _default_setting = _default_setting.strip()
+        _current_setting = _current_setting.strip()
+    if _default_setting != _un_sorted_default_setting:
+        _f = open(_default_setting_file_path, mode="w")
+        _f.write(_default_setting)
+        _f.close()
+    if _current_setting != _un_sorted_current_setting:
+        _f = open(_current_setting_file_path, mode="w")
+        _f.write(_current_setting)
+        _f.close()
     return

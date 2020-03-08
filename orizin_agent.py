@@ -15,12 +15,6 @@ import pathlib
 
 @eel.expose
 def change_theme(_css_theme_path):
-##    _css_path = ""
-##    if _theme == "light":
-##        _css_path = "light_theme.css"
-##    else:
-##        _css_path = "dark_theme.css"
-##    core.write_setting("resource/setting/setting.otfd", "css_theme_path", _css_path)
     _css_file_path = "resource/css/layout.css"
     _css_file = open(_css_file_path, mode="r")
     _old_css = _css_file.read()
@@ -130,5 +124,9 @@ if __name__ == "__main__":
         root.withdraw()
         dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
         sys.exit()
+    if os.path.exists("resource/setting/setting.otfd") == False:
+        change_theme("theme/light_theme.css")
+    core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
+    core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
     eel.init("resource")
     eel.start("/html/splash.html")
