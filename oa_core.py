@@ -64,7 +64,12 @@ def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
     if _current_version == _remote_version:
         return ["false", _current_version, _remote_version, _update_message]
     else:
-        return ["true", _current_version, _remote_version, _update_message]
+        _versions = [_current_version, _remote_version]
+        _versions.sort()
+        if _versions[0] == _current_version:
+            return ["true", _current_version, _remote_version, _update_message]
+        else:
+            return ["false", _current_version, _remote_version, _update_message]
 
 def convert_to_bool(_value):
     _value = normalize(str(_value))
