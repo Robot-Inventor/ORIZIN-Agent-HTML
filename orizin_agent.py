@@ -5,13 +5,12 @@ import eel
 import sys
 import tkinter as tk
 from tkinter import messagebox
-from tkinter import ttk
-from tkinter import filedialog
 import oa_core as core
-import re
+import random
+import subprocess
 import webbrowser
 import os
-import pathlib
+
 
 @eel.expose
 def change_theme(_css_theme_path):
@@ -19,7 +18,7 @@ def change_theme(_css_theme_path):
     _css_file = open(_css_file_path, mode="r")
     _old_css = _css_file.read()
     _css_file.close()
-    if os.path.exists("resource/css/" + _css_theme_path) == False:
+    if os.path.exists("resource/css/" + _css_theme_path) is False:
         _light_theme_file = open("resource/css/theme/light_theme.css", mode="r")
         _light_theme = _light_theme_file.read()
         _light_theme_file.close()
@@ -32,6 +31,7 @@ def change_theme(_css_theme_path):
     _css_file.close()
     write_setting("theme", _css_theme_path)
     return
+
 
 @eel.expose
 def write_custom_css_theme(_value):
@@ -48,30 +48,26 @@ def write_custom_css_theme(_value):
         root.destroy()
         return
 
-@eel.expose
-def ask_css_theme_file():
-    root = tk.Tk()
-    root.withdraw()
-    _css_theme_path = filedialog.askopenfilename(filetypes=[("css", ".css")], initialdir="resource/css/theme/")
-    if os.path.exists(_css_theme_path) == False:
-        return ""
-    return pathlib.Path(_css_theme_path).relative_to(pathlib.Path("resource/css/").resolve())
 
 @eel.expose
 def read_setting(_setting_name):
     return core.read_setting("resource/setting/setting.otfd", _setting_name)
 
+
 def write_setting(_setting_name, _setting_value):
     return core.write_setting("resource/setting/setting.otfd", _setting_name, _setting_value)
+
 
 @eel.expose
 def read_flag(_flag_name):
     return core.read_flag("resource/setting/flag.otfd", _flag_name)
 
+
 @eel.expose
 def set_flag(_flag_name, _flag_value):
     core.set_flag("resource/setting/flag.otfd", _flag_name, _flag_value)
     return
+
 
 @eel.expose
 def make_response(_not_normalized_query):
@@ -111,9 +107,12 @@ def make_response(_not_normalized_query):
     else:
         return core.respond(dictionary, _query)
 
+
 @eel.expose
 def check_update():
-    return core.check_update("resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/resource/information.txt", "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
+    return core.check_update("resource/information.txt",
+                             "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/resource/information.txt",
+                             "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
 
 
 if __name__ == "__main__":
@@ -124,7 +123,7 @@ if __name__ == "__main__":
         root.withdraw()
         dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
         sys.exit()
-    if os.path.exists("resource/setting/setting.otfd") == False:
+    if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/light_theme.css")
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
