@@ -98,9 +98,27 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
         webbrowser.open_new("https://google.com/search?q=電卓")
         return ["電卓を開きます。", "電卓を開きます。"]
-    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい"]) and read_flag("search_time_with_google") == True:
+    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい"]) and read_flag("search_time_with_google"):
         webbrowser.open_new("https://google.com/search?q=今何時")
         return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
+    elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]) and read_flag("open_twitter"):
+        webbrowser.open_new("https://twitter.com/")
+        return ["Twitterを開きます。", "Twitterを開きます。"]
+    elif core.judge(_query, ["facebook", "フェイスブック", "ふぇいすぶっく", "フェースブック", "ふぇーすぶっく"]) and read_flag("open_facebook"):
+        webbrowser.open_new("https://www.facebook.com/")
+        return ["Facebookを開きます。", "Facebookを開きます。"]
+    elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]) and read_flag("open_youtube"):
+        webbrowser.open_new("https://www.youtube.com/")
+        return ["YouTubeを開きます。", "YouTubeを開きます。"]
+    elif core.judge(_query, ["instagram", "インスタ", "いんすた"]) and read_flag("open_instagram"):
+        webbrowser.open_new("https://www.instagram.com/")
+        return ["Instagramを開きます。", "Instagramを開きます。"]
+    elif core.judge(_query, ["github", "ギットハブ", "ぎっとはぶ"]) and read_flag("open_github"):
+        webbrowser.open_new("https://github.com/")
+        return ["GitHubを開きます。", "GitHubを開きます。"]
+    elif core.judge(_query, ["news", "ニュース", "にゅーす"]) and read_flag("open_google_news"):
+        webbrowser.open_new("https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja")
+        return ["Googleニュースを開きます。", "Googleニュースを開きます。"]
     elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
         webbrowser.open_new("https://google.com/search?q=" + _query)
         return ["Googleで「" + _query + "」を検索します。", "Googleで「" + _query + "」を検索します。"]

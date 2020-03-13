@@ -25,6 +25,54 @@
                     </select>
                 </span>
                 <hr>
+                <span>
+                    Twitterを開く
+                    <select id="open_twitter">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <span>
+                    Facebookを開く
+                    <select id="open_facebook">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <span>
+                    YouTubeを開く
+                    <select id="open_youtube">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <span>
+                    Instagramを開く
+                    <select id="open_instagram">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <span>
+                    GitHubを開く
+                    <select id="open_github">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
+                <span>
+                    Googleニュースを開く
+                    <select id="open_google_news">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </span>
+                <hr>
                 <button onclick="set_all_flag()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
@@ -40,8 +88,20 @@
                 }
             }
             read_flag("search_time_with_google");
+            read_flag("open_twitter");
+            read_flag("open_facebook");
+            read_flag("open_youtube");
+            read_flag("open_instagram");
+            read_flag("open_github");
+            read_flag("open_google_news");
             function set_all_flag() {
                 eel.set_flag("search_time_with_google", document.getElementById("search_time_with_google").value);
+                eel.set_flag("open_twitter", document.getElementById("open_twitter").value);
+                eel.set_flag("open_facebook", document.getElementById("open_facebook").value);
+                eel.set_flag("open_youtube", document.getElementById("open_youtube").value);
+                eel.set_flag("open_instagram", document.getElementById("open_instagram").value);
+                eel.set_flag("open_github", document.getElementById("open_github").value);
+                eel.set_flag("open_google_news", document.getElementById("open_google_news").value);
             }
         </script>
     </body>
