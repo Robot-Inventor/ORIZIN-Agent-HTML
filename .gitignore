@@ -128,11 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# ORIZIN Agent settings
+# ORIZIN Agent settings and other files
 resource/setting/flag.otfd
 resource/setting/setting.otfd
 resource/css/theme/custom_theme.css
 resource/dictionary/unknownQuestions.txt
+memo.txt
 
 # Pycharm settings
 .idea/

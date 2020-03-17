@@ -4,19 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Expires" content="86400">
-        <link rel="preload" href="../css/layout.css" as="style">
-        <link rel="preload" href="../css/light_theme.css" as="style">
-        <link rel="preload" href="../css/dark_theme.css" as="style">
-        <link rel="preload" href="../javascript/jquery-3.4.1.min.js" as="script">
-        <link rel="preload" href="../javascript/basic.js" as="script">
-        <link rel="preload" href="../image/loading.svg" as="image">
-        <link rel="preload" href="../image/loading2.svg" as="image">
-        <link rel="preload" href="../image/loading3.svg" as="image">
-        <link rel="preload" href="../image/logo.svg" as="image">
-        <link rel="preload" href="../image/favicon.ico" as="image">
-        <link rel="preload" href="../image/title.svg" as="image">
         <link rel="stylesheet" type="text/css" href="../css/layout.css">
-        <link rel="icon" href="../image/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="../image/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../image/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../image/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../image/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../image/favicon/safari-pinned-tab.svg" color="#ff6a00">
+        <link rel="shortcut icon" href="../image/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="ORIZIN Agent">
+        <meta name="application-name" content="ORIZIN Agent">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="../image/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#2a1100">
         <title>ORIZIN Agent</title>
         <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
     </head>
@@ -93,7 +92,7 @@
                 if (result[0] == "true") {
                     Push.create("ORIZIN Agent", {
                         body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
-                        icon: "../image/favicon.ico",
+                        icon: "../image/favicon/favicon.ico",
                         onClick: function() {
                             open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/", "newwindow");
                             this.close();

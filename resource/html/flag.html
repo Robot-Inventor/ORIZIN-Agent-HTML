@@ -5,7 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Expires" content="86400">
         <link rel="stylesheet" type="text/css" href="../css/layout.css">
-        <link rel="icon" href="../image/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="../image/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../image/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../image/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../image/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../image/favicon/safari-pinned-tab.svg" color="#ff6a00">
+        <link rel="shortcut icon" href="../image/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="ORIZIN Agent">
+        <meta name="application-name" content="ORIZIN Agent">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="../image/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#2a1100">
         <title>ORIZIN Agent</title>
         <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
     </head>
@@ -15,67 +25,37 @@
         <main>
             <div class="fill_panel">
                 <h2>試験機能</h2>
-                <span class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</span>
-                <hr>
-                <span>
+                <section class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
+                <section>
                     Googleで時刻を検索
                     <select id="search_time_with_google">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
-                </span>
-                <hr>
-                <span>
-                    Twitterを開く
-                    <select id="open_twitter">
+                </section>
+                <section>
+                    音声コマンドで終了する
+                    <select id="exit_by_voice_command">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
-                </span>
-                <hr>
-                <span>
-                    Facebookを開く
-                    <select id="open_facebook">
+                </section>
+                <section>
+                    YouTubeで検索する
+                    <select id="search_in_youtube">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
-                </span>
-                <hr>
-                <span>
-                    YouTubeを開く
-                    <select id="open_youtube">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
-                </span>
-                <hr>
-                <span>
-                    Instagramを開く
-                    <select id="open_instagram">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
-                </span>
-                <hr>
-                <span>
-                    GitHubを開く
-                    <select id="open_github">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
-                </span>
-                <hr>
-                <span>
-                    Googleニュースを開く
-                    <select id="open_google_news">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
-                </span>
-                <hr>
+                </section>
                 <button onclick="set_all_flag()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
+        <style>
+            section {
+                border-bottom: solid 0.05em var(--text);
+                padding: 0.5em;
+            }
+        </style>
         <script src="../javascript/jquery-3.4.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/ripple.js"></script>
@@ -88,20 +68,12 @@
                 }
             }
             read_flag("search_time_with_google");
-            read_flag("open_twitter");
-            read_flag("open_facebook");
-            read_flag("open_youtube");
-            read_flag("open_instagram");
-            read_flag("open_github");
-            read_flag("open_google_news");
+            read_flag("exit_by_voice_command");
+            read_flag("search_in_youtube")
             function set_all_flag() {
                 eel.set_flag("search_time_with_google", document.getElementById("search_time_with_google").value);
-                eel.set_flag("open_twitter", document.getElementById("open_twitter").value);
-                eel.set_flag("open_facebook", document.getElementById("open_facebook").value);
-                eel.set_flag("open_youtube", document.getElementById("open_youtube").value);
-                eel.set_flag("open_instagram", document.getElementById("open_instagram").value);
-                eel.set_flag("open_github", document.getElementById("open_github").value);
-                eel.set_flag("open_google_news", document.getElementById("open_google_news").value);
+                eel.set_flag("exit_by_voice_command", document.getElementById("exit_by_voice_command").value);
+                eel.set_flag("search_in_youtube", document.getElementById("search_in_youtube").value);
             }
         </script>
     </body>
