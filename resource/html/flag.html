@@ -27,8 +27,8 @@
                 <h2>試験機能</h2>
                 <section class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section>
-                    Googleで時刻を検索
-                    <select id="search_time_with_google">
+                    日付と時刻を検索せずに表示する
+                    <select id="return_time_using_datetime_lib">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
@@ -67,11 +67,11 @@
                     document.getElementById(flag_name).selectedIndex = 1;
                 }
             }
-            read_flag("search_time_with_google");
+            read_flag("return_time_using_datetime_lib");
             read_flag("exit_by_voice_command");
             read_flag("search_in_youtube")
             function set_all_flag() {
-                eel.set_flag("search_time_with_google", document.getElementById("search_time_with_google").value);
+                eel.set_flag("return_time_using_datetime_lib", document.getElementById("return_time_using_datetime_lib").value);
                 eel.set_flag("exit_by_voice_command", document.getElementById("exit_by_voice_command").value);
                 eel.set_flag("search_in_youtube", document.getElementById("search_in_youtube").value);
             }

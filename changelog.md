@@ -54,6 +54,7 @@ Edition : ORIZIN Agent HTML
     - サイコロ
     - コイントス
 - 音声コマンドで終了する試験機能を追加しました。
+- 日付と時刻を検索せずに表示する試験機能を追加しました。
 
 #### 修正
 - リファクタリングを行いました。
@@ -66,6 +67,7 @@ Edition : ORIZIN Agent HTML
         - Instagram
         - GitHub
     - Googleニュースを開く機能
+    - Googleで時刻を検索
 
 ### [v0.9.17.2dev-Albatross] - 2020-03-13
 #### 追加

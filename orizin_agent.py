@@ -11,6 +11,7 @@ import subprocess
 import webbrowser
 import os
 import otfdlib
+import datetime
 
 
 @eel.expose
@@ -97,9 +98,14 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
         webbrowser.open_new("https://google.com/search?q=電卓")
         return ["電卓を開きます。", "電卓を開きます。"]
-    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい"]) and read_flag("search_time_with_google"):
-        webbrowser.open_new("https://google.com/search?q=今何時")
-        return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
+    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):
+        if read_flag("return_time_using_datetime_lib"):
+            time = datetime.datetime.now()
+            time = time.strftime('%Y年%m月%d日 %H:%M:%S')
+            return ["現在は" + time + "です。", "現在は" + time + "です。"]
+        else:
+            webbrowser.open_new("https://google.com/search?q=今何時")
+            return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
     elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]):
         webbrowser.open_new("https://twitter.com/")
         return ["Twitterを開きます。", "Twitterを開きます。"]
@@ -197,6 +203,7 @@ def make_response(_not_normalized_query):
         return ["おみくじをします。ガラガラ...。結果は・・・" + result + "です。", "おみくじをします。ガラガラ...。結果は・・・" + result + "です。"]
     elif core.judge(_query, ["さようなら", "サヨウナラ", "バイバイ", "終了", "しゅうりょう", "シャットダウン", "しゃっとだうん"]) and read_flag("exit_by_voice_command"):
         sys.exit()
+        return ["", "<script>window.close()</script>"]
     else:
         return core.respond(dictionary, _query)
 
