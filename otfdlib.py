@@ -44,7 +44,7 @@ class Otfd():
         _splited_with_line = self._otfd_content.splitlines()
         error_place = [_splited_with_line[num] for num in range(len(_splited_with_line)) if ":" not in _splited_with_line[num]]
         if len(error_place):
-            raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所-> " + "\n".join(error_place))
+            raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所->\n{}".format('\n'.join(error_place)))
         self._parsed_otfd = OrderedDict([self.unescape(_splited_with_line[num].split(":")) for num in range(len(_splited_with_line))])
         return self._parsed_otfd
 

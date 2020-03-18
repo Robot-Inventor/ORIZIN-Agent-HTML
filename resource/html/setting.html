@@ -35,6 +35,13 @@
                 <br>
                 <a href="set_custom_css_theme.html">カスタムCSSテーマの設定</a>
                 <hr>
+                <h3>ユーザー名</h3>
+                <input type="text" id="user_name">
+                <hr>
+                <h3>ニュースサイトのURL</h3>
+                <input type="text" id="news_site_url">
+                初期値: https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja
+                <hr>
                 <h3>アップデートを確認</h3>
                 <button onclick="check_update()" class="ripple_effect">実行</button>
                 <hr>
@@ -52,6 +59,8 @@
         <script>
             function save_setting() {
                 eel.change_theme(document.getElementById("theme").value);
+                eel.write_setting("user_name", document.getElementById("user_name").value);
+                eel.write_setting("news_site_url", document.getElementById("news_site_url").value);
                 location.reload();
             }
             async function check_update() {
@@ -75,10 +84,12 @@
                     });
                 }
             }
-            async function set_to_current_theme() {
+            async function set_to_current_setting() {
                 document.getElementById("theme").value = await eel.read_setting("theme")();
+                document.getElementById("user_name").value = await eel.read_setting("user_name")();
+                document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
             }
-            set_to_current_theme();
+            set_to_current_setting();
         </script>
     </body>
 </html>

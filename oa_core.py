@@ -35,7 +35,7 @@ def respond(_dictionary, _query):
             else:
                 return [_response[0], _response[1]]
     _f = open("resource/dictionary/unknownQuestions.txt", "a", encoding="utf-8_sig")
-    _f.write(_query + "\n")
+    _f.write(f"{_query}\n")
     _f.close()
     return ["そうですか。", "そうですか。"]
 
@@ -113,7 +113,7 @@ def set_flag(_flag_file_path, _flag_name, _flag_value):
 
 def solve_setting_conflict(_default_setting_file_path, _current_setting_file_path):
     if os.path.exists(_default_setting_file_path) is False:
-        raise Exception(_default_setting_file_path + "にデフォルト設定ファイルがありません。")
+        raise Exception(f"{_default_setting_file_path}にデフォルト設定ファイルがありません。")
     if os.path.exists(_current_setting_file_path) is False:
         _f = open(_current_setting_file_path, mode="w")
         _f.close()
