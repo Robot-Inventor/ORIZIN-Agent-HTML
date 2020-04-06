@@ -14,12 +14,12 @@ beamSpeed = 400
 
 
 def shutdown(event):
-    root.withdraw()
+    root.destroy()
     sys.exit()
 
 
 def autoShutdown():
-    root.withdraw()
+    root.destroy()
     sys.exit()
 
 

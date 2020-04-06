@@ -9,14 +9,12 @@ class Otfd():
         self._otfd_file_path = ""
         self._otfd_content = ""
         self._index_list = []
-        self._value_list = []
         self._parsed_otfd = OrderedDict()
 
     def load(self, _otfd_file_path):
         self._otfd_file_path = _otfd_file_path
-        _f = open(_otfd_file_path, mode="r", newline="", encoding="utf-8_sig")
-        self._otfd_content = _f.read()
-        _f.close()
+        with open(_otfd_file_path, mode="r", newline="", encoding="utf-8_sig") as _f:
+            self._otfd_content = _f.read()
         return self._otfd_content
 
     def load_from_string(self, _otfd_string):
@@ -25,17 +23,17 @@ class Otfd():
     
     def unescape(self, _target):
         if type(_target) is str:
-            return _target.replace("&#47", ":")
+            return _target.replace("&#47", ":").replace("&#58", "/")
         elif type(_target) is list:
-            return list(map(lambda _string: _string.replace("&#47", ":"), _target))
+            return list(map(lambda _string: _string.replace("&#47", ":").replace("&#58", "/"), _target))
         else:
             return _target
     
     def escape(self, _target):
         if type(_target) is str:
-            return _target.replace(":", "&#47")
+            return _target.replace(":", "&#47").replace("/", "&#58")
         elif type(_target) is list:
-            return list(map(lambda _string: _string.replace(":", "&#47"), _target))
+            return list(map(lambda _string: _string.replace(":", "&#47").replace("/", "&#58"), _target))
         else:
             return _target
     
@@ -43,18 +41,20 @@ class Otfd():
         self._otfd_content = self._otfd_content.strip()
         _splited_with_line = self._otfd_content.splitlines()
         error_place = [_splited_with_line[num] for num in range(len(_splited_with_line)) if ":" not in _splited_with_line[num]]
-        if len(error_place):
-            raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所->\n{}".format('\n'.join(error_place)))
-        self._parsed_otfd = OrderedDict([self.unescape(_splited_with_line[num].split(":")) for num in range(len(_splited_with_line))])
+        if error_place:
+            raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所->\n" + "\n".join(error_place))
+        self._parsed_otfd = OrderedDict([_line.split(":") for _line in _splited_with_line])
         return self._parsed_otfd
 
     def get_index_list(self):
         self._index_list = list(self._parsed_otfd.keys())
         return self._index_list
     
-    def get_value_list(self):
-        self._value_list = list(self._parsed_otfd.values())
-        return self._value_list
+    def get_value_list(self, unescaping=True):
+        if unescaping:
+            return self.unescape(list(self._parsed_otfd.values()))
+        else:
+            return list(self._parsed_otfd.values())
 
     def get_value(self, _index):
         return self._parsed_otfd[_index]
@@ -89,19 +89,19 @@ class Otfd():
     
     def to_string(self):
         _list = self.read_list()
-        _list = list(map(lambda _escape_target: self.escape(_escape_target), _list))
-        _list = [":".join(self.escape(_list[num])) for num in range(len(_list))]
+        # _list = list(map(lambda _escape_target: self.escape(_escape_target), _list))
+        # _list = [":".join(self.escape(_list[num])) for num in range(len(_list))]
+        _list = [":".join(_list[num]) for num in range(len(_list))]
         return "\n".join(_list)
     
     def write(self, _file_path=None):
         if _file_path is None:
             _file_path = self._otfd_file_path
-        _f = open(_file_path, mode="r", newline="", encoding="utf-8_sig")
-        _old_file = _f.read()
-        _f.close()
+        _old_file = ""
+        with open(_file_path, mode="r", newline="", encoding="utf-8_sig") as _f:
+            _old_file = _f.read()
         _escaped_string = self.to_string()
         if _old_file != _escaped_string:
-            _f = open(_file_path, mode="w", newline="", encoding="utf-8_sig")
-            _f.write(_escaped_string)
-            _f.close()
+            with open(_file_path, mode="w", newline="", encoding="utf-8_sig") as _f:
+                _f.write(_escaped_string)
         return

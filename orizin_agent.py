@@ -3,34 +3,34 @@
 
 import eel
 import sys
-import tkinter as tk
-from tkinter import messagebox
 import oa_core as core
 import random
 import subprocess
 import webbrowser
 import os
-import otfdlib
 import datetime
+import re
+from threading import Timer
+import urllib.request
+import urllib.parse
+import html
 
 
 @eel.expose
 def change_theme(_css_theme_path):
     _css_file_path = "resource/css/layout.css"
-    _css_file = open(_css_file_path, mode="r")
-    _old_css = _css_file.read()
-    _css_file.close()
+    _old_css = ""
+    with open(_css_file_path, mode="r") as _css_file:
+        _old_css = _css_file.read()
     if os.path.exists(f"resource/css/{_css_theme_path}") is False:
-        _light_theme_file = open("resource/css/theme/light_theme.css", mode="r")
-        _light_theme = _light_theme_file.read()
-        _light_theme_file.close()
-        _new_theme = open(f"resource/css/{_css_theme_path}", mode="w")
-        _new_theme.write(_light_theme)
-        _new_theme.close()
+        _light_theme = ""
+        with open("resource/css/theme/light_theme.css", mode="r") as _light_theme_file:
+            _light_theme = _light_theme_file.read()
+        with open(f"resource/css/{_css_theme_path}", mode="w") as _new_theme:
+            _new_theme.write(_light_theme)
     _new_css = f'@import url("{_css_theme_path}");{_old_css[_old_css.find(";") + 1:]}'
-    _css_file = open(_css_file_path, mode="w")
-    _css_file.write(_new_css)
-    _css_file.close()
+    with open(_css_file_path, mode="w") as _css_file:
+        _css_file.write(_new_css)
     write_setting("theme", _css_theme_path)
     return
 
@@ -39,15 +39,11 @@ def change_theme(_css_theme_path):
 def write_custom_css_theme(_value):
     if len(_value) == 5:
         _custom_css_data = ":root {\n    --bg: " + _value[0] + ";\n    --card_bg: " + _value[1] + ";\n    --text: " + _value[2] + ";\n    --shadow: " + _value[3] + ";\n    --theme_color: " + _value[4] + ";\n}"
-        _f = open("resource/css/theme/custom_theme.css", mode="w")
-        _f.write(_custom_css_data)
-        _f.close()
+        with open("resource/css/theme/custom_theme.css", mode="w") as _f:
+            _f.write(_custom_css_data)
         return
     else:
-        root = tk.Tk()
-        root.withdraw()
-        error = messagebox.showerror("ORIZIN Agent　エラー", "カスタムCSSテーマに不正な値を書き込もうとしています。")
-        root.destroy()
+        core.showerror("カスタムCSSテーマに不正な値を書き込もうとしています。")
         return
 
 
@@ -74,9 +70,8 @@ def set_flag(_flag_name, _flag_value):
 
 @eel.expose
 def make_response(_not_normalized_query):
+    _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
-    _url_format_query = _not_normalized_query
-    _url_format_query.replace(" ", "+").replace("　", "+")
     if core.judge(_query, ["じゃんけん", "ジャンケン"]):
         hand_shapes = ["グー", "チョキ", "パー"]
         selected_hand_shape = hand_shapes[random.randint(0, 2)]
@@ -88,16 +83,13 @@ def make_response(_not_normalized_query):
         webbrowser.open_new("https://calendar.google.com/")
         return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
     elif core.judge(_query, ["マップ", "まっぷ", "地図", "ちず", "場所", "ばしょ", "どこ", "何処", "行き方", "いきかた", "ゆきかた", "行きかた", "いき方", "ゆき方", "案内", "あんない", "道"]):
-        webbrowser.open_new("https://google.com/maps/search/" + _query)
+        webbrowser.open_new("https://google.com/maps/search/" + urllib.parse.quote(_not_normalized_query))
         return [f"Googleマップで「{_query}」を検索します。", f"Googleマップで「{_query}」を検索します。"]
-    elif core.judge(_query, ["タイマ", "たいま"]):
-        webbrowser.open_new("https://google.com/search?q=timer&hl=en")
-        return ["タイマーを表示します。", "タイマーを表示します"]
     elif core.judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
         webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
         return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
-        webbrowser.open_new("https://google.com/search?q=電卓")
+        webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
         return ["電卓を開きます。", "電卓を開きます。"]
     elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):
         if read_flag("return_time_using_datetime_lib"):
@@ -105,7 +97,7 @@ def make_response(_not_normalized_query):
             time = time.strftime('%Y年%m月%d日 %H:%M:%S')
             return [f"現在は{time}です。", f"現在は{time}です。"]
         else:
-            webbrowser.open_new("https://google.com/search?q=今何時")
+            webbrowser.open_new(core.generate_search_engine_url("google", "今何時"))
             return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
     elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]):
         webbrowser.open_new("https://twitter.com/")
@@ -120,7 +112,7 @@ def make_response(_not_normalized_query):
         webbrowser.open_new("https://tver.jp/")
         return ["TVerを開きます。", "TVerを開きます。"]
     elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]) and core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ", "再生", "さいせい", "見せ", "観せ", "みせ", "見たい", "観たい", "みたい"]) and read_flag("search_in_youtube"):
-        webbrowser.open_new("https://www.youtube.com/results?search_query={}".format(_url_format_query))
+        webbrowser.open_new(core.generate_search_engine_url("https://www.youtube.com/results?search_query=", _not_normalized_query, True))
         return [f"YouTubeで「{_not_normalized_query}」を検索します。", f"YouTubeで「{_not_normalized_query}」を検索します。"]
     elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]):
         webbrowser.open_new("https://www.youtube.com/")
@@ -152,27 +144,26 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["写真", "しゃしん", "画像", "がぞう", "フォト", "ふぉと", "photo", "ピクチャ", "ぴくちゃ", "picture"]):
         webbrowser.open_new("https://photos.google.com/")
         return ["Googleフォトを開きます。", "Googleフォトを開きます。"]
-    elif core.judge(_query, ["メモ", "memo", "めも", "記憶", "きおく", "記録", "きろく"]) and core.judge(_query, ["削除", "さくじょ", "消去", "しょうきょ", "クリア", "clear", "くりあ", "消し", "けし", "忘れ", "わすれ"]):
+    elif core.judge(_query, ["メモ", "memo", "めも", "記憶", "きおく", "記録", "きろく"]) and core.judge(_query, ["削除", "さくじょ", "消去", "しょうきょ", "クリア", "clear", "くりあ", "消し", "けし", "忘れ", "わすれ", "破棄", "はき", "放棄", "ほうき"]):
         if os.path.exists("memo.txt") is False:
             return ["覚えているメモはありません。", "覚えているメモはありません。"]
         else:
-            _f = open("memo.txt", mode="r", newline="")
-            _memo = _f.read()
-            _f.close()
+            _memo = ""
+            with open("memo.txt", mode="r", newline="") as _f:
+                _memo = _f.read()
             if _memo.strip() == "":
                 return ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
-                _f = open("memo.txt", mode="w", newline="")
-                _f.write("")
-                _f.close()
+                with open("memo.txt", mode="w", newline="") as _f:
+                    _f.write("")
                 return ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
     elif core.judge(_query, ["メモ", "memo", "めも", "何", "なに", "内容", "ないよう"]) and core.judge(_query, ["覚えている", "おぼえている", "覚えてる", "おぼえてる", "記憶", "きおく", "記録", "きろく", "教え", "おしえ", "読", "よめ", "よん", "よみ"]):
         if os.path.exists("memo.txt") is False:
             return ["覚えているメモはありません。", "覚えているメモはありません。"]
         else:
-            _f = open("memo.txt", mode="r", newline="")
-            _memo = _f.read()
-            _f.close()
+            _memo = ""
+            with open("memo.txt", mode="r", newline="") as _f:
+                _memo = _f.read()
             if _memo.strip() == "":
                 return ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
@@ -182,15 +173,15 @@ def make_response(_not_normalized_query):
                 return [f"覚えているメモを読み上げます。{_memo_content_to_read}以上が、覚えているメモです。", f"覚えているメモを読み上げます。{_memo_content_to_read}以上が、覚えているメモです。"]
     elif core.judge(_query, ["メモ", "memo", "めも", "覚えて", "おぼえて", "覚えと", "おぼえと", "記憶", "きおく", "記録", "きろく"]):
         if os.path.exists("memo.txt") is False:
-            _f = open("memo.txt", mode="w", newline="")
-            _f.close()
-        _f = open("memo.txt", mode="a", newline="")
-        _f.write(f"{_not_normalized_query}\n")
-        _f.close()
+            with open("memo.txt", mode="w", newline="") as _f:
+                pass
+        with open("memo.txt", mode="a", newline="") as _f:
+            _f.write(f"{_not_normalized_query}\n")
         return [f"「{_not_normalized_query}」とメモしました。", f"「{_not_normalized_query}」とメモしました。"]
     elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
-        webbrowser.open_new(f"https://google.com/search?q={_url_format_query}")
-        return [f"Googleで「{_not_normalized_query}」を検索します。", f"Googleで「{_not_normalized_query}」を検索します。"]
+        search_engine = read_setting("search_engine")
+        webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+        return [f"{search_engine}で「{_not_normalized_query}」を検索します。", f"{search_engine}で「{_not_normalized_query}」を検索します。"]
     elif core.judge(_query, ["サイコロ", "さいころ", "ダイス", "だいす", "dice"]):
         dice_result = random.randint(1, 6)
         return [f"サイコロを振りますね。{dice_result}が出ました。", f"サイコロを振りますね。{dice_result}が出ました。"]
@@ -202,12 +193,45 @@ def make_response(_not_normalized_query):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
         return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
-    elif core.judge(_query, ["さようなら", "サヨウナラ", "バイバイ", "終了", "しゅうりょう", "シャットダウン", "しゃっとだうん", "shutdown"]) and read_flag("exit_by_voice_command"):
+    elif core.judge(_query, ["さようなら", "サヨウナラ", "さよなら", "サヨナラ", "バイバイ", "終了", "しゅうりょう", "シャットダウン", "しゃっとだうん", "shutdown", "下がりなさい", "下がれ", "さがりなさい", "さがれ", "邪魔", "じゃま", "消え", "きえ", "失せ", "うせ", "またね", "また会おう", "またあおう", "また今度", "またこんど"]) and read_flag("exit_by_voice_command"):
         return ["", "<script>window.close()</script>"]
+    elif core.judge(_query, ["タイマ", "たいま", "砂時計", "すなどけい", "すなとけい"]) and core.judge(_query, ["設定", "せってい", "セット", "鳴ら", "なら", "かけ"]):
+        time = set_intelligent_timer(_query)
+        return [f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。", f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。"]
     else:
         _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")
         return [_response[0].format(user_name=_user_name), _response[1].format(user_name=_user_name)]
+
+
+def set_intelligent_timer(_query):
+    hours = 0
+    minutes = 0
+    seconds = 0
+    _query = re.sub(r"じかん|ジカン|hour", "時間", _query)
+    _query = re.sub(r"ふん|フン|ぷん|プン|minute", "分", _query)
+    _query = re.sub(r"びょう|ビョウ|second", "秒", _query)
+    _query = _query.replace("半", "30")
+    if '時間' in _query:
+        hours = int(re.search(r'\d*', re.search(r'\d*時間', _query).group()).group())
+    if '分' in _query:
+        minutes = int(re.search(r'\d*', re.search(r'\d*分', _query).group()).group())
+    if '秒' in _query:
+        seconds = int(re.search(r'\d*', re.search(r'\d*秒', _query).group()).group())
+    time = ""
+    if hours:
+        time = f"{hours}時間"
+    if minutes:
+        time += f"{minutes}分"
+    if seconds:
+        time += f"{seconds}秒"
+    if not time:
+        time = "0秒"
+    td = datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
+    total_seconds = td.total_seconds()
+    timer = Timer(total_seconds, core.showinfo, (f'{time}経ちました！',))
+    timer.start()
+    return time
 
 
 @eel.expose
@@ -217,13 +241,27 @@ def check_update():
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/master/update_message.txt")
 
 
+def get_wiki_data(keyword):
+    keyword = urllib.parse.quote(keyword)
+    url = f'https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles={keyword}&rvprop=content&rvparse'
+    data = urllib.request.urlopen(url).read().decode('utf-8')
+    data = html.unescape(re.sub('[\n\r]', '', data))
+    return data
+
+
+def search_wiki(keyword):
+    data = get_wiki_data(keyword)
+    if 'redirectText' in data:
+        data = get_wiki_data(re.sub('<.*?>', '', re.search('<a href.*?>.*?</a>', data).group()))
+    data = re.sub('<.*?>', '', re.search(r'<p>.*?</p>', data).group())
+    return re.sub('\[\d\]', '', html.unescape(data))
+
+
 if __name__ == "__main__":
     try:
         dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
     except Exception as error_message:
-        root = tk.Tk()
-        root.withdraw()
-        dictionary_error = messagebox.showerror("ORIZIN Agent　エラー", error_message)
+        core.showerror(error_message)
         sys.exit()
     if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/light_theme.css")

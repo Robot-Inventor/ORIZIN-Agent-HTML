@@ -2,13 +2,20 @@
 # -*- coding: utf8 -*-
 
 import urllib.request
+import urllib.parse
 import os
 import otfdlib
 from collections import OrderedDict
+import unicodedata
+import re
+import difflib
+import tkinter as tk
+from tkinter import messagebox
+from tkinter import ttk
 
 
 def normalize(_sentence):
-    return _sentence.translate(str.maketrans({" ": None, "　": None, "・": None, "_": None, "-": None})).translate(str.maketrans("ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")).lower()
+    return unicodedata.normalize("NFKC", _sentence.lower()).translate(str.maketrans("", "", " 　・_-\t\n\r"))
 
 
 def load_dictionary(_path):
@@ -19,7 +26,17 @@ def load_dictionary(_path):
 
 
 def judge(_input, _target):
-    return True in [_target[_num] in _input for _num in range(len(_target))]
+    for _word in _target:
+        if bool(re.search(_word, _input)):
+            return True
+    return False
+
+
+def judge_with_intelligent_match(_input, _target, _threshold=0.75):
+    for _content in _target:
+        if intelligent_match(_input, _content) >= _threshold:
+            return True
+    return False
 
 
 def respond(_dictionary, _query):
@@ -27,17 +44,34 @@ def respond(_dictionary, _query):
     root.load_from_string(_dictionary)
     root.parse()
     _index_list = root.get_index_list()
-    for num in range(len(_index_list)):
-        if judge(_query, _index_list[num].split("/")):
-            _response = root.get_value(_index_list[num]).split("/")
+    _similarity = {}
+    for _index in _index_list:
+        _splited_index = root.unescape(list(_index.split("/")))
+        _similarity[max([intelligent_match(input, _query) for input in _splited_index])] = _index
+        if judge(_query, _index.split("/")):
+            _response = root.get_value(_index).split("/")
             if len(_response) == 1:
-                return [_response[0], _response[0]]
+                return root.unescape([_response[0], _response[0]])
             else:
-                return [_response[0], _response[1]]
-    _f = open("resource/dictionary/unknownQuestions.txt", "a", encoding="utf-8_sig")
-    _f.write(f"{_query}\n")
-    _f.close()
-    return ["そうですか。", "そうですか。"]
+                return root.unescape([_response[0], _response[1]])
+    if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
+        with open("resource/dictionary/unknownQuestions.txt", mode="w", newline="") as _f:
+            pass
+    _unknown_question = otfdlib.Otfd()
+    _unknown_question.load("resource/dictionary/unknownQuestions.txt")
+    _unknown_question.parse()
+    _response = []
+    _max_similarity = max(_similarity.keys())
+    if _max_similarity >= 0.75:
+        _response = list(root.get_value(_similarity[_max_similarity]).split("/"))
+    else:
+        _response = ["そうですか。"]
+    _unknown_question.add(_query, "/".join(_response))
+    _unknown_question.write()
+    if len(_response) == 1:
+        return root.unescape([_response[0], _response[0]])
+    else:
+        return root.unescape([_response[0], _response[1]])
 
 
 def get_version(_info_file_content):
@@ -48,9 +82,9 @@ def get_version(_info_file_content):
 def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
     _remote_file_content = urllib.request.urlopen(_remote_file_url).read().decode()
     _update_message = urllib.request.urlopen(_update_message_url).read().decode()
-    _f = open(_downloaded_file_path)
-    _downloaded_file_content = _f.read()
-    _f.close()
+    _downloaded_file_content = ""
+    with open(_downloaded_file_path, mode="r") as _f:
+        _downloaded_file_content = _f.read()
     _current_version = get_version(_downloaded_file_content)
     _remote_version = get_version(_remote_file_content)
     if _current_version == _remote_version:
@@ -78,26 +112,26 @@ def convert_to_bool(_value):
 
 def read_setting(_setting_file_path, _setting_name):
     if os.path.exists(_setting_file_path) is False:
-        _f = open(_setting_file_path, mode="w")
-        _f.close()
+        with open(_setting_file_path, mode="w") as _f:
+            pass
         return None
     else:
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
         if _setting_name in root.get_index_list():
-            return root.get_value(_setting_name)
+            return root.unescape(root.get_value(_setting_name))
         return None
 
 
 def write_setting(_setting_file_path, _setting_name, _setting_value):
     if os.path.exists(_setting_file_path) is False:
-        _f = open(_setting_file_path, mode="w")
-        _f.close()
+        with open(_setting_file_path, mode="w") as _f:
+            pass
     root = otfdlib.Otfd()
     root.load(_setting_file_path)
     root.parse()
-    root.add(_setting_name, _setting_value)
+    root.add(_setting_name, root.escape(_setting_value))
     root.write()
     return
 
@@ -115,8 +149,8 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
     if os.path.exists(_default_setting_file_path) is False:
         raise Exception(f"{_default_setting_file_path}にデフォルト設定ファイルがありません。")
     if os.path.exists(_current_setting_file_path) is False:
-        _f = open(_current_setting_file_path, mode="w")
-        _f.close()
+        with open(_current_setting_file_path, mode="w") as _f:
+            pass
     default_setting = otfdlib.Otfd()
     default_setting.load(_default_setting_file_path)
     default_setting.parse()
@@ -133,3 +167,60 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
     current_setting.sorted()
     default_setting.write()
     current_setting.write()
+
+
+def generate_search_engine_url(search_engine="google", keyword=None, define=False):
+    if keyword:
+        keyword = urllib.parse.quote(keyword)
+    if define:
+        if keyword:
+            return search_engine + keyword
+        else:
+            return re.search(r".*?", search_engine)
+    else:
+        search_engine = normalize(search_engine)
+        search_engine_url_table = {
+            "google": "https://google.com/search?q=",
+            "bing": "https://www.bing.com/search?q=",
+            "yahoo": "https://search.yahoo.com/search?p=",
+            "yahoojapan": "https://search.yahoo.co.jp/search?p=",
+            "duckduckgo": "https://duckduckgo.com/?q="
+            }
+        if search_engine not in search_engine_url_table:
+            similarity = {intelligent_match(engine_name, search_engine): engine_name for engine_name in search_engine_url_table.keys()}
+            search_engine = similarity[max(similarity.keys())]
+        if keyword:
+            return search_engine_url_table[search_engine] + keyword
+        else:
+            url = search_engine_url_table[search_engine]
+            return url[:url.rfind("/") + 1]
+
+
+def intelligent_match(a, b):
+    if len(a) > len(b):
+        a_cache = a
+        a = b
+        b = a_cache
+    if bool(re.search(a, b)):
+        return 1.0
+    else:
+        a_length = len(a)
+        return max(list(map(lambda target: difflib.SequenceMatcher(None, target, a).ratio(), [b[num:num + a_length] for num in range(len(b) - a_length + 1)])))
+
+
+def showerror(_message):
+    root = tk.Tk()
+    root.withdraw()
+    error_window = messagebox.showerror("ORIZIN Agent　エラー", _message)
+    error_window.wm_attributes("-topmost", True)
+    root.destroy()
+    return
+
+
+def showinfo(_message):
+    root = tk.Tk()
+    root.withdraw()
+    message_window = messagebox.showinfo("ORIZIN Agent", _message)
+    message_window.wm_attributes("-topmost", True)
+    root.destroy()
+    return
