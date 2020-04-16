@@ -2,6 +2,10 @@
 
 @import url("ripple.css");
 
+:root {
+    --border_radius_size: 0.5rem;
+}
+
 @font-face {
     font-family: "League Spartan";
     src: url("../font/LeagueSpartan-Regular.ttf") format("truetype");
@@ -90,7 +94,7 @@ header h1 {
         width: calc(100vw - 8vh);
         height: 32vh;
         background: var(--card_bg);
-        border-radius: 3px;
+        border-radius: var(--border_radius_size);
         box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
@@ -101,7 +105,7 @@ header h1 {
         width: calc(100vw - 8vh);
         height: 19vh;
         background: var(--card_bg);
-        border-radius: 3px;
+        border-radius: var(--border_radius_size);
         box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
@@ -115,7 +119,7 @@ header h1 {
         width: calc(100vw - 8vh);
         height: 55vh;
         background: var(--card_bg);
-        border-radius: 3px;
+        border-radius: var(--border_radius_size);
         box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         padding: 2vh;
@@ -126,7 +130,7 @@ header h1 {
         width: calc((100vw - 15vh)/2);
         height: 19vh;
         background: var(--card_bg);
-        border-radius: 3px;
+        border-radius: var(--border_radius_size);
         box-shadow: 0 2px 5px var(--shadow);
         margin: 2vh;
         margin-right: 0;
@@ -151,7 +155,7 @@ header h1 {
     width: calc(100vw - 8vh);
     height: 82vh;
     background: var(--card_bg);
-    border-radius: 3px;
+    border-radius: var(--border_radius_size);
     box-shadow: 0 2px 5px var(--shadow);
     margin: 2vh;
     padding: 2vh;
@@ -245,7 +249,7 @@ a {
     padding: 0.3em 1em;
     color: var(--theme_color);
     border: solid 2px var(--theme_color);
-    border-radius: 3px;
+    border-radius: var(--border_radius_size);
     text-decoration: none;
     margin: 10px 10px 10px 0px;
     transition: 0.3s;

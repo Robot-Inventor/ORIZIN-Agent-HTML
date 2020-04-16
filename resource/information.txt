@@ -1,5 +1,5 @@
-Series Name : ORIZIN Agent
-Edition : ORIZIN Agent HTML
-Version : v0.11.19.0dev
-Code Name : Albatross
-Date : 2020-04-06 JST
+Series Name:ORIZIN Agent
+Edition:ORIZIN Agent HTML
+Version:v1.0.20.0
+Code Name:Albatross
+Date:2020-04-07 JST

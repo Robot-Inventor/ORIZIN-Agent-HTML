@@ -74,19 +74,16 @@ def respond(_dictionary, _query):
         return root.unescape([_response[0], _response[1]])
 
 
-def get_version(_info_file_content):
-    _result = _info_file_content[_info_file_content.find("Version : "):].replace("Version : ", "")
-    return _result[:_result.find("\n")]
-
-
 def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
-    _remote_file_content = urllib.request.urlopen(_remote_file_url).read().decode()
     _update_message = urllib.request.urlopen(_update_message_url).read().decode()
-    _downloaded_file_content = ""
-    with open(_downloaded_file_path, mode="r") as _f:
-        _downloaded_file_content = _f.read()
-    _current_version = get_version(_downloaded_file_content)
-    _remote_version = get_version(_remote_file_content)
+    _current = otfdlib.Otfd()
+    _current.load(_downloaded_file_path)
+    _current.parse()
+    _current_version = _current.get_value("Version")
+    _remote = otfdlib.Otfd()
+    _remote.load_from_string(urllib.request.urlopen(_remote_file_url).read().decode().replace(" : ", ":"))
+    _remote.parse()
+    _remote_version = _remote.get_value("Version")
     if _current_version == _remote_version:
         return ["false", _current_version, _remote_version, _update_message]
     else:
