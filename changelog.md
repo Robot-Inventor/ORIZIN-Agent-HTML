@@ -50,6 +50,7 @@ Edition: ORIZIN Agent HTML
 - 各要素のborder_radiusを3pxから0.5remに変更しました。
 - jQueryのバージョンをv3.4.1から最新のv3.5.0にアップデートしました。
 - メニューの「オープンソースソフトウェアライセンス」とすべきところが「オープンソスソフトウェアライセンス」になっていたため修正しました。
+- About ORIZIN AgentのORIZIN Agent HTMLのMITライセンスをjQueryによる読み込みから直書きに変更しました。
 
 ### [v0.11.19.0dev-Albatross] - 2020-04-06
 #### 追加
