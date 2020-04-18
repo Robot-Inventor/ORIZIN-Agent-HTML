@@ -1,2 +1,0 @@
-﻿capital_dictionary.otfd及びreverse_capital_dictionary.otfdについて
-capital_dictionary.otfd及びreverse_capital_dictionary.otfdに記載されている国名及び首都名は，日本国の外務省ホームページ「国・地域」（https://www.mofa.go.jp/mofaj/area/index.html）及び当該ページの各国名のリンク先に記載されている一般事情をもとに作成しています。また，国名等の情報は辞書データとして適した形式に一部変更を行っています。また，この文書、capital_dictionary.otfd及びreverse_capital_dictionary.otfdは，日本国政府及び記載されている各国政府等と無関係です。

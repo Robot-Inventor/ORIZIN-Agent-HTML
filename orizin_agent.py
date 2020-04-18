@@ -79,6 +79,41 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
+    elif core.judge(_query, [".*の(面積|めんせき|広さ|ひろさ|大きさ|おおきさ)"]):
+        area_value = core.respond(core.load_dictionary("resource/dictionary/country_information_dictionary/area_dictionary.otfd"), _query)
+        if area_value[0] == "そうですか。":
+            webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+            return ["面積を検索します。", "面積を検索します。"]
+        else:
+            return [f"{area_value[2]}の面積は{area_value[0]}です。", f"{area_value[2]}の面積は{area_value[1]}です。"]
+    elif core.judge(_query, [".*(の|にある)(首都|しゅと)"]):
+        capital_name = core.respond(core.load_dictionary("resource/dictionary/country_information_dictionary/capital_dictionary.otfd"), _query)
+        if capital_name[0] == "そうですか。":
+            webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+            return ["首都を検索します。", "首都を検索します。"]
+        else:
+            return [f"{capital_name[2]}の首都は{capital_name[0]}です。", f"{capital_name[2]}の首都は{capital_name[1]}です。"]
+    elif core.judge(_query, [".*(の|使.*?いる)(言語|げんご|言葉|ことば|コトバ|公用語|こうようご)"]):
+        language = core.respond(core.load_dictionary("resource/dictionary/country_information_dictionary/language_dictionary.otfd"), _query)
+        if language[0] == "そうですか。":
+            webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+            return ["言語を検索します。", "言語を検索します。"]
+        else:
+            return [f"{language[2]}の言語は{language[0]}です。", f"{language[2]}の言語は{language[1]}です。"]
+    elif core.judge(_query, [".*(の|に.*?(いる|でる))(人口|人口|(人|ひと)(の|)(数|かず))"]):
+        population = core.respond(core.load_dictionary("resource/dictionary/country_information_dictionary/population_dictionary.otfd"), _query)
+        if population[0] == "そうですか。":
+            webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+            return ["人口を検索します。", "人口を検索します。"]
+        else:
+            return [f"{population[2]}の人口は{population[0]}です。", f"{population[2]}の人口は{population[1]}です。"]
+    elif core.judge(_query, [".*(の|で)(宗教|しゅうきょう|信仰|しんこう|国教|こっきょう)"]):
+        religion = core.respond(core.load_dictionary("resource/dictionary/country_information_dictionary/religion_dictionary.otfd"), _query)
+        if religion[0] == "そうですか。":
+            webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
+            return ["宗教を検索します。", "宗教を検索します。"]
+        else:
+            return [f"{religion[2]}の宗教は{religion[0]}です。", f"{religion[2]}の宗教は{religion[1]}です。"]
     elif core.judge(_query, ["予定", "よてい", "カレンダ", "かれんだ", "calender", "リマインダ", "リマインド", "りまいんだ", "りまいんど", "remind"]):
         webbrowser.open_new("https://calendar.google.com/")
         return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
@@ -267,5 +302,7 @@ if __name__ == "__main__":
         change_theme("theme/light_theme.css")
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
+##    if core.judge("こんにちは。", dictionary, True)[0]:
+##        print("ok")
     eel.init("resource")
     eel.start("/html/splash.html")

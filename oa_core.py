@@ -25,11 +25,17 @@ def load_dictionary(_path):
     return root.to_string()
 
 
-def judge(_input, _target):
+def judge(_input, _target, _matched_word=False):
     for _word in _target:
         if bool(re.search(_word, _input)):
-            return True
-    return False
+            if _matched_word:
+                return [True, _word]
+            else:
+                return True
+    if _matched_word:
+        return [False, ""]
+    else:
+        return False
 
 
 def judge_with_intelligent_match(_input, _target, _threshold=0.75):
@@ -48,12 +54,13 @@ def respond(_dictionary, _query):
     for _index in _index_list:
         _splited_index = root.unescape(list(_index.split("/")))
         _similarity[max([intelligent_match(input, _query) for input in _splited_index])] = _index
-        if judge(_query, _index.split("/")):
+        _judge_result = judge(_query, _index.split("/"), True)
+        if _judge_result[0]:
             _response = root.get_value(_index).split("/")
             if len(_response) == 1:
-                return root.unescape([_response[0], _response[0]])
+                return root.unescape([_response[0], _response[0], _judge_result[1]])
             else:
-                return root.unescape([_response[0], _response[1]])
+                return root.unescape([_response[0], _response[1], _judge_result[1]])
     if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
         with open("resource/dictionary/unknownQuestions.txt", mode="w", newline="") as _f:
             pass
@@ -62,16 +69,17 @@ def respond(_dictionary, _query):
     _unknown_question.parse()
     _response = []
     _max_similarity = max(_similarity.keys())
+    _most_similar_word = _similarity[_max_similarity]
     if _max_similarity >= 0.75:
-        _response = list(root.get_value(_similarity[_max_similarity]).split("/"))
+        _response = list(root.get_value(_most_similar_word).split("/"))
     else:
         _response = ["そうですか。"]
     _unknown_question.add(_query, "/".join(_response))
     _unknown_question.write()
     if len(_response) == 1:
-        return root.unescape([_response[0], _response[0]])
+        return root.unescape([_response[0], _response[0], _most_similar_word])
     else:
-        return root.unescape([_response[0], _response[1]])
+        return root.unescape([_response[0], _response[1], _most_similar_word])
 
 
 def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
