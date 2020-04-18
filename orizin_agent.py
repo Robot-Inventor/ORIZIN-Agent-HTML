@@ -126,7 +126,8 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
         return ["電卓を開きます。", "電卓を開きます。"]
-    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):            time = datetime.datetime.now()
+    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):
+        time = datetime.datetime.now()
         time = time.strftime('%Y年%m月%d日 %H:%M:%S')
         return [f"現在は{time}です。", f"現在は{time}です。"]
     elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]):
