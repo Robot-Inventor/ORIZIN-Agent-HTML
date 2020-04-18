@@ -126,14 +126,9 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
         return ["電卓を開きます。", "電卓を開きます。"]
-    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):
-        if read_flag("return_time_using_datetime_lib"):
-            time = datetime.datetime.now()
-            time = time.strftime('%Y年%m月%d日 %H:%M:%S')
-            return [f"現在は{time}です。", f"現在は{time}です。"]
-        else:
-            webbrowser.open_new(core.generate_search_engine_url("google", "今何時"))
-            return ["Googleで現在の時刻を検索します。", "Googleで現在の時刻を検索します。"]
+    elif core.judge(_query, ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):            time = datetime.datetime.now()
+        time = time.strftime('%Y年%m月%d日 %H:%M:%S')
+        return [f"現在は{time}です。", f"現在は{time}です。"]
     elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]):
         webbrowser.open_new("https://twitter.com/")
         return ["Twitterを開きます。", "Twitterを開きます。"]
@@ -146,7 +141,7 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["テレビ", "tv", "てれび", "番組", "ばんぐみ", "tver", "ティーバ", "てぃーば"]):
         webbrowser.open_new("https://tver.jp/")
         return ["TVerを開きます。", "TVerを開きます。"]
-    elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]) and core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ", "再生", "さいせい", "見せ", "観せ", "みせ", "見たい", "観たい", "みたい"]) and read_flag("search_in_youtube"):
+    elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]) and core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ", "再生", "さいせい", "見せ", "観せ", "みせ", "見たい", "観たい", "みたい"]):
         webbrowser.open_new(core.generate_search_engine_url("https://www.youtube.com/results?search_query=", _not_normalized_query, True))
         return [f"YouTubeで「{_not_normalized_query}」を検索します。", f"YouTubeで「{_not_normalized_query}」を検索します。"]
     elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]):

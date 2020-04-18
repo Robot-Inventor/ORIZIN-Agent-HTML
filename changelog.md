@@ -51,6 +51,9 @@ Edition: ORIZIN Agent HTML
 - メニューの「About ORIZIN Agent」を「ORIZIN Agentについて」に変更しました。
 - 「ORIZIN Agentについて」のORIZIN Agent HTMLのMITライセンスをjQueryによる読み込みから直書きに変更しました。
 - テキストボックスのデザインを刷新しました。
+- 以下の機能を試験機能から正式な機能に移行しました。
+    - 日付と時刻を検索せずに表示する
+    - YouTubeで検索する
 
 #### 修正
 - リファクタリングを行いました。
@@ -109,7 +112,7 @@ Edition: ORIZIN Agent HTML
 - 日付と時刻を検索せずに表示する試験機能を追加しました。
 
 #### 変更
-- 以下の機能を試験機能から通常の機能に移行しました。
+- 以下の機能を試験機能から正式な機能に移行しました。
     - 次のSNSを開く機能
         - Twitter
         - Facebook
