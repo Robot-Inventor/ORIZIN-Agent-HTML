@@ -274,3 +274,21 @@ li {
     list-style-type: disc;
     overflow: visible;
 }
+
+input[type=text] {
+    border: none;
+    border-bottom: solid 0.1em var(--text);
+    display: block;
+    width: 25%;
+    transition: 0.3s;
+    color: var(--text);
+}
+
+input[type=text]:focus {
+    border-bottom: solid 0.1em var(--theme_color);
+    width: 50%;
+    color: var(--theme_color);
+}
+input[type=text]:focus::placeholder {
+    color: var(--theme_color);
+}

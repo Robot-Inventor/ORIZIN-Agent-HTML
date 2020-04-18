@@ -52,6 +52,7 @@ Edition: ORIZIN Agent HTML
 - メニューの「オープンソースソフトウェアライセンス」とすべきところが「オープンソスソフトウェアライセンス」になっていたため修正しました。
 - メニューの「About ORIZIN Agent」を「ORIZIN Agentについて」に変更しました。
 - 「ORIZIN Agentについて」のORIZIN Agent HTMLのMITライセンスをjQueryによる読み込みから直書きに変更しました。
+- テキストボックスのデザインを刷新しました。
 
 ### [v0.11.19.0dev-Albatross] - 2020-04-06
 #### 追加
