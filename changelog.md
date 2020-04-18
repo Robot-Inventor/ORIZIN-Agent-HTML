@@ -54,6 +54,9 @@ Edition: ORIZIN Agent HTML
 - 「ORIZIN Agentについて」のORIZIN Agent HTMLのMITライセンスをjQueryによる読み込みから直書きに変更しました。
 - テキストボックスのデザインを刷新しました。
 
+#### 削除
+- プログラムが安定したため，バックアップファイルlayout.bak.cssを削除しました。
+
 ### [v0.11.19.0dev-Albatross] - 2020-04-06
 #### 追加
 - 51通りの応答を辞書に追加し，応答は全てで432通りになりました。
