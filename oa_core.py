@@ -167,7 +167,8 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
     _need_to_add = list(set(_default_index_list) - set(_current_index_list))
     current_setting.update(OrderedDict(map(lambda _index: [_index, default_setting.get_value(_index)], _need_to_add)))
     _need_to_delete = list(set(_current_index_list) - set(_default_index_list))
-    map(current_setting.pop, _need_to_delete)
+    for _index in _need_to_delete:
+        current_setting.pop(_index)
     default_setting.sorted()
     current_setting.sorted()
     default_setting.write()
