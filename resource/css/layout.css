@@ -16,6 +16,7 @@
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    transition: 0.3s;
 }
 
 *::-webkit-scrollbar {
@@ -99,7 +100,6 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
-        transition: 0.3s;
     }
     .bottom_control_panel {
         width: calc(100vw - 8vh);
@@ -110,7 +110,6 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
-        transition: 0.3s;
     }
 }
 
@@ -124,7 +123,6 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
-        transition: 0.3s;
     }
     .bottom_control_panel {
         width: calc((100vw - 15vh)/2);
@@ -136,7 +134,6 @@ header h1 {
         margin-right: 0;
         padding: 2vh;
         text-align: center;
-        transition: 0.3s;
         display: inline-block;
         vertical-align: top;
     }
@@ -159,7 +156,6 @@ header h1 {
     box-shadow: 0 2px 5px var(--shadow);
     margin: 2vh;
     padding: 2vh;
-    transition: 0.3s;
 }
 
 .fill_panel:hover {
@@ -252,7 +248,6 @@ a {
     border-radius: var(--border_radius_size);
     text-decoration: none;
     margin: 10px 10px 10px 0px;
-    transition: 0.3s;
     background: transparent;
 }
 
@@ -280,8 +275,8 @@ input[type=text] {
     border-bottom: solid 0.1em var(--text);
     display: block;
     width: 25%;
-    transition: 0.3s;
     color: var(--text);
+    background: none;
 }
 
 input[type=text]:focus {
@@ -289,6 +284,65 @@ input[type=text]:focus {
     width: 50%;
     color: var(--theme_color);
 }
+
 input[type=text]:focus::placeholder {
     color: var(--theme_color);
+}
+
+.overlay_outer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba(100, 100, 100, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.overlay_inner {
+    border-radius: var(--border_radius_size);
+    box-shadow: 0 2px 5px var(--shadow);
+    padding: 2vh;
+    background: var(--card_bg);
+    width: 50vw;
+    height: auto;
+    max-height: 80vh;
+    position: absolute;
+    top: 50vh;
+    left: 25vw;
+    transform: translateY(-50%);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+progress {
+    -webkit-appearance: none;
+}
+
+progress:not([value]) {
+    -webkit-appearance: none;
+}
+
+progress:not([value])::-webkit-progress-bar {
+    background: none;
+}
+
+progress:not([value]) {
+    background: var(--theme_color);
+    animation: progress_animation 0.5s linear infinite alternate;
+}
+
+@keyframes progress_animation {
+    0% {
+        background: var(--theme_color);
+    }
+    100% {
+        background: var(--bg);
+    }
+}
+
+progress::-webkit-progress-bar {
+    background: var(--bg);
+}
+
+progress[value]::-webkit-progress-value {
+    background: var(--theme_color);
 }

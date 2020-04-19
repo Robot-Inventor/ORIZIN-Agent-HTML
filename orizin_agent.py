@@ -298,7 +298,8 @@ if __name__ == "__main__":
         change_theme("theme/light_theme.css")
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
-##    if core.judge("こんにちは。", dictionary, True)[0]:
-##        print("ok")
     eel.init("resource")
-    eel.start("/html/splash.html")
+    if read_setting("setup_finished") == "False":
+        eel.start("/html/setup.html")
+    else:
+        eel.start("/html/splash.html")
