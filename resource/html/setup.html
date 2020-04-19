@@ -157,6 +157,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         <button onclick="save_setting()">初期設定を終了</button><button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')">戻る</button>
                     </span>
                 </div>
+                <progress value="0" max="1">0%</progress>
                 <style>
                     .overlay_outer {
                         overflow: hidden;
@@ -189,6 +190,13 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         padding: 0;
                         margin: 0 1rem;
                     }
+
+                    progress {
+                        width: 50vw;
+                        position: absolute;
+                        top: 80vh;
+                        left: 25vw;
+                    }
                 </style>
             </div>
             <div class="fill_panel"></div>
@@ -198,14 +206,22 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
         <script>
+            ALL_CARD = 7;
+            setup_status = 0;
+            progress = document.querySelector("progress");
+
             function forward_card(current_card_id, next_card_id) {
                 document.getElementById(current_card_id).style.marginLeft = "-100vw";
                 document.getElementById(next_card_id).style.marginLeft = "0";
+                setup_status += 1;
+                progress.value = setup_status / ALL_CARD;
             }
 
             function back_card(current_card_id, back_card_id) {
                 document.getElementById(current_card_id).style.marginLeft = "100vw";
                 document.getElementById(back_card_id).style.marginLeft = "0";
+                setup_status -= 1;
+                progress.value = setup_status / ALL_CARD;
             }
 
             function save_setting() {

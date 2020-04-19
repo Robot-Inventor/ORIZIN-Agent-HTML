@@ -315,6 +315,7 @@ input[type=text]:focus::placeholder {
 
 progress {
     -webkit-appearance: none;
+    border-radius: 0.5rem;
 }
 
 progress:not([value]) {
