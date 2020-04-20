@@ -134,7 +134,7 @@ def make_response(_not_normalized_query):
         webbrowser.open_new("https://twitter.com/")
         return ["Twitterを開きます。", "Twitterを開きます。"]
     elif core.judge(_query, ["コロナ", "ころな", "corona", "covid19", "sarscov2", "感染", "かんせん", "肺炎", "はいえん"]):
-        webbrowser.open_new("https://www.cas.go.jp/jp/influenza/novel_coronavirus.html")
+        webbrowser.open_new("https://corona.go.jp/")
         return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。"]
     elif core.judge(_query, ["facebook", "フェイスブック", "ふぇいすぶっく", "フェースブック", "ふぇーすぶっく"]):
         webbrowser.open_new("https://www.facebook.com/")
