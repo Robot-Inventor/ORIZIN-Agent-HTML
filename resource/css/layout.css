@@ -16,7 +16,6 @@
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    transition: 0.3s;
 }
 
 *::-webkit-scrollbar {
@@ -100,6 +99,7 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
+        transition: 0.3s;
     }
     .bottom_control_panel {
         width: calc(100vw - 8vh);
@@ -110,6 +110,7 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
+        transition: 0.3s;
     }
 }
 
@@ -123,6 +124,7 @@ header h1 {
         margin: 2vh;
         padding: 2vh;
         text-align: center;
+        transition: 0.3s;
     }
     .bottom_control_panel {
         width: calc((100vw - 15vh)/2);
@@ -136,6 +138,7 @@ header h1 {
         text-align: center;
         display: inline-block;
         vertical-align: top;
+        transition: 0.3s;
     }
 }
 
@@ -156,6 +159,7 @@ header h1 {
     box-shadow: 0 2px 5px var(--shadow);
     margin: 2vh;
     padding: 2vh;
+    transition: 0.3s;
 }
 
 .fill_panel:hover {
@@ -249,6 +253,7 @@ a {
     text-decoration: none;
     margin: 10px 10px 10px 0px;
     background: transparent;
+    transition: 0.3s;
 }
 
 .button:hover, button:hover {
