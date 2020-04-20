@@ -26,6 +26,17 @@
             <div class="fill_panel">
                 <h2>設定</h2>
                 <section class="ripple_effect">
+                    <input type="checkbox" id="ui_button"><label for="ui_button">UI</label>
+                    <div>
+                        <p>
+                            <select id="ui">
+                                <option value="index.html">デフォルト</option>
+                                <option value="index_chat.html">チャット風</option>
+                            </select>
+                        </p>
+                    </div>
+                </section>
+                <section class="ripple_effect">
                     <input type="checkbox" id="theme_button"><label for="theme_button">テーマ</label>
                     <div>
                         <p>
@@ -134,6 +145,7 @@
         <script>
             function save_setting() {
                 eel.change_theme(document.getElementById("theme").value);
+                eel.write_setting("ui", document.getElementById("ui").value);
                 eel.write_setting("user_name", document.getElementById("user_name").value);
                 eel.write_setting("news_site_url", document.getElementById("news_site_url").value);
                 eel.write_setting("search_engine", document.getElementById("search_engine").value);
@@ -162,6 +174,7 @@
             }
             async function set_to_current_setting() {
                 document.getElementById("theme").value = await eel.read_setting("theme")();
+                document.getElementById("ui").value = await eel.read_setting("ui")();
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").value = await eel.read_setting("search_engine")();

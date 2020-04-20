@@ -111,9 +111,15 @@
                     alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support speech recognition(Speech To Text / STT). Please use latest browser that supports Web Speech API.")
                 }
                 check_update();
+
                 setTimeout(function() {
-                    location.replace('index.html');
+                    move_to_top_page();
                 }, 2000);
+
+                async function move_to_top_page() {
+                    ui_file = await eel.read_setting("ui")();
+                    location.replace(ui_file);
+                }
             });
         </script>
     </body>

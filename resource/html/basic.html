@@ -1,5 +1,5 @@
 ﻿<div class="title">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" class="menu_open_button"></span><span class="ripple_effect"><a href="index.html"><img src="../image/title.svg" alt="ORIZIN Agent"></a></span>
+    <span class="ripple_effect"><img src="../image/menu_icon.svg" class="menu_open_button"></span><span class="ripple_effect"><a onclick="move_to_top_page()"><img src="../image/title.svg" alt="ORIZIN Agent"></a></span>
 </div>
 <div class="side_menu_bar_overlay">
 </div>
@@ -65,4 +65,8 @@
             move_page("about_oa.html");
         });
     });
+    async function move_to_top_page() {
+        ui_file = await eel.read_setting("ui")();
+        location.replace(ui_file);
+    }
 </script>
