@@ -1,4 +1,4 @@
-@import url("theme/light_theme.css");
+@import url("theme/auto_theme.css");
 
 @import url("ripple.css");
 
@@ -232,7 +232,7 @@ hr {
     background-color: var(--text);
     border: none;
     color: var(--text);
-    height: 2px;
+    height: 0.05rem;
 }
 
 a {
@@ -293,8 +293,9 @@ input[type=text]:focus::placeholder {
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background: rgba(100, 100, 100, 0.5);
-    backdrop-filter: blur(5px);
+    background: rgb(100, 100, 100, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 2;
 }
 
 .overlay_inner {
@@ -307,10 +308,25 @@ input[type=text]:focus::placeholder {
     max-height: 80vh;
     position: absolute;
     top: 50vh;
-    left: 25vw;
-    transform: translateY(-50%);
+    left: 50vw;
+    transform: translateY(-50%) translateX(-50%);
     margin: 0;
     box-sizing: border-box;
+    z-index: 3;
+}
+
+.overlay_inner menu {
+    display: inline;
+    float: right;
+}
+
+.overlay_inner button {
+    background: none;
+    color: var(--theme_color);
+    border: none;
+    font-size: 100%;
+    padding: 0;
+    margin: 0 1rem;
 }
 
 progress {
