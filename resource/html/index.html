@@ -53,9 +53,11 @@
             async function response(content) {
                 let script = await eel.make_response(content)();
                 jQuery("#result_area").append(">>" + content + "<br>" + script[1] + "<br>");
-                jQuery("#result_area").animate({
-                    scrollTop: jQuery(document).height()
-                },300);
+                var result_area = document.getElementById("result_area");
+                result_area.scrollTop = result_area.scrollHeight;
+                // jQuery("#result_area").animate({
+                //     scrollTop: jQuery("#result_area").height()
+                // },300);
                 start_speak(script[0]);
             }
             const requestForm = document.querySelector('#requestForm');

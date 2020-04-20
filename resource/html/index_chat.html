@@ -32,14 +32,19 @@
             </div>
             <style>
                 .chat {
-                    background: var(--theme_color);
-                    color: white;
                     border-radius: 0rem var(--border_radius_size) var(--border_radius_size) var(--border_radius_size);
                     display: inline-block;
                     padding: 0.5rem;
                 }
 
+                .chat:not(.user) {
+                    background: rgba(10, 10, 10, 0.05);
+                    color: var(--text);
+                }
+
                 .chat_outer.user .chat {
+                    color: white;
+                    background: var(--theme_color);
                     float: right;
                     border-radius: var(--border_radius_size) 0rem var(--border_radius_size) var(--border_radius_size);
                 }
@@ -133,9 +138,8 @@
                 chat_inner.appendChild(text);
                 chat_outer.appendChild(chat_inner);
                 chat_area.appendChild(chat_outer);
-                jQuery("#chat_area").animate({
-                    scrollTop: jQuery("#chat_area").height()
-                },300);
+                var chat_area_element = document.getElementById("chat_area");
+                chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');

@@ -64,6 +64,7 @@ Edition: ORIZIN Agent HTML
 - changelog.mdにおいて，v0.6.9.0dev-Albatross以降，「変更」と「修正」が混同していたため修正しました。
 - プライバシーポリシーで設定の保存についての言及がなかったため修正しました。
 - 設定ファイル（setting.otfdとflag.otfd）の競合解消機能（oa_core.pyのsolve_setting_conflict関数）における不要になった項目の削除がv0.9.15.0devのコミット69a23ad18f4d274faf8b2e892a6fe1a52230cb76から破損していたため修正しました。
+- デフォルトのUIにおいて，ユーザーの入力とそれに対するORIZIN Agentの応答が表示される右下のカードが，ある程度会話すると正常にスクロールされなくなる問題を修正しました。
 
 #### 削除
 - プログラムが安定したため，バックアップファイルlayout.bak.cssを削除しました。
