@@ -14,6 +14,7 @@ from threading import Timer
 import urllib.request
 import urllib.parse
 import html
+import otfdlib
 
 
 @eel.expose
@@ -45,6 +46,20 @@ def write_custom_css_theme(_value):
     else:
         core.showerror("カスタムCSSテーマに不正な値を書き込もうとしています。")
         return
+
+
+@eel.expose
+def check_current_css_theme_information():
+    css_file_path = read_setting("theme")
+    with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
+        css = f.read()
+        pattern = re.compile(":root \{.*?\}", re.MULTILINE | re.DOTALL)
+        print(re.search(pattern, css).group())
+        value = re.sub("(:root \{)|\}|( *)|-|;", "", re.search(pattern, css).group())
+        root = otfdlib.Otfd()
+        root.load_from_string(value)
+        root.parse()
+        return root.get_value_list()
 
 
 @eel.expose
