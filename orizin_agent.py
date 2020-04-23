@@ -54,7 +54,6 @@ def check_current_css_theme_information():
     with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
         css = f.read()
         pattern = re.compile(":root \{.*?\}", re.MULTILINE | re.DOTALL)
-        print(re.search(pattern, css).group())
         value = re.sub("(:root \{)|\}|( *)|-|;", "", re.search(pattern, css).group())
         root = otfdlib.Otfd()
         root.load_from_string(value)
@@ -229,8 +228,16 @@ def make_response(_not_normalized_query):
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
         return [f"{search_engine}で「{_not_normalized_query}」を検索します。", f"{search_engine}で「{_not_normalized_query}」を検索します。"]
     elif core.judge(_query, ["サイコロ", "さいころ", "ダイス", "だいす", "dice"]):
-        dice_result = random.randint(1, 6)
-        return [f"サイコロを振りますね。{dice_result}が出ました。", f"サイコロを振りますね。{dice_result}が出ました。"]
+        max_number = 6
+        if core.judge(_query, ["\d(面|めん)"]):
+            max_number = re.sub("(面|めん)", "", re.search("\d*(面|めん)", _query).group())
+        if int(max_number) <= 0:
+            max_number = 6
+        dice_result = random.randint(1, int(max_number))
+        max_number_message = ""
+        if max_number != 6:
+            max_number_message = f"{max_number}面"
+        return [f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。", f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。"]
     elif core.judge(_query, ["コイン", "こいん", "coin"]) and core.judge(_query, ["トス", "とす", "toss", "投げ", "なげ"]):
         coin = ["表", "裏"]
         result = coin[random.randint(0, 1)]
