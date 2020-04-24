@@ -220,9 +220,10 @@ def make_response(_not_normalized_query):
         if os.path.exists("memo.txt") is False:
             with open("memo.txt", mode="w", newline="") as _f:
                 pass
+        _memo_content = re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(メモ|memo|めも|記憶|きおく|記録|きろく|)(覚え(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお(け|いて(|ください|下さい))|と(け|いて(|ください|下さい))|ろ|)|)$", "", _not_normalized_query)
         with open("memo.txt", mode="a", newline="") as _f:
-            _f.write(f"{_not_normalized_query}\n")
-        return [f"「{_not_normalized_query}」とメモしました。", f"「{_not_normalized_query}」とメモしました。"]
+            _f.write(f"{_memo_content}\n")
+        return [f"「{_memo_content}」とメモしました。", f"「{_memo_content}」とメモしました。"]
     elif core.judge(_query, ["て何" ,"てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
         search_engine = read_setting("search_engine")
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
