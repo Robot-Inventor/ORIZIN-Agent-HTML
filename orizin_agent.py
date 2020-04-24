@@ -199,6 +199,16 @@ def make_response(_not_normalized_query):
             if _memo.strip() == "":
                 return ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
+                if core.judge(_query, ["\d+?((つ|個|こ|コ|番|ばん)(|め|目))"]):
+                    _splited_memo = _memo.splitlines()
+                    _memo_index = int(re.search("\d+?", (re.search("\d+?((つ|個|こ|コ|番|ばん)(|め|目))", _query).group())).group())
+                    if _memo_index > len(_splited_memo):
+                        return ["削除するメモの番号が正しくありません。", "削除するメモの番号が正しくありません。"]
+                    else:
+                        _splited_memo.pop(_memo_index - 1)
+                        with open("memo.txt", mode="w", newline="") as _f:
+                            _f.write("\n".join(_splited_memo))
+                        return [f"{_memo_index}つ目のメモを削除しました。", f"{_memo_index}つ目のメモを削除しました。"]
                 with open("memo.txt", mode="w", newline="") as _f:
                     _f.write("")
                 return ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
