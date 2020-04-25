@@ -33,6 +33,7 @@ def convert_kanji_to_int(string):
                     result = result.replace(number + index, number + unit)
                 for number in re.findall(f"{index}(\d+)", result):
                     result = result.replace(index + number, "1" + unit[len(number):len(unit)] + number)
+                result = result.replace(index, "1" + unit)
     return result
 
 
