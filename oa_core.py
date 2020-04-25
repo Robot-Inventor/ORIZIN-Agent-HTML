@@ -15,7 +15,25 @@ from tkinter import ttk
 
 
 def normalize(_sentence):
-    return unicodedata.normalize("NFKC", _sentence.lower()).translate(str.maketrans("", "", " 　・_-\t\n\r"))
+    return convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(str.maketrans("", "", " 　・_-\t\n\r")))
+
+
+def convert_kanji_to_int(string):
+    result = string.translate(str.maketrans("零〇一壱二弐三参四五六七八九", "00112233456789", ""))
+    while re.search("(零|〇|一|壱|二|弐|三|参|四|五|六|七|八|九|十|百|千|万|億|兆|京)+", result):
+        target = re.search("(零|〇|一|壱|二|弐|三|参|四|五|六|七|八|九|十|百|千|万|億|兆|京)+", string).group()
+        if re.search("十|百|千|万|億|兆|京", result):
+            result = result.replace("拾", "十")
+            convert_table = {"十": "0", "百": "00", "千": "000", "万": "0000", "億": "00000000", "兆": "000000000000", "京": "0000000000000000"}
+            for index in convert_table.keys():
+                unit = convert_table[index]
+                for numbers in re.findall(f"(\d+){index}(\d+)", result):
+                    result = result.replace(numbers[0] + index + numbers[1], numbers[0] + unit[len(numbers[1]):len(unit)] + numbers[1])
+                for number in re.findall(f"(\d+){index}", result):
+                    result = result.replace(number + index, number + unit)
+                for number in re.findall(f"{index}(\d+)", result):
+                    result = result.replace(index + number, "1" + unit[len(number):len(unit)] + number)
+    return result
 
 
 def load_dictionary(_path):

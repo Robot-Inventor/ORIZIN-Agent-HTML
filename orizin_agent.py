@@ -202,7 +202,7 @@ def make_response(_not_normalized_query):
                 if core.judge(_query, ["\d+?((つ|個|こ|コ|番|ばん)(|め|目))"]):
                     _splited_memo = _memo.splitlines()
                     _memo_index = int(re.search("\d+?", (re.search("\d+?((つ|個|こ|コ|番|ばん)(|め|目))", _query).group())).group())
-                    if _memo_index > len(_splited_memo):
+                    if _memo_index > len(_splited_memo) or _memo_index < 1:
                         return ["削除するメモの番号が正しくありません。", "削除するメモの番号が正しくありません。"]
                     else:
                         _splited_memo.pop(_memo_index - 1)
@@ -230,7 +230,7 @@ def make_response(_not_normalized_query):
         if os.path.exists("memo.txt") is False:
             with open("memo.txt", mode="w", newline="") as _f:
                 pass
-        _memo_content = re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))((|内容|ないよう)(で|を|の))(メモ|memo|めも|記憶|きおく|記録|きろく)(|を|で)((覚え|おぼえ|残し|のこし)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$", "", _not_normalized_query)
+        _memo_content = re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)(で|を|の))(メモ|memo|めも|記憶|きおく|記録|きろく)(|を|で)((覚え|おぼえ|残し|のこし)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$", "", _not_normalized_query)
         with open("memo.txt", mode="a", newline="") as _f:
             _f.write(f"{_memo_content}\n")
         if _memo_content == "":
