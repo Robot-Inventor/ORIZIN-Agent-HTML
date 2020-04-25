@@ -319,6 +319,7 @@ input[type=text]:focus::placeholder {
     margin: 0;
     box-sizing: border-box;
     z-index: 3;
+    transition: 0.3s;
 }
 
 .overlay_inner menu {
