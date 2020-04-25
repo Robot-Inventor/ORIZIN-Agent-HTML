@@ -230,7 +230,7 @@ def make_response(_not_normalized_query):
         if os.path.exists("memo.txt") is False:
             with open("memo.txt", mode="w", newline="") as _f:
                 pass
-        _memo_content = re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(メモ|memo|めも|記憶|きおく|記録|きろく|)(覚え(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))|ろ|)|)(|。|.)$", "", _not_normalized_query)
+        _memo_content = re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))((|内容|ないよう)(で|を|の))(メモ|memo|めも|記憶|きおく|記録|きろく)(|を|で)((覚え|おぼえ|残し|のこし)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$", "", _not_normalized_query)
         with open("memo.txt", mode="a", newline="") as _f:
             _f.write(f"{_memo_content}\n")
         if _memo_content == "":
