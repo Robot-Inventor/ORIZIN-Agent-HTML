@@ -44,6 +44,8 @@ def load_dictionary(_path):
 
 
 def judge(_input, _target, _matched_word=False):
+    if type(_target) == str:
+        _target = [_target]
     for _word in _target:
         if bool(re.search(_word, _input)):
             if _matched_word:
