@@ -87,7 +87,7 @@ def set_flag(_flag_name, _flag_value):
 def make_response(_not_normalized_query):
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
-    if core.judge(_query, ["じゃんけん", "ジャンケン"]):
+    if core.judge(_query, "ジャンケン"):
         hand_shapes = ["グー", "チョキ", "パー"]
         selected_hand_shape = hand_shapes[random.randint(0, 2)]
         return [f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。",
@@ -95,7 +95,7 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen(["python", "resource/python/easter_egg.py"])
         return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
-    elif core.judge(_query, [".*の(面積|めんせき|広さ|ひろさ|大きさ|おおきさ)"]):
+    elif core.judge(_query, [".*ノ(面積|メンセキ|広サ|ヒロサ|大キサ|オオキサ)"]):
         area_value = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/area_dictionary.otfd"), _query)
         if area_value[0] == "そうですか。":
@@ -103,7 +103,7 @@ def make_response(_not_normalized_query):
             return ["面積を検索します。", "面積を検索します。"]
         else:
             return [f"{area_value[2]}の面積は{area_value[0]}です。", f"{area_value[2]}の面積は{area_value[1]}です。"]
-    elif core.judge(_query, [".*(の|にある)(首都|しゅと)"]):
+    elif core.judge(_query, [".*(ノ|ニアル)(首都|シュト)"]):
         capital_name = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/capital_dictionary.otfd"), _query)
         if capital_name[0] == "そうですか。":
@@ -111,7 +111,7 @@ def make_response(_not_normalized_query):
             return ["首都を検索します。", "首都を検索します。"]
         else:
             return [f"{capital_name[2]}の首都は{capital_name[0]}です。", f"{capital_name[2]}の首都は{capital_name[1]}です。"]
-    elif core.judge(_query, [".*(の|使.*?いる)(言語|げんご|言葉|ことば|コトバ|公用語|こうようご)"]):
+    elif core.judge(_query, [".*(ノ|使.*?イル)(言語|ゲンゴ|言葉|コトバ|公用語|コウヨウゴ)"]):
         language = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/language_dictionary.otfd"), _query)
         if language[0] == "そうですか。":
@@ -119,7 +119,7 @@ def make_response(_not_normalized_query):
             return ["言語を検索します。", "言語を検索します。"]
         else:
             return [f"{language[2]}の言語は{language[0]}です。", f"{language[2]}の言語は{language[1]}です。"]
-    elif core.judge(_query, [".*(の|に.*?(いる|でる))(人口|人口|(人|ひと)(の|)(数|かず))"]):
+    elif core.judge(_query, [".*(ノ|ニ.*?(イル|デル))(人口|人口|(人|ヒト)(ノ|)(数|カズ))"]):
         population = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/population_dictionary.otfd"), _query)
         if population[0] == "そうですか。":
@@ -127,7 +127,7 @@ def make_response(_not_normalized_query):
             return ["人口を検索します。", "人口を検索します。"]
         else:
             return [f"{population[2]}の人口は{population[0]}です。", f"{population[2]}の人口は{population[1]}です。"]
-    elif core.judge(_query, [".*(の|で)(宗教|しゅうきょう|信仰|しんこう|国教|こっきょう)"]):
+    elif core.judge(_query, [".*(ノ|デ)(宗教|シュウキョウ|信仰|シンコウ|国教|コッキョウ)"]):
         religion = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/religion_dictionary.otfd"), _query)
         if religion[0] == "そうですか。":
@@ -135,82 +135,82 @@ def make_response(_not_normalized_query):
             return ["宗教を検索します。", "宗教を検索します。"]
         else:
             return [f"{religion[2]}の宗教は{religion[0]}です。", f"{religion[2]}の宗教は{religion[1]}です。"]
-    elif core.judge(_query, ["予定", "よてい", "カレンダ", "かれんだ", "calender", "リマインダ", "リマインド", "りまいんだ", "りまいんど", "remind"]):
+    elif core.judge(_query, ["予定", "ヨテイ", "カレンダ", "calender", "リマイン", "remind"]):
         webbrowser.open_new("https://calendar.google.com/")
         return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
     elif core.judge(_query,
                     [
-                        "マップ", "まっぷ", "地図", "ちず", "場所", "ばしょ", "どこ", "何処", "行き方", "いきかた",
-                        "ゆきかた", "行きかた", "いき方", "ゆき方", "案内", "あんない", "道"
+                        "マップ", "地図", "チズ", "場所", "バショ", "ドコ", "何処", "行キ方", "イキカタ",
+                        "ユキカタ", "行キカタ", "イキ方", "ユキ方", "案内", "アンナイ", "道", "ミチ"
                     ]):
         webbrowser.open_new("https://google.com/maps/search/" + urllib.parse.quote(_not_normalized_query))
         return [f"Googleマップで「{_query}」を検索します。", f"Googleマップで「{_query}」を検索します。"]
     elif core.judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
         webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
         return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]
-    elif core.judge(_query, ["計算", "けいさん", "電卓", "でんたく"]):
+    elif core.judge(_query, ["(計|ケイ)(算|サン)", "(電|デン)(卓|タク)"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
         return ["電卓を開きます。", "電卓を開きます。"]
     elif core.judge(_query,
-                    ["何時", "時間", "時刻", "時計", "なんじ", "じかん", "じこく", "とけい", "日付", "ひづけ", "何日", "なんにち", "日にち", "ひにち"]):
+                    ["(時|ジ)(刻|間|カン|コク)", "(時|ト)(計|ケイ)", "(何|ナン)(時|ジ|日|ニチ)", "(日|ヒ)(付|ヅケ|ズケ|ニチ)"]):
         time = datetime.datetime.now()
         time = time.strftime('%Y年%m月%d日 %H:%M:%S')
         return [f"現在は{time}です。", f"現在は{time}です。"]
-    elif core.judge(_query, ["twitter", "ツイッタ", "ついった", "tweet", "ツイート", "ついーと"]):
+    elif core.judge(_query, ["twitter", "ツイッタ", "tweet", "ツイート"]):
         webbrowser.open_new("https://twitter.com/")
         return ["Twitterを開きます。", "Twitterを開きます。"]
-    elif core.judge(_query, ["コロナ", "ころな", "corona", "covid19", "sarscov2", "感染", "かんせん", "肺炎", "はいえん"]):
+    elif core.judge(_query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
         webbrowser.open_new("https://corona.go.jp/")
         return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。"]
-    elif core.judge(_query, ["facebook", "フェイスブック", "ふぇいすぶっく", "フェースブック", "ふぇーすぶっく"]):
+    elif core.judge(_query, ["facebook", "フェースブック"]):
         webbrowser.open_new("https://www.facebook.com/")
         return ["Facebookを開きます。", "Facebookを開きます。"]
-    elif core.judge(_query, ["テレビ", "tv", "てれび", "番組", "ばんぐみ", "tver", "ティーバ", "てぃーば"]):
+    elif core.judge(_query, ["テレビ", "tv", "(番|バン)(組|グミ|クミ)", "tver", "ティーバ"]):
         webbrowser.open_new("https://tver.jp/")
         return ["TVerを開きます。", "TVerを開きます。"]
-    elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]) and\
+    elif core.judge(_query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]) and\
             core.judge(_query, [
-                "て何", "てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ",
-                "調査", "ちょうさ", "再生", "さいせい", "見せ", "観せ", "みせ", "見たい", "観たい", "みたい"
+                "テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ",
+                "(調|チョウ)(査|サ)", "(再|サイ)(生|セイ)", "(見|観|ミ)(セ|タイ)"
             ]):
         webbrowser.open_new(
             core.generate_search_engine_url("https://www.youtube.com/results?search_query=",
                                             _not_normalized_query, True))
         return [f"YouTubeで「{_not_normalized_query}」を検索します。", f"YouTubeで「{_not_normalized_query}」を検索します。"]
-    elif core.judge(_query, ["youtube", "ユーチューブ", "ゆーちゅーぶ", "ようつべ", "ヨウツベ", "よーぶべ", "ヨーツベ"]):
+    elif core.judge(_query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]):
         webbrowser.open_new("https://www.youtube.com/")
         return ["YouTubeを開きます。", "YouTubeを開きます。"]
-    elif core.judge(_query, ["instagram", "インスタ", "いんすた"]):
+    elif core.judge(_query, ["instagram", "インスタ"]):
         webbrowser.open_new("https://www.instagram.com/")
         return ["Instagramを開きます。", "Instagramを開きます。"]
-    elif core.judge(_query, ["github", "ギットハブ", "ぎっとはぶ"]):
+    elif core.judge(_query, ["github", "ギットハブ"]):
         webbrowser.open_new("https://github.com/")
         return ["GitHubを開きます。", "GitHubを開きます。"]
-    elif core.judge(_query, ["地震", "じしん"]):
+    elif core.judge(_query, ["(地|ジ)(震|シン)"]):
         webbrowser.open_new("https://www.jma.go.jp/jp/quake/")
         return ["気象庁の地震情報のページを開きます。", "気象庁の地震情報のページを開きます。"]
-    elif core.judge(_query, ["トレンド", "とれんど", "trend"]):
+    elif core.judge(_query, ["トレンド", "trend"]):
         webbrowser.open_new("https://trends.google.com/trends/trendingsearches/daily?geo=JP")
         return ["Googleトレンドを開きます。", "Googleトレンドを開きます。"]
-    elif core.judge(_query, ["news", "ニュース", "にゅーす"]):
+    elif core.judge(_query, ["news", "ニュース"]):
         webbrowser.open_new(read_setting("news_site_url"))
         return ["ニュースを開きます。", "ニュースを開きます。"]
-    elif core.judge(_query, ["翻訳", "ほんやく"]):
+    elif core.judge(_query, ["(翻|ホン)(訳|ヤク)"]):
         webbrowser.open_new("https://translate.google.co.jp/?hl=ja")
         return ["Google翻訳を開きます。", "Google翻訳を開きます。"]
-    elif core.judge(_query, ["メール", "めーる", "mail"]):
+    elif core.judge(_query, ["メール", "mail"]):
         webbrowser.open_new("https://mail.google.com/")
         return ["Gmailを開きます。", "Gmailを開きます。"]
-    elif core.judge(_query, ["ラジオ", "らじお", "radio"]):
+    elif core.judge(_query, ["ラジオ", "radio"]):
         webbrowser.open_new("http://radiko.jp/")
         return ["radikoを開きます。", "radikoを開きます。"]
-    elif core.judge(_query, ["写真", "しゃしん", "画像", "がぞう", "フォト", "ふぉと", "photo", "ピクチャ", "ぴくちゃ", "picture"]):
+    elif core.judge(_query, ["(写|シャ)(真|シン)", "(画|ガ)(像|ゾウ)", "フォト", "photo", "ピクチャ", "picture"]):
         webbrowser.open_new("https://photos.google.com/")
         return ["Googleフォトを開きます。", "Googleフォトを開きます。"]
-    elif core.judge(_query, ["メモ", "memo", "めも", "記憶", "きおく", "記録", "きろく"]) and \
+    elif core.judge(_query, ["メモ", "memo", "(記|キ)(憶|オク|録|ロク)"]) and \
             core.judge(_query, [
-                "削除", "さくじょ", "消去", "しょうきょ", "クリア", "clear", "くりあ",
-                "消し", "けし", "忘れ", "わすれ", "破棄", "はき", "放棄", "ほうき"
+                "(削|サク)(除|ジョ)", "(消|ショウ)(去|キョ)", "クリア", "clear",
+                "(消|ケ)シ", "(忘|ワス)レ", "(破|ハ|放|ホウ)(棄|キ)"
             ]):
         if os.path.exists("memo.txt") is False:
             return ["覚えているメモはありません。", "覚えているメモはありません。"]
@@ -221,10 +221,10 @@ def make_response(_not_normalized_query):
             if _memo.strip() == "":
                 return ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
-                if core.judge(_query, [r"\d+?((つ|個|こ|コ|番|ばん)(|め|目))"]):
+                if core.judge(_query, [r"\d+?((ツ|個|コ|番|バン)(|メ|目))"]):
                     _splited_memo = _memo.splitlines()
                     _memo_index = int(re.search(
-                        r"\d+?", (re.search(r"\d+?((つ|個|こ|コ|番|ばん)(|め|目))", _query).group())
+                        r"\d+?", (re.search(r"\d+?((ツ|個|コ|番|バン)(|メ|目))", _query).group())
                     ).group())
                     if _memo_index > len(_splited_memo) or _memo_index < 1:
                         return ["削除するメモの番号が正しくありません。", "削除するメモの番号が正しくありません。"]
@@ -236,9 +236,9 @@ def make_response(_not_normalized_query):
                 with open("memo.txt", mode="w", newline="") as _f:
                     _f.write("")
                 return ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
-    elif core.judge(_query, ["メモ", "memo", "めも", "何", "なに", "内容", "ないよう"]) and \
+    elif core.judge(_query, ["メモ", "memo", "何", "ナニ", "(内|ナイ)(容|ヨウ)"]) and \
             core.judge(_query, [
-                "覚えている", "おぼえている", "覚えてる", "おぼえてる", "記憶", "きおく", "記録", "きろく", "教え", "おしえ", "読", "よめ", "よん", "よみ"
+                "(覚|オボ)エテ(イ|)ル", "(記|キ)(憶|オク|録|ロク)", "(教|オシ)エ", "(読|ヨ)(メ|ミ|ン)"
             ]):
         if os.path.exists("memo.txt") is False:
             return ["覚えているメモはありません。", "覚えているメモはありません。"]
@@ -254,7 +254,7 @@ def make_response(_not_normalized_query):
                 _memo_content_to_read = "".join(_memo_list)
                 return [f"覚えているメモを読み上げます。{_memo_content_to_read}以上が、覚えているメモです。",
                         f"覚えているメモを読み上げます。{_memo_content_to_read}以上が、覚えているメモです。"]
-    elif core.judge(_query, ["メモ", "memo", "めも", "覚えて", "おぼえて", "覚えと", "おぼえと", "記憶", "きおく", "記録", "きろく"]):
+    elif core.judge(_query, ["メモ", "memo", "(覚|オボ)エ", "(記|キ)(憶|オク|録|ロク)"]):
         if os.path.exists("memo.txt") is False:
             with open("memo.txt", mode="w", newline="") as _f:
                 pass
@@ -269,15 +269,15 @@ def make_response(_not_normalized_query):
             return ["申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。", "申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。"]
         else:
             return [f"「{_memo_content}」とメモしました。", f"「{_memo_content}」とメモしました。"]
-    elif core.judge(_query, ["て何", "てなに", "意味", "とは", "教え", "おしえ", "検索", "けんさく", "調べ", "しらべ", "調査", "ちょうさ"]):
+    elif core.judge(_query, ["テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ", "(調|チョウ)(査|サ)"]):
         search_engine = read_setting("search_engine")
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
         return [f"{search_engine}で「{_not_normalized_query}」を検索します。",
                 f"{search_engine}で「{_not_normalized_query}」を検索します。"]
-    elif core.judge(_query, ["サイコロ", "さいころ", "ダイス", "だいす", "dice"]):
+    elif core.judge(_query, ["サイコロ", "ダイス", "dice"]):
         max_number = 6
-        if core.judge(_query, [r"\d(面|めん)"]):
-            max_number = re.sub("(面|めん)", "", re.search(r"\d*(面|めん)", _query).group())
+        if core.judge(_query, [r"\d(面|メン)"]):
+            max_number = re.sub("(面|メン)", "", re.search(r"\d*(面|メン)", _query).group())
         if int(max_number) <= 0:
             max_number = 6
         dice_result = random.randint(1, int(max_number))
@@ -286,22 +286,21 @@ def make_response(_not_normalized_query):
             max_number_message = f"{max_number}面"
         return [f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。",
                 f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。"]
-    elif core.judge(_query, ["コイン", "こいん", "coin"]) and core.judge(_query, ["トス", "とす", "toss", "投げ", "なげ"]):
+    elif core.judge(_query, ["コイン", "coin"]) and core.judge(_query, ["トス", "toss", "(投|ナ)ゲ"]):
         coin = ["表", "裏"]
         result = coin[random.randint(0, 1)]
         return [f"コイントスをしますね。{result}が出ました。", f"コイントスをしますね。{result}が出ました。"]
-    elif core.judge(_query, ["みくじ", "御籤", "神籤", "ミクジ"]):
+    elif core.judge(_query, ["(御|神|ミ)(籤|クジ)"]):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
         return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
     elif core.judge(_query, [
-        "さようなら", "サヨウナラ", "さよなら", "サヨナラ", "バイバイ", "終了", "しゅうりょう", "シャットダウン", "しゃっとだうん", "shutdown",
-        "下がりなさい", "下がれ", "さがりなさい", "さがれ", "邪魔", "じゃま", "消え", "きえ", "失せ", "うせ", "またね", "また会おう",
-        "またあおう", "また今度", "またこんど"
+        "サヨウナラ", "サヨナラ", "バイバイ", "(終|シュウ)(了|リョウ)", "シャットダウン", "shutdown",
+        "(下|サ)ガ(リ|レ)", "(邪|ジャ)(魔|マ)", "(消|キ)エ", "(失|ウ)セ", "マタネ", "マタ((会|ア)オウ|((今|コン)(度|ド)))"
     ]) and read_flag("exit_by_voice_command"):
         return ["", "<script>window.close()</script>"]
-    elif core.judge(_query, ["タイマ", "たいま", "砂時計", "すなどけい", "すなとけい"]) and \
-            core.judge(_query, ["設定", "せってい", "セット", "鳴ら", "なら", "かけ"]):
+    elif core.judge(_query, ["タイマ", "(砂|スナ)(時|ト|ド)(計|ケイ)"]) and \
+            core.judge(_query, ["(設|セッ)(定|テイ)", "セット", "(鳴|ナ)ラ", "(掛|カ)ケ"]):
         time = set_intelligent_timer(_query)
         return [f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。", f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。"]
     else:
@@ -314,9 +313,9 @@ def set_intelligent_timer(_query):
     hours = 0
     minutes = 0
     seconds = 0
-    _query = re.sub(r"じかん|ジカン|hour", "時間", _query)
-    _query = re.sub(r"ふん|フン|ぷん|プン|minute", "分", _query)
-    _query = re.sub(r"びょう|ビョウ|second", "秒", _query)
+    _query = re.sub(r"ジカン|hour", "時間", _query)
+    _query = re.sub(r"フン|プン|minute", "分", _query)
+    _query = re.sub(r"ビョウ|second", "秒", _query)
     _query = _query.replace("半", "30")
     if '時間' in _query:
         hours = int(re.search(r'\d*', re.search(r'\d*時間', _query).group()).group())

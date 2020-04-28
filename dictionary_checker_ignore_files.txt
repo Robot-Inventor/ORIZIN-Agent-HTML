@@ -1,0 +1,1 @@
+resource/dictionary/normalize_dictionary.otfd

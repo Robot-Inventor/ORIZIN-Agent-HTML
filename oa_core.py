@@ -10,13 +10,32 @@ import re
 import difflib
 import tkinter as tk
 from tkinter import messagebox
-from tkinter import ttk
-import time
 
 
 def normalize(_sentence):
-    return convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(
-        str.maketrans("", "", " 　・_-\t\n\r")))
+    result = normalize_with_dictionary("resource/dictionary/normalize_dictionary.otfd",
+                                       convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(
+                                           str.maketrans(
+                                               "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろ"
+                                               "わをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっぁぃぅぇぉゔ",
+                                               "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロ"
+                                               "ワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッァィゥェォブ",
+                                               " 　・_-\t\n\r"))))
+    replace_table = {"ヴァ": "バ", "ヴィ": "ビ", "ヴゥ": "ブ", "ヴェ": "ベ", "ヴォ": "ボ", }
+    for string in replace_table.keys():
+        result.replace(string, replace_table[string])
+    return result
+
+
+def normalize_with_dictionary(_file_path, _sentence):
+    root = otfdlib.Otfd()
+    root.load(_file_path)
+    root.parse()
+    index = root.get_index_list()
+    result = _sentence
+    for element in index:
+        result = re.sub(element.replace("/", "|"), root.get_value(element), result)
+    return result
 
 
 def convert_kanji_to_int(string):
@@ -26,15 +45,14 @@ def convert_kanji_to_int(string):
     }
     unit_list = "|".join(convert_table.keys())
     while re.search(unit_list, result):
-        target = re.search(f"(\d|{unit_list})+", result).group()
         for unit in convert_table.keys():
             zeros = convert_table[unit]
-            for numbers in re.findall(f"(\d+){unit}(\d+)", result):
+            for numbers in re.findall(r"(\d+)" + unit + r"(\d+)", result):
                 result = result.replace(
                     numbers[0] + unit + numbers[1], numbers[0] + zeros[len(numbers[1]):len(zeros)] + numbers[1])
-            for number in re.findall(f"(\d+){unit}", result):
+            for number in re.findall(r"(\d+)" + unit, result):
                 result = result.replace(number + unit, number + zeros)
-            for number in re.findall(f"{unit}(\d+)", result):
+            for number in re.findall(unit + r"(\d+)", result):
                 result = result.replace(unit + number, "1" + zeros[len(number):len(zeros)] + number)
             result = result.replace(unit, "1" + zeros)
     return result
@@ -227,7 +245,7 @@ def generate_search_engine_url(search_engine="google", keyword=None, define=Fals
             "yahoo": "https://search.yahoo.com/search?p=",
             "yahoojapan": "https://search.yahoo.co.jp/search?p=",
             "duckduckgo": "https://duckduckgo.com/?q="
-            }
+        }
         if search_engine not in search_engine_url_table:
             similarity = {
                 intelligent_match(engine_name, search_engine):

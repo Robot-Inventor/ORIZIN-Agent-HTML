@@ -5,30 +5,70 @@
 import otfdlib
 import glob
 import itertools
+import difflib
+from oa_core import normalize
+
+
+def return_words_setting(string, array):
+    result = []
+    for word in array:
+        if string in word:
+            result += word
+    return result
 
 
 if __name__ == "__main__":
     errors = []
+    with open("dictionary_checker_ignore_files.txt", mode="r", encoding="utf-8_sig") as f:
+        ignore_file_list = f.read().splitlines()
+    with open("dictionary_checker_words_setting.txt", mode="r", encoding="utf-8_sig") as f:
+        words_setting = f.read().splitlines()
+        different_words = [word.split("!=") for word in [word for word in words_setting if "!=" in word]]
     for file in glob.glob("resource/dictionary/**/*.otfd", recursive=True):
+        if file.replace("\\", "/") in ignore_file_list:
+            continue
+        print(f"{file}　を検証中...", end="")
         with open(file, mode="r", encoding="utf-8_sig") as f:
             content = f.read()
             invalid_syntax = ["\n/", "//", "/:", "\n:", ":/", "/\n"]
             for syntax in invalid_syntax:
                 if syntax in content:
-                    errors.append(f"\033[31mINVALID SYNTAX: In {file}, '{syntax}' was found.\033[0m")
+                    errors.append(f"\033[31m{file}　内に'{syntax}'が見つかりました。\033[0m")
         root = otfdlib.Otfd()
         root.load(file)
         root.parse()
         indexes = root.get_index_list()
-        indexes = list(itertools.chain.from_iterable([index.split("/") for index in indexes]))
+        indexes = [index.split("/") for index in indexes]
+        for num in range(len(indexes)):
+            if type(indexes[num]) == str:
+                indexes[num] = [indexes[num]]
         for index in indexes:
-            indexes.pop(0)
-            if indexes.count(index) >= 2:
-                errors.append(f"\033[31mINVALID SYNTAX: In {file}, '{index}' was duplicated.\033[0m")
-        print(f"{file} was checked!")
-    print("All files were checked!")
+            for index2 in list(reversed(index))[:]:
+                index.remove(index2)
+                for index3 in index:
+                    if index2 in index3:
+                        errors.append(f"\033[31m{file}　の「{index2}」は「{index3}」に含まれています。\033[0m")
+        indexes = root.get_index_list()
+        indexes = list(itertools.chain.from_iterable([index.split("/") for index in indexes]))
+        for index in indexes[:]:
+            indexes.remove(index)
+            if index != normalize(index):
+                errors.append(f"\033[31m{file}　の「{index}」に正規化によって無効になる文字が含まれています。\033[0m")
+            if index in indexes:
+                errors.append(f"\033[31m{file}　の「{index}」が重複しています。\033[0m")
+            for index2 in indexes:
+                if index not in return_words_setting(index2, different_words) and \
+                        difflib.SequenceMatcher(None, index2, index).ratio() >= 0.9:
+                    errors.append(
+                        f"\033[31m{file}の「{index}」は「{index2}」と似ています。"
+                        "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。\033[0m"
+                    )
+                if index in index2 and index != index2:
+                    errors.append(f"\033[31m{file}　の「{index}」は「{index2}」に含まれています。\033[0m")
+        print("完了")
+    print("すべてのファイルの検証が完了しました。")
     if errors:
-        print(f"{len(errors)} errors were found.")
+        print(f"\033[31m{len(errors)}個のエラーが見つかりました。\033[0m")
         print("\n".join(errors))
     else:
-        print("There were no errors.")
+        print("エラーは見つかりませんでした。")
