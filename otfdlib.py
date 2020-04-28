@@ -4,7 +4,7 @@
 from collections import OrderedDict
 
 
-class Otfd():
+class Otfd:
     def __init__(self):
         self._otfd_file_path = ""
         self._otfd_content = ""
@@ -21,7 +21,8 @@ class Otfd():
         self._otfd_content = _otfd_string
         return self._otfd_content
     
-    def unescape(self, _target):
+    @staticmethod
+    def unescape(_target):
         if type(_target) is str:
             return _target.replace("&#47", ":").replace("&#58", "/")
         elif type(_target) is list:
@@ -29,7 +30,8 @@ class Otfd():
         else:
             return _target
     
-    def escape(self, _target):
+    @staticmethod
+    def escape(_target):
         if type(_target) is str:
             return _target.replace(":", "&#47").replace("/", "&#58")
         elif type(_target) is list:
@@ -40,7 +42,9 @@ class Otfd():
     def parse(self):
         self._otfd_content = self._otfd_content.strip()
         _splited_with_line = self._otfd_content.splitlines()
-        error_place = [_splited_with_line[num] for num in range(len(_splited_with_line)) if ":" not in _splited_with_line[num]]
+        error_place = [
+            _splited_with_line[num] for num in range(len(_splited_with_line)) if ":" not in _splited_with_line[num]
+        ]
         if error_place:
             raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所->\n" + "\n".join(error_place))
         self._parsed_otfd = OrderedDict([_line.split(":") for _line in _splited_with_line])
@@ -89,8 +93,6 @@ class Otfd():
     
     def to_string(self):
         _list = self.read_list()
-        # _list = list(map(lambda _escape_target: self.escape(_escape_target), _list))
-        # _list = [":".join(self.escape(_list[num])) for num in range(len(_list))]
         _list = [":".join(_list[num]) for num in range(len(_list))]
         return "\n".join(_list)
     

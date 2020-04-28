@@ -5,29 +5,33 @@ import urllib.request
 import urllib.parse
 import os
 import otfdlib
-from collections import OrderedDict
 import unicodedata
 import re
 import difflib
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+import time
 
 
 def normalize(_sentence):
-    return convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(str.maketrans("", "", " 　・_-\t\n\r")))
+    return convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(
+        str.maketrans("", "", " 　・_-\t\n\r")))
 
 
 def convert_kanji_to_int(string):
     result = string.translate(str.maketrans("零〇一壱二弐三参四五六七八九拾", "00112233456789十", ""))
-    convert_table = {"十": "0", "百": "00", "千": "000", "万": "0000", "億": "00000000", "兆": "000000000000", "京": "0000000000000000"}
+    convert_table = {
+        "十": "0", "百": "00", "千": "000", "万": "0000", "億": "00000000", "兆": "000000000000", "京": "0000000000000000"
+    }
     unit_list = "|".join(convert_table.keys())
     while re.search(unit_list, result):
         target = re.search(f"(\d|{unit_list})+", result).group()
         for unit in convert_table.keys():
             zeros = convert_table[unit]
             for numbers in re.findall(f"(\d+){unit}(\d+)", result):
-                result = result.replace(numbers[0] + unit + numbers[1], numbers[0] + zeros[len(numbers[1]):len(zeros)] + numbers[1])
+                result = result.replace(
+                    numbers[0] + unit + numbers[1], numbers[0] + zeros[len(numbers[1]):len(zeros)] + numbers[1])
             for number in re.findall(f"(\d+){unit}", result):
                 result = result.replace(number + unit, number + zeros)
             for number in re.findall(f"{unit}(\d+)", result):
@@ -40,7 +44,7 @@ def load_dictionary(_path):
     root = otfdlib.Otfd()
     root.load(_path)
     root.parse()
-    return root.to_string()
+    return root.read()
 
 
 def judge(_input, _target, _matched_word=False):
@@ -67,13 +71,14 @@ def judge_with_intelligent_match(_input, _target, _threshold=0.75):
 
 def respond(_dictionary, _query):
     root = otfdlib.Otfd()
-    root.load_from_string(_dictionary)
+    root.load_from_string("")
     root.parse()
+    root.update(_dictionary)
     _index_list = root.get_index_list()
     _similarity = {}
     for _index in _index_list:
         _splited_index = root.unescape(list(_index.split("/")))
-        _similarity[max([intelligent_match(input, _query) for input in _splited_index])] = _index
+        _similarity[max([intelligent_match(_input, _query) for _input in _splited_index])] = _index
         _judge_result = judge(_query, _index.split("/"), True)
         if _judge_result[0]:
             _response = root.get_value(_index).split("/")
@@ -112,33 +117,40 @@ def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
     _remote.load_from_string(urllib.request.urlopen(_remote_file_url).read().decode().replace(" : ", ":"))
     _remote.parse()
     _remote_version = _remote.get_value("Version")
-    if _current_version == _remote_version:
-        return ["false", _current_version, _remote_version, _update_message]
-    else:
-        _versions = [_current_version, _remote_version]
-        _versions.sort()
-        if _versions[0] == _current_version:
-            return ["true", _current_version, _remote_version, _update_message]
-        else:
-            return ["false", _current_version, _remote_version, _update_message]
+    _update_status = "false"
+    if _current_version != _remote_version:
+        _current_version_numbers = _current_version.split(".")
+        _remote_version_numbers = _remote_version.split(".")
+        if int(_current_version_numbers[2]) < int(_remote_version_numbers[2]):
+            _update_status = "true"
+        elif _current_version_numbers[2] == _remote_version_numbers[2]:
+            if int(_current_version_numbers[3].replace("dev", "")) < int(_remote_version_numbers[3].replace("dev", "")):
+                _update_status = "true"
+            if "dev" in _current_version_numbers[3] and "dev" not in _remote_version_numbers[3]:
+                _update_status = "true"
+    return [_update_status, _current_version, _remote_version, _update_message]
 
 
 def convert_to_bool(_value):
-    _value = normalize(str(_value))
-    _false_list = ["false", "f", "no", "n", "not", "none"]
-    for _num in range(len(_false_list)):
-        if _false_list[_num] in _value:
-            return False
-    if _value:
-        return True
-    else:
+    if not _value:
         return False
+    else:
+        _value = normalize(str(_value))
+        if _value.isdigit():
+            return int(_value) != 0
+        else:
+            _true_level = max(list(difflib.SequenceMatcher(
+                None, _value, _target).ratio() for _target in ["yes", "true", "y"]))
+            _false_level = max(list(difflib.SequenceMatcher(
+                None, _value, _target).ratio() for _target in ["no", "false", "none", "n", "not"]))
+            if _true_level == _false_level:
+                return False
+            else:
+                return _false_level < _true_level
 
 
 def read_setting(_setting_file_path, _setting_name):
     if os.path.exists(_setting_file_path) is False:
-        with open(_setting_file_path, mode="w") as _f:
-            pass
         return None
     else:
         root = otfdlib.Otfd()
@@ -146,19 +158,20 @@ def read_setting(_setting_file_path, _setting_name):
         root.parse()
         if _setting_name in root.get_index_list():
             return root.unescape(root.get_value(_setting_name))
-        return None
+        else:
+            return None
 
 
 def write_setting(_setting_file_path, _setting_name, _setting_value):
     if os.path.exists(_setting_file_path) is False:
-        with open(_setting_file_path, mode="w") as _f:
-            pass
-    root = otfdlib.Otfd()
-    root.load(_setting_file_path)
-    root.parse()
-    root.add(_setting_name, root.escape(_setting_value))
-    root.write()
-    return
+        return
+    else:
+        root = otfdlib.Otfd()
+        root.load(_setting_file_path)
+        root.parse()
+        root.add(_setting_name, root.escape(_setting_value))
+        root.write()
+        return
 
 
 def read_flag(_flag_file_path, _flag_name):
@@ -174,25 +187,28 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
     if os.path.exists(_default_setting_file_path) is False:
         raise Exception(f"{_default_setting_file_path}にデフォルト設定ファイルがありません。")
     if os.path.exists(_current_setting_file_path) is False:
-        with open(_current_setting_file_path, mode="w") as _f:
-            pass
-    default_setting = otfdlib.Otfd()
-    default_setting.load(_default_setting_file_path)
-    default_setting.parse()
-    _default_index_list = default_setting.get_index_list()
-    current_setting = otfdlib.Otfd()
-    current_setting.load(_current_setting_file_path)
-    current_setting.parse()
-    _current_index_list = current_setting.get_index_list()
-    _need_to_add = list(set(_default_index_list) - set(_current_index_list))
-    current_setting.update(OrderedDict(map(lambda _index: [_index, default_setting.get_value(_index)], _need_to_add)))
-    _need_to_delete = list(set(_current_index_list) - set(_default_index_list))
-    for _index in _need_to_delete:
-        current_setting.pop(_index)
-    default_setting.sorted()
-    current_setting.sorted()
-    default_setting.write()
-    current_setting.write()
+        with open(_current_setting_file_path, mode="w", encoding="utf-8_sig") as _current:
+            with open(_default_setting_file_path, mode="r", encoding="utf-8_sig") as _default:
+                _current.write(_default.read())
+                return
+    else:
+        default_setting = otfdlib.Otfd()
+        default_setting.load(_default_setting_file_path)
+        default_setting.parse()
+        _default_index_list = default_setting.get_index_list()
+        current_setting = otfdlib.Otfd()
+        current_setting.load(_current_setting_file_path)
+        current_setting.parse()
+        _current_index_list = current_setting.get_index_list()
+        _need_to_add = list(set(_default_index_list) - set(_current_index_list))
+        current_setting.update({_index: default_setting.get_value(_index) for _index in _need_to_add})
+        _need_to_delete = list(set(_current_index_list) - set(_default_index_list))
+        for _index in _need_to_delete:
+            current_setting.pop(_index)
+        default_setting.sorted()
+        current_setting.sorted()
+        default_setting.write()
+        current_setting.write()
 
 
 def generate_search_engine_url(search_engine="google", keyword=None, define=False):
@@ -213,7 +229,10 @@ def generate_search_engine_url(search_engine="google", keyword=None, define=Fals
             "duckduckgo": "https://duckduckgo.com/?q="
             }
         if search_engine not in search_engine_url_table:
-            similarity = {intelligent_match(engine_name, search_engine): engine_name for engine_name in search_engine_url_table.keys()}
+            similarity = {
+                intelligent_match(engine_name, search_engine):
+                    engine_name for engine_name in search_engine_url_table.keys()
+            }
             search_engine = similarity[max(similarity.keys())]
         if keyword:
             return search_engine_url_table[search_engine] + keyword
@@ -231,14 +250,16 @@ def intelligent_match(a, b):
         return 1.0
     else:
         a_length = len(a)
-        return max(list(map(lambda target: difflib.SequenceMatcher(None, target, a).ratio(), [b[num:num + a_length] for num in range(len(b) - a_length + 1)])))
+        return max(list(map(
+            lambda target: difflib.SequenceMatcher(
+                None, target, a).ratio(), [b[num:num + a_length] for num in range(len(b) - a_length + 1)]
+        )))
 
 
 def showerror(_message):
     root = tk.Tk()
     root.withdraw()
-    error_window = messagebox.showerror("ORIZIN Agent　エラー", _message)
-    error_window.wm_attributes("-topmost", True)
+    messagebox.showerror("ORIZIN Agent　エラー", _message)
     root.destroy()
     return
 
@@ -246,7 +267,6 @@ def showerror(_message):
 def showinfo(_message):
     root = tk.Tk()
     root.withdraw()
-    message_window = messagebox.showinfo("ORIZIN Agent", _message)
-    message_window.wm_attributes("-topmost", True)
+    messagebox.showinfo("ORIZIN Agent", _message)
     root.destroy()
     return
