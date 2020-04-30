@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Home | ORIZIN Agent HTML</title>
+    </head>
+    <body>
+        <div id="overlay" style="text-align: center; background: #ffd200; background: -webkit-linear-gradient(135deg, #ff5ad7, #ffd200); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; font-size: 150%; padding: 1em; box-sizing: border-box;">
+            <p style="color: white; margin-top: 50vh; transform: translateY(-50%);">
+                2020/05/01 正午リリースです。リリースまでお待ち下さい...。
+                <noscript>
+                    閲覧するにはJavaScriptを有効にして下さい。
+                </noscript>
+            </p>
+        </div>
+        <section id="top">
+            <div class="video">
+                <iframe  src="icon/30.svg" class="lazyload" title="新着動画" data-src="https://www.youtube.com/embed/qLeTHFfkzQM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div style="padding-top: 50%; transform: translateY(-50%);">
+                <h1>ORIZIN Agent HTML v1.0 リリース</h1>
+                <div id="download_button">
+                    <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML" target="_blank" rel="noreferrer noopener">Download on GitHub</a>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>ORIZIN Agent HTMLとは</h2>
+            <img src="logo.svg" alt="ロゴ" class="side_image">
+            <p>
+                ORIZIN Agent HTMLは，オープンソースのAIアシスタントです。ルールベースシステムを採用しており，Raspberry Pi等の低スペックのマシン上でも動作します。動作にはPython 3，Eel(Python 3ライブラリー)，Google Chromeが必要です。
+            </p>
+        </section>
+        <hr>
+        <section>
+            <h2>特長</h2>
+            <img src="ui_default.svg" alt="UIの画像" class="side_image">
+            <p>
+                GUIの描画にはWEBブラウザーを使用しており，WEB Speech APIを用いた音声合成・音声認識をサポートしています。
+            </p>
+            <p>
+                また，ルールベースシステムを採用しているため，基本的な機能はオフラインでも動作します。
+            </p>
+        </section>
+        <footer>
+            Copyright © 2020 Robot-Inventor All rights reserved.
+        </footer>
+        <script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js"></script>
+        <script>
+            function hide_page(date, hour) {
+                if(date >= 1 && hour >=12) {
+                    document.getElementById("overlay").style.display = "none";
+                    document.querySelector("html").style.overflow = "visible";
+                }
+            }
+
+            const date = new Date();
+            date_now = date.getDate();
+            hour_now = date.getHours();
+
+            hide_page(date_now, hour_now);
+        </script>
+    </body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap');
+
+        @media screen and (orientation: landscape) {
+            .side_image {
+                width: 50%;
+                padding: 1rem;
+            }
+        }
+
+        @media screen and (orientation: portrait) {
+            .side_image {
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Comfortaa", "Noto Sans JP", sans-selif;
+            color: #555555;
+        }
+
+        html {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        *::selection {
+            background: #ff6a00;
+            color: white;
+        }
+
+        .video {
+            position: relative;
+            padding: 0px;
+            width: 100%;
+            padding-top: 56.25%;
+        }
+
+        .video iframe {
+            position: absolute;
+            padding: 0px;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        section {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            font-size: 120%;
+        }
+
+        #top {
+            background: #ffd200;
+            background: -webkit-linear-gradient(135deg, #ff5ad7, #ffd200);
+            color: white;
+            padding: 0;
+        }
+
+        h1 {
+            margin-left: 1em;
+            box-sizing: border-box;
+            width: calc(100% - 1em);
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        h2 {
+            color: #ff6a00;
+            background: -webkit-linear-gradient(135deg, #ff5ad7, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        p {
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        #download_button {
+            text-align: center;
+            padding: 1em;
+        }
+
+        #download_button a {
+            background: transparent;
+            border: solid 0.05em white;
+            color: white;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            font-size: 150%;
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .side_image {
+            margin: 0;
+            float: left;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        hr {
+            background: #555555;
+            width: 50%;
+            height: 0.1rem;
+            margin-left: 25%;
+            border: none;
+        }
+
+        footer {
+            text-align: center;
+            background: #ffd200;
+            background: -webkit-linear-gradient(135deg, #ff5ad7, #ffd200);
+            color: white;
+            height: 20vh;
+            padding-top: 2rem;
+            box-sizing: border-box;
+        }
+    </style>
+</html>
