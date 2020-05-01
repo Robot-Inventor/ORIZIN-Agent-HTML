@@ -46,7 +46,7 @@ if __name__ == "__main__":
             for index2 in list(reversed(index))[:]:
                 index.remove(index2)
                 for index3 in index:
-                    if index2 in index3:
+                    if index2 in index3 and index2 != "":
                         errors.append(f"\033[31m{file}　の「{index2}」は「{index3}」に含まれています。\033[0m")
         indexes = root.get_index_list()
         indexes = list(itertools.chain.from_iterable([index.split("/") for index in indexes]))
@@ -63,7 +63,7 @@ if __name__ == "__main__":
                         f"\033[31m{file}の「{index}」は「{index2}」と似ています。"
                         "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。\033[0m"
                     )
-                if index in index2 and index != index2:
+                if index in index2 and index != index2 and index != "":
                     errors.append(f"\033[31m{file}　の「{index}」は「{index2}」に含まれています。\033[0m")
         print("完了")
     print("すべてのファイルの検証が完了しました。")
