@@ -33,7 +33,7 @@ if __name__ == "__main__":
             invalid_syntax = ["\n/", "//", "/:", "\n:", ":/", "/\n"]
             for syntax in invalid_syntax:
                 if syntax in content:
-                    errors.append(f"\033[31m{file}　内に'{syntax}'が見つかりました。\033[0m")
+                    errors.append(f"{file}　内に'{syntax}'が見つかりました。")
         root = otfdlib.Otfd()
         root.load(file)
         root.parse()
@@ -47,28 +47,28 @@ if __name__ == "__main__":
                 index.remove(index2)
                 for index3 in index:
                     if index2 in index3 and index2 != "":
-                        errors.append(f"\033[31m{file}　の「{index2}」は「{index3}」に含まれています。\033[0m")
+                        errors.append(f"{file}　の「{index2}」は「{index3}」に含まれています。")
         indexes = root.get_index_list()
         indexes = list(itertools.chain.from_iterable([index.split("/") for index in indexes]))
         for index in indexes[:]:
             indexes.remove(index)
             if index != normalize(index):
-                errors.append(f"\033[31m{file}　の「{index}」に正規化によって無効になる文字が含まれています。\033[0m")
+                errors.append(f"{file}　の「{index}」に正規化によって無効になる文字が含まれています。")
             if index in indexes:
-                errors.append(f"\033[31m{file}　の「{index}」が重複しています。\033[0m")
+                errors.append(f"{file}　の「{index}」が重複しています。")
             for index2 in indexes:
                 if index not in return_words_setting(index2, different_words) and \
                         difflib.SequenceMatcher(None, index2, index).ratio() >= 0.9:
                     errors.append(
-                        f"\033[31m{file}の「{index}」は「{index2}」と似ています。"
-                        "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。\033[0m"
+                        f"{file}の「{index}」は「{index2}」と似ています。"
+                        "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。"
                     )
                 if index in index2 and index != index2 and index != "":
-                    errors.append(f"\033[31m{file}　の「{index}」は「{index2}」に含まれています。\033[0m")
+                    errors.append(f"{file}　の「{index}」は「{index2}」に含まれています。")
         print("完了")
     print("すべてのファイルの検証が完了しました。")
     if errors:
-        print(f"\033[31m{len(errors)}個のエラーが見つかりました。\033[0m")
+        print(f"{len(errors)}個のエラーが見つかりました。")
         print("\n".join(errors))
     else:
         print("エラーは見つかりませんでした。")
