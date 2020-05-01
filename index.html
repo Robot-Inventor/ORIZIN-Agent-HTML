@@ -1,66 +1,56 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-140830854-4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-140830854-4');
+        </script>
         <meta charset="utf-8">
         <title>Home | ORIZIN Agent HTML</title>
         <meta name="description" content="オープンソースのAIアシスタント「ORIZIN Agent HTML」公式サイトです。">
     </head>
     <body>
-        <div id="overlay" style="text-align: center; background: #ffd200; background: -webkit-linear-gradient(135deg, #ff5ad7, #ffd200); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; font-size: 150%; padding: 1em; box-sizing: border-box;">
-            <p style="color: white; margin-top: 50vh; transform: translateY(-50%);">
-                2020/05/01 正午リリースです。リリースまでお待ち下さい...。
-                <noscript>
-                    閲覧するにはJavaScriptを有効にして下さい。
-                </noscript>
-            </p>
-        </div>
-        <section id="top">
-            <div class="video">
-                <iframe  src="icon/30.svg" class="lazyload" title="新着動画" data-src="https://www.youtube.com/embed/qLeTHFfkzQM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div style="padding-top: 50%; transform: translateY(-50%);">
-                <h1>ORIZIN Agent HTML v1.0 リリース</h1>
-                <div id="download_button">
-                    <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML" target="_blank" rel="noreferrer noopener">Download on GitHub</a>
+        <main>
+            <section id="top">
+                <div class="video">
+                    <iframe  src="icon/30.svg" class="lazyload" title="新着動画" data-src="https://www.youtube.com/embed/qLeTHFfkzQM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-            </div>
-        </section>
-        <section>
-            <h2>ORIZIN Agent HTMLとは</h2>
-            <img src="logo.svg" alt="ロゴ" class="side_image">
-            <p>
-                ORIZIN Agent HTMLは，オープンソースのAIアシスタントです。ルールベースシステムを採用しており，Raspberry Pi等の低スペックのマシン上でも動作します。動作にはPython 3，Eel(Python 3ライブラリー)，Google Chromeが必要です。
-            </p>
-        </section>
-        <hr>
-        <section>
-            <h2>特長</h2>
-            <img src="ui_default.svg" alt="UIの画像" class="side_image" style="float: right;">
-            <p>
-                GUIの描画にはWEBブラウザーを使用しており，WEB Speech APIを用いた音声合成・音声認識をサポートしています。
-            </p>
-            <p>
-                また，ルールベースシステムを採用しているため，基本的な機能はオフラインでも動作します。
-            </p>
-        </section>
+                <div style="padding-top: 50%; transform: translateY(-50%);">
+                    <h1>ORIZIN Agent HTML v1.0 リリース</h1>
+                    <div id="download_button">
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML" target="_blank" rel="noreferrer noopener">Download on GitHub</a>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>ORIZIN Agent HTMLとは</h2>
+                <img src="logo.svg" alt="ロゴ" class="side_image">
+                <p>
+                    ORIZIN Agent HTMLは，オープンソースのAIアシスタントです。ルールベースシステムを採用しており，Raspberry Pi等の低スペックのマシン上でも動作します。動作にはPython 3，Eel(Python 3ライブラリー)，Google Chromeが必要です。
+                </p>
+            </section>
+            <hr>
+            <section>
+                <h2>特長</h2>
+                <img src="ui_default.svg" alt="UIの画像" class="side_image" style="float: right;">
+                <p>
+                    GUIの描画にはWEBブラウザーを使用しており，WEB Speech APIを用いた音声合成・音声認識をサポートしています。
+                </p>
+                <p>
+                    また，ルールベースシステムを採用しているため，基本的な機能はオフラインでも動作します。
+                </p>
+            </section>
+        </main>
         <footer>
-            Copyright © 2020 Robot-Inventor All rights reserved.
+            Copyright © 2020 Robot-Inventor All rights reserved.<br>
+            <a href="policy.html">プライバシーポリシー</a>
         </footer>
         <script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js"></script>
-        <script>
-            function hide_page(date, hour) {
-                if(date >= 1 && hour >=12) {
-                    document.getElementById("overlay").style.display = "none";
-                    document.querySelector("html").style.overflow = "visible";
-                }
-            }
-
-            const date = new Date();
-            date_now = date.getDate();
-            hour_now = date.getHours();
-
-            hide_page(date_now, hour_now);
-        </script>
     </body>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');
@@ -85,14 +75,6 @@
             margin: 0;
             font-family: "Comfortaa", "Noto Sans JP", sans-selif;
             color: #555555;
-        }
-
-        html {
-            height: 100vh;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            overflow: hidden;
         }
 
         *::selection {
@@ -202,6 +184,10 @@
             height: 20vh;
             padding-top: 2rem;
             box-sizing: border-box;
+        }
+
+        footer a {
+            color: white;
         }
     </style>
 </html>
