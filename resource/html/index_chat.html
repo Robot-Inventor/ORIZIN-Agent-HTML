@@ -25,6 +25,12 @@
         <main>
             <div class="fill_panel">
                 <div id="chat_area" class="ripple_effect">
+                    <!-- 新型コロナウイルス対策の外出自粛呼びかけメッセージ。　消すときはindex.html内の記述も忘れずに。 -->
+                    <div class="chat_outer">
+                        <div class="chat">
+                            Stay Home. 新型コロナウイルスにかからない・他人に移さないために外出を控えましょう。
+                        </div>
+                    </div>
                 </div>
                 <div id="message_input">
                     <input type="text" placeholder="質問を入力" id="requestForm"><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition"><span id="listening_message">聞いています。</span>
@@ -113,7 +119,7 @@
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
-        <script>
+        <script defer>
             function start_speak(content) {
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
