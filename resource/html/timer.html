@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="apple-touch-icon" sizes="180x180" href="../image/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../image/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../image/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../image/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../image/favicon/safari-pinned-tab.svg" color="#ff6a00">
+        <link rel="shortcut icon" href="../image/favicon/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="ORIZIN Agent">
+        <meta name="application-name" content="ORIZIN Agent">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="../image/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#2a1100">
+        <title>ORIZIN Timer</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
+    </head>
+    <body>
+        <main>
+            <div id="outer">
+                <div id="circle" onclick="display_started_timer()"></div>
+                <div id="time" onclick="display_started_timer()">
+                    <div>
+                        00:00:00
+                    </div>
+                </div>
+                <button id="start" onclick="display_started_timer()">スタート</button><button id="reset" onclick="reset()">リセット</button>
+            </div>
+        </main>
+        <script src="../javascript/jquery-3.5.0.min.js"></script>
+        <script src="../javascript/ripple.js"></script>
+        <script src="../javascript/fitty.min.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            fitty("#time div");
+
+            eel.expose(update_time);
+            eel.expose(play_time_up_sound);
+            eel.expose(timer_status);
+            eel.expose(set_time);
+            eel.expose(reset_status);
+
+            hour = 0;
+            minute = 0;
+            second = 10;
+            is_reseted = false;
+
+            function update_time(time) {
+                document.querySelector("#time div").innerHTML = time;
+                if(time.match("0+:0+:0+")) {
+                    document.querySelector("#time div").classList.add("blink");
+                    is_finished = true;
+                    play_time_up_sound();
+                }
+            }
+
+            function timer_status() {
+                if(is_stopped) {
+                    return "stopped"
+                } else {
+                    return "started"
+                }
+            }
+
+            function reset_status() {
+                result = is_reseted;
+                is_reseted = false;
+                return result
+            }
+
+            function set_time() {
+                var settings = new Object;
+                var pair = location.search.substring(1).split('&');
+                for (var i = 0; pair[i]; i++) {
+                    var kv = pair[i].split('=');
+                    settings[kv[0]] = kv[1];
+                }
+                hour = settings.h;
+                minute = settings.m;
+                second = settings.s;
+                update_time(hour + ":" + minute + ":" + second)
+            }
+
+            $(function() {
+                set_time();
+            });
+
+            is_stopped = false;
+            is_first_start = true;
+            is_finished = false;
+
+            function reset() {
+                is_reseted = true;
+                if(is_finished) {
+                    is_reseted = false;
+                    is_finished = false;
+                }
+                display_stopped_timer();
+                document.querySelector("#time div").classList.remove("blink");
+                set_time();
+                eel.timer(hour, minute, second);
+            }
+
+            function display_stopped_timer() {
+                document.querySelector("#time div").classList.add("blink");
+                document.querySelector("#start").innerHTML = "スタート";
+                document.querySelector("#circle").onclick = function() {
+                    display_started_timer();
+                }
+                document.querySelector("#start").onclick = function() {
+                    display_started_timer();
+                }
+                document.querySelector("#time").onclick = function() {
+                    display_started_timer();
+                }
+                is_stopped = true;
+            }
+
+            function display_started_timer() {
+                document.querySelector("#time div").classList.remove("blink");
+                document.querySelector("#start").innerHTML = "ストップ";
+                document.querySelector("#circle").onclick = function() {
+                    display_stopped_timer();
+                }
+                document.querySelector("#start").onclick = function() {
+                    display_stopped_timer();
+                }
+                document.querySelector("#time").onclick = function() {
+                    display_stopped_timer();
+                }
+                if(is_first_start) {
+                    sound = new Audio("");
+                    sound.play();
+                    eel.timer(hour, minute, second);
+                }
+                is_stopped = false;
+                is_first_start = false;
+            }
+
+            function play_time_up_sound() {
+                sound = new Audio("../sound/timer.mp3");
+                sound.play();
+                sound.addEventListener("ended", function() {
+                    if(is_stopped == false) {
+                        sound.currentTime = 0;
+                        sound.play();
+                    } else {
+                        document.querySelector("#time div").classList.remove("blink");
+                        reset();
+                    }
+                }, false);
+            }
+        </script>
+        <style>
+            @font-face {
+                font-family: "League Spartan";
+                src: url("../font/LeagueSpartan-Regular.ttf") format("truetype");
+                font-display: swap;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: "League Spartan", "Yu Gothic UI", sans-selif;
+                color: white;
+            }
+
+            main {
+                width: 100vw;
+                height: 100vh;
+                background: #111111;
+            }
+
+            #circle {
+                width: 50vmin;
+                height: 50vmin;
+                background: #222222;
+                border-radius: 100%;
+                position: absolute;
+                top: 50vh;
+                left: 50vw;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+
+            #time {
+                width: 50vmin;
+                height: auto;
+                position: absolute;
+                top: 50vh;
+                left: 50vw;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+
+            #time div {
+                padding: 0.5em;
+            }
+
+            .blink {
+                animation: blink 0.7s linear infinite alternate;
+            }
+
+            @keyframes blink {
+                0% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            #start {
+                background: #4444aa;
+                border: none;
+                padding: 1em;
+                border-radius: 0.5em;
+                position: absolute;
+                top: calc(50vmin + 40vh);
+                left: 50vw;
+                transform: translate(calc(-50% - 15vmax), -50%);
+                outline: none;
+                width: 15vmax;
+            }
+
+            #reset {
+                background: #4444aa;
+                border: none;
+                padding: 1em;
+                border-radius: 0.5em;
+                position: absolute;
+                top: calc(50vmin + 40vh);
+                left: 50vw;
+                transform: translate(calc(-50% + 15vmax), -50%);
+                outline: none;
+                width: 15vmax;
+            }
+        </style>
+    </body>
+</html>

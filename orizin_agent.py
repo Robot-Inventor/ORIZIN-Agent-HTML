@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
 import eel
@@ -10,7 +10,6 @@ import webbrowser
 import os
 import datetime
 import re
-from threading import Timer
 import urllib.request
 import urllib.parse
 import html
@@ -151,6 +150,11 @@ def make_response(_not_normalized_query):
     elif core.judge(_query, ["(計|ケイ)(算|サン)", "(電|デン)(卓|タク)"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
         return ["電卓を開きます。", "電卓を開きます。"]
+    elif core.judge(_query, ["タイマ", "(砂|スナ)(時|ト|ド)(計|ケイ)"]) and \
+            core.judge(_query, ["(設|セッ)(定|テイ)", "セット", "(鳴|ナ)ラ", "(掛|カ)ケ"]):
+        time = set_intelligent_timer(_query)
+        return [f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。",
+                f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。"]
     elif core.judge(_query,
                     ["(時|ジ)(刻|間|カン|コク)", "(時|ト)(計|ケイ)", "(何|ナン)(時|ジ|日|ニチ)", "(日|ヒ)(付|ヅケ|ズケ|ニチ)"]):
         time = datetime.datetime.now()
@@ -299,10 +303,6 @@ def make_response(_not_normalized_query):
         "(下|サ)ガ(リ|レ)", "(邪|ジャ)(魔|マ)", "(消|キ)エ", "(失|ウ)セ", "マタネ", "マタ((会|ア)オウ|((今|コン)(度|ド)))"
     ]) and read_flag("exit_by_voice_command"):
         return ["", "<script>window.close()</script>"]
-    elif core.judge(_query, ["タイマ", "(砂|スナ)(時|ト|ド)(計|ケイ)"]) and \
-            core.judge(_query, ["(設|セッ)(定|テイ)", "セット", "(鳴|ナ)ラ", "(掛|カ)ケ"]):
-        time = set_intelligent_timer(_query)
-        return [f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。", f"{time}後にタイマーを設定しました。アプリを閉じるとタイマーは破棄されます。"]
     else:
         _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")
@@ -332,10 +332,7 @@ def set_intelligent_timer(_query):
         time += f"{seconds}秒"
     if not time:
         time = "0秒"
-    td = datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
-    total_seconds = td.total_seconds()
-    timer = Timer(total_seconds, core.showinfo, (f'{time}経ちました！',))
-    timer.start()
+    subprocess.Popen(f"python timer.py {hours} {minutes} {seconds}")
     return time
 
 
