@@ -19,141 +19,6 @@
         <meta name="description" content="オープンソースのAIアシスタント「ORIZIN_Agent」です。">
     </head>
     <body>
-        <main>
-            <div id="outer">
-                <div id="circle" onclick="display_started_timer()"></div>
-                <div id="time" onclick="display_started_timer()">
-                    <div>
-                        00:00:00
-                    </div>
-                </div>
-                <button id="start" onclick="display_started_timer()">スタート</button><button id="reset" onclick="reset()">リセット</button>
-            </div>
-        </main>
-        <script src="../javascript/jquery-3.5.0.min.js"></script>
-        <script src="../javascript/ripple.js"></script>
-        <script src="../javascript/fitty.min.js"></script>
-        <script src="/eel.js"></script>
-        <script>
-            fitty("#time div");
-
-            eel.expose(update_time);
-            eel.expose(play_time_up_sound);
-            eel.expose(timer_status);
-            eel.expose(set_time);
-            eel.expose(reset_status);
-
-            hour = 0;
-            minute = 0;
-            second = 10;
-            is_reseted = false;
-
-            function update_time(time) {
-                document.querySelector("#time div").innerHTML = time;
-                if(time.match("0+:0+:0+")) {
-                    document.querySelector("#time div").classList.add("blink");
-                    is_finished = true;
-                    play_time_up_sound();
-                }
-            }
-
-            function timer_status() {
-                if(is_stopped) {
-                    return "stopped"
-                } else {
-                    return "started"
-                }
-            }
-
-            function reset_status() {
-                result = is_reseted;
-                is_reseted = false;
-                return result
-            }
-
-            function set_time() {
-                var settings = new Object;
-                var pair = location.search.substring(1).split('&');
-                for (var i = 0; pair[i]; i++) {
-                    var kv = pair[i].split('=');
-                    settings[kv[0]] = kv[1];
-                }
-                hour = settings.h;
-                minute = settings.m;
-                second = settings.s;
-                update_time(hour + ":" + minute + ":" + second)
-            }
-
-            $(function() {
-                set_time();
-            });
-
-            is_stopped = false;
-            is_first_start = true;
-            is_finished = false;
-
-            function reset() {
-                is_reseted = true;
-                if(is_finished) {
-                    is_reseted = false;
-                    is_finished = false;
-                }
-                display_stopped_timer();
-                document.querySelector("#time div").classList.remove("blink");
-                set_time();
-                eel.timer(hour, minute, second);
-            }
-
-            function display_stopped_timer() {
-                document.querySelector("#time div").classList.add("blink");
-                document.querySelector("#start").innerHTML = "スタート";
-                document.querySelector("#circle").onclick = function() {
-                    display_started_timer();
-                }
-                document.querySelector("#start").onclick = function() {
-                    display_started_timer();
-                }
-                document.querySelector("#time").onclick = function() {
-                    display_started_timer();
-                }
-                is_stopped = true;
-            }
-
-            function display_started_timer() {
-                document.querySelector("#time div").classList.remove("blink");
-                document.querySelector("#start").innerHTML = "ストップ";
-                document.querySelector("#circle").onclick = function() {
-                    display_stopped_timer();
-                }
-                document.querySelector("#start").onclick = function() {
-                    display_stopped_timer();
-                }
-                document.querySelector("#time").onclick = function() {
-                    display_stopped_timer();
-                }
-                if(is_first_start) {
-                    sound = new Audio("");
-                    sound.play();
-                    eel.timer(hour, minute, second);
-                }
-                is_stopped = false;
-                is_first_start = false;
-            }
-
-            function play_time_up_sound() {
-                sound = new Audio("../sound/timer.mp3");
-                sound.play();
-                sound.addEventListener("ended", function() {
-                    if(is_stopped == false) {
-                        sound.currentTime = 0;
-                        sound.play();
-                    } else {
-                        document.querySelector("#time div").classList.remove("blink");
-                        reset();
-                    }
-                }, false);
-            }
-        </script>
         <style>
             @font-face {
                 font-family: "League Spartan";
@@ -166,6 +31,7 @@
                 padding: 0;
                 font-family: "League Spartan", "Yu Gothic UI", sans-selif;
                 color: white;
+                transition: 0.3s;
             }
 
             main {
@@ -221,8 +87,8 @@
                 border-radius: 0.5em;
                 position: absolute;
                 top: calc(50vmin + 40vh);
-                left: 50vw;
-                transform: translate(calc(-50% - 15vmax), -50%);
+                left: calc((100vw - 45vmax) / 4);
+                transform: translateY(-50%);
                 outline: none;
                 width: 15vmax;
             }
@@ -234,11 +100,253 @@
                 border-radius: 0.5em;
                 position: absolute;
                 top: calc(50vmin + 40vh);
-                left: 50vw;
-                transform: translate(calc(-50% + 15vmax), -50%);
+                left: calc((100vw - 45vmax) / 2 + 15vmax);
+                transform: translateY(-50%);
                 outline: none;
                 width: 15vmax;
             }
+
+            #set_time {
+                background: #4444aa;
+                border: none;
+                padding: 1em;
+                border-radius: 0.5em;
+                position: absolute;
+                top: calc(50vmin + 40vh);
+                left: calc(((100vw - 45vmax) / 4) * 3 + 30vmax);
+                transform: translateY(-50%);
+                outline: none;
+                width: 15vmax;
+            }
+
+            .time_setting {
+                font-size: 10vh;
+                position: absolute;
+                top: 50vh;
+                transform: translateY(-50%);
+                text-align: center;
+            }
+
+            .time_setting input {
+                width: 20vw;
+                margin-left: 10vw;
+                background: transparent;
+                border: none;
+                border-bottom: solid 0.1rem white;
+                outline: none;
+                text-align: center;
+                height: 10vh;
+                color: white;
+                font-size: inherit;
+                transition: 0.3s;
+            }
+
+            .time_setting input:focus {
+                border-bottom: solid 0.1rem #4444aa;
+                color: #4444aa;
+            }
+
+            #submit {
+                background: #4444aa;
+                border: none;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                outline: none;
+                width: 15vmax;
+                font-size: 1rem;
+                margin: 0;
+                height: 2.5rem;
+            }
+
+            .outer {
+                width: 100vw;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: #111111;
+                transition: 0.3s;
+            }
         </style>
+        <main>
+            <div class="outer">
+                <div id="circle" onclick="display_started_timer()"></div>
+                <div id="time" onclick="display_started_timer()">
+                    <div>
+                        00:00:00
+                    </div>
+                </div>
+                <button id="start" onclick="display_started_timer()">スタート</button><button id="reset" onclick="reset()">リセット</button><button id="set_time" onclick="document.getElementById('time_setting_outer').style.top = '0'; reset();">再設定</button>
+            </div>
+            <div class="outer" id="time_setting_outer" onsubmit="submit_time(); return false;">
+                <form class="time_setting" id="time_setting_form">
+                    <input type="number" value="00" min="0" step="1" id="hour" required>
+                    <input type="number" value="00" min="0" step="1" id="minute" required>
+                    <input type="number" value="00" min="0" step="1" id="second" required>
+                    <input type="submit" id="submit" value="設定">
+                </form>
+            </div>
+        </main>
+        <script src="../javascript/jquery-3.5.0.min.js"></script>
+        <script src="../javascript/ripple.js"></script>
+        <script src="../javascript/fitty.min.js"></script>
+        <script src="/eel.js"></script>
+        <script>
+            fitty("#time div");
+
+            eel.expose(update_time);
+            eel.expose(play_time_up_sound);
+            eel.expose(timer_status);
+            eel.expose(set_time);
+            eel.expose(reset_status);
+
+            hour = 0;
+            minute = 0;
+            second = 10;
+            is_reseted = false;
+
+            function update_time(time) {
+                document.querySelector("#time div").innerHTML = time;
+                if(time.match("0+:0+:0+")) {
+                    document.querySelector("#time div").classList.add("blink");
+                    is_finished = true;
+                    // play_time_up_sound();
+                }
+            }
+
+            function timer_status() {
+                if(is_stopped) {
+                    return "stopped"
+                } else {
+                    return "started"
+                }
+            }
+
+            function reset_status() {
+                result = is_reseted;
+                is_reseted = false;
+                return result
+            }
+
+            function set_time() {
+                // var settings = new Object;
+                // var pair = location.search.substring(1).split('&');
+                // for (var i = 0; pair[i]; i++) {
+                //     var kv = pair[i].split('=');
+                //     settings[kv[0]] = kv[1];
+                // }
+                // hour = settings.h;
+                // minute = settings.m;
+                // second = settings.s;
+                // if(hour + minute + second != 0) {
+                //     update_time(hour + ":" + minute + ":" + second);
+                //     document.getElementById('time_setting_outer').style.top = '-100vh';
+                // }
+                update_time(hour + ":" + minute + ":" + second);
+            }
+
+            $(function() {
+                // set_time();
+                var settings = new Object;
+                var pair = location.search.substring(1).split('&');
+                for (var i = 0; pair[i]; i++) {
+                    var kv = pair[i].split('=');
+                    settings[kv[0]] = kv[1];
+                }
+                hour = settings.h;
+                minute = settings.m;
+                second = settings.s;
+                if(hour + minute + second != 0) {
+                    update_time(hour + ":" + minute + ":" + second);
+                    document.getElementById('time_setting_outer').style.top = '-100vh';
+                    document.getElementById("hour").value = hour;
+                    document.getElementById("minute").value = minute;
+                    document.getElementById("second").value = second;
+                }
+            });
+
+            is_stopped = false;
+            is_first_start = true;
+            is_finished = false;
+
+            function reset() {
+                if(is_first_start == false) {
+                    is_reseted = true;
+                }
+                if(is_finished) {
+                    is_reseted = false;
+                    is_finished = false;
+                }
+                display_stopped_timer();
+                document.querySelector("#time div").classList.remove("blink");
+                set_time();
+                is_first_start = true;
+                // eel.timer(hour, minute, second);
+            }
+
+            function display_stopped_timer() {
+                document.querySelector("#time div").classList.add("blink");
+                document.querySelector("#start").innerHTML = "スタート";
+                document.querySelector("#circle").onclick = function() {
+                    display_started_timer();
+                }
+                document.querySelector("#start").onclick = function() {
+                    display_started_timer();
+                }
+                document.querySelector("#time").onclick = function() {
+                    display_started_timer();
+                }
+                is_stopped = true;
+            }
+
+            function display_started_timer() {
+                document.querySelector("#time div").classList.remove("blink");
+                document.querySelector("#start").innerHTML = "ストップ";
+                document.querySelector("#circle").onclick = function() {
+                    display_stopped_timer();
+                }
+                document.querySelector("#start").onclick = function() {
+                    display_stopped_timer();
+                }
+                document.querySelector("#time").onclick = function() {
+                    display_stopped_timer();
+                }
+                if(is_first_start) {
+                    sound = new Audio("");
+                    sound.play();
+                    eel.timer(hour, minute, second);
+                }
+                is_stopped = false;
+                is_first_start = false;
+            }
+
+            function play_time_up_sound() {
+                sound = new Audio("../sound/timer.mp3");
+                sound.play();
+                sound.addEventListener("ended", function() {
+                    if(is_stopped == false) {
+                        sound.currentTime = 0;
+                        sound.play();
+                    } else {
+                        document.querySelector("#time div").classList.remove("blink");
+                        reset();
+                    }
+                }, false);
+            }
+
+            function submit_time() {
+                document.getElementById('time_setting_outer').style.top = '-100vh';
+                hour_setting = document.getElementById("hour").value;
+                minute_setting = document.getElementById("minute").value;
+                second_setting = document.getElementById("second").value;
+                update_time(hour_setting + ':' + minute_setting + ':' + second_setting);
+                hour = hour_setting;
+                minute = minute_setting;
+                second = second_setting;
+                is_reseted = false;
+            }
+        </script>
     </body>
 </html>
