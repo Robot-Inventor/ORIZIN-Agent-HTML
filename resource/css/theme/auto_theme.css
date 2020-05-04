@@ -8,8 +8,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #121212;
-        --card_bg: #424242;
+        --bg: #111111;
+        --card_bg: #222222;
         --text: #FFFFFF;
         --shadow: rgba(0, 0, 0, 0.26);
         --theme_color: #FF6A00;
