@@ -43,7 +43,7 @@ class Otfd:
         self._otfd_content = self._otfd_content.strip()
         _splited_with_line = self._otfd_content.splitlines()
         error_place = [
-            _splited_with_line[num] for num in range(len(_splited_with_line)) if ":" not in _splited_with_line[num]
+            _splited_with_line[num] for num in range(len(_splited_with_line)) if _splited_with_line[num].count(":") != 1
         ]
         if error_place:
             raise Exception("otfdファイル内の:の数と改行の数が合いません。不正な値です。問題のある個所->\n" + "\n".join(error_place))
