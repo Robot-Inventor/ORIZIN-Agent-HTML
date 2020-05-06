@@ -120,16 +120,17 @@
             }
 
             .time_setting {
-                font-size: 10vh;
+                font-size: 10vmin;
                 position: absolute;
                 top: 50vh;
+                left: 0;
                 transform: translateY(-50%);
                 text-align: center;
             }
 
             .time_setting input {
                 width: 20vw;
-                margin-left: 10vw;
+                padding: 0;
                 background: transparent;
                 border: none;
                 border-bottom: solid 0.1rem white;
@@ -141,9 +142,48 @@
                 transition: 0.3s;
             }
 
+            #hour {
+                position: absolute;
+                top: 0;
+                left: 20vw;
+                transform: translate(-50%);
+            }
+
+            #minute {
+                position: absolute;
+                top: 0;
+                left: 50vw;
+                transform: translate(-50%);
+            }
+
+            #second {
+                position: absolute;
+                top: 0;
+                left: 80vw;
+                transform: translate(-50%);
+            }
+
             .time_setting input:focus {
                 border-bottom: solid 0.1rem #4444aa;
                 color: #4444aa;
+            }
+
+            #h {
+                position: absolute;
+                top: 0;
+                left: 30vw;
+            }
+
+            #m {
+                position: absolute;
+                top: 0;
+                left: 60vw;
+            }
+
+            #s {
+                position: absolute;
+                top: 0;
+                left: 90vw;
             }
 
             #submit {
@@ -156,6 +196,10 @@
                 font-size: 1rem;
                 margin: 0;
                 height: 2.5rem;
+                position: absolute;
+                top: 15vh;
+                left: 50vw;
+                transform: translate(-50%);
             }
 
             .outer {
@@ -182,6 +226,7 @@
             </div>
             <div class="outer" id="time_setting_outer" onsubmit="submit_time(); return false;">
                 <form class="time_setting" id="time_setting_form">
+                    <span id="h">h</span><span id="m">m</span><span id="s">s</span>
                     <input type="number" value="00" min="0" step="1" id="hour" required>
                     <input type="number" value="00" min="0" step="1" id="minute" required>
                     <input type="number" value="00" min="0" step="1" id="second" required>
@@ -212,7 +257,6 @@
                 if(time.match("0+:0+:0+")) {
                     document.querySelector("#time div").classList.add("blink");
                     is_finished = true;
-                    // play_time_up_sound();
                 }
             }
 
@@ -231,24 +275,10 @@
             }
 
             function set_time() {
-                // var settings = new Object;
-                // var pair = location.search.substring(1).split('&');
-                // for (var i = 0; pair[i]; i++) {
-                //     var kv = pair[i].split('=');
-                //     settings[kv[0]] = kv[1];
-                // }
-                // hour = settings.h;
-                // minute = settings.m;
-                // second = settings.s;
-                // if(hour + minute + second != 0) {
-                //     update_time(hour + ":" + minute + ":" + second);
-                //     document.getElementById('time_setting_outer').style.top = '-100vh';
-                // }
                 update_time(hour + ":" + minute + ":" + second);
             }
 
             $(function() {
-                // set_time();
                 var settings = new Object;
                 var pair = location.search.substring(1).split('&');
                 for (var i = 0; pair[i]; i++) {
