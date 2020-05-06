@@ -53,7 +53,7 @@ if __name__ == "__main__":
         for index in indexes[:]:
             indexes.remove(index)
             if index != normalize(index):
-                errors.append(f"{file}　の「{index}」に正規化によって無効になる文字が含まれています。")
+                errors.append(f"{file}　の「{index}」は正規化によって「{normalize(index)}」になるため無効です。")
             if index in indexes:
                 errors.append(f"{file}　の「{index}」が重複しています。")
             for index2 in indexes:
