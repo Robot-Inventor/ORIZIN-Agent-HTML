@@ -23,17 +23,17 @@ if __name__ == "__main__":
         ignore_file_list = f.read().splitlines()
     with open("dictionary_checker_words_setting.txt", mode="r", encoding="utf-8_sig") as f:
         words_setting = f.read().splitlines()
-        different_words = [word.split("!=") for word in [word for word in words_setting if "!=" in word]]
+        different_words = [word.split("!=") for word in words_setting]
     for file in glob.glob("resource/dictionary/**/*.otfd", recursive=True):
         if file.replace("\\", "/") in ignore_file_list:
             continue
         print(f"{file}　を検証中...", end="")
         with open(file, mode="r", encoding="utf-8_sig") as f:
             content = f.read()
-            invalid_syntax = ["\n/", "//", "/:", "\n:", ":/", "/\n"]
+            invalid_syntax = ["\n/", "//", "/:", "\n:", ":/", "/\n", ":\n"]
             for syntax in invalid_syntax:
                 if syntax in content:
-                    errors.append(f"{file}　内に'{syntax}'が見つかりました。")
+                    errors.append(f"{file}　内に「{syntax.replace('\', '\\')}」が見つかりました。")
         root = otfdlib.Otfd()
         root.load(file)
         root.parse()
