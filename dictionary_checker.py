@@ -33,7 +33,7 @@ if __name__ == "__main__":
             invalid_syntax = ["\n/", "//", "/:", "\n:", ":/", "/\n", ":\n"]
             for syntax in invalid_syntax:
                 if syntax in content:
-                    errors.append(f"{file}　内に「{syntax.replace('\', '\\')}」が見つかりました。")
+                    errors.append(f"{file}　内に「{syntax}」が見つかりました。")
         root = otfdlib.Otfd()
         root.load(file)
         root.parse()
