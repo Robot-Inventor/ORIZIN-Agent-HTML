@@ -33,6 +33,13 @@
                         <option value="True">有効</option>
                     </select>
                 </section>
+                <section>
+                    連続で音声認識をする
+                    <select id="continuous_speech_recognition">
+                        <option value="False">無効（デフォルト）</option>
+                        <option value="True">有効</option>
+                    </select>
+                </section>
                 <button onclick="set_all_flag()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
@@ -54,8 +61,10 @@
                 }
             }
             read_flag("exit_by_voice_command");
+            read_flag("continuous_speech_recognition");
             function set_all_flag() {
                 eel.set_flag("exit_by_voice_command", document.getElementById("exit_by_voice_command").value);
+                eel.set_flag("continuous_speech_recognition", document.getElementById("continuous_speech_recognition").value);
                 location.reload();
             }
         </script>

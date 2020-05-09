@@ -51,6 +51,11 @@
             function start_speak(content) {
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
+                script.onend = function() {
+                    if(continuous_speech_recognition) {
+                        jQuery("#start_recognition").click();
+                    }
+                }
             }
 
             async function response(content) {
@@ -60,6 +65,12 @@
                 result_area.scrollTop = result_area.scrollHeight;
                 start_speak(script[0]);
             }
+
+            async function read_flag() {
+                continuous_speech_recognition = await eel.read_flag("continuous_speech_recognition")();
+            }
+            continuous_speech_recognition = false;
+            read_flag();
 
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
