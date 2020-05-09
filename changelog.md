@@ -39,6 +39,7 @@ Edition: ORIZIN Agent HTML
 
 #### 変更
 - v2.0になったため，コードネームをAlbatrossからBudgerigarに変更しました。
+- v2.0になったため，スプラッシュスクリーンのローディングアニメーションを変更しました。
 
 ### [v1.9.33.1dev-Albatross] - 2020-05-07
 #### 修正
