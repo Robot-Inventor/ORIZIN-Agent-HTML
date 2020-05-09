@@ -120,11 +120,12 @@
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/ripple.js"></script>
         <script src="/eel.js"></script>
-        <script defer>
+        <script>
             function start_speak(content) {
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
             }
+
             async function response(content) {
                 document.getElementById("listening_message").style.opacity = 0;
                 let script = await eel.make_response(content)();
@@ -148,21 +149,36 @@
                 var chat_area_element = document.getElementById("chat_area");
                 chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
+
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
+
             startButton.addEventListener('click', function() {
                 response(requestForm.value);
                 requestForm.value = "";
             });
+
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
             const recognition = new SpeechRecognition();
             recognition.onresult = (event) => {
                 response(event.results[0][0].transcript);
+                is_listening = false;
             }
+
+            is_listening = false;
+
             jQuery("#start_recognition").click(function() {
-                recognition.start();
-                document.getElementById("listening_message").style.opacity = 1;
+                if(is_listening) {
+                    recognition.abort();
+                    document.getElementById("listening_message").style.opacity = 0;
+                    is_listening = false;
+                } else {
+                    recognition.start();
+                    document.getElementById("listening_message").style.opacity = 1;
+                    is_listening = true;
+                }
             });
+
             jQuery(document).keydown(function(e) {
                 switch (e.keyCode) {
                     case 32:

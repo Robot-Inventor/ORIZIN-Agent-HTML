@@ -29,7 +29,7 @@
                     マークをクリックするかスペースキーを押して話しかけてみてください。
                 </div>
                 <div id="listening" class="ripple_effect">
-                    <img src="../image/listening.svg" class="logo listening_mark"><br>
+                    <img src="../image/listening.svg" class="logo listening_mark" id="end_recognition"><br>
                     マークをクリックするかスペースキーを押して話しかけてみてください。<br>
                     音声認識中...
                 </div>
@@ -40,7 +40,7 @@
             </div>
             <div id="result_area" class="bottom_control_panel ripple_effect">
                 <!-- 新型コロナウイルス対策の外出自粛呼びかけメッセージ。　消すときはindex_chat.html内の記述も忘れずに。 -->
-                Stay Home. 新型コロナウイルスにかからない・他人に移さないために外出を控えましょう。
+                Stay Home. 新型コロナウイルスにかからない・他人に移さないために外出を控えましょう。<br>
             </div>
         </main>
         <script src="../javascript/jquery-3.5.0.min.js"></script>
@@ -52,33 +52,55 @@
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
             }
+
             async function response(content) {
                 let script = await eel.make_response(content)();
                 jQuery("#result_area").append(">>" + content + "<br>" + script[1] + "<br>");
                 var result_area = document.getElementById("result_area");
                 result_area.scrollTop = result_area.scrollHeight;
-                // jQuery("#result_area").animate({
-                //     scrollTop: jQuery("#result_area").height()
-                // },300);
                 start_speak(script[0]);
             }
+
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
             startButton.addEventListener('click', function() {
                 response(requestForm.value);
             });
+
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
             const recognition = new SpeechRecognition();
             recognition.onresult = (event) => {
                 jQuery("#listening").fadeOut(300);
                 jQuery("#waiting").fadeIn(300);
                 response(event.results[0][0].transcript);
+                is_listening = false;
             }
+
+            is_listening = false;
+
             jQuery("#start_recognition").click(function() {
-                jQuery("#listening").fadeIn(300);
-                jQuery("#waiting").fadeOut(300);
-                recognition.start();
+                if(is_listening) {
+                    jQuery("#listening").fadeOut(300);
+                    jQuery("#waiting").fadeIn(300);
+                    recognition.abort();
+                    is_listening = false;
+                } else {
+                    jQuery("#listening").fadeIn(300);
+                    jQuery("#waiting").fadeOut(300);
+                    is_listening = true;
+                    recognition.start();
+                }
             });
+
+            jQuery("#end_recognition").click(function() {
+                if(is_listening) {
+                    jQuery("#listening").fadeOut(300);
+                    jQuery("#waiting").fadeIn(300);
+                    recognition.abort();
+                    is_listening = false;
+                }
+            });
+
             jQuery(document).keydown(function(e) {
                 switch (e.keyCode) {
                     case 32:
@@ -98,6 +120,7 @@
                 padding: 0;
                 resize: none;
             }
+
             #startButton {
                  width: 30%;
                  height: 20%;
@@ -107,16 +130,20 @@
                  border: 0;
                  color: white;
             }
+
             #start_recognition {
                 transition: 0.3s;
             }
+
             #start_recognition:active {
                 transform: scale(0.9);
             }
+
             #result_area {
                 text-align: left;
                 overflow: scroll;
             }
+
             #result_area::-webkit-scrollbar {
                 display: none;
             }
