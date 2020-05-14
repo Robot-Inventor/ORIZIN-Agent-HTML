@@ -143,7 +143,7 @@ def make_response(_not_normalized_query):
                         "ユキカタ", "行キカタ", "イキ方", "ユキ方", "案内", "アンナイ", "道", "ミチ"
                     ]):
         webbrowser.open_new("https://google.com/maps/search/" + urllib.parse.quote(_not_normalized_query))
-        return [f"Googleマップで「{_query}」を検索します。", f"Googleマップで「{_query}」を検索します。"]
+        return [f"Googleマップで「{_not_normalized_query}」を検索します。", f"Googleマップで「{_query}」を検索します。"]
     elif core.judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
         webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
         return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]

@@ -21,7 +21,7 @@ def normalize(_sentence):
                                                "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロ"
                                                "ワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッァィゥェォブ",
                                                " 　・_-\t\n\r"))))
-    replace_table = {"ヴァ": "バ", "ヴィ": "ビ", "ヴゥ": "ブ", "ヴェ": "ベ", "ヴォ": "ボ", }
+    replace_table = {"ヴァ": "バ", "ヴィ": "ビ", "ヴゥ": "ブ", "ヴェ": "ベ", "ヴォ": "ボ"}
     for string in replace_table.keys():
         result.replace(string, replace_table[string])
     return result
