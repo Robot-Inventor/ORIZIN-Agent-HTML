@@ -24,24 +24,28 @@
 </div>
 <script>
     var page_change_time = 300;
+
     function open_menu() {
         jQuery(".side_menu_bar_overlay").fadeIn(page_change_time);
             jQuery(".side_menu_bar").animate({
             left: "0vw"
         }, page_change_time);
     }
+
     function close_menu() {
         jQuery(".side_menu_bar_overlay").fadeOut(page_change_time);
         jQuery(".side_menu_bar").animate({
             left: "-30vw"
         }, page_change_time);
     }
+
     function move_page(place) {
         close_menu();
         setTimeout(function() {
             location.href = place;
         }, page_change_time);
     }
+
     jQuery(function() {
         jQuery(".menu_open_button").click(function() {
             open_menu();
@@ -65,6 +69,7 @@
             move_page("about_oa.html");
         });
     });
+
     async function move_to_top_page() {
         ui_file = await eel.read_setting("ui")();
         location.replace(ui_file);
