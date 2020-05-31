@@ -370,3 +370,13 @@ progress::-webkit-progress-bar {
 progress[value]::-webkit-progress-value {
     background: var(--theme_color);
 }
+
+select, select option {
+    background: var(--card_bg);
+    color: var(--text);
+    transition: 0.3s;
+}
+
+select option:hover {
+    background: var(--theme_color);
+}
