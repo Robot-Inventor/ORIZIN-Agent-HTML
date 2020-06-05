@@ -31,6 +31,18 @@ Edition: ORIZIN Agent HTML
 |開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
 ## リリース
+### [v2.2.44.4-Budgerigar] - 2020-06-05
+#### 変更
+- Pickrのバージョンを1.6.0から最新の1.7.0にアップデートしました。
+- League Spartan Variableを2.200から最新の2.201にアップデートしました。
+- 緊急事態宣言の解除に伴い，ホーム画面の外出自粛を呼びかけるメッセージを「Stay Home. 新型コロナウイルスにかからない・他人に移さないために外出を控えましょう。」から「新型コロナウイルスにかからない・うつさないためにマスクをし、他の人との距離を保ちましょう。」に変更しました。
+
+#### 修正
+- v1.0.20.0-Albatrossのコミットf0ede79b561650eb5e1a6ba3d5bd7084f2dd5653でのメニューの表記の変更に合わせ，README.mdの「About ORIZIN Agent」と書かれている部分を「ORIZIN Agentについて」に修正しました。
+
+#### Notice
+- このバージョンは，v2.2.42.2dev-Budgerigarからv2.2.43.3dev-Budgerigarまでのアップデートの正式版です。
+
 ### [v2.2.43.3dev-Budgerigar] - 2020-06-05
 #### 修正
 - v1.0.20.0-Albatrossのコミットf0ede79b561650eb5e1a6ba3d5bd7084f2dd5653でのメニューの表記の変更に合わせ，README.mdの「About ORIZIN Agent」と書かれている部分を「ORIZIN Agentについて」に修正しました。
