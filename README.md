@@ -9,4 +9,4 @@ ORIZIN Agentは，GitHub上でMITライセンスの下に公開されている�
 使用方法は[GitHubのWiki](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/wiki/%E4%BD%BF%E3%81%84%E6%96%B9)を見てください。
 
 ## ライセンスとバージョンについて
-ライセンスはMITライセンスです。全文はLICENSE.txtにあります。また，バージョン等の情報はresource/information.txtにあります。これらは，ORIZIN AgentのメニューのAbout ORIZIN Agentからも見ることができます。
+ライセンスはMITライセンスです。全文はLICENSE.txtにあります。また，バージョン等の情報はresource/information.txtにあります。これらは，ORIZIN Agentのメニューの「ORIZIN Agentについて」からも見ることができます。

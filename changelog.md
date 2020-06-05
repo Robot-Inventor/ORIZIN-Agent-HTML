@@ -31,6 +31,10 @@ Edition: ORIZIN Agent HTML
 |開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
 ## リリース
+### [v2.2.43.3dev-Budgerigar] - 2020-06-05
+#### 修正
+- v1.0.20.0-Albatrossのコミットf0ede79b561650eb5e1a6ba3d5bd7084f2dd5653でのメニューの表記の変更に合わせ，README.mdの「About ORIZIN Agent」と書かれている部分を「ORIZIN Agentについて」に修正しました。
+
 ### [v2.2.42.2dev-Budgerigar] - 2020-06-05
 #### 変更
 - Pickrのバージョンを1.6.0から最新の1.7.0にアップデートしました。
