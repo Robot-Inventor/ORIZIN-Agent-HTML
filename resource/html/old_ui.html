@@ -51,9 +51,11 @@
             function start_speak(content) {
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
-                script.onend = function() {
-                    if(continuous_speech_recognition) {
-                        jQuery("#start_recognition").click();
+                if (!is_requested_by_text) {
+                    script.onend = function() {
+                        if(continuous_speech_recognition) {
+                            jQuery("#start_recognition").click();
+                        }
                     }
                 }
             }
@@ -72,10 +74,13 @@
             continuous_speech_recognition = false;
             read_flag();
 
+            is_requested_by_text = false;
+
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
             startButton.addEventListener('click', function() {
                 response(requestForm.value);
+                is_requested_by_text = true;
             });
 
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
@@ -90,6 +95,7 @@
             is_listening = false;
 
             jQuery("#start_recognition").click(function() {
+                is_requested_by_text = false;
                 if(is_listening) {
                     jQuery("#listening").fadeOut(300);
                     jQuery("#waiting").fadeIn(300);
