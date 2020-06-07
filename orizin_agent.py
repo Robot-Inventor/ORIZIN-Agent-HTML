@@ -86,6 +86,8 @@ def set_flag(_flag_name, _flag_value):
 def make_response(_not_normalized_query):
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
+    if _query == "":
+        return ["私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。", "私はオープンソースのAIアシスタント、ORIZIN Agentです。気軽に話しかけてくださいね。"]
     if core.judge(_query, "ジャンケン"):
         hand_shapes = ["グー", "チョキ", "パー"]
         selected_hand_shape = hand_shapes[random.randint(0, 2)]
