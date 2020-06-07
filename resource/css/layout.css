@@ -73,7 +73,7 @@ main {
     padding: 0;
 }
 
-.title {
+#title {
     max-width: 100vw;
     height: 6vh;
     margin: 0;
@@ -82,12 +82,13 @@ main {
     color: white;
 }
 
-.title a {
+#title a {
     text-decoration: none;
     color: white;
+    cursor: pointer;
 }
 
-.title img {
+#title img {
     vertical-align: top;
 }
 
@@ -234,9 +235,10 @@ pre {
     left: 0;
 }
 
-.menu_open_button {
+#menu_open_button {
     height: 5vh;
     display: inline;
+    cursor: pointer;
 }
 
 hr {
@@ -261,6 +263,7 @@ a {
     margin: 10px 10px 10px 0px;
     background: transparent;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .button:hover, button:hover {
@@ -454,4 +457,12 @@ select option:hover {
 
 .toggle:checked+label::before {
     margin-left: calc(100% - var(--toggle_height));
+}
+
+details summary {
+    cursor: pointer;
+}
+
+#side_menu_bar div {
+    cursor: pointer;
 }
