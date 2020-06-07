@@ -1,9 +1,9 @@
 ﻿<div class="title">
     <span class="ripple_effect"><img src="../image/menu_icon.svg" class="menu_open_button"></span><span class="ripple_effect"><a onclick="move_to_top_page()"><img src="../image/title.svg" alt="ORIZIN Agent"></a></span>
 </div>
-<div class="side_menu_bar_overlay">
+<div id="side_menu_bar_overlay">
 </div>
-<div class="side_menu_bar">
+<div id="side_menu_bar">
     <div class="setting_button ripple_effect">
         設定
     </div>
@@ -23,37 +23,33 @@
     </a>
 </div>
 <script>
-    var page_change_time = 300;
+    var transition_time = 300;
 
     function open_menu() {
-        jQuery(".side_menu_bar_overlay").fadeIn(page_change_time);
-            jQuery(".side_menu_bar").animate({
-            left: "0vw"
-        }, page_change_time);
+        jQuery("#side_menu_bar_overlay").fadeIn(transition_time);
+        document.querySelector("#side_menu_bar").style.left = "0vw";
     }
 
     function close_menu() {
-        jQuery(".side_menu_bar_overlay").fadeOut(page_change_time);
-        jQuery(".side_menu_bar").animate({
-            left: "-30vw"
-        }, page_change_time);
+        jQuery("#side_menu_bar_overlay").fadeOut(transition_time);
+        document.querySelector("#side_menu_bar").style.left = "-30vw";
     }
 
     function move_page(place) {
         close_menu();
         setTimeout(function() {
             location.href = place;
-        }, page_change_time);
+        }, transition_time);
     }
 
     jQuery(function() {
         jQuery(".menu_open_button").click(function() {
             open_menu();
         });
-        jQuery(".side_menu_bar_overlay").click(function() {
+        jQuery("#side_menu_bar_overlay").click(function() {
             close_menu();
         });
-        jQuery(".side_menu_bar_overlay div").click(function() {
+        jQuery("#side_menu_bar_overlay div").click(function() {
             close_menu();
         });
         jQuery(".setting_button").click(function() {

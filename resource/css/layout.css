@@ -174,7 +174,7 @@ header h1 {
     box-shadow: 2px 5px 5px var(--shadow);
 }
 
-.side_menu_bar_overlay {
+#side_menu_bar_overlay {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -186,7 +186,7 @@ header h1 {
     z-index: 2;
 }
 
-.side_menu_bar {
+#side_menu_bar {
     background: var(--bg);
     width: 30vw;
     height: 100vh;
@@ -195,9 +195,10 @@ header h1 {
     top: 0;
     left: -30vw;
     z-index: 3;
+    transition: 0.3s;
 }
 
-.side_menu_bar div {
+#side_menu_bar div {
     background: var(--card_bg);
     margin-top: 1vh;
     width: calc(100% - 4vh);
