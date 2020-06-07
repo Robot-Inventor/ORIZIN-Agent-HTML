@@ -4,6 +4,13 @@
 
 :root {
     --border_radius_size: 0.5rem;
+    --toggle_width: 2rem;
+    --toggle_height: 1rem;
+    --toggle_border_width: 0.075vw;
+    --toggle_border_color: gray;
+    --toggle_disabled_color: white;
+    --toggle_enabled_color: #adff99;
+    --toggle_handle_color: white;
 }
 
 @font-face {
@@ -379,4 +386,47 @@ select, select option {
 
 select option:hover {
     background: var(--theme_color);
+}
+
+.toggle {
+    display: none;
+    transition: 0.3s;
+}
+
+.toggle+label {
+    display: inline-block;
+    background: var(--toggle_disabled_color);
+    width: var(--toggle_width);
+    height: var(--toggle_height);
+    border: solid var(--toggle_border_width) var(--toggle_border_color);
+    border-radius: var(--toggle_width);
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+.toggle:checked+label {
+    background: var(--toggle_enabled_color);
+}
+
+.toggle+label::before {
+    display: block;
+    content: "";
+    background: var(--toggle_handle_color);
+    width: var(--toggle_height);
+    height: var(--toggle_height);
+    max-width: var(--toggle_width);
+    max-height: var(--toggle_width);
+    border: var(--toggle_border_color) solid var(--toggle_border_width);
+    border-radius: var(--toggle_width);
+    box-shadow: 0 2px 5px var(--shadow);
+    transition: 0.3s;
+    margin: 0;
+    position: relative;
+    top: calc(var(--toggle_border_width) * -1);
+    left: calc(var(--toggle_border_width) * -1);
+}
+
+.toggle:checked+label::before {
+    margin-left: calc(100% - var(--toggle_height));
 }

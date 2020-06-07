@@ -27,18 +27,10 @@
                 <h2>試験機能</h2>
                 <section class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section>
-                    音声コマンドで終了する
-                    <select id="exit_by_voice_command" onchange="save_setting()">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
+                    音声コマンドで終了する　<input type="checkbox" class="toggle" id="exit_by_voice_command" onchange="save_setting()"><label for="exit_by_voice_command" class="ripple_effect"></label>
                 </section>
                 <section>
-                    連続で音声認識をする
-                    <select id="continuous_speech_recognition" onchange="save_setting()">
-                        <option value="False">無効（デフォルト）</option>
-                        <option value="True">有効</option>
-                    </select>
+                    連続で音声認識をする　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()"><label for="continuous_speech_recognition"  class="ripple_effect"></label>
                 </section>
             </div>
         </main>
@@ -55,16 +47,14 @@
         <script>
             async function read_flag(flag_name) {
                 flag_value = await eel.read_flag(flag_name)();
-                if (flag_value == true) {
-                    document.getElementById(flag_name).selectedIndex = 1;
-                }
+                document.getElementById(flag_name).checked = flag_value;
             }
 
             read_flag("exit_by_voice_command");
             read_flag("continuous_speech_recognition");
 
             function save_setting() {
-                eel.write_setting(event.target.id, document.getElementById(event.target.id).value);
+                eel.set_flag(event.target.id, event.target.checked);
             }
         </script>
     </body>

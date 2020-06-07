@@ -6,8 +6,9 @@
         --toggle_border_width: 0.1vw;
         --toggle_border_color: gray;
         --toggle_disabled_color: white;
-        --toggle_enabled_color: #ffbb99;
-        --toggle_handle_color: #ff6a00;
+        --toggle_enabled_color: #adff99;
+        --toggle_handle_color: white;
+        --shadow: rgba(0, 0, 0, 0.26);/*ここは本番では不要*/
     }
 
     .toggle {
@@ -22,6 +23,8 @@
         border: solid var(--toggle_border_width) var(--toggle_border_color);
         border-radius: var(--toggle_width);
         transition: 0.3s;
+        margin: 0;
+        padding: 0;
     }
 
     .toggle:checked+label {
@@ -36,11 +39,14 @@
         height: var(--toggle_height);
         max-width: var(--toggle_width);
         max-height: var(--toggle_width);
-        border: none;
+        border: var(--toggle_border_color) solid var(--toggle_border_width);
         border-radius: var(--toggle_width);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+        box-shadow: 0 2px 5px var(--shadow);
         transition: 0.3s;
-        margin-left: 0;
+        margin: 0;
+        position: relative;
+        top: calc(var(--toggle_border_width) * -1);
+        left: calc(var(--toggle_border_width) * -1);
     }
 
     .toggle:checked+label::before {
