@@ -298,11 +298,6 @@ def make_response(_not_normalized_query):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
         return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
-    elif core.judge(_query, [
-        "サヨウナラ", "サヨナラ", "バイバイ", "(終|シュウ)(了|リョウ)", "シャットダウン", "shutdown",
-        "(下|サ)ガ(リ|レ)", "(邪|ジャ)(魔|マ)", "(消|キ)エ", "(失|ウ)セ", "マタネ", "マタ((会|ア)オウ|((今|コン)(度|ド)))"
-    ]) and read_flag("exit_by_voice_command"):
-        return ["", "<script>window.close()</script>"]
     else:
         _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")

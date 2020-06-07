@@ -27,9 +27,6 @@
                 <h2>試験機能</h2>
                 <section class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section>
-                    音声コマンドで終了する　<input type="checkbox" class="toggle" id="exit_by_voice_command" onchange="save_setting()"><label for="exit_by_voice_command" class="ripple_effect"></label>
-                </section>
-                <section>
                     連続で音声認識をする　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()"><label for="continuous_speech_recognition"  class="ripple_effect"></label>
                 </section>
             </div>
@@ -37,7 +34,7 @@
         <style>
             section {
                 border-bottom: solid 0.05em var(--text);
-                padding: 0.5em;
+                padding: 1em;
             }
         </style>
         <script src="../javascript/jquery-3.5.1.min.js"></script>
@@ -50,7 +47,6 @@
                 document.getElementById(flag_name).checked = flag_value;
             }
 
-            read_flag("exit_by_voice_command");
             read_flag("continuous_speech_recognition");
 
             function save_setting() {
