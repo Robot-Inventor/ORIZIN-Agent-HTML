@@ -181,7 +181,6 @@ header h1 {
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(1px);
     display: none;
     z-index: 2;
 }
