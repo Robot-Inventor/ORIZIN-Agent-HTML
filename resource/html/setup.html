@@ -130,7 +130,10 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     <p>
                         ユーザー名（あなたの呼び名）を入力してください。デフォルトは「ゲスト」です。
                     </p>
-                    <input type="text" placeholder="ユーザー名を入力" id="user_name" value="ゲスト">
+                    <div class="text_input_group">
+                       <input type="text" placeholder="ユーザー名を入力" id="user_name" value="ゲスト">
+                       <div class="text_underline"></div>
+                    </div>
                     <menu>
                         <button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')">次へ</button><button onclick="back_card('user_name_setting_card', 'theme_setting_card')">戻る</button>
                     </menu>
@@ -157,7 +160,10 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     <p>
                         ORIZIN Agentがあなたの要求に応じてニュースを開く際のサイトのURLを入力してください。デフォルトはGoogleニュースです。
                     </p>
-                    <input type="text" placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja">
+                    <div class="text_input_group">
+                       <input type="text" placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja">
+                       <div class="text_underline"></div>
+                    </div>
                     <menu>
                         <button onclick="forward_card('news_site_url_setting_card', 'setting_finished_message_card')">次へ</button><button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')">戻る</button>
                     </menu>

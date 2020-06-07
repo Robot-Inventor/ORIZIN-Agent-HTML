@@ -33,10 +33,14 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <input type="text" placeholder="質問を入力" id="requestForm"><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition"><span id="listening_message">聞いています。</span>
+                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition"><span id="listening_message">聞いています。</span>
                 </div>
             </div>
             <style>
+                .text_input_group {
+                    display: inline-block;
+                }
+
                 .chat {
                     border-radius: 0rem var(--border_radius_size) var(--border_radius_size) var(--border_radius_size);
                     display: inline-block;
@@ -76,6 +80,7 @@
                     border: none;
                     padding: 0;
                     margin-left: 1rem;
+                    vertical-align: top;
                 }
 
                 #startButton:hover {

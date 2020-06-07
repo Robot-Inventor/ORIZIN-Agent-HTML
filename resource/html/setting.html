@@ -25,18 +25,18 @@
         <main>
             <div class="fill_panel">
                 <h2>設定</h2>
-                <section class="ripple_effect" title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
+                <section title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
                     <details>
-                        <summary id="ui_button">UI</summary>
+                        <summary id="ui_button" class="ripple_effect">UI</summary>
                         <select id="ui" onchange='save_setting()'>
                             <option value="index.html">デフォルト</option>
                             <option value="index_chat.html">チャット風</option>
                         </select>
                     </details>
                 </section>
-                <section class="ripple_effect" title="画面の配色（テーマ）を設定します。">
+                <section title="画面の配色（テーマ）を設定します。">
                     <details>
-                        <summary id="theme_button">テーマ</summary>
+                        <summary id="theme_button" class="ripple_effect">テーマ</summary>
                         <select id="theme" onchange='eel.change_theme(document.getElementById("theme").value);'>
                             <option value="theme/light_theme.css">ライトテーマ(デフォルト)</option>
                             <option value="theme/dark_theme.css">ダークテーマ</option>
@@ -47,15 +47,18 @@
                         <a href="set_custom_css_theme.html">カスタムCSSテーマの設定</a>
                     </details>
                 </section>
-                <section class="ripple_effect" title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
+                <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
                     <details>
-                        <summary id="user_name_button">ユーザー名</summary>
-                        <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange='save_setting()'>
+                        <summary id="user_name_button" class="ripple_effect">ユーザー名</summary>
+                        <div class="text_input_group">
+                           <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange='save_setting()'>
+                           <div class="text_underline"></div>
+                        </div>
                     </details>
                 </section>
-                <section class="ripple_effect" title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
+                <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
                     <details>
-                        <summary>検索エンジン</summary>
+                        <summary class="ripple_effect">検索エンジン</summary>
                         <select id="search_engine" onchange='save_setting()'>
                             <option value="Google">Google(デフォルト)</option>
                             <option value="Bing">Bing</option>
@@ -65,22 +68,25 @@
                         </select>
                     </details>
                 </section>
-                <section class="ripple_effect" title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
+                <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
                     <details>
-                        <summary>ニュースサイトのURL</summary>
-                        <input type="text" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
+                        <summary class="ripple_effect">ニュースサイトのURL</summary>
+                        <div class="text_input_group">
+                           <input type="text" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
+                           <div class="text_underline"></div>
+                        </div>
                         初期値: https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja
                     </details>
                 </section>
-                <section class="ripple_effect" title="設定ではありませんが、アップデート可能かどうかを確認します。">
+                <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
-                        <summary>アップデートを確認</summary>
+                        <summary class="ripple_effect">アップデートを確認</summary>
                         <button onclick="check_update()" class="ripple_effect">実行</button>
                     </details>
                 </section>
-                <section class="ripple_effect" title="試験機能の有効・無効を設定します。">
+                <section title="試験機能の有効・無効を設定します。">
                     <details>
-                        <summary>試験機能</summary>
+                        <summary class="ripple_effect">試験機能</summary>
                         <a href="flag.html">試験機能を設定</a>
                     </details>
                 </section>
@@ -89,7 +95,7 @@
                 section {
                     border-top: solid 0.05rem var(--text);
                     margin: 0;
-                    padding: 1rem 0;
+                    padding: 0;
                 }
 
                 h3 {
@@ -102,8 +108,20 @@
                     padding: 0.5rem 0;
                 }
 
+                details {
+                    padding: 0;
+                }
+
+                details[open] {
+                    padding-bottom: 1rem;
+                }
+
                 details summary::-webkit-details-marker {
                     display: none;
+                }
+
+                details summary {
+                    padding: 1rem 0;
                 }
             </style>
         </main>

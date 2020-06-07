@@ -286,20 +286,46 @@ input[type=text] {
     border: none;
     border-bottom: solid 0.1em var(--text);
     display: block;
-    width: 25%;
+    width: 50%;
     color: var(--text);
     background: none;
-    transition: 0.3s;
-}
-
-input[type=text]:focus {
-    border-bottom: solid 0.1em var(--theme_color);
-    width: 50%;
-    color: var(--theme_color);
 }
 
 input[type=text]:focus::placeholder {
     color: var(--theme_color);
+}
+
+.text_input_group {
+    width: 50%;
+}
+
+.text_input_group input {
+    width: 100%;
+    border: none;
+    border-bottom: 0.1em solid var(--text);
+    outline: none;
+    color: var(--text);
+}
+
+.text_input_group .text_underline {
+    width: 0;
+    height: 0.1em;
+    border-radius: 0.1em;
+    transition: 0.3s;
+    position: relative;
+    left: 0;
+    top: -0.1em;
+    margin-left: 50%;
+    background: var(--theme_color);
+}
+
+.text_input_group input:focus {
+    color: var(--theme_color);
+}
+
+.text_input_group input:focus + .text_underline{
+    width: 100%;
+    margin-left: 0;
 }
 
 .overlay_outer {
