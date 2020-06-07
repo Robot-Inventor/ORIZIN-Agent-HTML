@@ -24,21 +24,14 @@
         </header>
         <main>
             <div class="fill_panel">
-                <h2>オープンソースソフトウェアライセンス</h2>
-                本ソフトウェア（ORIZIN Agent HTML）では，以下のオープンソースソフトウェア（OSS）を使用しています。
-                <ul>
-                    <li>jQuery v3.5.1</li>
-                    <li>League Spartan Variable 2.201</li>
-                    <li>Push v1.0.9</li>
-                    <li>Ripple.js v1.2.1</li>
-                    <li>Pickr 1.7.0</li>
-                    <li>fitty v2.3.0</li>
-                </ul>
-                以下に，上記OSSのライセンスを示します。
-                <div>
-                    <hr>
-                    <h3>jQuery v3.5.1</h3>
-                    <pre>
+                <section>
+                    <h2>オープンソースソフトウェアライセンス</h2>
+                    本ソフトウェア（ORIZIN Agent HTML）では，以下のオープンソースソフトウェア（OSS）を使用しています。各項目をクリックするとライセンスが表示されます。
+                </section>
+                <section>
+                    <details>
+                        <summary class="ripple_effect">jQuery v3.5.1</summary>
+                        <pre>
 Copyright JS Foundation and other contributors, https://js.foundation/
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -59,10 +52,11 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-                    </pre>
-                    <hr>
-                    <h3>League Spartan Variable 2.201</h3>
-                    <pre>
+                        </pre>
+                    </details>
+                    <details>
+                        <summary class="ripple_effect">League Spartan Variable 2.201</summary>
+                        <pre>
 Copyright (c) September 22 2014, Micah Rich micah@micahrich.com, with Reserved Font Name: "League Spartan".
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
@@ -168,11 +162,11 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
-                    </pre>
-                </div>
-                <hr>
-                <h3>Push v1.0.9</h3>
-                <pre>
+                        </pre>
+                    </details>
+                    <details>
+                        <summary class="ripple_effect">Push v1.0.9</summary>
+                        <pre>
 # The MIT License (MIT)
 
 Copyright (c) 2016 Tyler Nickerson
@@ -194,10 +188,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-                </pre>
-                <hr>
-                <h3>Ripple.js v1.2.1</h3>
-                <pre>
+                        </pre>
+                    </details>
+                    <details>
+                        <summary class="ripple_effect">Ripple.js v1.2.1</summary>
+                        <pre>
 The MIT License (MIT)
 
 Copyright (c) 2014 Jacob Kelley
@@ -219,10 +214,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-                </pre>
-                <hr>
-                <h3>Pickr 1.7.0</h3>
-                <pre>
+                        </pre>
+                    </details>
+                    <details>
+                        <summary class="ripple_effect">Pickr 1.7.0</summary>
+                        <pre>
 MIT License
 
 Copyright (c) 2018 - 2020 Simon Reinisch
@@ -244,10 +240,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-                </pre>
-                <hr>
-                <h3>fitty v2.3.0</h3>
-                <pre>
+                        </pre>
+                    </details>
+                    <details>
+                        <summary class="ripple_effect">fitty v2.3.0</summary>
+                        <pre>
 Copyright (c) 2017 the Rik Schennink
 All rights reserved.
 
@@ -256,12 +253,36 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-                </pre>
+                        </pre>
+                    </details>
+                </section>
+                <style>
+                    details summary::-webkit-details-marker {
+                        display: none;
+                    }
+
+                    details h3 {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    details {
+                        border-top: 0.05em solid var(--text);
+                    }
+
+                    details summary {
+                        padding: 1em 0;
+                    }
+
+                    section {
+                        padding: 1em 0;
+                    }
+                </style>
             </div>
         </main>
         <script src="../javascript/jquery-3.5.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
-        <script src="../javascript/ripple.js"></script>
+        <script src="../javascript/ripple.min.js"></script>
         <script src="/eel.js"></script>
     </body>
 </html>
