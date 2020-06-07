@@ -4,7 +4,7 @@
 
 :root {
     --border_radius_size: 0.5rem;
-    --toggle_width: 2rem;
+    --toggle_width: 2.5rem;
     --toggle_height: 1rem;
     --toggle_border_width: 0.075vw;
     --toggle_border_color: gray;
@@ -429,6 +429,7 @@ select option:hover {
     margin: 0;
     padding: 0;
     vertical-align: bottom;
+    overflow: visible;
 }
 
 .toggle:checked+label {
@@ -439,18 +440,16 @@ select option:hover {
     display: block;
     content: "";
     background: var(--toggle_handle_color);
-    width: var(--toggle_height);
-    height: var(--toggle_height);
-    max-width: var(--toggle_width);
-    max-height: var(--toggle_width);
+    width: calc(var(--toggle_height) + 0.4rem);
+    height: calc(var(--toggle_height) + 0.4rem);
     border: var(--toggle_border_color) solid var(--toggle_border_width);
     border-radius: var(--toggle_width);
     box-shadow: 0 2px 5px var(--shadow);
     transition: 0.3s;
     margin: 0;
     position: relative;
-    top: calc(var(--toggle_border_width) * -1);
-    left: calc(var(--toggle_border_width) * -1);
+    top: calc(var(--toggle_border_width) * -1 - 0.2rem);
+    left: calc(var(--toggle_border_width) * -1 - 0.2rem);
 }
 
 .toggle:checked+label::before {
