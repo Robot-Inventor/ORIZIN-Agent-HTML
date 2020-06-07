@@ -1,6 +1,5 @@
-﻿<input type="checkbox" class="toggle" id="toggle1"><label for="toggle1"><div></div></label>
+﻿<input type="checkbox" class="toggle" id="toggle1"><label for="toggle1"></label>
 <style type="text/css">
-    
     :root {
         --toggle_width: 30vw;
         --toggle_height: 12vw;
@@ -10,11 +9,11 @@
         --toggle_enabled_color: #ffbb99;
         --toggle_handle_color: #ff6a00;
     }
-    
+
     .toggle {
         display: none;
     }
-    
+
     .toggle+label {
         display: block;
         background: var(--toggle_disabled_color);
@@ -24,12 +23,14 @@
         border-radius: var(--toggle_width);
         transition: 0.3s;
     }
-    
+
     .toggle:checked+label {
         background: var(--toggle_enabled_color);
     }
-    
-    .toggle+label div {
+
+    .toggle+label::before {
+        display: block;
+        content: "";
         background: var(--toggle_handle_color);
         width: var(--toggle_height);
         height: var(--toggle_height);
@@ -41,8 +42,8 @@
         transition: 0.3s;
         margin-left: 0;
     }
-    
-    .toggle:checked+label div {
+
+    .toggle:checked+label::before {
         margin-left: calc(100% - var(--toggle_height));
     }
 </style>

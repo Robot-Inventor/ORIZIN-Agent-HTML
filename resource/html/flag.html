@@ -28,19 +28,18 @@
                 <section class="warning">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section>
                     音声コマンドで終了する
-                    <select id="exit_by_voice_command">
+                    <select id="exit_by_voice_command" onchange="save_setting()">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
                 </section>
                 <section>
                     連続で音声認識をする
-                    <select id="continuous_speech_recognition">
+                    <select id="continuous_speech_recognition" onchange="save_setting()">
                         <option value="False">無効（デフォルト）</option>
                         <option value="True">有効</option>
                     </select>
                 </section>
-                <button onclick="set_all_flag()" class="ripple_effect">設定を適用</button>
             </div>
         </main>
         <style>
@@ -60,12 +59,12 @@
                     document.getElementById(flag_name).selectedIndex = 1;
                 }
             }
+
             read_flag("exit_by_voice_command");
             read_flag("continuous_speech_recognition");
-            function set_all_flag() {
-                eel.set_flag("exit_by_voice_command", document.getElementById("exit_by_voice_command").value);
-                eel.set_flag("continuous_speech_recognition", document.getElementById("continuous_speech_recognition").value);
-                location.reload();
+
+            function save_setting() {
+                eel.write_setting(event.target.id, document.getElementById(event.target.id).value);
             }
         </script>
     </body>
