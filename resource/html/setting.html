@@ -114,29 +114,24 @@
         <script src="/eel.js"></script>
         <script>
             function save_setting() {
-                eel.write_setting(event.target.id, document.getElementById(event.target.id).value);
+                eel.write_setting(event.target.id, event.target.value);
             }
 
             async function check_update() {
                 result = await eel.check_update()();
+                message = ""
                 if (result[0] == "true") {
-                    Push.create("ORIZIN Agent", {
-                        body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
-                        icon: "../image/favicon/favicon.ico",
-                        onClick: function() {
-                            window.open("https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/", "newwindow");
-                            this.close();
-                        }
-                    });
+                    message = "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3];
                 } else {
-                    Push.create("ORIZIN Agent", {
-                        body: "アップデートはありません。既に最新のバージョン" + result[1] + "です。",
-                        icon: "../image/favicon/favicon.ico",
-                        onClick: function() {
-                            this.close();
-                        }
-                    });
+                    message = "アップデートはありません。既に最新のバージョン" + result[1] + "です。"
                 }
+                Push.create("ORIZIN Agent HTML", {
+                    body: message,
+                    icon: "../image/favicon/favicon.ico",
+                    onClick: function() {
+                        this.close();
+                    }
+                });
             }
 
             async function set_to_current_setting() {

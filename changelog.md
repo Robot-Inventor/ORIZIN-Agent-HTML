@@ -50,6 +50,7 @@ Edition: ORIZIN Agent HTML
 
 #### 修正
 - リファクタリングを行いました。
+- プッシュ通知のソフトウェア名がORIZIN AgentになっていたためORIZIN Agent HTMLに変更しました。
 
 ### [v2.2.44.4-Budgerigar] - 2020-06-05
 #### 変更
