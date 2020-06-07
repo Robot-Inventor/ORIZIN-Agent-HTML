@@ -93,21 +93,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         これから，ORIZIN Agent HTMLの初期設定を行います。設定はスキップでき，あとから変更することもできます。設定を続行しますか？
                     </p>
                     <menu>
-                        <button onclick="forward_card('ask_continue_card', 'ui_setting_card')" class="ripple_effect">続行</button><button onclick="save_setting()" class="ripple_effect">スキップ</button>
-                    </menu>
-                </div>
-                <div class="overlay_inner" id="ui_setting_card">
-                    <h2>UIを選択</h2>
-                    <p>
-                        ORIZIN Agent HTMLのホーム画面で使用するUIを選択してください。
-                    </p>
-                    <select id="ui">
-                        <option value="index.html">デフォルト</option>
-                        <option value="index_chat.html">チャット風</option>
-                    </select>
-                    <br>
-                    <menu>
-                        <button onclick="forward_card('ui_setting_card', 'theme_setting_card')" class="ripple_effect">次へ</button><button onclick="back_card('ui_setting_card', 'ask_continue_card')" class="ripple_effect">戻る</button>
+                        <button onclick="forward_card('ask_continue_card', 'theme_setting_card')" class="ripple_effect">続行</button><button onclick="save_setting()" class="ripple_effect">スキップ</button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="theme_setting_card">
@@ -214,7 +200,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         <script src="../javascript/ripple.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            ALL_CARD = 8;
+            ALL_CARD = 7;
             setup_status = 0;
             progress = document.querySelector("progress");
 
@@ -233,13 +219,16 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
             }
 
             async function move_to_top_page() {
-                ui_file = await eel.read_setting("ui")();
-                location.replace(ui_file);
+                is_old_ui = await eel.read_setting("use_old_ui")();
+                if (is_old_ui == "True") {
+                    location.replace("old_ui.html");
+                } else {
+                    location.replace("index.html");
+                }
             }
 
             function save_setting() {
                 eel.write_setting("setup_finished", "True");
-                eel.write_setting("ui", document.getElementById("ui").value);
                 eel.change_theme(document.getElementById("theme").value);
                 eel.write_setting("user_name", document.getElementById("user_name").value);
                 eel.write_setting("news_site_url", document.getElementById("news_site_url").value);

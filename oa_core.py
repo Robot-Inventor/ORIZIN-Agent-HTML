@@ -187,7 +187,7 @@ def write_setting(_setting_file_path, _setting_name, _setting_value):
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
-        root.add(_setting_name, root.escape(_setting_value))
+        root.add(_setting_name, root.escape(str(_setting_value)))
         root.write()
         return
 
