@@ -139,7 +139,6 @@
             }
 
             async function response(content) {
-                document.getElementById("listening_message").style.opacity = 0;
                 let script = await eel.make_response(content)();
                 chat_outer = document.createElement("div");
                 chat_outer.setAttribute("class", "chat_outer user");
@@ -183,6 +182,10 @@
             const recognition = new SpeechRecognition();
             recognition.onresult = (event) => {
                 response(event.results[0][0].transcript);
+                is_listening = false;
+            }
+            recognition.onaudioend = function() {
+                document.getElementById("listening_message").style.opacity = 0;
                 is_listening = false;
             }
 

@@ -86,9 +86,12 @@
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
             const recognition = new SpeechRecognition();
             recognition.onresult = (event) => {
+                response(event.results[0][0].transcript);
+                is_listening = false;
+            }
+            recognition.onaudioend = function() {
                 jQuery("#listening").fadeOut(300);
                 jQuery("#waiting").fadeIn(300);
-                response(event.results[0][0].transcript);
                 is_listening = false;
             }
 
