@@ -27,16 +27,13 @@
                 <h2>設定</h2>
                 <section title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
                     <details>
-                        <summary id="ui_button" class="ripple_effect">UI</summary>
-                        <select id="ui" onchange='save_setting()'>
-                            <option value="index.html">デフォルト</option>
-                            <option value="index_chat.html">チャット風</option>
-                        </select>
+                        <summary class="ripple_effect">UI</summary>
+                        古いホーム画面を使用する　<input type="checkbox" class="toggle" id="use_old_ui" onchange="save_setting()"><label for="use_old_ui"  class="ripple_effect"></label>
                     </details>
                 </section>
                 <section title="画面の配色（テーマ）を設定します。">
                     <details>
-                        <summary id="theme_button" class="ripple_effect">テーマ</summary>
+                        <summary class="ripple_effect">テーマ</summary>
                         <select id="theme" onchange='eel.change_theme(document.getElementById("theme").value);'>
                             <option value="theme/light_theme.css">ライトテーマ(デフォルト)</option>
                             <option value="theme/dark_theme.css">ダークテーマ</option>
@@ -49,7 +46,7 @@
                 </section>
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
                     <details>
-                        <summary id="user_name_button" class="ripple_effect">ユーザー名</summary>
+                        <summary class="ripple_effect">ユーザー名</summary>
                         <div class="text_input_group">
                            <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange='save_setting()'>
                            <div class="text_underline"></div>
@@ -132,7 +129,11 @@
         <script src="/eel.js"></script>
         <script>
             function save_setting() {
-                eel.write_setting(event.target.id, event.target.value);
+                if (event.target.tagName == "INPUT" && event.target.type == "checkbox") {
+                    eel.write_setting(event.target.id, event.target.checked);
+                } else {
+                    eel.write_setting(event.target.id, event.target.value);
+                }
             }
 
             async function check_update() {
@@ -154,7 +155,12 @@
 
             async function set_to_current_setting() {
                 document.getElementById("theme").value = await eel.read_setting("theme")();
-                document.getElementById("ui").value = await eel.read_setting("ui")();
+                is_old_ui = await eel.read_setting("use_old_ui")();
+                if (is_old_ui == "True") {
+                    document.getElementById("use_old_ui").checked = true;
+                } else {
+                    document.getElementById("use_old_ui").checked = false;
+                }
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").value = await eel.read_setting("search_engine")();

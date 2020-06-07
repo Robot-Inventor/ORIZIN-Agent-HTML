@@ -2,5 +2,5 @@
 search_engine:Google
 setup_finished:False
 theme:theme&#47light_theme.css
-ui:index.html
+use_old_ui:false
 user_name:ゲスト
