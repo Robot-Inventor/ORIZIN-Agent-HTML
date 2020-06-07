@@ -49,13 +49,13 @@
         <script src="/eel.js"></script>
         <script>
             function start_speak(content) {
+                is_doing_speech_synthesis = true;
                 const script = new SpeechSynthesisUtterance(content);
                 speechSynthesis.speak(script);
-                if (!is_requested_by_text) {
-                    script.onend = function() {
-                        if(continuous_speech_recognition) {
-                            jQuery("#start_recognition").click();
-                        }
+                script.onend = function() {
+                    is_doing_speech_synthesis = false;
+                    if(continuous_speech_recognition && !is_requested_by_text) {
+                        jQuery("#start_recognition").click();
                     }
                 }
             }
@@ -75,12 +75,16 @@
             read_flag();
 
             is_requested_by_text = false;
+            is_doing_speech_synthesis = false;
 
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
+
             startButton.addEventListener('click', function() {
-                response(requestForm.value);
-                is_requested_by_text = true;
+                if (!is_doing_speech_synthesis) {
+                    response(requestForm.value);
+                    is_requested_by_text = true;
+                }
             });
 
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
@@ -90,25 +94,29 @@
                 is_listening = false;
             }
             recognition.onaudioend = function() {
-                jQuery("#listening").fadeOut(300);
-                jQuery("#waiting").fadeIn(300);
-                is_listening = false;
+                if (!is_doing_speech_synthesis) {
+                    jQuery("#listening").fadeOut(300);
+                    jQuery("#waiting").fadeIn(300);
+                    is_listening = false;
+                }
             }
 
             is_listening = false;
 
             jQuery("#start_recognition").click(function() {
-                is_requested_by_text = false;
-                if(is_listening) {
-                    jQuery("#listening").fadeOut(300);
-                    jQuery("#waiting").fadeIn(300);
-                    recognition.abort();
-                    is_listening = false;
-                } else {
-                    jQuery("#listening").fadeIn(300);
-                    jQuery("#waiting").fadeOut(300);
-                    is_listening = true;
-                    recognition.start();
+                if (!is_doing_speech_synthesis) {
+                    is_requested_by_text = false;
+                    if(is_listening) {
+                        jQuery("#listening").fadeOut(300);
+                        jQuery("#waiting").fadeIn(300);
+                        recognition.abort();
+                        is_listening = false;
+                    } else {
+                        jQuery("#listening").fadeIn(300);
+                        jQuery("#waiting").fadeOut(300);
+                        is_listening = true;
+                        recognition.start();
+                    }
                 }
             });
 
