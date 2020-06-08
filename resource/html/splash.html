@@ -46,15 +46,18 @@
                 height: 100vh;
                 position: relative;
             }
+
             .loading {
                 width: 50vmin;
                 position: absolute;
                 top: 0;
                 left: calc((100vw - 50vmin) / 2);
             }
+
             .loading2 {
                 animation: loading_animation2 3s linear infinite;
             }
+
             @keyframes loading_animation2 {
                 0%{
                     transform: rotate(0deg);
@@ -63,9 +66,11 @@
                     transform: rotate(-360deg);
                 }
             }
+
             .loading3 {
                 animation: loading_animation3 4s linear infinite;
             }
+
             @keyframes loading_animation3 {
                 0%{
                     transform: rotate(0deg);
@@ -74,6 +79,7 @@
                     transform: rotate(360deg);
                 }
             }
+
             .message {
                 position: absolute;
                 bottom: 0;
@@ -91,7 +97,7 @@
             async function check_update() {
                 result = await eel.check_update()();
                 if (result[0] == "true") {
-                    Push.create("ORIZIN Agent", {
+                    Push.create("ORIZIN Agent HTML", {
                         body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
                         icon: "../image/favicon/favicon.ico",
                         onClick: function() {
