@@ -42,8 +42,10 @@
         <script src="/eel.js"></script>
         <script>
             css_data = [];
+            old_css_data = [];
             async function check_current_css_theme_information() {
                 css_data =  await eel.check_current_css_theme_information()();
+                old_css_data = await eel.check_current_css_theme_information()();
                 const bg = Pickr.create({
                     el: "#bg",
                     theme: "classic",
@@ -279,8 +281,10 @@
             check_current_css_theme_information();
 
             jQuery(window).on('beforeunload', function() {
-                eel.write_custom_css_theme(css_data);
-                eel.change_theme("theme/custom_theme.css")
+                if (old_css_data.toString() != css_data.toString()) {
+                    eel.write_custom_css_theme(css_data);
+                    eel.change_theme("theme/custom_theme.css");
+                }
             });
         </script>
     </body>
