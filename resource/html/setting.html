@@ -129,8 +129,11 @@
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/push.min.js"></script>
         <script src="../javascript/ripple.min.js"></script>
+        <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
         <script>
+            var easter_egg = new Konami(function() {body_element = document.querySelector("body"); body_element.style.transition = "2s"; body_element.style.transform = " translateY(150vmax) rotate(45deg)"; window.setTimeout(function() {body_element.style.transition = "0s"; body_element.style.transform = "scale(1.2)"; body_element.style.opacity = "0"; window.setTimeout(function() {body_element.style.transition = "2s"; body_element.style.transform = "none"; body_element.style.opacity = "1";}, 2000)}, 2000)});
+
             function save_setting() {
                 if (event.target.tagName == "INPUT" && event.target.type == "checkbox") {
                     eel.write_setting(event.target.id, event.target.checked);
