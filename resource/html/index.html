@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition"><span id="listening_message">聞いています。</span>
+                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition" onclick="start_recognition()"><span id="listening_message">聞いています。</span>
                 </div>
             </div>
             <style>
@@ -137,7 +137,7 @@
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
                     if(continuous_speech_recognition && !is_requested_by_text) {
-                        jQuery("#start_recognition").click();
+                        document.querySelector("#start_recognition").click();
                     }
                 }
             }
@@ -200,7 +200,7 @@
 
             is_listening = false;
 
-            jQuery("#start_recognition").click(function() {
+            function start_recognition() {
                 if (!is_doing_speech_synthesis) {
                     is_requested_by_text = false;
                     if(is_listening) {
@@ -213,12 +213,12 @@
                         is_listening = true;
                     }
                 }
-            });
+            };
 
-            jQuery(document).keydown(function(e) {
-                switch (e.keyCode) {
+            document.addEventListener("keydown", function() {
+                switch (event.keyCode) {
                     case 32:
-                    jQuery("#start_recognition").click();
+                    document.querySelector("#start_recognition").click();
                     break;
                 }
             });

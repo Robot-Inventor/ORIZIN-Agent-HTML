@@ -108,30 +108,28 @@
                 }
             }
 
-            jQuery(window).on("load", function () {
-                if ("speechSynthesis" in window) {
-                } else {
-                    alert("ご利用のブラウザは音声合成(TTS / Text To Speech)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support TTS(Text To Speech). Please use the latest browser that supports Web Speech API.")
-                }
-                if ('webkitSpeechRecognition' in window) {
-                } else {
-                    alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。\nThe browser that you are using doesn't support speech recognition(Speech To Text / STT). Please use latest browser that supports Web Speech API.")
-                }
-                check_update();
+            if ("speechSynthesis" in window) {
+            } else {
+                alert("ご利用のブラウザは音声合成(TTS / Text To Speech)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
+            }
+            if ('webkitSpeechRecognition' in window) {
+            } else {
+                alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
+            }
+            check_update();
 
-                setTimeout(function() {
-                    move_to_top_page();
-                }, 2000);
+            setTimeout(function() {
+                move_to_top_page();
+            }, 2000);
 
-                async function move_to_top_page() {
-                    is_old_ui = await eel.read_setting("use_old_ui")();
-                    if (is_old_ui == "True") {
-                        location.replace("old_ui.html");
-                    } else {
-                        location.replace("index.html");
-                    }
+            async function move_to_top_page() {
+                is_old_ui = await eel.read_setting("use_old_ui")();
+                if (is_old_ui == "True") {
+                    location.replace("old_ui.html");
+                } else {
+                    location.replace("index.html");
                 }
-            });
+            }
         </script>
     </body>
 </html>

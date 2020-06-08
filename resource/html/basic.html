@@ -1,37 +1,36 @@
 ﻿<div id="title">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button"></span><span class="ripple_effect"><a onclick="move_to_top_page()"><img src="../image/title.svg" alt="ORIZIN Agent"></a></span>
+    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()"></span><span class="ripple_effect"><a onclick="move_to_top_page()"><img src="../image/title.svg" alt="ORIZIN Agent"></a></span>
 </div>
-<div id="side_menu_bar_overlay">
-</div>
+<div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
-    <div class="setting_button ripple_effect">
+    <div class="ripple_effect" onclick="move_page('setting.html')">
         設定
     </div>
-    <div class="oss_license ripple_effect">
+    <div class="ripple_effect" onclick="move_page('oss_license.html')">
         オープンソースソフトウェアライセンス
     </div>
-    <div class="privacy_policy ripple_effect">
+    <div class="ripple_effect" onclick="move_page('privacy_policy.html')">
         プライバシーポリシー
     </div>
-    <div class="about_oa ripple_effect">
+    <div class="ripple_effect" onclick="move_page('about_oa.html')">
         ORIZIN Agentについて
     </div>
-    <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/wiki" target="_blank" rel="noreferrer noopener" style="color: var(--text)">
+    <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/wiki" target="_blank" rel="noreferrer noopener" style="color: var(--text);">
         <div>
             ヘルプ＆Wiki(GitHub)
         </div>
     </a>
 </div>
 <script>
-    var transition_time = 300;
+    var TRANSITION_TIME = 300;
 
     function open_menu() {
-        jQuery("#side_menu_bar_overlay").fadeIn(transition_time);
+        jQuery("#side_menu_bar_overlay").fadeIn(TRANSITION_TIME);
         document.querySelector("#side_menu_bar").style.left = "0vw";
     }
 
     function close_menu() {
-        jQuery("#side_menu_bar_overlay").fadeOut(transition_time);
+        jQuery("#side_menu_bar_overlay").fadeOut(TRANSITION_TIME);
         document.querySelector("#side_menu_bar").style.left = "-30vw";
     }
 
@@ -39,32 +38,8 @@
         close_menu();
         setTimeout(function() {
             location.href = place;
-        }, transition_time);
+        }, TRANSITION_TIME);
     }
-
-    jQuery(function() {
-        jQuery("#menu_open_button").click(function() {
-            open_menu();
-        });
-        jQuery("#side_menu_bar_overlay").click(function() {
-            close_menu();
-        });
-        jQuery("#side_menu_bar_overlay div").click(function() {
-            close_menu();
-        });
-        jQuery(".setting_button").click(function() {
-            move_page("setting.html");
-        });
-        jQuery(".oss_license").click(function() {
-            move_page("oss_license.html");
-        });
-        jQuery(".privacy_policy").click(function () {
-            move_page("privacy_policy.html");
-        });
-        jQuery(".about_oa").click(function() {
-            move_page("about_oa.html");
-        });
-    });
 
     async function move_to_top_page() {
         is_old_ui = await eel.read_setting("use_old_ui")();
