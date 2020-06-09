@@ -111,11 +111,13 @@
                         jQuery("#waiting").fadeIn(300);
                         recognition.abort();
                         is_listening = false;
-                    } else {
+                    } else if (window.navigator.onLine) {
                         jQuery("#listening").fadeIn(300);
                         jQuery("#waiting").fadeOut(300);
                         is_listening = true;
                         recognition.start();
+                    } else {
+                        alert("音声認識を使用するにはネット接続が必要です。");
                     }
                 }
             });
