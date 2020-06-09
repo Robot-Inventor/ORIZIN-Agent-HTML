@@ -197,6 +197,9 @@
                     is_listening = false;
                 }
             }
+            recognition.onnomatch = function() {
+                alert("音声を正しく認識できませんでした。もう一度試してみて下さい。")
+            }
 
             is_listening = false;
 
