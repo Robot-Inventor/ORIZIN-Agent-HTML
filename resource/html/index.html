@@ -128,7 +128,21 @@
         <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
         <script>
-            var easter_egg = new Konami(function() {body_element = document.querySelector("body"); body_element.style.transition = "7.5s"; body_element.style.transform = "rotate(3600deg) scale(0.01)"; body_element.style.opacity = "0"; window.setTimeout(function() {body_element.style.transition = "0s"; body_element.style.transform = "translateY(-100%)";}, 7500); window.setTimeout(function(){body_element.style.transition = "2s"; body_element.style.transform = "none"; body_element.style.opacity = "1";}, 9000);});
+            var easter_egg = new Konami(function() {
+                body_element = document.querySelector("body");
+                body_element.style.transition = "7.5s";
+                body_element.style.transform = "rotate(3600deg) scale(0.01)";
+                body_element.style.opacity = "0";
+                window.setTimeout(function() {
+                    body_element.style.transition = "0s";
+                    body_element.style.transform = "translateY(-100%)";
+                }, 7500);
+                window.setTimeout(function() {
+                    body_element.style.transition = "2s";
+                    body_element.style.transform = "none";
+                    body_element.style.opacity = "1";
+                }, 9000);
+            });
 
             function start_speak(content) {
                 is_doing_speech_synthesis = true;
@@ -136,32 +150,25 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    if(continuous_speech_recognition && !is_requested_by_text) {
+                    if(continuous_speech_recognition && !is_requested_by_text && is_online) {
                         document.querySelector("#start_recognition").click();
                     }
                 }
             }
 
+            function add_chat(content, is_user=false) {
+                if (is_user) {
+                    document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer user'><div class='chat'>" + content + "</div></div>");
+                } else {
+                    document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer'><div class='chat'>" + content + "</div></div>");
+                }
+            }
+
             async function response(content) {
+                add_chat(content, true);
                 let script = await eel.make_response(content)();
-                chat_outer = document.createElement("div");
-                chat_outer.setAttribute("class", "chat_outer user");
-                chat_inner = document.createElement("div");
-                chat_inner.setAttribute("class", "chat");
-                text = document.createTextNode(content);
-                chat_inner.appendChild(text);
-                chat_outer.appendChild(chat_inner);
-                chat_area.appendChild(chat_outer);
                 start_speak(script[0]);
-                chat_outer = document.createElement("div");
-                chat_outer.setAttribute("class", "chat_outer");
-                chat_inner = document.createElement("div");
-                chat_inner.setAttribute("class", "chat");
-                text = document.createTextNode(script[0]);
-                chat_inner.appendChild(text);
-                chat_outer.appendChild(chat_inner);
-                chat_area.appendChild(chat_outer);
-                var chat_area_element = document.getElementById("chat_area");
+                add_chat(script[0], false);
                 chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
 
@@ -173,6 +180,7 @@
 
             is_requested_by_text = false;
             is_doing_speech_synthesis = false;
+            is_online = true;
 
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
@@ -187,7 +195,7 @@
 
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
             const recognition = new SpeechRecognition();
-            recognition.onresult = (event) => {
+            recognition.onresult = function() {
                 response(event.results[0][0].transcript);
                 is_listening = false;
             }
@@ -198,7 +206,9 @@
                 }
             }
             recognition.onnomatch = function() {
-                alert("音声を正しく認識できませんでした。もう一度試してみて下さい。")
+                error_massage = "音声を正しく認識できませんでした。もう一度試してみて下さい。";
+                add_chat(error_massage);
+                start_speak(error_massage);
             }
 
             is_listening = false;
@@ -211,11 +221,15 @@
                         document.getElementById("listening_message").style.opacity = 0;
                         is_listening = false;
                     } else if (window.navigator.onLine) {
+                        is_online = true;
                         recognition.start();
                         document.getElementById("listening_message").style.opacity = 1;
                         is_listening = true;
                     } else {
-                        alert("音声認識を使用するにはネット接続が必要です。");
+                        is_online = false;
+                        error_massage = "音声認識を使用するにはネット接続が必要です。";
+                        add_chat(error_massage);
+                        start_speak(error_massage);
                     }
                 }
             };

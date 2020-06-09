@@ -89,7 +89,7 @@
 
             SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
             const recognition = new SpeechRecognition();
-            recognition.onresult = (event) => {
+            recognition.onresult = function() {
                 response(event.results[0][0].transcript);
                 is_listening = false;
             }
