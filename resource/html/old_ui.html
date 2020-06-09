@@ -54,7 +54,7 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    if(continuous_speech_recognition && !is_requested_by_text) {
+                    if(continuous_speech_recognition && !is_requested_by_text && is_online && !recognition_error_happened) {
                         jQuery("#start_recognition").click();
                     }
                 }
@@ -76,6 +76,8 @@
 
             is_requested_by_text = false;
             is_doing_speech_synthesis = false;
+            is_online = true;
+            recognition_error_happened = false;
 
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
@@ -103,10 +105,38 @@
             recognition.onnomatch = function() {
                 alert("音声を正しく認識できませんでした。もう一度試してみて下さい。")
             }
+            recognition.onerror = function(event) {
+                recognition_error_happened = true;
+                if (event.error == "aborted") {
+                    alert("音声認識を終了しました。")
+                } else if (event.error == "no-speech") {
+                    alert("認識可能な音声を検出できませんでした。");
+                } else if (event.error == "network") {
+                    alert("音声認識を使用するにはネット接続が必要です。");
+                } else if (event.error == "audio-capture") {
+                    alert("オーディオキャプチャーに失敗しました。");
+
+                } else if (event.error == "not-allowed") {
+                    alert("音声入力が許可されていません。設定を確認して下さい。");
+
+                } else if (event.error == "service-not-allowed") {
+                    alert("必要な音声サービスが許可されていませんでした。");
+
+                } else if (event.error == "language-not-supported") {
+                    alert("サポートされていない言語です。");
+
+                } else if (event.error == "bad-grammar") {
+                    alert("内部処理の文法にエラーがありました。");
+
+                } else {
+                    alert("音声認識の際に不明なエラーが発生しました。" + "\n\nエラーメッセージ:\n" + event.error);
+                }
+            }
 
             is_listening = false;
 
             jQuery("#start_recognition").click(function() {
+                recognition_error_happened = false;
                 if (!is_doing_speech_synthesis) {
                     is_requested_by_text = false;
                     if(is_listening) {
@@ -114,13 +144,12 @@
                         jQuery("#waiting").fadeIn(300);
                         recognition.abort();
                         is_listening = false;
-                    } else if (window.navigator.onLine) {
+                    } else {
+                        is_online = true;
                         jQuery("#listening").fadeIn(300);
                         jQuery("#waiting").fadeOut(300);
                         is_listening = true;
                         recognition.start();
-                    } else {
-                        alert("音声認識を使用するにはネット接続が必要です。");
                     }
                 }
             });

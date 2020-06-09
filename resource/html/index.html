@@ -150,7 +150,7 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    if(continuous_speech_recognition && !is_requested_by_text && is_online) {
+                    if(continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
                         document.querySelector("#start_recognition").click();
                     }
                 }
@@ -162,6 +162,8 @@
                 } else {
                     document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer'><div class='chat'>" + content + "</div></div>");
                 }
+                chat_area_element = document.getElementById("chat_area");
+                chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
 
             async function response(content) {
@@ -169,7 +171,6 @@
                 let script = await eel.make_response(content)();
                 start_speak(script[0]);
                 add_chat(script[0], false);
-                chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
 
             async function read_flag() {
@@ -180,7 +181,7 @@
 
             is_requested_by_text = false;
             is_doing_speech_synthesis = false;
-            is_online = true;
+            recognition_error_happened = false;
 
             const requestForm = document.querySelector('#requestForm');
       　    const startButton = document.querySelector('#startButton');
@@ -210,26 +211,61 @@
                 add_chat(error_massage);
                 start_speak(error_massage);
             }
+            recognition.onerror = function(event) {
+                recognition_error_happened = true;
+                if (event.error == "aborted") {
+                    error_massage = "音声認識を終了しました。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "no-speech") {
+                    error_massage = "認識可能な音声を検出できませんでした。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "network") {
+                    error_massage = "音声認識を使用するにはネット接続が必要です。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "audio-capture") {
+                    error_massage = "オーディオキャプチャーに失敗しました。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "not-allowed") {
+                    error_massage = "音声入力が許可されていません。設定を確認して下さい。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "service-not-allowed") {
+                    error_massage = "必要な音声サービスが許可されていませんでした。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "language-not-supported") {
+                    error_massage = "サポートされていない言語です。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else if (event.error == "bad-grammar") {
+                    error_massage = "内部処理の文法にエラーがありました。";
+                    add_chat(error_massage);
+                    start_speak(error_massage);
+                } else {
+                    error_massage = "音声認識の際に不明なエラーが発生しました。";
+                    add_chat(error_massage + "<br><br>エラーメッセージ:<br>" + event.error);
+                    start_speak(error_massage);
+                }
+            }
 
             is_listening = false;
 
             function start_recognition() {
+                recognition_error_happened = false;
                 if (!is_doing_speech_synthesis) {
                     is_requested_by_text = false;
                     if(is_listening) {
                         recognition.abort();
                         document.getElementById("listening_message").style.opacity = 0;
                         is_listening = false;
-                    } else if (window.navigator.onLine) {
-                        is_online = true;
+                    } else {
                         recognition.start();
                         document.getElementById("listening_message").style.opacity = 1;
                         is_listening = true;
-                    } else {
-                        is_online = false;
-                        error_massage = "音声認識を使用するにはネット接続が必要です。";
-                        add_chat(error_massage);
-                        start_speak(error_massage);
                     }
                 }
             };
