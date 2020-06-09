@@ -33,10 +33,14 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition" onclick="start_recognition()"><span id="listening_message">聞いています。</span>
+                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition" onclick="start_recognition()"><span id="listening_message">聞いています。</span><div id="user_speaking_status"><div></div></div>
                 </div>
             </div>
             <style>
+                :root {
+                    --message_input_bg: rgba(10, 10, 10, 0.05);
+                }
+
                 .text_input_group {
                     display: inline-block;
                 }
@@ -94,7 +98,7 @@
                     width: 100%;
                     height: 3rem;
                     border-radius: var(--border_radius_size);
-                    background: rgba(10, 10, 10, 0.05);
+                    background: var(--message_input_bg);
                     box-sizing: border-box;
                     vertical-align: center;
                     overflow: hidden;
@@ -112,6 +116,7 @@
                     display: inline-block;
                     float: right;
                     opacity: 0;
+                    transition: 0.3s;
                 }
 
                 #start_recognition {
@@ -119,6 +124,74 @@
                     max-height: 100%;
                     float: right;
                     cursor: pointer;
+                }
+
+                #user_speaking_status {
+                    opacity: 0;
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 1rem;
+                    background: var(--theme_color);
+                    overflow: visible;
+                    position: relative;
+                    display: inline-block;
+                    float: right;
+                    transform: translate(-1rem, 0.5rem);
+                    transition: 0.3s;
+                }
+
+                #user_speaking_status::before {
+                    content: "";
+                    display: inline-block;
+                    opacity: 0.5;
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 1rem;
+                    background: var(--theme_color);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    animation: user_speaking_status_animation 0.75s ease normal infinite;
+                }
+
+                #user_speaking_status div {
+                    display: inline-block;
+                    width: 0.75rem;
+                    height: 0.75rem;
+                    border-radius: 1rem;
+                    background: var(--card_bg);
+                    position: absolute;
+                    top: 0.125rem;
+                    left: 0.125rem;
+                }
+
+                #user_speaking_status div::before {
+                    content: "";
+                    display: inline-block;
+                    width: 0.5rem;
+                    height: 0.5rem;
+                    border-radius: 1rem;
+                    background: var(--theme_color);
+                    position: absolute;
+                    top: 0.125rem;
+                    left: 0.125rem;
+                }
+
+                @keyframes user_speaking_status_animation {
+                    0% {
+                        opacity: 0.5;
+                        width: 1rem;
+                        height: 1rem;
+                        top: 0;
+                        left: 0;
+                    }
+                    100% {
+                        opacity: 0;
+                        width: 2rem;
+                        height: 2rem;
+                        top: -0.5rem;
+                        left: -0.5rem;
+                    }
                 }
             </style>
         </main>
@@ -250,6 +323,12 @@
                     add_chat(error_massage + "<br><br>エラーメッセージ:<br>" + event.error);
                     start_speak(error_massage);
                 }
+            }
+            recognition.onspeechstart = function() {
+                document.getElementById("user_speaking_status").style.opacity = "1"
+            }
+            recognition.onspeechend = function() {
+                document.getElementById("user_speaking_status").style.opacity = "0"
             }
 
             is_listening = false;
