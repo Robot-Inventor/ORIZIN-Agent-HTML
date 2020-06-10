@@ -19,6 +19,30 @@
     font-display: swap;
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../font/MaterialIcons-Regular.woff2") format("woff2");
+}
+
+.material_icon {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transform: translateY(0.15em);
+  margin-right: 0.4em;
+}
+
 * {
     overflow: scroll;
     -ms-overflow-style: none;
@@ -56,6 +80,12 @@ html, body {
     background: var(--bg);
     color: var(--text);
     overflow: hidden;
+}
+
+.material-icons {
+    font-family: "Material Icons";
+    font-style: normal;
+    color: var(--text);
 }
 
 header {
@@ -189,7 +219,7 @@ header h1 {
 #side_menu_bar {
     background: var(--bg);
     width: 30vw;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 10vh;
     position: fixed;
     top: 0;
@@ -329,6 +359,10 @@ input[type=text]:focus::placeholder {
 .text_input_group input:focus + .text_underline{
     width: 100%;
     margin-left: 0;
+}
+
+input+label {
+    cursor: pointer;
 }
 
 .overlay_outer {

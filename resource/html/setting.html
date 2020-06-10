@@ -27,29 +27,28 @@
                 <h2>設定</h2>
                 <section title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
                     <details>
-                        <summary class="ripple_effect">UI</summary>
+                        <summary class="ripple_effect"><i class="material_icon">home</i>UI</summary>
                         古いホーム画面を使用する　<input type="checkbox" class="toggle" id="use_old_ui" onchange="save_setting()"><label for="use_old_ui"  class="ripple_effect"></label>
                         <div class="warning">
-                            ※古いホーム画面は近い将来削除されます。この項目は有効にせず、デフォルトのままにしておくことを強くおすすめします。
+                            <i class="material_icon">warning</i>古いホーム画面は近い将来削除されます。この項目は有効にせず、デフォルトのままにしておくことを強くおすすめします。
                         </div>
                     </details>
                 </section>
                 <section title="画面の配色（テーマ）を設定します。">
                     <details>
-                        <summary class="ripple_effect">テーマ</summary>
-                        <select id="theme" onchange='eel.change_theme(document.getElementById("theme").value);'>
-                            <option value="theme/light_theme.css">ライトテーマ(デフォルト)</option>
-                            <option value="theme/dark_theme.css">ダークテーマ</option>
-                            <option value="theme/auto_theme.css">オート(OSやブラウザの設定に従います)</option>
-                            <option value="theme/custom_theme.css">カスタム</option>
-                        </select>
-                        <br>
-                        <a href="set_custom_css_theme.html">カスタムCSSテーマの設定</a>
+                        <summary class="ripple_effect"><i class="material_icon">palette</i>テーマ</summary>
+                        <form id="theme" onchange="eel.change_theme(document.getElementById('theme').theme_list.value);">
+                            <input type="radio" name="theme_list" value="theme/light_theme.css" id="light"><label for="light">ライトテーマ(デフォルト)</label><br>
+                            <input type="radio" name="theme_list" value="theme/dark_theme.css" id="dark"><label for="dark">ダークテーマ</label><br>
+                            <input type="radio" name="theme_list" value="theme/auto_theme.css" id="auto"><label for="auto">オート(OSやブラウザの設定に従います)</label><br>
+                            <input type="radio" name="theme_list" value="theme/custom_theme.css" id="custom"><label for="custom">カスタム</label>
+                        </form>
+                        <a href="set_custom_css_theme.html"><i class="material_icon">edit</i>カスタムCSSテーマの設定</a>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
                     <details>
-                        <summary class="ripple_effect">ユーザー名</summary>
+                        <summary class="ripple_effect"><i class="material_icon">person</i>ユーザー名</summary>
                         <div class="text_input_group">
                            <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange='save_setting()'>
                            <div class="text_underline"></div>
@@ -58,36 +57,36 @@
                 </section>
                 <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
                     <details>
-                        <summary class="ripple_effect">検索エンジン</summary>
-                        <select id="search_engine" onchange='save_setting()'>
-                            <option value="Google">Google(デフォルト)</option>
-                            <option value="Bing">Bing</option>
-                            <option value="YahooJapan">Yahoo! Japan</option>
-                            <option value="Yahoo">Yahoo!</option>
-                            <option value="DuckDuckGo">DuckDuckGo</option>
-                        </select>
+                        <summary class="ripple_effect"><i class="material_icon">search</i>検索エンジン</summary>
+                        <form id="search_engine" onchange="eel.write_setting('search_engine', document.getElementById('search_engine').search_engine_list.value)">
+                            <input type="radio" name="search_engine_list" value="Google" id="google"><label for="google">Google(デフォルト)</label><br>
+                            <input type="radio" name="search_engine_list" value="Bing" id="bing"><label for="bing">Bing</label><br>
+                            <input type="radio" name="search_engine_list" value="YahooJapan" id="yahoojapan"><label for="yahoojapan">Yahoo! Japan</label><br>
+                            <input type="radio" name="search_engine_list" value="Yahoo" id="yahoo"><label for="yahoo">Yahoo!</label><br>
+                            <input type="radio" name="search_engine_list" value="DuckDuckGo" id="duckduckgo"><label for="duckduckgo">DuckDuckGo</label><br>
+                        </form>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
                     <details>
-                        <summary class="ripple_effect">ニュースサイトのURL</summary>
+                        <summary class="ripple_effect"><i class="material_icon">link</i>ニュースサイトのURL</summary>
                         <div class="text_input_group">
                            <input type="text" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
                            <div class="text_underline"></div>
-                        </div>
-                        初期値: https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja
+                       </div>
+                       <span title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">undo</i>デフォルトに戻す</span>
                     </details>
                 </section>
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
-                        <summary class="ripple_effect">アップデートを確認</summary>
+                        <summary class="ripple_effect"><i class="material_icon">system_update_alt</i>アップデートを確認</summary>
                         <button onclick="check_update()" class="ripple_effect">実行</button>
                     </details>
                 </section>
                 <section title="試験機能の有効・無効を設定します。">
                     <details>
-                        <summary class="ripple_effect">試験機能</summary>
-                        <a href="flag.html">試験機能を設定</a>
+                        <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
+                        <a href="flag.html">試験機能を設定<i class="material_icon">arrow_forward</i></a>
                     </details>
                 </section>
             </div>
@@ -122,6 +121,14 @@
 
                 details summary {
                     padding: 1rem 0;
+                }
+
+                #go_to_custom_page {
+                    display: none;
+                }
+
+                .text_input_group {
+                    display: inline-block;
                 }
             </style>
         </main>
@@ -174,7 +181,7 @@
             }
 
             async function set_to_current_setting() {
-                document.getElementById("theme").value = await eel.read_setting("theme")();
+                document.getElementById("theme").theme_list.value = await eel.read_setting("theme")();
                 is_old_ui = await eel.read_setting("use_old_ui")();
                 if (is_old_ui == "True") {
                     document.getElementById("use_old_ui").checked = true;
@@ -183,7 +190,7 @@
                 }
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
-                document.getElementById("search_engine").value = await eel.read_setting("search_engine")();
+                document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
             }
 
             set_to_current_setting();

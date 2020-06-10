@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton">実行</button><img src="../image/listening.svg" class="mike" id="start_recognition" onclick="start_recognition()"><span id="listening_message">聞いています。</span><div id="user_speaking_status"><div></div></div>
+                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton"><i class="material_icon">send</i></button><i class="mike material_icon" id="start_recognition" onclick="start_recognition()">mic</i><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
                 </div>
             </div>
             <style>
@@ -72,6 +72,10 @@
                     float: right;
                 }
 
+                .text_input_group {
+                    transform: translateY(-0.2rem);
+                }
+
                 #chat_area {
                     margin: 0;
                     padding: 0;
@@ -84,7 +88,13 @@
                     border: none;
                     padding: 0;
                     margin-left: 1rem;
+                    transform: translateY(-0.5rem);
                     vertical-align: top;
+                }
+
+                #startButton i {
+                    color: var(--theme_color);
+                    font-size: 1.5rem;
                 }
 
                 #startButton:hover {
@@ -117,35 +127,38 @@
                     float: right;
                     opacity: 0;
                     transition: 0.3s;
+                    transform: translateY(0.2rem);
                 }
 
                 #start_recognition {
-                    display: inline-block;
-                    max-height: 100%;
                     float: right;
                     cursor: pointer;
+                    font-size: 1.5rem;
+                    color: var(--text);
+                    transition: 0.3s;
+                }
+
+                #start_recognition.listening {
+                    color: var(--theme_color);
                 }
 
                 #user_speaking_status {
                     opacity: 0;
-                    width: 1rem;
-                    height: 1rem;
-                    border-radius: 1rem;
-                    background: var(--theme_color);
                     overflow: visible;
                     position: relative;
-                    display: inline-block;
                     float: right;
-                    transform: translate(-1rem, 0.5rem);
+                    transform: translate(-1rem, 0.3rem);
                     transition: 0.3s;
+                    color: var(--theme_color);
+                    font-size: 1.5em;
                 }
 
                 #user_speaking_status::before {
                     content: "";
                     display: inline-block;
                     opacity: 0.5;
-                    width: 1rem;
-                    height: 1rem;
+                    width: 1.5rem;
+                    height: 1.5rem;
                     border-radius: 1rem;
                     background: var(--theme_color);
                     position: absolute;
@@ -154,34 +167,11 @@
                     animation: user_speaking_status_animation 0.75s ease normal infinite;
                 }
 
-                #user_speaking_status div {
-                    display: inline-block;
-                    width: 0.75rem;
-                    height: 0.75rem;
-                    border-radius: 1rem;
-                    background: var(--card_bg);
-                    position: absolute;
-                    top: 0.125rem;
-                    left: 0.125rem;
-                }
-
-                #user_speaking_status div::before {
-                    content: "";
-                    display: inline-block;
-                    width: 0.5rem;
-                    height: 0.5rem;
-                    border-radius: 1rem;
-                    background: var(--theme_color);
-                    position: absolute;
-                    top: 0.125rem;
-                    left: 0.125rem;
-                }
-
                 @keyframes user_speaking_status_animation {
                     0% {
                         opacity: 0.5;
-                        width: 1rem;
-                        height: 1rem;
+                        width: 1.5rem;
+                        height: 1.5rem;
                         top: 0;
                         left: 0;
                     }
@@ -189,8 +179,8 @@
                         opacity: 0;
                         width: 2rem;
                         height: 2rem;
-                        top: -0.5rem;
-                        left: -0.5rem;
+                        top: -0.25rem;
+                        left: -0.25rem;
                     }
                 }
             </style>
@@ -276,6 +266,7 @@
             recognition.onaudioend = function() {
                 if (!is_doing_speech_synthesis) {
                     document.getElementById("listening_message").style.opacity = 0;
+                    document.getElementById("start_recognition").classList.remove("listening");
                     is_listening = false;
                 }
             }
@@ -340,10 +331,12 @@
                     if(is_listening) {
                         recognition.abort();
                         document.getElementById("listening_message").style.opacity = 0;
+                        document.getElementById("start_recognition").classList.remove("listening");
                         is_listening = false;
                     } else {
                         recognition.start();
                         document.getElementById("listening_message").style.opacity = 1;
+                        document.getElementById("start_recognition").classList.add("listening");
                         is_listening = true;
                     }
                 }
