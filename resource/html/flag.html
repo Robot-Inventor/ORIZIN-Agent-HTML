@@ -27,7 +27,10 @@
                 <h2>試験機能</h2>
                 <section class="warning"><i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section title="音声合成終了後、自動で音声認識を再開します。">
-                    <i class="material_icon">mic</i>連続で音声認識をする　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()"><label for="continuous_speech_recognition"  class="ripple_effect"></label>
+                    <i class="material_icon">mic</i>連続で音声認識をする　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()"><label for="continuous_speech_recognition" class="ripple_effect"></label>
+                </section>
+                <section title="設定ページにテキストを読みやすくするための項目を追加します。">
+                    <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<input type="checkbox" class="toggle" id="add_readable_text_setting" onchange="save_setting()"><label for="add_readable_text_setting" class="ripple_effect"></label>
                 </section>
             </div>
         </main>
@@ -48,6 +51,7 @@
             }
 
             read_flag("continuous_speech_recognition");
+            read_flag("add_readable_text_setting");
 
             function save_setting() {
                 eel.set_flag(event.target.id, event.target.checked);

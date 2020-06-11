@@ -27,11 +27,18 @@
                 <h2>設定</h2>
                 <section title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
                     <details>
-                        <summary class="ripple_effect"><i class="material_icon">home</i>UI</summary>
-                        古いホーム画面を使用する　<input type="checkbox" class="toggle" id="use_old_ui" onchange="save_setting()"><label for="use_old_ui"  class="ripple_effect"></label>
+                        <summary class="ripple_effect"><i class="material_icon">tune</i>UI</summary>
+                        古いホーム画面を使用する　<input type="checkbox" class="toggle" id="use_old_ui" onchange="save_setting()"><label for="use_old_ui" class="ripple_effect"></label>
                         <div class="warning">
                             <i class="material_icon">warning</i>古いホーム画面は近い将来削除されます。この項目は有効にせず、デフォルトのままにしておくことを強くおすすめします。
                         </div>
+                    </details>
+                </section>
+                <section title="テキストを読みやすいように設定します。" id="readable_text_setting">
+                    <details>
+                        <summary class="ripple_effect"><i class="material_icon">text_format</i>可読性についての設定</summary>
+                        <i class="material_icon">format_bold</i>太字を使用する　<input type="checkbox" class="toggle" id="bold_text" onchange="save_setting()"><label for="bold_text" class="ripple_effect"></label><br>
+                        <i class="material_icon">format_size</i>大きい文字を使用する　<input type="checkbox" class="toggle" id="bigger_text" onchange="save_setting()"><label for="bigger_text" class="ripple_effect"></label>
                     </details>
                 </section>
                 <section title="画面の配色（テーマ）を設定します。">
@@ -74,12 +81,12 @@
                            <input type="text" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
                            <div class="text_underline"></div>
                        </div>
-                       <span title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">undo</i>デフォルトに戻す</span>
+                       <span title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
                     </details>
                 </section>
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
-                        <summary class="ripple_effect"><i class="material_icon">system_update_alt</i>アップデートを確認</summary>
+                        <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
                         <button onclick="check_update()" class="ripple_effect">実行</button>
                     </details>
                 </section>
@@ -129,6 +136,10 @@
 
                 .text_input_group {
                     display: inline-block;
+                }
+
+                #readable_text_setting {
+                    display: none;
                 }
             </style>
         </main>
@@ -191,6 +202,18 @@
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
+                use_bold_text = await eel.read_setting("bold_text")();
+                if (use_bold_text == "True") {
+                    document.getElementById("bold_text").checked = true;
+                }
+                use_bigger_text = await eel.read_setting("bigger_text")();
+                if (use_bigger_text == "True") {
+                    document.getElementById("bigger_text").checked = true;
+                }
+                readable_text_setting = await eel.read_flag("add_readable_text_setting")();
+                if (readable_text_setting) {
+                    document.getElementById("readable_text_setting").style.display = "block";
+                }
             }
 
             set_to_current_setting();
