@@ -32,6 +32,9 @@
                 <section title="設定ページにテキストを読みやすくするための項目を追加します。">
                     <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<input type="checkbox" class="toggle" id="add_readable_text_setting" onchange="save_setting()"><label for="add_readable_text_setting" class="ripple_effect"></label>
                 </section>
+                <section title="スプラッシュスクリーンをスキップし，高速起動します。">
+                    <i class="material_icon">power_settings_new</i>高速起動を有効にする　<input type="checkbox" class="toggle" id="fast_start" onchange="save_setting()"><label for="fast_start" class="ripple_effect"></label>
+                </section>
             </div>
         </main>
         <style>
@@ -52,6 +55,7 @@
 
             read_flag("continuous_speech_recognition");
             read_flag("add_readable_text_setting");
+            read_flag("fast_start");
 
             function save_setting() {
                 eel.set_flag(event.target.id, event.target.checked);

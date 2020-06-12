@@ -1,2 +1,3 @@
 ﻿add_readable_text_setting:False
 continuous_speech_recognition:False
+fast_start:False

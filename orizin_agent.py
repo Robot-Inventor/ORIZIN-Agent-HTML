@@ -372,5 +372,10 @@ if __name__ == "__main__":
     eel.init("resource")
     if read_setting("setup_finished") == "False":
         eel.start("/html/setup.html")
+    elif read_flag("fast_start"):
+        if read_setting("use_old_ui") == "False":
+            eel.start("/html/index.html")
+        else:
+            eel.start("/html/old_ui.html")
     else:
         eel.start("/html/splash.html")
