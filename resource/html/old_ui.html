@@ -69,7 +69,12 @@
             }
 
             async function read_flag() {
-                continuous_speech_recognition = await eel.read_flag("continuous_speech_recognition")();
+                continuous_speech_recognition = await eel.read_setting("continuous_speech_recognition")();
+                if (continuous_speech_recognition == "True") {
+                    continuous_speech_recognition = true;
+                } else {
+                    continuous_speech_recognition = false;
+                }
             }
             continuous_speech_recognition = false;
             read_flag();

@@ -1,5 +1,6 @@
 ﻿bigger_text:False
 bold_text:False
+continuous_speech_recognition:False
 news_site_url:https&#47&#58&#58news.google.com&#58?hl=ja&gl=JP&ceid=JP&#47ja
 search_engine:Google
 setup_finished:False

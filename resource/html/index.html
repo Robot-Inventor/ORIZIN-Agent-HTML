@@ -213,7 +213,7 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    if(continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
+                    if (continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
                         document.querySelector("#start_recognition").click();
                     }
                 }
@@ -236,11 +236,16 @@
                 add_chat(script[0], false);
             }
 
-            async function read_flag() {
-                continuous_speech_recognition = await eel.read_flag("continuous_speech_recognition")();
+            async function read_setting() {
+                continuous_speech_recognition = await eel.read_setting("continuous_speech_recognition")();
+                if (continuous_speech_recognition == "True") {
+                    continuous_speech_recognition = true;
+                } else {
+                    continuous_speech_recognition = false;
+                }
             }
             continuous_speech_recognition = false;
-            read_flag();
+            read_setting();
 
             is_requested_by_text = false;
             is_doing_speech_synthesis = false;
