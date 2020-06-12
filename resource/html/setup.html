@@ -53,7 +53,7 @@ SOFTWARE.
 </pre>
                     </p>
                     <menu>
-                        <button onclick="forward_card('licence_card', 'privacy_policy_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button><button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button>
+                        <button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button><button onclick="forward_card('licence_card', 'privacy_policy_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="privacy_policy_card">
@@ -83,7 +83,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
 本ソフトウェアの制作者は，いつでもその意志でこのプライバシーポリシーを変更できるものとします。ただし，変更後のプライバシーポリシーが変更前にダウンロードされた本ソフトウェアに遡って適用されることはありません。
 </pre>
                         <menu>
-                            <button onclick="forward_card('privacy_policy_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button><button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button>
+                            <button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button><button onclick="forward_card('privacy_policy_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button>
                         </menu>
                     </p>
                 </div>
@@ -93,7 +93,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         これから，ORIZIN Agent HTMLの初期設定を行います。設定はスキップでき，あとから変更することもできます。設定を続行しますか？
                     </p>
                     <menu>
-                        <button onclick="forward_card('ask_continue_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">check</i>続行</button><button onclick="save_setting()" class="ripple_effect"><i class="material_icon">cancel</i>スキップ</button>
+                        <button onclick="save_setting()" class="ripple_effect"><i class="material_icon">cancel</i>スキップ</button><button onclick="forward_card('ask_continue_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">check</i>続行</button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="theme_setting_card">
@@ -108,7 +108,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <button onclick="forward_card('theme_setting_card', 'user_name_setting_card')" class="ripple_effect"><i class="material_icon">check</i>次へ</button><button onclick="back_card('theme_setting_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">refresh</i>戻る</button>
+                        <button onclick="back_card('theme_setting_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('theme_setting_card', 'user_name_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="user_name_setting_card">
@@ -121,7 +121,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                        <div class="text_underline"></div>
                     </div>
                     <menu>
-                        <button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">check</i>次へ</button><button onclick="back_card('user_name_setting_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">refresh</i>戻る</button>
+                        <button onclick="back_card('user_name_setting_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="search_engine_setting_card">
@@ -138,7 +138,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <button onclick="forward_card('search_engine_setting_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">check</i>次へ</button><button onclick="back_card('search_engine_setting_card', 'user_name_setting_card')" class="ripple_effect"><i class="material_icon">refresh</i>戻る</button>
+                        <button onclick="back_card('search_engine_setting_card', 'user_name_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('search_engine_setting_card', 'news_site_url_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="news_site_url_setting_card">
@@ -151,7 +151,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                        <div class="text_underline"></div>
                     </div>
                     <menu>
-                        <button onclick="forward_card('news_site_url_setting_card', 'setting_finished_message_card')" class="ripple_effect"><i class="material_icon">check</i>次へ</button><button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">refresh</i>戻る</button>
+                        <button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('news_site_url_setting_card', 'setting_finished_message_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="setting_finished_message_card">
@@ -160,7 +160,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         設定が完了しました！
                     </p>
                     <menu>
-                        <button onclick="save_setting()" class="ripple_effect"><i class="material_icon">check</i>初期設定を終了</button><button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">refresh</i>戻る</button>
+                        <button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="save_setting()" class="ripple_effect"><i class="material_icon">check</i>初期設定を終了</button>
                     </menu>
                 </div>
                 <progress value="0" max="1">0%</progress>

@@ -40,7 +40,7 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transform: translateY(0.15em);
-  margin-right: 0.4em;
+  margin: 0 0.4em;
 }
 
 * {
