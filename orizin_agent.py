@@ -366,7 +366,7 @@ if __name__ == "__main__":
         core.showerror(error_message)
         sys.exit()
     if os.path.exists("resource/setting/setting.otfd") is False:
-        change_theme("theme/light_theme.css")
+        change_theme("theme/auto_theme.css")
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
     eel.init("resource")
