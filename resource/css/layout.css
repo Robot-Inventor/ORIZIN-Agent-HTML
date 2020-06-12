@@ -493,8 +493,13 @@ select option:hover {
     margin-left: calc(100% - var(--toggle_height));
 }
 
+details {
+    padding-left: 1.5rem !important;
+}
+
 details summary {
     cursor: pointer;
+    transform: translate(-1.5rem) !important;
 }
 
 #side_menu_bar div {
