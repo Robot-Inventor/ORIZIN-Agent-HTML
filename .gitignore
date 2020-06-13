@@ -140,3 +140,6 @@ memo.txt
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/shelf
+
+# VS Code settings
+.vscode/
