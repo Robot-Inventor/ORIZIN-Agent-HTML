@@ -25,15 +25,6 @@
         <main>
             <div class="fill_panel">
                 <h2>設定</h2>
-                <section title="ORIZIN Agent HTMLのホーム画面のデザイン・レイアウトを選択します。">
-                    <details>
-                        <summary class="ripple_effect"><i class="material_icon">tune</i>UI</summary>
-                        古いホーム画面を使用する　<input type="checkbox" class="toggle" id="use_old_ui" onchange="save_setting()"><label for="use_old_ui" class="ripple_effect"></label>
-                        <div class="warning">
-                            <i class="material_icon">warning</i>古いホーム画面は近い将来削除されます。この項目は有効にせず、デフォルトのままにしておくことを強くおすすめします。
-                        </div>
-                    </details>
-                </section>
                 <section title="テキストを読みやすいように設定します。" id="readable_text_setting">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">text_format</i>可読性についての設定</summary>
@@ -199,12 +190,6 @@
 
             async function set_to_current_setting() {
                 document.getElementById("theme").theme_list.value = await eel.read_setting("theme")();
-                is_old_ui = await eel.read_setting("use_old_ui")();
-                if (is_old_ui == "True") {
-                    document.getElementById("use_old_ui").checked = true;
-                } else {
-                    document.getElementById("use_old_ui").checked = false;
-                }
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();

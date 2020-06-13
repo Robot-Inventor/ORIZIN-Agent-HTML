@@ -371,9 +371,6 @@ if __name__ == "__main__":
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
     eel.init("resource")
     if read_flag("fast_start"):
-        if read_setting("use_old_ui") == "False":
-            eel.start("/html/index.html")
-        else:
-            eel.start("/html/old_ui.html")
+        eel.start("/html/index.html")
     else:
         eel.start("/html/splash.html")

@@ -127,12 +127,7 @@
                 if (is_finished_setup == "False") {
                     location.replace("setup.html");
                 } else {
-                    is_old_ui = await eel.read_setting("use_old_ui")();
-                    if (is_old_ui == "True") {
-                        location.replace("old_ui.html");
-                    } else {
-                        location.replace("index.html");
-                    }
+                    location.replace("index.html");
                 }
             }
         </script>
