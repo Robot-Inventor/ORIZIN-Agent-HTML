@@ -26,7 +26,7 @@ class Otfd:
         if type(_target) is str:
             return _target.replace("&#47", ":").replace("&#58", "/")
         elif type(_target) is list:
-            return list(map(lambda _string: _string.replace("&#47", ":").replace("&#58", "/"), _target))
+            return list(_string.replace("&#47", ":").replace("&#58", "/") for _string in _target)
         else:
             return _target
     
@@ -35,7 +35,7 @@ class Otfd:
         if type(_target) is str:
             return _target.replace(":", "&#47").replace("/", "&#58")
         elif type(_target) is list:
-            return list(map(lambda _string: _string.replace(":", "&#47").replace("/", "&#58"), _target))
+            return list(_string.replace(":", "&#47").replace("/", "&#58") for _string in _target)
         else:
             return _target
     

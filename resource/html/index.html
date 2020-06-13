@@ -192,15 +192,15 @@
         <script src="/eel.js"></script>
         <script>
             var easter_egg = new Konami(function() {
-                body_element = document.querySelector("body");
+                body_element = document.body;
                 body_element.style.transition = "7.5s";
                 body_element.style.transform = "rotate(3600deg) scale(0.01)";
                 body_element.style.opacity = "0";
-                window.setTimeout(function() {
+                setTimeout(() => {
                     body_element.style.transition = "0s";
                     body_element.style.transform = "translateY(-100%)";
                 }, 7500);
-                window.setTimeout(function() {
+                setTimeout(() => {
                     body_element.style.transition = "2s";
                     body_element.style.transform = "none";
                     body_element.style.opacity = "1";
@@ -214,7 +214,7 @@
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
                     if (continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
-                        document.querySelector("#start_recognition").click();
+                        document.getElementById("start_recognition").click();
                     }
                 }
             }
@@ -251,10 +251,10 @@
             is_doing_speech_synthesis = false;
             recognition_error_happened = false;
 
-            const requestForm = document.querySelector('#requestForm');
-      　    const startButton = document.querySelector('#startButton');
+            const requestForm = document.getElementById("requestForm");
+      　    const startButton = document.getElementById("startButton");
 
-            startButton.addEventListener('click', function() {
+            startButton.addEventListener("click", function() {
                 if (!is_doing_speech_synthesis) {
                     response(requestForm.value);
                     requestForm.value = "";
@@ -350,7 +350,7 @@
             document.addEventListener("keydown", function() {
                 switch (event.keyCode) {
                     case 32:
-                    document.querySelector("#start_recognition").click();
+                    document.getElementById("start_recognition").click();
                     break;
                 }
             });

@@ -84,10 +84,10 @@
             is_online = true;
             recognition_error_happened = false;
 
-            const requestForm = document.querySelector('#requestForm');
-      　    const startButton = document.querySelector('#startButton');
+            const requestForm = document.getElementById("requestForm");
+      　    const startButton = document.getElementById("startButton");
 
-            startButton.addEventListener('click', function() {
+            startButton.addEventListener("click", function() {
                 if (!is_doing_speech_synthesis) {
                     response(requestForm.value);
                     is_requested_by_text = true;

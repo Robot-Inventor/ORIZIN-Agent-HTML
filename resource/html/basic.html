@@ -25,18 +25,18 @@
     var TRANSITION_TIME = 300;
 
     function open_menu() {
-        jQuery("#side_menu_bar_overlay").fadeIn(TRANSITION_TIME);
-        document.querySelector("#side_menu_bar").style.left = "0vw";
+        $("#side_menu_bar_overlay").fadeIn(TRANSITION_TIME);
+        document.getElementById("side_menu_bar").style.left = "0vw";
     }
 
     function close_menu() {
-        jQuery("#side_menu_bar_overlay").fadeOut(TRANSITION_TIME);
-        document.querySelector("#side_menu_bar").style.left = "-30vw";
+        $("#side_menu_bar_overlay").fadeOut(TRANSITION_TIME);
+        document.getElementById("side_menu_bar").style.left = "-30vw";
     }
 
     function move_page(place) {
         close_menu();
-        setTimeout(function() {
+        setTimeout(() => {
             location.href = place;
         }, TRANSITION_TIME);
     }

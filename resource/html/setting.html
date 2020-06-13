@@ -57,7 +57,7 @@
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">person</i>ユーザー名</summary>
                         <div class="text_input_group">
-                           <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange='save_setting()'>
+                           <input type="text" id="user_name" placeholder="ユーザー名を入力" onchange="save_setting()">
                            <div class="text_underline"></div>
                         </div>
                     </details>
@@ -157,15 +157,15 @@
         <script src="/eel.js"></script>
         <script>
             var easter_egg = new Konami(function() {
-                body_element = document.querySelector("body");
+                body_element = document.body;
                 body_element.style.transition = "2s";
                 body_element.style.transform = " translateY(150vmax) rotate(45deg)";
-                window.setTimeout(function() {
+                setTimeout(() => {
                     body_element.style.transition = "0s";
                     body_element.style.transform = "scale(1.2)";
                     body_element.style.opacity = "0";
                 }, 2000);
-                window.setTimeout(function() {
+                setTimeout(() => {
                     body_element.style.transition = "2s";
                     body_element.style.transform = "none";
                     body_element.style.opacity = "1";

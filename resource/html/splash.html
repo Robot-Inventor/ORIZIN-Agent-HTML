@@ -112,13 +112,13 @@
             } else {
                 alert("ご利用のブラウザは音声合成(TTS / Text To Speech)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
             }
-            if ('webkitSpeechRecognition' in window) {
+            if ("webkitSpeechRecognition" in window) {
             } else {
                 alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
             }
             check_update();
 
-            setTimeout(function() {
+            setTimeout(() => {
                 move_to_top_page();
             }, 2000);
 

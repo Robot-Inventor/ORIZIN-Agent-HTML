@@ -253,9 +253,9 @@
             is_reseted = false;
 
             function update_time(time) {
-                document.querySelector("#time div").innerHTML = time;
+                document.getElementById("time div").innerHTML = time;
                 if(time.match("0+:0+:0+")) {
-                    document.querySelector("#time div").classList.add("blink");
+                    document.getElementById("time div").classList.add("blink");
                     is_finished = true;
                 }
             }
@@ -280,9 +280,9 @@
 
             $(function() {
                 var settings = new Object;
-                var pair = location.search.substring(1).split('&');
+                var pair = location.search.substring(1).split("&");
                 for (var i = 0; pair[i]; i++) {
-                    var kv = pair[i].split('=');
+                    var kv = pair[i].split("=");
                     settings[kv[0]] = kv[1];
                 }
                 hour = settings.h;
@@ -290,7 +290,7 @@
                 second = settings.s;
                 if(hour + minute + second != 0) {
                     update_time(hour + ":" + minute + ":" + second);
-                    document.getElementById('time_setting_outer').style.top = '-100vh';
+                    document.getElementById("time_setting_outer").style.top = "-100vh";
                     document.getElementById("hour").value = hour;
                     document.getElementById("minute").value = minute;
                     document.getElementById("second").value = second;
@@ -310,37 +310,36 @@
                     is_finished = false;
                 }
                 display_stopped_timer();
-                document.querySelector("#time div").classList.remove("blink");
+                document.getElementById("time div").classList.remove("blink");
                 set_time();
                 is_first_start = true;
-                // eel.timer(hour, minute, second);
             }
 
             function display_stopped_timer() {
-                document.querySelector("#time div").classList.add("blink");
-                document.querySelector("#start").innerHTML = "スタート";
-                document.querySelector("#circle").onclick = function() {
+                document.getElementById("time div").classList.add("blink");
+                document.getElementById("start").innerHTML = "スタート";
+                document.getElementById("circle").onclick = function() {
                     display_started_timer();
                 }
-                document.querySelector("#start").onclick = function() {
+                document.getElementById("start").onclick = function() {
                     display_started_timer();
                 }
-                document.querySelector("#time").onclick = function() {
+                document.getElementById("time").onclick = function() {
                     display_started_timer();
                 }
                 is_stopped = true;
             }
 
             function display_started_timer() {
-                document.querySelector("#time div").classList.remove("blink");
-                document.querySelector("#start").innerHTML = "ストップ";
-                document.querySelector("#circle").onclick = function() {
+                document.getElementById("time div").classList.remove("blink");
+                document.getElementById("start").innerHTML = "ストップ";
+                document.getElementById("circle").onclick = function() {
                     display_stopped_timer();
                 }
-                document.querySelector("#start").onclick = function() {
+                document.getElementById("start").onclick = function() {
                     display_stopped_timer();
                 }
-                document.querySelector("#time").onclick = function() {
+                document.getElementById("time").onclick = function() {
                     display_stopped_timer();
                 }
                 if(is_first_start) {
@@ -367,11 +366,11 @@
             }
 
             function submit_time() {
-                document.getElementById('time_setting_outer').style.top = '-100vh';
+                document.getElementById("time_setting_outer").style.top = "-100vh";
                 hour_setting = document.getElementById("hour").value;
                 minute_setting = document.getElementById("minute").value;
                 second_setting = document.getElementById("second").value;
-                update_time(hour_setting + ':' + minute_setting + ':' + second_setting);
+                update_time(hour_setting + ":" + minute_setting + ":" + second_setting);
                 hour = hour_setting;
                 minute = minute_setting;
                 second = second_setting;
