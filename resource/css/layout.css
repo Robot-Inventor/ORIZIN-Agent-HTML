@@ -127,68 +127,6 @@ header h1 {
     display: inline:
 }
 
-@media (orientation: portrait) {
-    .main_control_panel {
-        width: calc(100vw - 8vh);
-        height: 32vh;
-        background: var(--card_bg);
-        border-radius: var(--border_radius_size);
-        box-shadow: 0 2px 5px var(--shadow);
-        margin: 2vh;
-        padding: 2vh;
-        text-align: center;
-        transition: 0.3s;
-    }
-    .bottom_control_panel {
-        width: calc(100vw - 8vh);
-        height: 19vh;
-        background: var(--card_bg);
-        border-radius: var(--border_radius_size);
-        box-shadow: 0 2px 5px var(--shadow);
-        margin: 2vh;
-        padding: 2vh;
-        text-align: center;
-        transition: 0.3s;
-    }
-}
-
-@media (orientation: landscape) {
-    .main_control_panel {
-        width: calc(100vw - 8vh);
-        height: 55vh;
-        background: var(--card_bg);
-        border-radius: var(--border_radius_size);
-        box-shadow: 0 2px 5px var(--shadow);
-        margin: 2vh;
-        padding: 2vh;
-        text-align: center;
-        transition: 0.3s;
-    }
-    .bottom_control_panel {
-        width: calc((100vw - 15vh)/2);
-        height: 19vh;
-        background: var(--card_bg);
-        border-radius: var(--border_radius_size);
-        box-shadow: 0 2px 5px var(--shadow);
-        margin: 2vh;
-        margin-right: 0;
-        padding: 2vh;
-        text-align: center;
-        display: inline-block;
-        vertical-align: top;
-        transition: 0.3s;
-    }
-}
-
-
-.main_control_panel:hover {
-    box-shadow: 2px 5px 5px var(--shadow);
-}
-
-.bottom_control_panel:hover {
-    box-shadow: 2px 5px 5px var(--shadow);
-}
-
 .fill_panel {
     width: calc(100vw - 8vh);
     height: 82vh;
