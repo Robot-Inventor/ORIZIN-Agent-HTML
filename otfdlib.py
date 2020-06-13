@@ -26,7 +26,7 @@ class Otfd:
         if type(_target) is str:
             return _target.replace("&#47", ":").replace("&#58", "/")
         elif type(_target) is list:
-            return list(_string.replace("&#47", ":").replace("&#58", "/") for _string in _target)
+            return [_string.replace("&#47", ":").replace("&#58", "/") for _string in _target]
         else:
             return _target
     
@@ -35,7 +35,7 @@ class Otfd:
         if type(_target) is str:
             return _target.replace(":", "&#47").replace("/", "&#58")
         elif type(_target) is list:
-            return list(_string.replace(":", "&#47").replace("/", "&#58") for _string in _target)
+            return [_string.replace(":", "&#47").replace("/", "&#58") for _string in _target]
         else:
             return _target
     
@@ -60,11 +60,14 @@ class Otfd:
         else:
             return list(self._parsed_otfd.values())
 
-    def get_value(self, _index):
-        return self._parsed_otfd[_index]
+    def get_value(self, _index, unescaping=True):
+        if unescaping:
+            return self.unescape(self._parsed_otfd[_index])
+        else:
+            return self._parsed_otfd[_index]
 
     def add(self, _index, _value):
-        self._parsed_otfd[_index] = _value
+        self._parsed_otfd[self.escape(_index)] = self.escape(_value)
         return self._parsed_otfd
     
     def update(self, _otfd):

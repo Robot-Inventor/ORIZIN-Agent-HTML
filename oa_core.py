@@ -31,10 +31,9 @@ def normalize_with_dictionary(_file_path, _sentence):
     root = otfdlib.Otfd()
     root.load(_file_path)
     root.parse()
-    index = root.get_index_list()
     result = _sentence
-    for element in index:
-        result = re.sub(element.replace("/", "|"), root.get_value(element), result)
+    for element in root.get_index_list():
+        result = re.sub(element.replace("/", "|"), root.get_value(element), _sentence)
     return result
 
 
@@ -65,11 +64,11 @@ def load_dictionary(_path):
     return root.read()
 
 
-def judge(_input, _target, _matched_word=False):
+def judge(_dictionary, _target, _matched_word=False):
     if type(_target) == str:
         _target = [_target]
     for _word in _target:
-        if bool(re.search(_word, _input)):
+        if bool(re.search(_word, _dictionary)):
             if _matched_word:
                 return [True, _word]
             else:
@@ -126,13 +125,12 @@ def respond(_dictionary, _query):
 
 
 def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
-    _update_message = urllib.request.urlopen(_update_message_url).read().decode()
     _current = otfdlib.Otfd()
     _current.load(_downloaded_file_path)
     _current.parse()
     _current_version = _current.get_value("Version")
     _remote = otfdlib.Otfd()
-    _remote.load_from_string(urllib.request.urlopen(_remote_file_url).read().decode().replace(" : ", ":"))
+    _remote.load_from_string(urllib.request.urlopen(_remote_file_url).read().decode())
     _remote.parse()
     _remote_version = _remote.get_value("Version")
     _update_status = "false"
@@ -142,11 +140,12 @@ def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
         if int(_current_version_numbers[2]) < int(_remote_version_numbers[2]):
             _update_status = "true"
         elif _current_version_numbers[2] == _remote_version_numbers[2]:
-            if int(_current_version_numbers[3].replace("dev", "")) < int(_remote_version_numbers[3].replace("dev", "")):
+            if (int(_current_version_numbers[3].replace("dev", "")) <
+                    int(_remote_version_numbers[3].replace("dev", ""))) or \
+                    ("dev" in _current_version_numbers[3] and "dev" not in _remote_version_numbers[3]):
                 _update_status = "true"
-            if "dev" in _current_version_numbers[3] and "dev" not in _remote_version_numbers[3]:
-                _update_status = "true"
-    return [_update_status, _current_version, _remote_version, _update_message]
+    return [_update_status, _current_version, _remote_version,
+            urllib.request.urlopen(_update_message_url).read().decode()]
 
 
 def convert_to_bool(_value):
@@ -169,25 +168,27 @@ def convert_to_bool(_value):
 
 def read_setting(_setting_file_path, _setting_name):
     if os.path.exists(_setting_file_path) is False:
-        return None
+        return
     else:
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
         if _setting_name in root.get_index_list():
-            return root.unescape(root.get_value(_setting_name))
+            return root.get_value(_setting_name)
         else:
-            return None
+            return
 
 
 def write_setting(_setting_file_path, _setting_name, _setting_value):
+    _setting_name = str(_setting_name)
+    _setting_value = str(_setting_value)
     if os.path.exists(_setting_file_path) is False:
         return
     else:
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
-        root.add(_setting_name, root.escape(str(_setting_value)))
+        root.add(_setting_name, str(_setting_value))
         root.write()
         return
 
@@ -197,7 +198,7 @@ def read_flag(_flag_file_path, _flag_name):
 
 
 def set_flag(_flag_file_path, _flag_name, _flag_value):
-    write_setting(_flag_file_path, _flag_name, str(convert_to_bool(_flag_value)))
+    write_setting(_flag_file_path, _flag_name, convert_to_bool(_flag_value))
     return
 
 
@@ -229,14 +230,9 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
         current_setting.write()
 
 
-def generate_search_engine_url(search_engine="google", keyword=None, define=False):
+def generate_search_engine_url(search_engine="google", keyword=None):
     if keyword:
         keyword = urllib.parse.quote(keyword)
-    if define:
-        if keyword:
-            return search_engine + keyword
-        else:
-            return re.search(r".*?", search_engine)
     else:
         search_engine = normalize(search_engine)
         search_engine_url_table = {
@@ -277,7 +273,7 @@ def intelligent_match(a, b):
 def showerror(_message):
     root = tk.Tk()
     root.withdraw()
-    messagebox.showerror("ORIZIN Agent　エラー", _message)
+    messagebox.showerror("ORIZIN Agent HTML　エラー", _message)
     root.destroy()
     return
 
@@ -285,6 +281,6 @@ def showerror(_message):
 def showinfo(_message):
     root = tk.Tk()
     root.withdraw()
-    messagebox.showinfo("ORIZIN Agent", _message)
+    messagebox.showinfo("ORIZIN Agent HTML", _message)
     root.destroy()
     return
