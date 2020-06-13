@@ -268,10 +268,10 @@ def intelligent_match(a, b):
         return 1.0
     else:
         a_length = len(a)
-        return max(list(map(
-            lambda target: difflib.SequenceMatcher(
-                None, target, a).ratio(), [b[num:num + a_length] for num in range(len(b) - a_length + 1)]
-        )))
+        return max(list(
+            difflib.SequenceMatcher(None, target, a).ratio() for target in [
+                b[num:num + a_length] for num in range(len(b) - a_length + 1)
+            ]))
 
 
 def showerror(_message):

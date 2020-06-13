@@ -124,7 +124,7 @@ main {
 
 header h1 {
     color: white;
-    display: inline:
+    display: inline;
 }
 
 .fill_panel {
@@ -205,7 +205,6 @@ pre {
 
 #menu_open_button {
     height: 5vh;
-    display: inline;
     cursor: pointer;
 }
 
@@ -331,7 +330,6 @@ input+label {
 }
 
 .overlay_inner menu {
-    display: inline;
     float: right;
 }
 
