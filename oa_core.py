@@ -64,11 +64,11 @@ def load_dictionary(_path):
     return root.read()
 
 
-def judge(_dictionary, _target, _matched_word=False):
-    if type(_target) == str:
-        _target = [_target]
-    for _word in _target:
-        if bool(re.search(_word, _dictionary)):
+def judge(_query, _dictionary, _matched_word=False):
+    if type(_dictionary) == str:
+        _dictionary = [_dictionary]
+    for _word in _dictionary:
+        if bool(re.search(_word, _query)):
             if _matched_word:
                 return [True, _word]
             else:
@@ -230,9 +230,11 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
         current_setting.write()
 
 
-def generate_search_engine_url(search_engine="google", keyword=None):
+def generate_search_engine_url(search_engine="google", keyword=None, define=False):
     if keyword:
         keyword = urllib.parse.quote(keyword)
+    if define:
+        return search_engine + keyword
     else:
         search_engine = normalize(search_engine)
         search_engine_url_table = {

@@ -68,6 +68,29 @@
                     float: right;
                 }
 
+                .chat_outer.video {
+                    width: 50%;
+                }
+
+                .chat_outer.video .chat {
+                    width: 100%;
+                    height: 0;
+                    padding: 0;
+                    padding-bottom: 56.25%;
+                    margin: 0;
+                    position: relative;
+                }
+
+                .chat_outer.video .chat iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    margin: 0;
+                }
+
                 .text_input_group {
                     transform: translateY(-0.2rem);
                 }
@@ -186,6 +209,9 @@
         <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
         <script>
+            eel.expose(start_speak);
+            eel.expose(add_chat);
+
             var easter_egg = new Konami(function() {
                 body_element = document.body;
                 body_element.style.transition = "7.5s";
@@ -214,12 +240,16 @@
                 }
             }
 
-            function add_chat(content, is_user=false) {
+            function add_chat(content, is_user=false, is_youtube=false) {
+                class_names = [];
                 if (is_user) {
-                    document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer user'><div class='chat'>" + content + "</div></div>");
-                } else {
-                    document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer'><div class='chat'>" + content + "</div></div>");
+                    class_names.push("user");
                 }
+                if (is_youtube) {
+                    class_names.push("video");
+                    content = '<iframe src="https://www.youtube.com/embed/' + content + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                }
+                document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer " + class_names.join(" ") + "'><div class='chat'>" + content + "</div></div>");
                 chat_area_element = document.getElementById("chat_area");
                 chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
@@ -228,7 +258,7 @@
                 add_chat(content, true);
                 let script = await eel.make_response(content)();
                 start_speak(script[0]);
-                add_chat(script[0], false);
+                add_chat(script[1], false);
             }
 
             async function read_setting() {

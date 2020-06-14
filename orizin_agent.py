@@ -86,6 +86,16 @@ def set_flag(_flag_name, _flag_value):
 def make_response(_not_normalized_query):
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
+    youtube_music_videos = {
+        "(白|ハク)(日|ジツ)": ["白日", "はくじつ", "King Gnu", "キングヌー", "ony539T074w"],
+        "マリーゴールド": ["マリーゴールド", "マリーゴールド", "あいみょん", "あいみょん", "0xSiBpUdW4E"],
+        "(pretender)|(プリテンダー)": ["Pretender", "プリテンダー", "Official髭男dism", "おふぃしゃるひげだんでぃずむ", "TQ8WlA2GXbk"],
+        "(lemon)|(レモン)": ["Lemon", "レモン", "米津玄師", "よねづけんし", "SX_ViT4Ra7k"],
+        "パプリカ": ["パプリカ", "パプリカ", "米津玄師", "よねづけんし", "s582L3gujnw"],
+        "(負|マ)ケナイデ": ["負けないで", "まけないで", "ZARD", "ザード", "NCPH9JUFESA"],
+        "(前|ゼン)(前|ゼン)(前|ゼン)(世|セ)": ["前前前世", "ぜんぜんぜんせ", "RADWIMPS", "ラッドウィンプス", "PDSkFeMVNFs"],
+        "(LOSER)|(ルーザー)": ["LOSER", "ルーザー", "米津玄師", "よねづけんし", "Dx_fKPBPYUI"]
+    }
     if _query == "":
         return ["私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。", "私はオープンソースのAIアシスタント、ORIZIN Agentです。気軽に話しかけてくださいね。"]
     if core.judge(_query, "ジャンケン"):
@@ -300,6 +310,10 @@ def make_response(_not_normalized_query):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
         return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
+    elif core.judge(_query, youtube_music_videos.keys()):
+        music_data = youtube_music_videos[core.judge(_query, list(youtube_music_videos.keys()), True)[1]]
+        eel.add_chat(music_data[4], False, True)
+        return [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
     else:
         _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")
