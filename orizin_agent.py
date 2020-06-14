@@ -104,7 +104,7 @@ def make_response(_not_normalized_query):
         return [f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。",
                 f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。"]
     elif core.judge(_query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
-        subprocess.Popen(["python", "resource/python/easter_egg.py"])
+        subprocess.Popen([read_setting("python_interpreter"), "resource/python/easter_egg.py"])
         return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
     elif core.judge(_query, [".*ノ(面積|メンセキ|広サ|ヒロサ|大キサ|オオキサ)"]):
         area_value = core.respond(core.load_dictionary(
@@ -343,7 +343,7 @@ def set_intelligent_timer(_query):
         time += f"{seconds}秒"
     if not time:
         time = "0秒"
-    subprocess.Popen(f"python timer.py {hours} {minutes} {seconds}")
+    subprocess.Popen(f"{read_setting('python_interpreter')} timer.py {hours} {minutes} {seconds}")
     return time
 
 

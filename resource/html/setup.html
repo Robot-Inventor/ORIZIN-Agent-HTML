@@ -151,7 +151,20 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                        <div class="text_underline"></div>
                     </div>
                     <menu>
-                        <button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('news_site_url_setting_card', 'setting_finished_message_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('news_site_url_setting_card', 'python_interpreter_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                    </menu>
+                </div>
+                <div class="overlay_inner" id="python_interpreter_setting_card">
+                    <h2><i class="material_icon">api</i>インタープリターを設定</h2>
+                    <p>
+                        Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力して下さい
+                    </p>
+                    <div class="text_input_group">
+                       <input type="text" placeholder="絶対パスかエイリアスを入力" id="python_interpreter" value="python">
+                       <div class="text_underline"></div>
+                    </div>
+                    <menu>
+                        <button onclick="back_card('python_interpreter_setting_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('python_interpreter_setting_card', 'setting_finished_message_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="setting_finished_message_card">
@@ -200,7 +213,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         <script src="../javascript/ripple.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            ALL_CARD = 7;
+            ALL_CARD = 8;
             setup_status = 0;
             progress = document.querySelector("progress");
 
@@ -233,6 +246,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 eel.write_setting("user_name", document.getElementById("user_name").value);
                 eel.write_setting("news_site_url", document.getElementById("news_site_url").value);
                 eel.write_setting("search_engine", document.getElementById("search_engine").value);
+                eel.write_setting("python_interpreter", document.getElementById("python_interpreter").value);
                 move_to_top_page();
             }
         </script>

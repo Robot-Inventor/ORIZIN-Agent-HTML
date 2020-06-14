@@ -81,6 +81,16 @@
                         音声認識終了後、自動で音声認識を再開する　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()"><label for="continuous_speech_recognition" class="ripple_effect"></label>
                     </details>
                 </section>
+                <section title="Pythonのインタープリターを設定します。">
+                    <details>
+                        <summary class="ripple_effect"><i class="material_icon">api</i>インタープリター</summary>
+                        Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力して下さい。<br>
+                        <div class="text_input_group">
+                            <input type="text" id="python_interpreter" placeholder="絶対パスかエイリアスを入力" onchange="save_setting()">
+                            <div class="text_underline"></div>
+                        </div>
+                    </details>
+                </section>
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
@@ -193,6 +203,7 @@
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
+                document.getElementById("python_interpreter").value = await eel.read_setting("python_interpreter")();
                 use_bold_text = await eel.read_setting("bold_text")();
                 if (use_bold_text == "True") {
                     document.getElementById("bold_text").checked = true;
