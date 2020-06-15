@@ -38,6 +38,12 @@
                         スプラッシュスクリーンをスキップし、高速起動します。
                     </p>
                 </section>
+                <section>
+                    <i class="material_icon">rss_feed</i>Google News RSSを使用する　<input type="checkbox" class="toggle" id="get_news_from_google_news" onchange="save_setting()"><label for="get_news_from_google_news" class="ripple_effect"></label><br>
+                    <p>
+                        ユーザーがニュースを要求した際，GoogleニュースのWEBページを開くのではなくGoogle News RSSを使用してインターネットからニュースを自動で取得します。
+                    </p>
+                </section>
             </div>
         </main>
         <style>
@@ -73,6 +79,7 @@
 
             read_flag("add_readable_text_setting");
             read_flag("fast_start");
+            read_flag("get_news_from_google_news");
 
             function save_setting() {
                 eel.set_flag(event.target.id, event.target.checked);

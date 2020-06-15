@@ -94,7 +94,8 @@ def make_response(_not_normalized_query):
         "パプリカ": ["パプリカ", "パプリカ", "米津玄師", "よねづけんし", "s582L3gujnw"],
         "(負|マ)ケナイデ": ["負けないで", "まけないで", "ZARD", "ザード", "NCPH9JUFESA"],
         "(前|ゼン)(前|ゼン)(前|ゼン)(世|セ)": ["前前前世", "ぜんぜんぜんせ", "RADWIMPS", "ラッドウィンプス", "PDSkFeMVNFs"],
-        "(LOSER)|(ルーザー)": ["LOSER", "ルーザー", "米津玄師", "よねづけんし", "Dx_fKPBPYUI"]
+        "(LOSER)|(ルーザー)": ["LOSER", "ルーザー", "米津玄師", "よねづけんし", "Dx_fKPBPYUI"],
+        "(紅蓮華)|(グレンゲ)": ["紅蓮華", "ぐれんげ", "LiSA", "リサ", "CwkzK-F0Y00"]
     }
     if _query == "":
         return ["私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。", "私はオープンソースのAIアシスタント、ORIZIN Agentです。気軽に話しかけてくださいね。"]
@@ -209,8 +210,20 @@ def make_response(_not_normalized_query):
         webbrowser.open_new("https://trends.google.com/trends/trendingsearches/daily?geo=JP")
         return ["Googleトレンドを開きます。", "Googleトレンドを開きます。"]
     elif core.judge(_query, ["news", "ニュース"]):
-        webbrowser.open_new(read_setting("news_site_url"))
-        return ["ニュースを開きます。", "ニュースを開きます。"]
+        if read_flag("get_news_from_google_news"):
+            news_data = core.get_google_news()
+            str_to_read = ""
+            str_to_display = ""
+            for content in news_data:
+                title = content["title"]
+                str_to_read += title + "。"
+                str_to_display += title + content["description"]
+            eel.add_chat("最新のニュースを3件、Googleニュースから取得しました。")
+            eel.start_speak("最新のニュースを3件、Googleニュースから取得しました。")
+            return [str_to_read, str_to_display]
+        else:
+            webbrowser.open_new(read_setting("news_site_url"))
+            return ["ニュースを開きます。", "ニュースを開きます。"]
     elif core.judge(_query, ["(翻|ホン)(訳|ヤク)"]):
         webbrowser.open_new("https://translate.google.co.jp/?hl=ja")
         return ["Google翻訳を開きます。", "Google翻訳を開きます。"]

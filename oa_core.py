@@ -10,6 +10,8 @@ import re
 import difflib
 import tkinter as tk
 from tkinter import messagebox
+import xml.etree.ElementTree as ET
+import html
 
 
 def normalize(_sentence):
@@ -286,3 +288,16 @@ def showinfo(_message):
     messagebox.showinfo("ORIZIN Agent HTML", _message)
     root.destroy()
     return
+
+
+def get_google_news(number_of_items=3):
+    root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
+    items = root.iter("item")
+    result = []
+    for num in range(number_of_items):
+        one_item = next(items)
+        result.append({
+            "title": html.unescape(next(one_item.iter("title")).text),
+            "description": html.unescape(next(one_item.iter("description")).text)
+        })
+    return result

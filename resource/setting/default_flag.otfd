@@ -1,2 +1,3 @@
 ﻿add_readable_text_setting:False
 fast_start:False
+get_news_from_google_news:False
