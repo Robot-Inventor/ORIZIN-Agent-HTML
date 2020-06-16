@@ -34,6 +34,7 @@ Edition: ORIZIN Agent HTML
 ### [v2.7.63.2dev-Budgerigar] - 2020-06-16
 #### 追加
 - Google News RSSを使用する試験機能を追加しました。
+- 音声に関する設定を追加する試験機能を追加しました。
 
 ### [v2.7.62.1-Budgerigar] - 2020-06-14
 #### 追加

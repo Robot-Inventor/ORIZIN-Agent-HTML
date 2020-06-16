@@ -231,6 +231,9 @@
             function start_speak(content) {
                 is_doing_speech_synthesis = true;
                 const script = new SpeechSynthesisUtterance(content);
+                script.pitch = pitch;
+                script.rate = speed;
+                script.volume = volume;
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
@@ -268,7 +271,13 @@
                 } else {
                     continuous_speech_recognition = false;
                 }
+                pitch = Number(await eel.read_setting("pitch")());
+                speed = Number(await eel.read_setting("speed")());
+                volume = Number(await eel.read_setting("volume")());
             }
+            pitch = 1;
+            speed = 1;
+            volume = 1;
             continuous_speech_recognition = false;
             read_setting();
 
