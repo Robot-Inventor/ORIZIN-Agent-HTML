@@ -89,6 +89,7 @@ def reset_setting():
     with open("resource/setting/setting.otfd", mode="w", encoding="utf-8_sig") as f:
         f.write(default_setting)
     write_setting("setup_finished", "True")
+    change_theme("theme/auto_theme.css")
     return
 
 
