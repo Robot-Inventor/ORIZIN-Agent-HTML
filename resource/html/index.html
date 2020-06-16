@@ -36,6 +36,11 @@
                     <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton"><i class="material_icon">send</i></button><i class="mike material_icon" id="start_recognition" onclick="start_recognition()">mic</i><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
                 </div>
             </div>
+            <div id="blm" style="margin: 0; padding: 0; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #010101; color: white; display: none;">
+                <p style="margin-top: 50vh; transform: translateY(-50%); text-align: center; font-size: 4vw; letter-spacing: 1vw; font-weight: light;">
+                    #BlackLivesMatter
+                </p>
+            </div>
             <style>
                 .text_input_group {
                     display: inline-block;
@@ -211,6 +216,14 @@
         <script>
             eel.expose(start_speak);
             eel.expose(add_chat);
+            eel.expose(blm)
+
+            function blm() {
+                $("#blm").fadeIn(300);
+                setTimeout(function() {
+                    $("#blm").fadeOut(300);
+                }, 5000);
+            }
 
             var easter_egg = new Konami(function() {
                 body_element = document.body;

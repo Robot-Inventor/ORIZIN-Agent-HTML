@@ -359,6 +359,9 @@ def make_response(_not_normalized_query):
         music_data = YOUTUBE_MUSIC_VIDEOS[core.judge(_query, list(YOUTUBE_MUSIC_VIDEOS.keys()), True)[1]]
         eel.add_chat(music_data[4], False, True)
         return [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
+    elif core.judge(_query, ["blackouttuesday", "ブラックアウトチューズデー", "blacklivesmatter", "ブラックリブズマター", "blm"]):
+        eel.blm()
+        return ["人種差別に反対します。", "人種差別に反対します。"]
     else:
         _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")

@@ -32,6 +32,9 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 ###[v2.8.65.0dev-Budgerigar] - 2020-06-17
+#### 追加
+- blackouttuesday，ブラックアウトチューズデー，blacklivesmatter，ブラックリブズマター，blmなどと入力すると黒い画面が表示されるようになりました。
+
 #### 修正
 - 辞書ファイルの破損していた箇所を修正しました。
 
