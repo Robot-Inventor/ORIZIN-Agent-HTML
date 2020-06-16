@@ -82,6 +82,25 @@ def set_flag(_flag_name, _flag_value):
     return
 
 
+@eel.expose
+def reset_setting():
+    with open("resource/setting/default_setting.otfd", encoding="utf-8_sig") as f:
+        default_setting = f.read()
+    with open("resource/setting/setting.otfd", mode="w", encoding="utf-8_sig") as f:
+        f.write(default_setting)
+    write_setting("setup_finished", "True")
+    return
+
+
+@eel.expose
+def reset_flag():
+    with open("resource/setting/default_flag.otfd", encoding="utf-8_sig") as f:
+        default_setting = f.read()
+    with open("resource/setting/flag.otfd", mode="w", encoding="utf-8_sig") as f:
+        f.write(default_setting)
+    return
+
+
 YOUTUBE_MUSIC_VIDEOS = {
     "(白|ハク)(日|ジツ)": ["白日", "はくじつ", "King Gnu", "キングヌー", "ony539T074w"],
     "マリーゴールド": ["マリーゴールド", "マリーゴールド", "あいみょん", "あいみょん", "0xSiBpUdW4E"],
