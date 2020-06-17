@@ -423,17 +423,22 @@ def search_wiki(keyword):
 
 
 if __name__ == "__main__":
+    with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
+        dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
     if os.path.exists("resource/dictionary/dictionary_hash.txt"):
         with open("resource/dictionary/dictionary_hash.txt", mode="r", encoding="utf-8_sig") as hash_file:
             hash_value = hash_file.read()
     else:
-        with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
-            dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
         with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
             hash_file.write(dict_hash)
     if os.path.exists("resource/dictionary/dictionary.bin"):
-        with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
-            dictionary = pickle.load(dict_bin_file)
+        if hash_value == dict_hash:
+            with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
+                dictionary = pickle.load(dict_bin_file)
+        else:
+            dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
+            with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
+                pickle.dump(dictionary, dict_bin_file)
     else:
         dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
         with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
