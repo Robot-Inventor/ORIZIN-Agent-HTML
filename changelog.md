@@ -31,6 +31,10 @@ Edition: ORIZIN Agent HTML
 |開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
 ## リリース
+### [v2.8.70.5dev-Budgerigar] - 2020-06-18
+#### 修正
+- リファクタリングを行いました。
+
 ### [v2.8.69.4dev-Budgerigar] - 2020-06-18
 #### 変更
 - 同梱のLeague Spartan Variableを通常のバージョンからVariable Fontsのバージョンに変更しました。

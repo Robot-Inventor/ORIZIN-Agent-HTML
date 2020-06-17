@@ -1,5 +1,5 @@
 Series Name:ORIZIN Agent
 Edition:ORIZIN Agent HTML
-Version:v2.8.69.4dev
+Version:v2.8.70.5dev
 Code Name:Budgerigar
 Date:2020-06-18 JST
