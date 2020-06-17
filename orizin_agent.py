@@ -436,6 +436,8 @@ if __name__ == "__main__":
             with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
                 dictionary = pickle.load(dict_bin_file)
         else:
+            with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
+                hash_file.write(dict_hash)
             dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
             with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
                 pickle.dump(dictionary, dict_bin_file)
