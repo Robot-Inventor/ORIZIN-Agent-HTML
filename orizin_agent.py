@@ -14,6 +14,8 @@ import urllib.request
 import urllib.parse
 import html
 import otfdlib
+import hashlib
+import pickle
 
 
 @eel.expose
@@ -422,11 +424,21 @@ def search_wiki(keyword):
 
 
 if __name__ == "__main__":
-    try:
+    if os.path.exists("resource/dictionary/dictionary_hash.txt"):
+        with open("resource/dictionary/dictionary_hash.txt", mode="r", encoding="utf-8_sig") as hash_file:
+            hash_value = hash_file.read()
+    else:
+        with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
+            dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
+        with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
+            hash_file.write(dict_hash)
+    if os.path.exists("resource/dictionary/dictionary.bin"):
+        with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
+            dictionary = pickle.load(dict_bin_file)
+    else:
         dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
-    except Exception as error_message:
-        core.showerror(error_message)
-        sys.exit()
+        with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
+            pickle.dump(dictionary, dict_bin_file)
     if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/auto_theme.css")
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
