@@ -2,7 +2,6 @@
 # -*- coding: utf8 -*-
 
 import eel
-import sys
 import oa_core as core
 import random
 import subprocess
