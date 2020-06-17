@@ -15,7 +15,7 @@
 
 @font-face {
     font-family: "League Spartan";
-    src: url("../font/LeagueSpartan-Regular.ttf") format("truetype");
+    src: url("../font/LeagueSpartanVariable.woff2") format("woff2-variations");
     font-display: swap;
 }
 
