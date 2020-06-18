@@ -216,7 +216,8 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
                       "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$"]):
             tweet_content = html.escape(re.sub("(| )(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
                                                "(twitter|tweet|ツイッター|ツイート)(|を|で)(|(お願い|おねがい)(|する|します|です)|(頼|たの(む|みます)))"
-                                               "((投稿|トウコウ|アップ|tweet|ツイート)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+                                               "((投稿|とうこう|アップ|tweet|ツイート|送信|そうしん)(てお|と|て)"
+                                               "(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
                                                "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$",
                                                "", _not_normalized_query))
             webbrowser.open_new(f"https://twitter.com/intent/tweet?text={tweet_content}")
@@ -276,8 +277,22 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
         webbrowser.open_new("https://translate.google.co.jp/?hl=ja")
         return ["Google翻訳を開きます。", "Google翻訳を開きます。"]
     elif core.judge(_query, ["メール", "mail"]):
-        webbrowser.open_new("https://mail.google.com/")
-        return ["Gmailを開きます。", "Gmailを開きます。"]
+        if core.judge(_not_normalized_query, [
+            "(| )(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
+            "((|g)mail|(|g|ジー)メール)(|を|で)(|((送|おく)(って(|(くだ|下)さい)|れ))|(お願い|おねがい)(|する|します|です)|(頼|たの(む|みます)))"
+            "((投稿|とうこう|アップ|送信|そうしん)((てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+            "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$"
+        ]):
+            message_content = html.escape(re.sub(
+                "(| )(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
+                "((|g)mail|(|g|ジー)メール)(|を|で)(|((送|おく)(って(|(くだ|下)さい)|れ))|(お願い|おねがい)(|する|します|です)|(頼|たの(む|みます)))"
+                "((投稿|とうこう|アップ|送信|そうしん)((てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+                "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$", "", _not_normalized_query))
+            webbrowser.open_new(f"https://mail.google.com/mail/?view=cm&body={message_content}")
+            return [f"「{message_content}」という内容でGmailの送信画面を開きます", f"「{message_content}」という内容でGmailの送信画面を開きます"]
+        else:
+            webbrowser.open_new("https://mail.google.com/")
+            return ["Gmailを開きます。", "Gmailを開きます。"]
     elif core.judge(_query, ["ラジオ", "radio"]):
         webbrowser.open_new("http://radiko.jp/")
         return ["radikoを開きます。", "radikoを開きます。"]
