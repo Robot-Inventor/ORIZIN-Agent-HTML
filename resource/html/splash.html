@@ -96,7 +96,7 @@
         <script>
             async function check_update() {
                 result = await eel.check_update()();
-                if (result[0] == "true") {
+                if (result[0] === "true") {
                     Push.create("ORIZIN Agent HTML", {
                         body: "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3],
                         icon: "../image/favicon/favicon.ico",

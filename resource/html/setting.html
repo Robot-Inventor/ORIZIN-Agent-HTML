@@ -194,9 +194,7 @@
             function save_setting() {
                 if (event.target.tagName == "INPUT" && event.target.type == "checkbox") {
                     eel.write_setting(event.target.id, event.target.checked);
-                } else if (event.target.tagName == "INPUT" && event.target.type == "range") {
-                    eel.write_setting(event.target.id, event.target.value);
-                }else {
+                } else (event.target.tagName == "INPUT" && event.target.type == "range") {
                     eel.write_setting(event.target.id, event.target.value);
                 }
             }

@@ -302,7 +302,7 @@
             is_finished = false;
 
             function reset() {
-                if(is_first_start == false) {
+                if(is_first_start === false) {
                     is_reseted = true;
                 }
                 if(is_finished) {
@@ -355,7 +355,7 @@
                 sound = new Audio("../sound/timer.mp3");
                 sound.play();
                 sound.addEventListener("ended", function() {
-                    if(is_stopped == false) {
+                    if(is_stopped === false) {
                         sound.currentTime = 0;
                         sound.play();
                     } else {
