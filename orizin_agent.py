@@ -129,7 +129,7 @@ YOUTUBE_MUSIC_VIDEOS = {
 
 
 @eel.expose
-def make_response(_not_normalized_query: str) -> typing.List[str, str]:
+def make_response(_not_normalized_query: str) -> typing.List[str]:
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
     if _query == "":
@@ -399,7 +399,7 @@ def set_intelligent_timer(_query: str) -> str:
 
 
 @eel.expose
-def check_update() -> typing.List[str, str, str, str]:
+def check_update() -> typing.List[str]:
     return core.check_update("resource/information.txt",
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
                              "master/resource/information.txt",

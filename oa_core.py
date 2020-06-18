@@ -67,8 +67,11 @@ def load_dictionary(_path: str) -> dict:
     return root.read()
 
 
+bool_and_str_type_var = typing.TypeVar("bool_and_str_type_var", bool, str)
+
+
 def judge(_query: str, _dictionary: typing.Union[str, list], _matched_word: bool = False) ->\
-        typing.Union[bool, typing.List[bool, str]]:
+        typing.Union[bool, typing.List[bool_and_str_type_var]]:
     if type(_dictionary) == str:
         _dictionary = [_dictionary]
     for _word in _dictionary:
@@ -90,7 +93,7 @@ def judge_with_intelligent_match(_input: str, _target: list, _threshold: typing.
     return False
 
 
-def respond(_dictionary: dict, _query: str) -> typing.List[str, str, str]:
+def respond(_dictionary: dict, _query: str) -> typing.List[str]:
     root = otfdlib.Otfd()
     root.load_from_string("")
     root.parse()
@@ -129,7 +132,7 @@ def respond(_dictionary: dict, _query: str) -> typing.List[str, str, str]:
 
 
 def check_update(_downloaded_file_path: str, _remote_file_url: str, _update_message_url: str) ->\
-        typing.List[str, str, str, str]:
+        typing.List[str]:
     _current = otfdlib.Otfd()
     _current.load(_downloaded_file_path)
     _current.parse()
@@ -171,7 +174,7 @@ def convert_to_bool(_value: typing.Any) -> bool:
                 return _false_level < _true_level
 
 
-def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.Union[None, str]:
+def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.Optional[str]:
     if os.path.exists(_setting_file_path) is False:
         return
     else:
