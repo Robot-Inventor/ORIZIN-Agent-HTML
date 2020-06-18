@@ -9,7 +9,7 @@ import difflib
 from oa_core import normalize
 
 
-def return_words_setting(string, array):
+def return_words_setting(string: str, array: list) -> list:
     result = []
     for word in array:
         if string in word:

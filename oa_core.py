@@ -12,9 +12,10 @@ import tkinter as tk
 from tkinter import messagebox
 import xml.etree.ElementTree as ET
 import html
+import typing
 
 
-def normalize(_sentence):
+def normalize(_sentence: str) -> str:
     result = normalize_with_dictionary("resource/dictionary/normalize_dictionary.otfd",
                                        convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(
                                            str.maketrans(
@@ -29,7 +30,7 @@ def normalize(_sentence):
     return result
 
 
-def normalize_with_dictionary(_file_path, _sentence):
+def normalize_with_dictionary(_file_path: str, _sentence: str) -> str:
     root = otfdlib.Otfd()
     root.load(_file_path)
     root.parse()
@@ -39,7 +40,7 @@ def normalize_with_dictionary(_file_path, _sentence):
     return result
 
 
-def convert_kanji_to_int(string):
+def convert_kanji_to_int(string: str) -> str:
     result = string.translate(str.maketrans("零〇一壱二弐三参四五六七八九拾", "00112233456789十", ""))
     convert_table = {
         "十": "0", "百": "00", "千": "000", "万": "0000", "億": "00000000", "兆": "000000000000", "京": "0000000000000000"
@@ -59,14 +60,15 @@ def convert_kanji_to_int(string):
     return result
 
 
-def load_dictionary(_path):
+def load_dictionary(_path: str) -> dict:
     root = otfdlib.Otfd()
     root.load(_path)
     root.parse()
     return root.read()
 
 
-def judge(_query, _dictionary, _matched_word=False):
+def judge(_query: str, _dictionary: typing.Union[str, list], _matched_word: bool = False) ->\
+        typing.Union[bool, typing.List[bool, str]]:
     if type(_dictionary) == str:
         _dictionary = [_dictionary]
     for _word in _dictionary:
@@ -81,14 +83,14 @@ def judge(_query, _dictionary, _matched_word=False):
         return False
 
 
-def judge_with_intelligent_match(_input, _target, _threshold=0.75):
+def judge_with_intelligent_match(_input: str, _target: list, _threshold: typing.Union[int, float] = 0.75) -> bool:
     for _content in _target:
         if intelligent_match(_input, _content) >= _threshold:
             return True
     return False
 
 
-def respond(_dictionary, _query):
+def respond(_dictionary: dict, _query: str) -> typing.List[str, str, str]:
     root = otfdlib.Otfd()
     root.load_from_string("")
     root.parse()
@@ -126,7 +128,8 @@ def respond(_dictionary, _query):
         return root.unescape([_response[0], _response[1], _most_similar_word])
 
 
-def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
+def check_update(_downloaded_file_path: str, _remote_file_url: str, _update_message_url: str) ->\
+        typing.List[str, str, str, str]:
     _current = otfdlib.Otfd()
     _current.load(_downloaded_file_path)
     _current.parse()
@@ -150,7 +153,7 @@ def check_update(_downloaded_file_path, _remote_file_url, _update_message_url):
             urllib.request.urlopen(_update_message_url).read().decode()]
 
 
-def convert_to_bool(_value):
+def convert_to_bool(_value: typing.Any) -> bool:
     if not _value:
         return False
     else:
@@ -168,7 +171,7 @@ def convert_to_bool(_value):
                 return _false_level < _true_level
 
 
-def read_setting(_setting_file_path, _setting_name):
+def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.Union[None, str]:
     if os.path.exists(_setting_file_path) is False:
         return
     else:
@@ -181,7 +184,7 @@ def read_setting(_setting_file_path, _setting_name):
             return
 
 
-def write_setting(_setting_file_path, _setting_name, _setting_value):
+def write_setting(_setting_file_path: str, _setting_name: typing.Any, _setting_value: typing.Any) -> None:
     _setting_name = str(_setting_name)
     _setting_value = str(_setting_value)
     if os.path.exists(_setting_file_path) is False:
@@ -195,16 +198,16 @@ def write_setting(_setting_file_path, _setting_name, _setting_value):
         return
 
 
-def read_flag(_flag_file_path, _flag_name):
+def read_flag(_flag_file_path: str, _flag_name: typing.Any) -> bool:
     return convert_to_bool(read_setting(_flag_file_path, _flag_name))
 
 
-def set_flag(_flag_file_path, _flag_name, _flag_value):
+def set_flag(_flag_file_path: str, _flag_name: typing.Any, _flag_value: typing.Any) -> None:
     write_setting(_flag_file_path, _flag_name, convert_to_bool(_flag_value))
     return
 
 
-def solve_setting_conflict(_default_setting_file_path, _current_setting_file_path):
+def solve_setting_conflict(_default_setting_file_path: str, _current_setting_file_path: str) -> None:
     if os.path.exists(_default_setting_file_path) is False:
         raise Exception(f"{_default_setting_file_path}にデフォルト設定ファイルがありません。")
     if os.path.exists(_current_setting_file_path) is False:
@@ -230,9 +233,10 @@ def solve_setting_conflict(_default_setting_file_path, _current_setting_file_pat
         current_setting.sorted()
         default_setting.write()
         current_setting.write()
+        return
 
 
-def generate_search_engine_url(search_engine="google", keyword=None, define=False):
+def generate_search_engine_url(search_engine: str = "google", keyword: str = None, define: bool = False) -> str:
     if keyword:
         keyword = urllib.parse.quote(keyword)
     if define:
@@ -259,7 +263,7 @@ def generate_search_engine_url(search_engine="google", keyword=None, define=Fals
             return url[:url.rfind("/") + 1]
 
 
-def intelligent_match(a, b):
+def intelligent_match(a: str, b: str) -> float:
     if len(a) > len(b):
         a_cache = a
         a = b
@@ -274,7 +278,7 @@ def intelligent_match(a, b):
             ]))
 
 
-def showerror(_message):
+def showerror(_message: str) -> None:
     root = tk.Tk()
     root.withdraw()
     messagebox.showerror("ORIZIN Agent HTML　エラー", _message)
@@ -282,7 +286,7 @@ def showerror(_message):
     return
 
 
-def showinfo(_message):
+def showinfo(_message: str) -> None:
     root = tk.Tk()
     root.withdraw()
     messagebox.showinfo("ORIZIN Agent HTML", _message)
@@ -290,7 +294,7 @@ def showinfo(_message):
     return
 
 
-def get_google_news(number_of_items=3):
+def get_google_news(number_of_items: int = 3) -> typing.List[typing.Dict[str, str]]:
     root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
     items = root.iter("item")
     result = []

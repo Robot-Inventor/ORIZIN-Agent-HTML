@@ -34,6 +34,7 @@ Edition: ORIZIN Agent HTML
 ### [v2.8.70.5dev-Budgerigar] - 2020-06-18
 #### 修正
 - リファクタリングを行いました。
+- Pythonのプログラミング中に型ヒントを追加しました。
 
 ### [v2.8.69.4dev-Budgerigar] - 2020-06-18
 #### 変更

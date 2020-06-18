@@ -15,10 +15,11 @@ import html
 import otfdlib
 import hashlib
 import pickle
+import typing
 
 
 @eel.expose
-def change_theme(_css_theme_path):
+def change_theme(_css_theme_path: str) -> None:
     _css_file_path = "resource/css/layout.css"
     _old_css = ""
     with open(_css_file_path, mode="r") as _css_file:
@@ -37,7 +38,7 @@ def change_theme(_css_theme_path):
 
 
 @eel.expose
-def write_custom_css_theme(_value):
+def write_custom_css_theme(_value: typing.Any) -> None:
     if len(_value) == 5:
         _custom_css_data = ":root {\n    --bg: " + _value[0] + ";\n    --card_bg: " + _value[1] + ";\n    --text: " +\
                            _value[2] + ";\n    --shadow: " + _value[3] + ";\n    --theme_color: " + _value[4] + ";\n}"
@@ -50,7 +51,7 @@ def write_custom_css_theme(_value):
 
 
 @eel.expose
-def check_current_css_theme_information():
+def check_current_css_theme_information() -> typing.List[str]:
     css_file_path = read_setting("theme")
     with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
         css = f.read()
@@ -63,28 +64,29 @@ def check_current_css_theme_information():
 
 
 @eel.expose
-def read_setting(_setting_name):
+def read_setting(_setting_name: typing.Any) -> str:
     return core.read_setting("resource/setting/setting.otfd", _setting_name)
 
 
 @eel.expose
-def write_setting(_setting_name, _setting_value):
-    return core.write_setting("resource/setting/setting.otfd", _setting_name, _setting_value)
+def write_setting(_setting_name: typing.Any, _setting_value: typing.Any) -> None:
+    core.write_setting("resource/setting/setting.otfd", _setting_name, _setting_value)
+    return
 
 
 @eel.expose
-def read_flag(_flag_name):
+def read_flag(_flag_name: typing.Any) -> bool:
     return core.read_flag("resource/setting/flag.otfd", _flag_name)
 
 
 @eel.expose
-def set_flag(_flag_name, _flag_value):
+def set_flag(_flag_name: typing.Any, _flag_value: typing.Any) -> None:
     core.set_flag("resource/setting/flag.otfd", _flag_name, _flag_value)
     return
 
 
 @eel.expose
-def reset_setting():
+def reset_setting() -> None:
     with open("resource/setting/default_setting.otfd", encoding="utf-8_sig") as f:
         default_setting = f.read()
     with open("resource/setting/setting.otfd", mode="w", encoding="utf-8_sig") as f:
@@ -95,7 +97,7 @@ def reset_setting():
 
 
 @eel.expose
-def reset_flag():
+def reset_flag() -> None:
     with open("resource/setting/default_flag.otfd", encoding="utf-8_sig") as f:
         default_setting = f.read()
     with open("resource/setting/flag.otfd", mode="w", encoding="utf-8_sig") as f:
@@ -127,7 +129,7 @@ YOUTUBE_MUSIC_VIDEOS = {
 
 
 @eel.expose
-def make_response(_not_normalized_query):
+def make_response(_not_normalized_query: str) -> typing.List[str, str]:
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
     if _query == "":
@@ -356,7 +358,7 @@ def make_response(_not_normalized_query):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
         return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
-    elif core.judge(_query, YOUTUBE_MUSIC_VIDEOS.keys()):
+    elif core.judge(_query, list(YOUTUBE_MUSIC_VIDEOS.keys())):
         music_data = YOUTUBE_MUSIC_VIDEOS[core.judge(_query, list(YOUTUBE_MUSIC_VIDEOS.keys()), True)[1]]
         eel.add_chat(music_data[4], False, True)
         return [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
@@ -369,7 +371,7 @@ def make_response(_not_normalized_query):
         return [_response[0].format(user_name=_user_name), _response[1].format(user_name=_user_name)]
 
 
-def set_intelligent_timer(_query):
+def set_intelligent_timer(_query: str) -> str:
     hours = 0
     minutes = 0
     seconds = 0
@@ -397,7 +399,7 @@ def set_intelligent_timer(_query):
 
 
 @eel.expose
-def check_update():
+def check_update() -> typing.List[str, str, str, str]:
     return core.check_update("resource/information.txt",
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
                              "master/resource/information.txt",
@@ -405,7 +407,7 @@ def check_update():
                              "master/update_message.txt")
 
 
-def get_wiki_data(keyword):
+def get_wiki_data(keyword: str) -> str:
     keyword = urllib.parse.quote(keyword)
     url = f"https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" \
           f"{keyword}&rvprop=content&rvparse"
@@ -414,7 +416,7 @@ def get_wiki_data(keyword):
     return data
 
 
-def search_wiki(keyword):
+def search_wiki(keyword: str) -> str:
     data = get_wiki_data(keyword)
     if 'redirectText' in data:
         data = get_wiki_data(re.sub('<.*?>', '', re.search('<a href.*?>.*?</a>', data).group()))

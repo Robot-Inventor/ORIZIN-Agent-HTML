@@ -3,6 +3,7 @@
 
 import eel
 import sys
+import typing
 
 
 arg = sys.argv
@@ -17,7 +18,7 @@ else:
 
 
 @eel.expose
-def timer(hour, minute, second):
+def timer(hour: typing.Any, minute: typing.Any, second: typing.Any) -> None:
     eel.update_time(f"{hour}:{minute}:{second}")
     if type(hour) != int:
         hour = int(hour)
