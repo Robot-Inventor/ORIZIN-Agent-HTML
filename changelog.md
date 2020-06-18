@@ -31,6 +31,10 @@ Edition: ORIZIN Agent HTML
 |開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
 ## リリース
+### [v3.0.74.0dev-Budgerigar] - 2020-06-19
+#### 追加
+- Twitterの投稿に対応しました。
+
 ### [v2.9.73.1-Budgerigar] - 2020-06-18
 #### 追加
 - README.mdにORIZIN Agent HTMLが日本語しかサポートしていない旨を英語で追加しました。

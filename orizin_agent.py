@@ -209,8 +209,21 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
         time = time.strftime('%Y年%m月%d日 %H:%M:%S')
         return [f"現在は{time}です。", f"現在は{time}です。"]
     elif core.judge(_query, ["twitter", "ツイッタ", "tweet", "ツイート"]):
-        webbrowser.open_new("https://twitter.com/")
-        return ["Twitterを開きます。", "Twitterを開きます。"]
+        if core.judge(_not_normalized_query, [
+                      "(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
+                      "(twitter|tweet|ツイッター|ツイート)(|を|で)(|(お願い|おねがい)(|する|します|です)|(頼|たの(む|みます)))"
+                      "((投稿|トウコウ|アップ|tweet|ツイート)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+                      "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$"]):
+            tweet_content = html.escape(re.sub("(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
+                                               "(twitter|tweet|ツイッター|ツイート)(|を|で)(|(お願い|おねがい)(|する|します|です)|(頼|たの(む|みます)))"
+                                               "((投稿|トウコウ|アップ|tweet|ツイート)(てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+                                               "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$",
+                                               "", _not_normalized_query))
+            webbrowser.open_new(f"https://twitter.com/intent/tweet?text={tweet_content}")
+            return [f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。"]
+        else:
+            webbrowser.open_new("https://twitter.com/")
+            return ["Twitterを開きます。", "Twitterを開きます。"]
     elif core.judge(_query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
         webbrowser.open_new("https://corona.go.jp/")
         return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。"]
