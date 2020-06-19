@@ -35,6 +35,7 @@ Edition: ORIZIN Agent HTML
 #### 追加
 - Twitterの投稿に対応しました。
 - Gmailの送信に対応しました。
+- 新型コロナウイルス接触確認アプリ（COCOA）に関する厚生労働省のページを開く機能を追加しました。
 
 #### 変更
 - v3.0になったため，コードネームをBudgerigarからCraneに変更しました。

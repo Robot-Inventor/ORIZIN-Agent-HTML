@@ -228,6 +228,9 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
         else:
             webbrowser.open_new("https://twitter.com/")
             return ["Twitterを開きます。", "Twitterを開きます。"]
+    elif core.judge(_query, ["(接|セッ)(触|ショク)(確|カク)(認|ニン)アプリ", "cocoa", "ココア", "contactconfirmingapplication"]):
+        webbrowser.open_new("https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html")
+        return ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。"]
     elif core.judge(_query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
         webbrowser.open_new("https://corona.go.jp/")
         return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。"]
