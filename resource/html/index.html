@@ -438,8 +438,11 @@
             document.addEventListener("keydown", function() {
                 switch (event.keyCode) {
                     case 32:
-                    document.getElementById("start_recognition").click();
-                    break;
+                        document.getElementById("start_recognition").click();
+                        break;
+                    case 13:
+                        document.getElementById("startButton").click();
+                        break;
                 }
             });
         </script>
