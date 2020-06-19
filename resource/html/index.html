@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm"><div class="text_underline"></div></div><button id="startButton"><i class="material_icon">send</i></button><i class="mike material_icon" id="start_recognition" onclick="start_recognition()">mic</i><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
+                    <div class="text_input_group"><input type="text" placeholder="質問を入力" id="requestForm" oninput="change_send_button_status()"><div class="text_underline"></div></div><button id="startButton" disabled><i class="material_icon">send</i></button><i class="mike material_icon" id="start_recognition" onclick="start_recognition()">mic</i><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
                 </div>
             </div>
             <div id="blm" style="margin: 0; padding: 0; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #010101; color: white; display: none;">
@@ -122,16 +122,21 @@
                     margin-left: 1rem;
                     transform: translateY(-0.5rem);
                     vertical-align: top;
-                }
-
-                #startButton i {
-                    color: var(--theme_color);
                     font-size: 1.5rem;
+                    transition: 0.3s;
+                    background: none;
                 }
 
-                #startButton:hover {
-                    background: none;
+                #startButton:disabled {
+                    color: var(--text);
+                    opacity: 0.3;
+                    cursor: default;
+                }
+
+                #startButton:enabled {
                     color: var(--theme_color);
+                    opacity: 1;
+                    cursor: pointer;
                 }
 
                 #message_input {
@@ -258,6 +263,7 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
+                    change_send_button_status();
                     if (continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
                         document.getElementById("start_recognition").click();
                     }
@@ -314,6 +320,7 @@
                     response(requestForm.value);
                     requestForm.value = "";
                     is_requested_by_text = true;
+                    change_send_button_status();
                 }
             });
 
@@ -400,7 +407,16 @@
                         is_listening = true;
                     }
                 }
-            };
+            }
+
+            function change_send_button_status() {
+                send_button = document.getElementById("startButton");
+                if (document.getElementById("requestForm").value.length && !is_doing_speech_synthesis) {
+                    send_button.disabled = false;
+                } else {
+                    send_button.disabled = true;
+                }
+            }
 
             document.addEventListener("keydown", function() {
                 switch (event.keyCode) {
