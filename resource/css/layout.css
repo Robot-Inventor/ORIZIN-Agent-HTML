@@ -307,7 +307,6 @@ input+label {
     height: 100vh;
     position: fixed;
     background: rgb(100, 100, 100, 0.5);
-    backdrop-filter: blur(10px);
     z-index: 2;
 }
 
