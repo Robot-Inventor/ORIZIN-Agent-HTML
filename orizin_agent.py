@@ -112,7 +112,7 @@ def add_chat(content: str) -> None:
 
 
 def start_speak(content: str) -> None:
-    eel.start_speak(content, False)
+    eel.start_speak(content, True, False)
     return
 
 
@@ -158,7 +158,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "resource/dictionary/country_information_dictionary/area_dictionary.otfd"), _query)
         if area_value[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
-            return ["面積を検索します。", "面積を検索します。"]
+            return ["面積を検索します。", "面積を検索します。", False]
         else:
             return [f"{area_value[2]}の面積は{area_value[0]}です。", f"{area_value[2]}の面積は{area_value[1]}です。"]
     elif core.judge(_query, [".*(ノ|ニアル)(首都|シュト)"]):
@@ -166,7 +166,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "resource/dictionary/country_information_dictionary/capital_dictionary.otfd"), _query)
         if capital_name[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
-            return ["首都を検索します。", "首都を検索します。"]
+            return ["首都を検索します。", "首都を検索します。", False]
         else:
             return [f"{capital_name[2]}の首都は{capital_name[0]}です。", f"{capital_name[2]}の首都は{capital_name[1]}です。"]
     elif core.judge(_query, [".*(ノ|使.*?イル)(言語|ゲンゴ|言葉|コトバ|公用語|コウヨウゴ)"]):
@@ -174,7 +174,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "resource/dictionary/country_information_dictionary/language_dictionary.otfd"), _query)
         if language[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
-            return ["言語を検索します。", "言語を検索します。"]
+            return ["言語を検索します。", "言語を検索します。", False]
         else:
             return [f"{language[2]}の言語は{language[0]}です。", f"{language[2]}の言語は{language[1]}です。"]
     elif core.judge(_query, [".*(ノ|ニ.*?(イル|デル))(人口|人口|(人|ヒト)(ノ|)(数|カズ))"]):
@@ -182,7 +182,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "resource/dictionary/country_information_dictionary/population_dictionary.otfd"), _query)
         if population[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
-            return ["人口を検索します。", "人口を検索します。"]
+            return ["人口を検索します。", "人口を検索します。", False]
         else:
             return [f"{population[2]}の人口は{population[0]}です。", f"{population[2]}の人口は{population[1]}です。"]
     elif core.judge(_query, [".*(ノ|デ)(宗教|シュウキョウ|信仰|シンコウ|国教|コッキョウ)"]):
@@ -190,25 +190,25 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "resource/dictionary/country_information_dictionary/religion_dictionary.otfd"), _query)
         if religion[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
-            return ["宗教を検索します。", "宗教を検索します。"]
+            return ["宗教を検索します。", "宗教を検索します。", False]
         else:
             return [f"{religion[2]}の宗教は{religion[0]}です。", f"{religion[2]}の宗教は{religion[1]}です。"]
     elif core.judge(_query, ["予定", "ヨテイ", "カレンダ", "calender", "リマイン", "remind"]):
         webbrowser.open_new("https://calendar.google.com/")
-        return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。"]
+        return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。", False]
     elif core.judge(_query,
                     [
                         "マップ", "地図", "チズ", "場所", "バショ", "ドコ", "何処", "行キ方", "イキカタ",
                         "ユキカタ", "行キカタ", "イキ方", "ユキ方", "案内", "アンナイ", "道", "ミチ"
                     ]):
         webbrowser.open_new("https://google.com/maps/search/" + urllib.parse.quote(_not_normalized_query))
-        return [f"Googleマップで「{_not_normalized_query}」を検索します。", f"Googleマップで「{_query}」を検索します。"]
+        return [f"Googleマップで「{_not_normalized_query}」を検索します。", f"Googleマップで「{_query}」を検索します。", False]
     elif core.judge(_query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
         webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
-        return ["ストップウォッチを表示します。", "ストップウォッチを表示します。"]
+        return ["ストップウォッチを表示します。", "ストップウォッチを表示します。", False]
     elif core.judge(_query, ["(計|ケイ)(算|サン)", "(電|デン)(卓|タク)"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
-        return ["電卓を開きます。", "電卓を開きます。"]
+        return ["電卓を開きます。", "電卓を開きます。", False]
     elif core.judge(_query, ["タイマ", "(砂|スナ)(時|ト|ド)(計|ケイ)"]) and \
             core.judge(_query, ["(設|セッ)(定|テイ)", "セット", "(鳴|ナ)ラ", "(掛|カ)ケ"]):
         time = set_intelligent_timer(_query)
@@ -228,28 +228,28 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$"
         ]):
             tweet_content = html.escape(re.sub("(| )(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
-                                               "(| )([tT]witter|[tT]weet|ツイッター|ツイート)(| )(|を|で|に)(|(お願い|おねがい)(|する|します|です)|"
-                                               "(頼|たの(む|みます)))((|投稿|とうこう|アップ|[tT]weet|ツイート|送信|そうしん)((てお|と|て)"
-                                               "(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
+                                               "(| )([tT]witter|[tT]weet|ツイッター|ツイート)(| )(|を|で|に)(|(お願い|おねがい)"
+                                               "(|する|します|です)|(頼|たの(む|みます)))((|投稿|とうこう|アップ|[tT]weet|ツイート|送信|そうしん)"
+                                               "((てお|と|て)(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
                                                "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$",
                                                "", _not_normalized_query))
             webbrowser.open_new(f"https://twitter.com/intent/tweet?text={tweet_content}")
-            return [f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。"]
+            return [f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", False]
         else:
             webbrowser.open_new("https://twitter.com/")
-            return ["Twitterを開きます。", "Twitterを開きます。"]
+            return ["Twitterを開きます。", "Twitterを開きます。", False]
     elif core.judge(_query, ["(接|セッ)(触|ショク)(確|カク)(認|ニン)アプリ", "cocoa", "ココア", "contactconfirmingapplication"]):
         webbrowser.open_new("https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html")
-        return ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。"]
+        return ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", False]
     elif core.judge(_query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
         webbrowser.open_new("https://corona.go.jp/")
-        return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。"]
+        return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。", False]
     elif core.judge(_query, ["facebook", "フェースブック"]):
         webbrowser.open_new("https://www.facebook.com/")
-        return ["Facebookを開きます。", "Facebookを開きます。"]
+        return ["Facebookを開きます。", "Facebookを開きます。", False]
     elif core.judge(_query, ["テレビ", "tv", "(番|バン)(組|グミ|クミ)", "tver", "ティーバ"]):
         webbrowser.open_new("https://tver.jp/")
-        return ["TVerを開きます。", "TVerを開きます。"]
+        return ["TVerを開きます。", "TVerを開きます。", False]
     elif core.judge(_query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]) and\
             core.judge(_query, [
                 "テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ",
@@ -258,22 +258,22 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
         webbrowser.open_new(
             core.generate_search_engine_url("https://www.youtube.com/results?search_query=",
                                             _not_normalized_query, True))
-        return [f"YouTubeで「{_not_normalized_query}」を検索します。", f"YouTubeで「{_not_normalized_query}」を検索します。"]
+        return [f"YouTubeで「{_not_normalized_query}」を検索します。", f"YouTubeで「{_not_normalized_query}」を検索します。", False]
     elif core.judge(_query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]):
         webbrowser.open_new("https://www.youtube.com/")
-        return ["YouTubeを開きます。", "YouTubeを開きます。"]
+        return ["YouTubeを開きます。", "YouTubeを開きます。", False]
     elif core.judge(_query, ["instagram", "インスタ"]):
         webbrowser.open_new("https://www.instagram.com/")
-        return ["Instagramを開きます。", "Instagramを開きます。"]
+        return ["Instagramを開きます。", "Instagramを開きます。", False]
     elif core.judge(_query, ["github", "ギットハブ"]):
         webbrowser.open_new("https://github.com/")
-        return ["GitHubを開きます。", "GitHubを開きます。"]
+        return ["GitHubを開きます。", "GitHubを開きます。", False]
     elif core.judge(_query, ["(地|ジ)(震|シン)"]):
         webbrowser.open_new("https://www.jma.go.jp/jp/quake/")
-        return ["気象庁の地震情報のページを開きます。", "気象庁の地震情報のページを開きます。"]
+        return ["気象庁の地震情報のページを開きます。", "気象庁の地震情報のページを開きます。", False]
     elif core.judge(_query, ["トレンド", "trend"]):
         webbrowser.open_new("https://trends.google.com/trends/trendingsearches/daily?geo=JP")
-        return ["Googleトレンドを開きます。", "Googleトレンドを開きます。"]
+        return ["Googleトレンドを開きます。", "Googleトレンドを開きます。", False]
     elif core.judge(_query, ["news", "ニュース"]):
         if read_flag("get_news_from_google_news"):
             news_data = core.get_google_news()
@@ -288,10 +288,10 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
             return [str_to_read, str_to_display]
         else:
             webbrowser.open_new(read_setting("news_site_url"))
-            return ["ニュースを開きます。", "ニュースを開きます。"]
+            return ["ニュースを開きます。", "ニュースを開きます。", False]
     elif core.judge(_query, ["(翻|ホン)(訳|ヤク)"]):
         webbrowser.open_new("https://translate.google.co.jp/?hl=ja")
-        return ["Google翻訳を開きます。", "Google翻訳を開きます。"]
+        return ["Google翻訳を開きます。", "Google翻訳を開きます。", False]
     elif core.judge(_query, ["メール", "mail"]):
         if core.judge(unicodedata.normalize("NFKC", _not_normalized_query.replace(" ", "").lower()), [
             "(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
@@ -306,16 +306,16 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
                 "(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
                 "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$", "", _not_normalized_query))
             webbrowser.open_new(f"https://mail.google.com/mail/?view=cm&body={message_content}")
-            return [f"「{message_content}」という内容でGmailの送信画面を開きます", f"「{message_content}」という内容でGmailの送信画面を開きます"]
+            return [f"「{message_content}」という内容でGmailの送信画面を開きます", f"「{message_content}」という内容でGmailの送信画面を開きます", False]
         else:
             webbrowser.open_new("https://mail.google.com/")
-            return ["Gmailを開きます。", "Gmailを開きます。"]
+            return ["Gmailを開きます。", "Gmailを開きます。", False]
     elif core.judge(_query, ["ラジオ", "radio"]):
         webbrowser.open_new("http://radiko.jp/")
-        return ["radikoを開きます。", "radikoを開きます。"]
+        return ["radikoを開きます。", "radikoを開きます。", False]
     elif core.judge(_query, ["(写|シャ)(真|シン)", "(画|ガ)(像|ゾウ)", "フォト", "photo", "ピクチャ", "picture"]):
         webbrowser.open_new("https://photos.google.com/")
-        return ["Googleフォトを開きます。", "Googleフォトを開きます。"]
+        return ["Googleフォトを開きます。", "Googleフォトを開きます。", False]
     elif core.judge(_query, ["メモ", "memo", "(記|キ)(憶|オク|録|ロク)"]) and \
             core.judge(_query, [
                 "(削|サク)(除|ジョ)", "(消|ショウ)(去|キョ)", "クリア", "clear",
@@ -382,7 +382,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
         search_engine = read_setting("search_engine")
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), _not_normalized_query))
         return [f"{search_engine}で「{_not_normalized_query}」を検索します。",
-                f"{search_engine}で「{_not_normalized_query}」を検索します。"]
+                f"{search_engine}で「{_not_normalized_query}」を検索します。", False]
     elif core.judge(_query, ["サイコロ", "ダイス", "dice"]):
         max_number = 6
         if core.judge(_query, [r"\d(面|メン)"]):

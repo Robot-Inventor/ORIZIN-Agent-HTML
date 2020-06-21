@@ -268,7 +268,7 @@
                 }, 9000);
             });
 
-            function start_speak(content, continuous_speech_recognition_program_setting=true) {
+            function start_speak(content, will_keep_speaking_after_this_function=false, allow_continuous_speech_recognition=true) {
                 is_doing_speech_synthesis = true;
                 document.getElementById("start_recognition").disabled = true;
                 const script = new SpeechSynthesisUtterance(content);
@@ -278,11 +278,11 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    if (continuous_speech_recognition_program_setting) {
+                    if (!will_keep_speaking_after_this_function || allow_continuous_speech_recognition) {
                         document.getElementById("start_recognition").disabled = false;
                     }
                     change_send_button_status();
-                    if (continuous_speech_recognition_user_setting && continuous_speech_recognition_program_setting && !is_requested_by_text && !recognition_error_happened) {
+                    if (continuous_speech_recognition_user_setting && !will_keep_speaking_after_this_function && allow_continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
                         document.getElementById("start_recognition").click();
                     }
                 }
@@ -305,7 +305,11 @@
             async function response(content) {
                 add_chat(content, true);
                 let script = await eel.make_response(content)();
-                start_speak(script[0]);
+                if (script.length === 3) {
+                    start_speak(script[0], false, script[2]);
+                } else {
+                    start_speak(script[0]);
+                }
                 add_chat(script[1], false);
             }
 
