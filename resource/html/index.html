@@ -268,7 +268,7 @@
                 }, 9000);
             });
 
-            function start_speak(content) {
+            function start_speak(content, continuous_speech_recognition_program_setting=true) {
                 is_doing_speech_synthesis = true;
                 document.getElementById("start_recognition").disabled = true;
                 const script = new SpeechSynthesisUtterance(content);
@@ -278,9 +278,11 @@
                 speechSynthesis.speak(script);
                 script.onend = function() {
                     is_doing_speech_synthesis = false;
-                    document.getElementById("start_recognition").disabled = false;
+                    if (continuous_speech_recognition_program_setting) {
+                        document.getElementById("start_recognition").disabled = false;
+                    }
                     change_send_button_status();
-                    if (continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
+                    if (continuous_speech_recognition_user_setting && continuous_speech_recognition_program_setting && !is_requested_by_text && !recognition_error_happened) {
                         document.getElementById("start_recognition").click();
                     }
                 }
@@ -308,11 +310,11 @@
             }
 
             async function read_setting() {
-                continuous_speech_recognition = await eel.read_setting("continuous_speech_recognition")();
-                if (continuous_speech_recognition == "True") {
-                    continuous_speech_recognition = true;
+                continuous_speech_recognition_user_setting = await eel.read_setting("continuous_speech_recognition")();
+                if (continuous_speech_recognition_user_setting == "True") {
+                    continuous_speech_recognition_user_setting = true;
                 } else {
-                    continuous_speech_recognition = false;
+                    continuous_speech_recognition_user_setting = false;
                 }
                 pitch = Number(await eel.read_setting("pitch")());
                 speed = Number(await eel.read_setting("speed")());
@@ -321,7 +323,7 @@
             pitch = 1;
             speed = 1;
             volume = 1;
-            continuous_speech_recognition = false;
+            continuous_speech_recognition_user_setting = false;
             read_setting();
 
             is_requested_by_text = false;

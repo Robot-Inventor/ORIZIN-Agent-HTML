@@ -106,6 +106,16 @@ def reset_flag() -> None:
     return
 
 
+def add_chat(content: str) -> None:
+    eel.add_chat(content)
+    return
+
+
+def start_speak(content: str) -> None:
+    eel.start_speak(content, False)
+    return
+
+
 YOUTUBE_MUSIC_VIDEOS = {
     "(白|ハク)(日|ジツ)": ["白日", "はくじつ", "King Gnu", "キングヌー", "ony539T074w"],
     "マリーゴールド": ["マリーゴールド", "マリーゴールド", "あいみょん", "あいみょん", "0xSiBpUdW4E"],
@@ -273,8 +283,8 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
                 title = content["title"]
                 str_to_read += title + "。"
                 str_to_display += title + content["description"]
-            eel.add_chat("最新のニュースを3件、Googleニュースから取得しました。")
-            eel.start_speak("最新のニュースを3件、Googleニュースから取得しました。")
+            add_chat("最新のニュースを3件、Googleニュースから取得しました。")
+            start_speak("最新のニュースを3件、Googleニュースから取得しました。")
             return [str_to_read, str_to_display]
         else:
             webbrowser.open_new(read_setting("news_site_url"))
