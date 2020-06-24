@@ -206,6 +206,7 @@ pre {
 #menu_open_button {
     height: 5vh;
     cursor: pointer;
+    margin-right: 1.5em;
 }
 
 hr {
