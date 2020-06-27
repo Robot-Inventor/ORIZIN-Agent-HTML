@@ -260,6 +260,11 @@ input[type=text] {
     width: 50%;
     color: var(--text);
     background: none;
+    transition: 0.3s;
+}
+
+input[type=text]::placeholder {
+    transition: 0.3s;
 }
 
 input[type=text]:focus::placeholder {
