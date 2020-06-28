@@ -50,6 +50,10 @@
                 </p>
             </div>
             <style>
+                body {
+                    cursor: default;
+                }
+
                 .text_input_group {
                     display: inline-block;
                 }
@@ -303,6 +307,7 @@
             }
 
             async function response(content) {
+                document.body.style.cursor = "progress";
                 add_chat(content, true);
                 let script = await eel.make_response(content)();
                 if (script.length === 3) {
@@ -311,6 +316,7 @@
                     start_speak(script[0]);
                 }
                 add_chat(script[1], false);
+                document.body.style.cursor = "default";
             }
 
             async function read_setting() {
