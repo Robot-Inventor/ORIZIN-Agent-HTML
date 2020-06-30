@@ -99,10 +99,14 @@ def respond(_dictionary: dict, _query: str) -> typing.List[str]:
     root.parse()
     root.update(_dictionary)
     _index_list = root.get_index_list()
-    _similarity = {}
+    _most_similar_word = ""
+    _most_similar_value = 0
     for _index in _index_list:
         _splited_index = root.unescape(list(_index.split("/")))
-        _similarity[max([intelligent_match(_input, _query) for _input in _splited_index])] = _index
+        _similarity = max([intelligent_match(_input, _query) for _input in _splited_index])
+        if _similarity >= _most_similar_value:
+            _most_similar_value = _similarity
+            _most_similar_word = _index
         _judge_result = judge(_query, _index.split("/"), True)
         if _judge_result[0]:
             _response = root.get_value(_index).split("/")
@@ -117,9 +121,7 @@ def respond(_dictionary: dict, _query: str) -> typing.List[str]:
     _unknown_question.load("resource/dictionary/unknownQuestions.txt")
     _unknown_question.parse()
     _response = []
-    _max_similarity = max(_similarity.keys())
-    _most_similar_word = _similarity[_max_similarity]
-    if _max_similarity >= 0.75:
+    if _most_similar_value >= 0.75:
         _response = list(root.get_value(_most_similar_word).split("/"))
     else:
         _response = ["そうですか。"]
@@ -157,9 +159,7 @@ def check_update(_downloaded_file_path: str, _remote_file_url: str, _update_mess
 
 
 def convert_to_bool(_value: typing.Any) -> bool:
-    if not _value:
-        return False
-    else:
+    if _value:
         _value = normalize(str(_value))
         if _value.isdigit():
             return int(_value) != 0
@@ -172,6 +172,8 @@ def convert_to_bool(_value: typing.Any) -> bool:
                 return False
             else:
                 return _false_level < _true_level
+    else:
+        return False
 
 
 def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.Optional[str]:
@@ -181,24 +183,19 @@ def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.O
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
-        if _setting_name in root.get_index_list():
-            return root.get_value(_setting_name)
-        else:
-            return
+        return root.get_value(_setting_name)
 
 
 def write_setting(_setting_file_path: str, _setting_name: typing.Any, _setting_value: typing.Any) -> None:
-    _setting_name = str(_setting_name)
-    _setting_value = str(_setting_value)
     if os.path.exists(_setting_file_path) is False:
-        return
-    else:
-        root = otfdlib.Otfd()
-        root.load(_setting_file_path)
-        root.parse()
-        root.add(_setting_name, str(_setting_value))
-        root.write()
-        return
+        with open(_setting_file_path, mode="w", encoding="utf-8_sig") as f:
+            f.write("")
+    root = otfdlib.Otfd()
+    root.load(_setting_file_path)
+    root.parse()
+    root.add(str(_setting_name), str(_setting_value))
+    root.write()
+    return
 
 
 def read_flag(_flag_file_path: str, _flag_name: typing.Any) -> bool:
@@ -206,7 +203,7 @@ def read_flag(_flag_file_path: str, _flag_name: typing.Any) -> bool:
 
 
 def set_flag(_flag_file_path: str, _flag_name: typing.Any, _flag_value: typing.Any) -> None:
-    write_setting(_flag_file_path, _flag_name, convert_to_bool(_flag_value))
+    write_setting(_flag_file_path, str(_flag_name), convert_to_bool(_flag_value))
     return
 
 
@@ -268,9 +265,7 @@ def generate_search_engine_url(search_engine: str = "google", keyword: str = Non
 
 def intelligent_match(a: str, b: str) -> float:
     if len(a) > len(b):
-        a_cache = a
-        a = b
-        b = a_cache
+        a, b = b, a
     if bool(re.search(a, b)):
         return 1.0
     else:

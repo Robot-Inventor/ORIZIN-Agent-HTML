@@ -63,9 +63,9 @@ class Otfd:
 
     def get_value(self, _index: str, unescaping: bool = True) -> str:
         if unescaping:
-            return self.unescape(self._parsed_otfd[_index])
+            return self.unescape(self._parsed_otfd.get(_index))
         else:
-            return self._parsed_otfd[_index]
+            return self._parsed_otfd.get(_index)
 
     def add(self, _index: str, _value: typing.Any) -> OrderedDict:
         self._parsed_otfd[self.escape(_index)] = self.escape(_value)

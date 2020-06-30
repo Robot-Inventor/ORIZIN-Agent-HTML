@@ -22,17 +22,15 @@ import unicodedata
 @eel.expose
 def change_theme(_css_theme_path: str) -> None:
     _css_file_path = "resource/css/layout.css"
-    _old_css = ""
-    with open(_css_file_path, mode="r") as _css_file:
-        _old_css = _css_file.read()
     if os.path.exists(f"resource/css/{_css_theme_path}") is False:
-        _light_theme = ""
-        with open("resource/css/theme/light_theme.css", mode="r") as _light_theme_file:
+        with open("resource/css/theme/light_theme.css", mode="r", encoding="utf-8_sig") as _light_theme_file:
             _light_theme = _light_theme_file.read()
-        with open(f"resource/css/{_css_theme_path}", mode="w") as _new_theme:
+        with open(f"resource/css/{_css_theme_path}", mode="w", encoding="utf-8_sig") as _new_theme:
             _new_theme.write(_light_theme)
+    with open(_css_file_path, mode="r", encoding="utf-8_sig") as _css_file:
+        _old_css = _css_file.read()
     _new_css = f'@import url("{_css_theme_path}");{_old_css[_old_css.find(";") + 1:]}'
-    with open(_css_file_path, mode="w") as _css_file:
+    with open(_css_file_path, mode="w", encoding="utf-8_sig") as _css_file:
         _css_file.write(_new_css)
     write_setting("theme", _css_theme_path)
     return
@@ -43,7 +41,7 @@ def write_custom_css_theme(_value: typing.Any) -> None:
     if len(_value) == 5:
         _custom_css_data = ":root {\n    --bg: " + _value[0] + ";\n    --card_bg: " + _value[1] + ";\n    --text: " +\
                            _value[2] + ";\n    --shadow: " + _value[3] + ";\n    --theme_color: " + _value[4] + ";\n}"
-        with open("resource/css/theme/custom_theme.css", mode="w") as _f:
+        with open("resource/css/theme/custom_theme.css", mode="w", encoding="utf-8_sig") as _f:
             _f.write(_custom_css_data)
         return
     else:
@@ -417,9 +415,7 @@ def make_response(_not_normalized_query: str) -> typing.List[str]:
 
 
 def set_intelligent_timer(_query: str) -> str:
-    hours = 0
-    minutes = 0
-    seconds = 0
+    hours = minutes = seconds = 0
     _query = re.sub(r"ジカン|hour", "時間", _query)
     _query = re.sub(r"フン|プン|minute", "分", _query)
     _query = re.sub(r"ビョウ|second", "秒", _query)
@@ -450,23 +446,6 @@ def check_update() -> typing.List[str]:
                              "master/resource/information.txt",
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
                              "master/update_message.txt")
-
-
-def get_wiki_data(keyword: str) -> str:
-    keyword = urllib.parse.quote(keyword)
-    url = f"https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" \
-          f"{keyword}&rvprop=content&rvparse"
-    data = urllib.request.urlopen(url).read().decode('utf-8')
-    data = html.unescape(re.sub('[\n\r]', '', data))
-    return data
-
-
-def search_wiki(keyword: str) -> str:
-    data = get_wiki_data(keyword)
-    if 'redirectText' in data:
-        data = get_wiki_data(re.sub('<.*?>', '', re.search('<a href.*?>.*?</a>', data).group()))
-    data = re.sub('<.*?>', '', re.search(r'<p>.*?</p>', data).group())
-    return re.sub(r'\[\d\]', '', html.unescape(data))
 
 
 if __name__ == "__main__":
