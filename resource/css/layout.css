@@ -53,6 +53,40 @@
     display: none;
 }
 
+#side_menu_bar::-webkit-scrollbar,
+.fill_panel::-webkit-scrollbar {
+    display: block;
+    width: 0.2rem;
+    transition: 0.3s;
+}
+
+#side_menu_bar::-webkit-scrollbar,
+.fill_panel::-webkit-scrollbar {
+    width: 0.2rem;
+}
+
+#side_menu_bar::-webkit-scrollbar:hover,
+.fill_panel::-webkit-scrollbar:hover {
+    width: 0.8rem;
+}
+
+#side_menu_bar::-webkit-scrollbar-thumb,
+.fill_panel::-webkit-scrollbar-thumb {
+    background: none;
+    border-radius: 0.2rem;
+}
+
+#side_menu_bar:hover::-webkit-scrollbar-thumb,
+.fill_panel:hover::-webkit-scrollbar-thumb {
+    background: var(--text);
+}
+
+#side_menu_bar::-webkit-scrollbar-corner,
+.fill_panel::-webkit-scrollbar-corner,
+#chat_area::-webkit-scrollbar-corner {
+    display: none;
+}
+
 *::selection {
     background: var(--theme_color);
     color: white;
