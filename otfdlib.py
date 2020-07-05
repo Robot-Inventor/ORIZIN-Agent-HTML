@@ -72,6 +72,7 @@ class Otfd:
         return self._parsed_otfd
     
     def update(self, _otfd: typing.Union[dict, OrderedDict]) -> None:
+        _otfd = {_index: self.escape(_otfd[_index]) for _index in _otfd.keys()}
         return self._parsed_otfd.update(_otfd)
     
     def read(self) -> OrderedDict:
