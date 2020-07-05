@@ -144,21 +144,20 @@ main {
     padding: 2vh;
     background: var(--theme_color);
     color: white;
+    overflow: hidden;
 }
 
 #title a {
-    text-decoration: none;
     color: white;
     cursor: pointer;
+    font-size: 5vh;
+    font-variation-settings: 'wght' 450;
+    display: inline-block;
+    transform: translateY(-2vh);
 }
 
 #title img {
     vertical-align: top;
-}
-
-header h1 {
-    color: white;
-    display: inline;
 }
 
 .fill_panel {
@@ -272,7 +271,7 @@ pre {
 #menu_open_button {
     height: 5vh;
     cursor: pointer;
-    margin-right: 1.5em;
+    margin-right: 1.5rem;
     transition: 0.3s;
 }
 
