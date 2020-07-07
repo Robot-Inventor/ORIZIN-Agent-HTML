@@ -58,6 +58,7 @@ Edition: ORIZIN Agent HTML
 #### 修正
 - orizin_agent.pyのmake_response()関数の型ヒントを修正しました。
 - resource/dictionary/dictionary_hash.txtが存在しない場合，プログラムの起動に失敗するバグを修正しました。
+- リファクタリングを行いました。
 
 ### [v3.3.94.0dev-Crane] - 2020-07-08
 #### 追加

@@ -23,13 +23,13 @@ class Otfd:
         return self._otfd_content
     
     @staticmethod
-    def unescape(_target: typing.Union[str, list]) -> typing.Union[str, list]:
+    def unescape(_target: typing.Union[str, list]) -> typing.Union[str, typing.List[str]]:
         if type(_target) is str:
             return _target.replace("&#47", ":").replace("&#58", "/")
         elif type(_target) is list:
-            return [_string.replace("&#47", ":").replace("&#58", "/") for _string in _target]
+            return [str(_string).replace("&#47", ":").replace("&#58", "/") for _string in _target]
         else:
-            return _target
+            return str(_target)
     
     @staticmethod
     def escape(_target: typing.Union[str, list]) -> typing.Union[str, list]:
@@ -38,7 +38,7 @@ class Otfd:
         elif type(_target) is list:
             return [_string.replace(":", "&#47").replace("/", "&#58") for _string in _target]
         else:
-            return _target
+            return str(_target)
     
     def parse(self) -> OrderedDict:
         self._otfd_content = self._otfd_content.strip()
@@ -55,7 +55,7 @@ class Otfd:
         self._index_list = list(self._parsed_otfd.keys())
         return self._index_list
     
-    def get_value_list(self, unescaping: bool = True) -> list:
+    def get_value_list(self, unescaping: bool = True) -> typing.List[str]:
         if unescaping:
             return self.unescape(list(self._parsed_otfd.values()))
         else:
