@@ -457,6 +457,7 @@ if __name__ == "__main__":
     else:
         with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
             hash_file.write(dict_hash)
+            hash_value = 0
     if os.path.exists("resource/dictionary/dictionary.bin"):
         if hash_value == dict_hash:
             with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
