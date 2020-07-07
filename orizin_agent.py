@@ -138,7 +138,7 @@ YOUTUBE_MUSIC_VIDEOS = {
 
 
 @eel.expose
-def make_response(_not_normalized_query: str) -> typing.List[str]:
+def make_response(_not_normalized_query: str) -> typing.List[typing.Union[str, bool]]:
     _not_normalized_query = _not_normalized_query.replace("\n", "").replace("\r", "")
     _query = core.normalize(_not_normalized_query)
     if _query == "":
