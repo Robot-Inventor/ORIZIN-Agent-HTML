@@ -273,6 +273,7 @@ input[type=text]:focus::placeholder {
 
 .text_input_group {
     width: 50%;
+    overflow: hidden;
 }
 
 .text_input_group input {
