@@ -50,7 +50,7 @@
                         設定ページに音声に関する設定を追加し，音声のピッチ・スピード・ボリュームを設定できるようにします。
                     </p>
                 </section>
-                <span id="refresh_button"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <span id="refresh_button" onclick="eel.reset_flag(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
         <style>
@@ -97,11 +97,6 @@
             function save_setting() {
                 eel.set_flag(event.target.id, event.target.checked);
             }
-
-            document.getElementById("refresh_button").onclick(function() {
-                eel.reset_flag();
-                location.reload();
-            });
         </script>
     </body>
 </html>
