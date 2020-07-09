@@ -72,7 +72,7 @@
                            <input type="text" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
                            <div class="text_underline"></div>
                        </div>
-                       <span title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
+                       <span id="reset_news_site_url_button" title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url);"><i class="material_icon">refresh</i>デフォルトに戻す</span>
                     </details>
                 </section>
                 <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
@@ -84,9 +84,9 @@
                 <section title="音声に関する設定をします。" id="sound_setting">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">speaker</i>音声に関する設定</summary>
-                        <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="document.getElementById('pitch_value').innerHTML = document.getElementById('pitch').value; save_setting();"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" style="cursor: pointer;"><i class="material_icon">refresh</i></span><br>
-                        <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="document.getElementById('speed_value').innerHTML = document.getElementById('speed').value; save_setting();"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" style="cursor: pointer;"><i class="material_icon">refresh</i></span><br>
-                        <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="document.getElementById('volume_value').innerHTML = document.getElementById('volume').value; save_setting();"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" style="cursor: pointer;"><i class="material_icon">refresh</i></span><br>
+                        <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="save_sound_setting('pitch')"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" class="reset_soud_setting"><i class="material_icon">refresh</i></span><br>
+                        <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="save_sound_setting('speed')"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" class="reset_sound_setting"><i class="material_icon">refresh</i></span><br>
+                        <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="save_sound_setting('volume')"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" class="reset_sound_setting"><i class="material_icon">refresh</i></span><br>
                         <button onclick="sound_test()"><i class="material_icon">hearing</i>テスト</button>
                     </details>
                 </section>
@@ -112,9 +112,23 @@
                         <a href="flag.html">試験機能を設定<i class="material_icon">arrow_forward</i></a>
                     </details>
                 </section>
-                <span style="float: right; cursor: pointer;" onclick="eel.reset_setting(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <span id="reset_setting_button" onclick="eel.reset_setting(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
             <style>
+                .reset_sound_setting {
+                    cursor: pointer;
+                }
+                
+                #reset_news_site_url_button {
+                    cursor: pointer;
+                    margin-left: 2rem;
+                }
+                
+                #reset_setting_button {
+                    float: right;
+                    cursor: pointer;
+                }
+                
                 section {
                     border-top: solid 0.05rem var(--text);
                     margin: 0;
@@ -250,6 +264,11 @@
                 script.rate = Number(await eel.read_setting("speed")());
                 script.volume = Number(await eel.read_setting("volume")());
                 speechSynthesis.speak(script);
+            }
+
+            function save_sound_setting(setting_name) {
+                document.getElementById(setting_name + "_value").innerHTML = document.getElementById(setting_name).value;
+                save_setting();
             }
         </script>
     </body>

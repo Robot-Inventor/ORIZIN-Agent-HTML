@@ -22,133 +22,13 @@
     </head>
     <body>
         <main>
-            <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg); text-align: center;">
+            <div id="background">
                 <div class="loading_div">
                     <img src="../image/loading1.svg" class="loading">
                     <div class="fulfilling-bouncing-circle-spinner">
                         <div class="circle"></div>
                         <div class="orbit"></div>
                     </div>
-                    <style>
-                        * {
-                            cursor: wait;
-                        }
-
-                        .fulfilling-bouncing-circle-spinner, .fulfilling-bouncing-circle-spinner * {
-                            box-sizing: border-box;
-                            overflow: visible;
-                        }
-
-                        .fulfilling-bouncing-circle-spinner {
-                            height: 40vmin;
-                            width: 40vmin;
-                            position: relative;
-                            top: calc(50vh - 20vmin);
-                            left: calc(50vw - 20vmin);
-                            animation: fulfilling-bouncing-circle-spinner-animation infinite 3s ease;
-                        }
-
-                        .fulfilling-bouncing-circle-spinner .orbit {
-                            height: 40vmin;
-                            width: 40vmin;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            border-radius: 50%;
-                            border: calc(30vmin * 0.03) solid var(--theme_color);
-                            animation: fulfilling-bouncing-circle-spinner-orbit-animation infinite 3s ease;
-                            opacity: 0;
-                        }
-
-                        .fulfilling-bouncing-circle-spinner .circle {
-                            height: 40vmin;
-                            width: 40vmin;
-                            color: var(--theme_color);
-                            display: block;
-                            border-radius: 50%;
-                            position: relative;
-                            border: calc(30vmin * 0.1) solid var(--theme_color);
-                            animation: fulfilling-bouncing-circle-spinner-circle-animation infinite 3s ease;
-                            transform: rotate(0deg) scale(1);
-                            opacity: 0;
-                        }
-
-                        @keyframes fulfilling-bouncing-circle-spinner-animation {
-                            0% {
-                                transform: rotate(0deg);
-                            }
-                            100% {
-                                transform: rotate(360deg);
-                            }
-                        }
-
-                        @keyframes fulfilling-bouncing-circle-spinner-orbit-animation {
-                            0% {
-                                transform: scale(1);
-                                opacity: 0;
-                            }
-                            50% {
-                                transform: scale(1);
-                                opacity: 0.75;
-                            }
-                            62.5% {
-                                transform: scale(0.8);
-                                opacity: 0.75;
-                            }
-                            75% {
-                                transform: scale(1);
-                                opacity: 0.75;
-                            }
-                            87.5% {
-                                transform: scale(0.8);
-                            }
-                            100% {
-                                transform: scale(1);
-                                opacity: 0;
-                            }
-                        }
-
-                        @keyframes fulfilling-bouncing-circle-spinner-circle-animation {
-                            0% {
-                                transform: scale(1);
-                                border-color: transparent;
-                                border-top-color: inherit;
-                            }
-                            16.7% {
-                                border-color: transparent;
-                                border-top-color: initial;
-                                border-right-color: initial;
-                            }
-                            33.4% {
-                                border-color: transparent;
-                                border-top-color: inherit;
-                                border-right-color: inherit;
-                                border-bottom-color: inherit;
-                            }
-                            50% {
-                                border-color: inherit;
-                                transform: scale(1);
-                            }
-                            62.5% {
-                                border-color: inherit;
-                                transform: scale(1.4);
-                            }
-                            75% {
-                                border-color: inherit;
-                                transform: scale(1);
-                                opacity: 0.75;
-                            }
-                            87.5% {
-                                border-color: inherit;
-                                transform: scale(1.4);
-                            }
-                            100% {
-                                border-color: transparent;
-                                border-top-color: inherit;
-                                transform: scale(1);
-                            }
-                        }
-                    </style>
                     <h1 id="program_name">ORIZIN Agent HTML</h1>
                     <p id="now_loading">
                         Now Loading. Please waite...
@@ -160,6 +40,135 @@
             </div>
         </main>
         <style>
+            * {
+                cursor: wait;
+            }
+
+            .fulfilling-bouncing-circle-spinner, .fulfilling-bouncing-circle-spinner * {
+                box-sizing: border-box;
+                overflow: visible;
+            }
+
+            .fulfilling-bouncing-circle-spinner {
+                height: 40vmin;
+                width: 40vmin;
+                position: relative;
+                top: calc(50vh - 20vmin);
+                left: calc(50vw - 20vmin);
+                animation: fulfilling-bouncing-circle-spinner-animation infinite 3s ease;
+            }
+
+            .fulfilling-bouncing-circle-spinner .orbit {
+                height: 40vmin;
+                width: 40vmin;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                border: calc(30vmin * 0.03) solid var(--theme_color);
+                animation: fulfilling-bouncing-circle-spinner-orbit-animation infinite 3s ease;
+                opacity: 0;
+            }
+
+            .fulfilling-bouncing-circle-spinner .circle {
+                height: 40vmin;
+                width: 40vmin;
+                color: var(--theme_color);
+                display: block;
+                border-radius: 50%;
+                position: relative;
+                border: calc(30vmin * 0.1) solid var(--theme_color);
+                animation: fulfilling-bouncing-circle-spinner-circle-animation infinite 3s ease;
+                transform: rotate(0deg) scale(1);
+                opacity: 0;
+            }
+
+            @keyframes fulfilling-bouncing-circle-spinner-animation {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes fulfilling-bouncing-circle-spinner-orbit-animation {
+                0% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+                50% {
+                    transform: scale(1);
+                    opacity: 0.75;
+                }
+                62.5% {
+                    transform: scale(0.8);
+                    opacity: 0.75;
+                }
+                75% {
+                    transform: scale(1);
+                    opacity: 0.75;
+                }
+                87.5% {
+                    transform: scale(0.8);
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes fulfilling-bouncing-circle-spinner-circle-animation {
+                0% {
+                    transform: scale(1);
+                    border-color: transparent;
+                    border-top-color: inherit;
+                }
+                16.7% {
+                    border-color: transparent;
+                    border-top-color: initial;
+                    border-right-color: initial;
+                }
+                33.4% {
+                    border-color: transparent;
+                    border-top-color: inherit;
+                    border-right-color: inherit;
+                    border-bottom-color: inherit;
+                }
+                50% {
+                    border-color: inherit;
+                    transform: scale(1);
+                }
+                62.5% {
+                    border-color: inherit;
+                    transform: scale(1.4);
+                }
+                75% {
+                    border-color: inherit;
+                    transform: scale(1);
+                    opacity: 0.75;
+                }
+                87.5% {
+                    border-color: inherit;
+                    transform: scale(1.4);
+                }
+                100% {
+                    border-color: transparent;
+                    border-top-color: inherit;
+                    transform: scale(1);
+                }
+            }
+            
+            #background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: var(--bg);
+                text-align: center;
+            }
+            
             .loading_div {
                 margin: 0;
                 padding: 0;
