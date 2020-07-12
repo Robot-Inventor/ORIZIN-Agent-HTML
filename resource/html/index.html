@@ -294,16 +294,16 @@
                 script.volume = volume;
                 speechSynthesis.speak(script);
                 script.onend = function() {
+                    if (!will_keep_speaking_after_this_function) {
+                        is_doing_speech_synthesis = false;
+                    }
+                    change_send_button_status();
                     if (!will_keep_speaking_after_this_function || allow_continuous_speech_recognition) {
                         document.getElementById("start_recognition").disabled = false;
                     }
                     if (continuous_speech_recognition_user_setting && !will_keep_speaking_after_this_function && allow_continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
                         document.getElementById("start_recognition").click();
                     }
-                    if (!will_keep_speaking_after_this_function) {
-                        is_doing_speech_synthesis = false;
-                    }
-                    change_send_button_status();
                 }
             }
 
