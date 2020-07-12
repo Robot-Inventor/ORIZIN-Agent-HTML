@@ -354,6 +354,7 @@
             is_requested_by_text = false;
             is_doing_speech_synthesis = false;
             recognition_error_happened = false;
+            auto_recognition_abort = false;
 
             const requestForm = document.getElementById("requestForm");
       　    const startButton = document.getElementById("startButton");
@@ -389,9 +390,14 @@
             recognition.onerror = function(event) {
                 recognition_error_happened = true;
                 if (event.error == "aborted") {
-                    error_massage = "音声認識を終了しました。";
-                    add_chat(error_massage);
-                    start_speak(error_massage);
+                    if (auto_recognition_abort) {
+                        auto_recognition_abort = false;
+                        document.getElementById("start_recognition").disabled = false;
+                    } else {
+                        error_massage = "音声認識を終了しました。";
+                        add_chat(error_massage);
+                        start_speak(error_massage);
+                    }
                 } else if (event.error == "no-speech") {
                     error_massage = "認識可能な音声を検出できませんでした。";
                     add_chat(error_massage);
@@ -444,7 +450,7 @@
                         document.getElementById("listening_message").style.opacity = 0;
                         document.getElementById("start_recognition").classList.remove("listening");
                         is_listening = false;
-                    } else {
+                    } else if (document.getElementById("requestForm") != document.activeElement) {
                         recognition.start();
                         document.getElementById("listening_message").style.opacity = 1;
                         document.getElementById("start_recognition").classList.add("listening");
@@ -459,6 +465,10 @@
                     send_button.disabled = false;
                 } else {
                     send_button.disabled = true;
+                }
+                if (is_listening) {
+                    auto_recognition_abort = true;
+                    document.getElementById("start_recognition").click();
                 }
             }
 
