@@ -368,6 +368,7 @@
 
             async function response(content) {
                 document.body.style.cursor = "progress";
+                query_history.unshift(content);
                 add_chat(content, true);
                 const script = await eel.make_response(content)();
                 if (script.length === 3) {
@@ -402,6 +403,8 @@
             let is_listening = false;
             let recognition_error_happened = false;
             let auto_recognition_abort = false;
+            let query_history = [];
+            let query_history_index = 0;
 
             const requestForm = document.getElementById("requestForm");
       　    const startButton = document.getElementById("startButton");
@@ -493,6 +496,31 @@
                         break;
                     case 13:
                         document.getElementById("startButton").click();
+                        break;
+                    case 38:
+                        text_box = document.getElementById("requestForm");
+                        if (text_box === document.activeElement) {
+                            if (query_history.length != false) {
+                                if (query_history_index < query_history.length) {
+                                    query_history_index += 1;
+                                }
+                                text_box.value = query_history[query_history_index - 1];
+                            }
+                            change_send_button_status();
+                        }
+                        break;
+                    case 40:
+                        text_box = document.getElementById("requestForm");
+                        if (text_box === document.activeElement) {
+                            if (query_history_index > 0) {
+                                query_history_index -= 1;
+                            }
+                            text_box.value = query_history[query_history_index - 1];
+                            if (query_history_index === 0) {
+                                text_box.value = "";
+                            }
+                            change_send_button_status();
+                        }
                         break;
                 }
             });
