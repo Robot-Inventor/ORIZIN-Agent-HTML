@@ -166,6 +166,10 @@ header h1 {
     transition: 0.3s;
 }
 
+#side_menu_bar a {
+    color: var(--text);
+}
+
 #side_menu_bar div {
     background: var(--card_bg);
     margin-top: 1vh;

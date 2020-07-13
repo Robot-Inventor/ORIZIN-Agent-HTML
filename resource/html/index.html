@@ -41,51 +41,24 @@
                 </p>
             </div>
             <style>
-                #blm {
-                    margin: 0;
-                    padding: 0;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background: #010101;
-                    color: white;
-                    display: none;
-                    letter-spacing: 0.75vw;
-                    font-variation-settings: "wght" 100;
-                }
-
-                #blm p {
-                    margin-top: 50vh;
-                    transform: translateY(-50%);
-                    text-align: center;
-                    font-size: 4vw;
-                }
-                body {
-                    cursor: default;
-                }
-
-                .text_input_group {
-                    display: inline-block;
-                }
-
                 .chat {
                     border-radius: 0rem var(--border_radius_size) var(--border_radius_size) var(--border_radius_size);
                     display: inline-block;
                     padding: 0.5rem;
                 }
+                
+                #chat_area {
+                    margin: 0;
+                    padding: 0 0 2rem 0;
+                    width: 100%;
+                    height: calc(100% - 3rem);
+                    overflow: scroll;
+                    box-sizing: border-box;
+                }
 
                 .chat:not(.user) {
                     background: var(--bg);
                     color: var(--text);
-                }
-
-                .chat_outer.user .chat {
-                    color: white;
-                    background: var(--theme_color);
-                    float: right;
-                    border-radius: var(--border_radius_size) 0rem var(--border_radius_size) var(--border_radius_size);
                 }
 
                 .chat_outer {
@@ -95,6 +68,13 @@
 
                 .chat_outer.user {
                     float: right;
+                }
+
+                .chat_outer.user .chat {
+                    color: white;
+                    background: var(--theme_color);
+                    float: right;
+                    border-radius: var(--border_radius_size) 0rem var(--border_radius_size) var(--border_radius_size);
                 }
 
                 .chat_outer.video {
@@ -120,17 +100,49 @@
                     margin: 0;
                 }
 
-                .text_input_group {
-                    transform: translateY(-0.2rem);
+                #blm {
+                    margin: 0;
+                    padding: 0;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: #010101;
+                    color: white;
+                    display: none;
+                    letter-spacing: 0.75vw;
+                    font-variation-settings: "wght" 100;
                 }
 
-                #chat_area {
+                #blm p {
+                    margin-top: 50vh;
+                    transform: translateY(-50%);
+                    text-align: center;
+                    font-size: 4vw;
+                }
+
+                body {
+                    cursor: default;
+                }
+
+                #message_input {
                     margin: 0;
-                    padding: 0 0 2rem 0;
+                    padding: 0.5rem;
                     width: 100%;
-                    height: calc(100% - 3rem);
-                    overflow: scroll;
+                    height: 3rem;
+                    border-radius: var(--border_radius_size);
+                    background: var(--bg);
                     box-sizing: border-box;
+                    vertical-align: center;
+                    overflow: hidden;
+                }
+
+                #message_input input {
+                    display: inline-block;
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
                 }
 
                 #startButton {
@@ -156,23 +168,9 @@
                     cursor: pointer;
                 }
 
-                #message_input {
-                    margin: 0;
-                    padding: 0.5rem;
-                    width: 100%;
-                    height: 3rem;
-                    border-radius: var(--border_radius_size);
-                    background: var(--bg);
-                    box-sizing: border-box;
-                    vertical-align: center;
-                    overflow: hidden;
-                }
-
-                #message_input input {
+                .text_input_group {
                     display: inline-block;
-                    height: 100%;
-                    margin: 0;
-                    padding: 0;
+                    transform: translateY(-0.2rem);
                 }
 
                 #listening_message {
@@ -269,8 +267,8 @@
                 }, 5000);
             }
 
-            var easter_egg = new Konami(function() {
-                body_element = document.body;
+            const easter_egg = new Konami(function() {
+                const body_element = document.body;
                 body_element.style.transition = "7.5s";
                 body_element.style.transform = "rotate(3600deg) scale(0.01)";
                 body_element.style.opacity = "0";
@@ -287,7 +285,7 @@
 
             function start_speak(content, will_keep_speaking_after_this_function=false, allow_continuous_speech_recognition=true) {
                 is_doing_speech_synthesis = true;
-                document.getElementById("start_recognition").disabled = true;
+                disable_recognition_button();
                 const script = new SpeechSynthesisUtterance(content);
                 script.pitch = pitch;
                 script.rate = speed;
@@ -299,16 +297,16 @@
                     }
                     change_send_button_status();
                     if (!will_keep_speaking_after_this_function || allow_continuous_speech_recognition) {
-                        document.getElementById("start_recognition").disabled = false;
+                        enable_recognition_button();
                     }
                     if (continuous_speech_recognition_user_setting && !will_keep_speaking_after_this_function && allow_continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
-                        document.getElementById("start_recognition").click();
+                        click_recognition_button();
                     }
                 }
             }
 
             function add_chat(content, is_user=false, is_youtube=false) {
-                class_names = [];
+                let class_names = [];
                 if (is_user) {
                     class_names.push("user");
                 }
@@ -317,7 +315,7 @@
                     content = '<iframe src="https://www.youtube.com/embed/' + content + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                 }
                 document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer " + class_names.join(" ") + "'><div class='chat'>" + content + "</div></div>");
-                chat_area_element = document.getElementById("chat_area");
+                const chat_area_element = document.getElementById("chat_area");
                 chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
 
@@ -331,45 +329,47 @@
 
             function recognition_error(error_str) {
                 recognition_error_happened = true;
-                if (error_str == "aborted") {
+                const recognition_error_table = {
+                    "aborted": "音声認識を終了しました。",
+                    "no-speech": "認識可能な音声を検出できませんでした。",
+                    "network": "音声認識を使用するにはネット接続が必要です。",
+                    "audio-capture": "オーディオキャプチャーに失敗しました。",
+                    "not-allowed": "音声入力が許可されていません。設定を確認して下さい。",
+                    "service-not-allowed": "必要な音声サービスが許可されていませんでした。",
+                    "language-not-supported": "サポートされていない言語です。",
+                    "bad-grammar": "内部処理の文法にエラーがありました。"
+                };
+                if (error_str === "aborted") {
                     if (auto_recognition_abort) {
                         auto_recognition_abort = false;
-                        document.getElementById("start_recognition").disabled = false;
+                        enable_recognition_button();
                     } else {
-                        error_message = "音声認識を終了しました。";
-                        chat_and_speak(error_message);
+                        chat_and_speak(recognition_error_table[error_str]);
                     }
-                } else if (error_str == "no-speech") {
-                    error_message = "認識可能な音声を検出できませんでした。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "network") {
-                    error_message = "音声認識を使用するにはネット接続が必要です。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "audio-capture") {
-                    error_message = "オーディオキャプチャーに失敗しました。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "not-allowed") {
-                    error_message = "音声入力が許可されていません。設定を確認して下さい。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "service-not-allowed") {
-                    error_message = "必要な音声サービスが許可されていませんでした。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "language-not-supported") {
-                    error_message = "サポートされていない言語です。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "bad-grammar") {
-                    error_message = "内部処理の文法にエラーがありました。";
-                    chat_and_speak(error_message);
+                } else if (recognition_error_table[error_str]) {
+                    chat_and_speak(recognition_error_table[error_str]);
                 } else {
-                    error_message = "音声認識の際に不明なエラーが発生しました。";
+                    const error_message = "音声認識の際に不明なエラーが発生しました。";
                     chat_and_speak(error_message + "<br><br>エラーメッセージ:<br>" + error_str, error_message)
                 }
+            }
+
+            function click_recognition_button() {
+                document.getElementById("start_recognition").click();
+            }
+
+            function enable_recognition_button() {
+                document.getElementById("start_recognition").disabled = false;
+            }
+
+            function disable_recognition_button() {
+                document.getElementById("start_recognition").disabled = true;
             }
 
             async function response(content) {
                 document.body.style.cursor = "progress";
                 add_chat(content, true);
-                let script = await eel.make_response(content)();
+                const script = await eel.make_response(content)();
                 if (script.length === 3) {
                     start_speak(script[0], false, script[2]);
                 } else {
@@ -390,16 +390,18 @@
                 speed = Number(await eel.read_setting("speed")());
                 volume = Number(await eel.read_setting("volume")());
             }
-            pitch = 1;
-            speed = 1;
-            volume = 1;
-            continuous_speech_recognition_user_setting = false;
+
+            let pitch = 1;
+            let speed = 1;
+            let volume = 1;
+            let continuous_speech_recognition_user_setting = false;
             read_setting();
 
-            is_requested_by_text = false;
-            is_doing_speech_synthesis = false;
-            recognition_error_happened = false;
-            auto_recognition_abort = false;
+            let is_requested_by_text = false;
+            let is_doing_speech_synthesis = false;
+            let is_listening = false;
+            let recognition_error_happened = false;
+            let auto_recognition_abort = false;
 
             const requestForm = document.getElementById("requestForm");
       　    const startButton = document.getElementById("startButton");
@@ -421,14 +423,12 @@
             }
             recognition.onaudioend = function() {
                 if (!is_doing_speech_synthesis) {
-                    document.getElementById("start_recognition").disabled = true;
+                    disable_recognition_button();
                     listening_status(false);
                 }
             }
             recognition.onnomatch = function() {
-                error_message = "音声を正しく認識できませんでした。もう一度試してみて下さい。";
-                add_chat(error_message);
-                start_speak(error_message);
+                chat_and_speak("音声を正しく認識できませんでした。もう一度試してみて下さい。");
             }
             recognition.onerror = function(event) {
                 recognition_error(event.error);
@@ -439,8 +439,6 @@
             recognition.onspeechend = function() {
                 document.getElementById("user_speaking_status").style.opacity = "0"
             }
-
-            is_listening = false;
 
             function listening_status(status=false) {
                 if (arguments[0] !== undefined) {
@@ -474,7 +472,7 @@
             }
 
             function change_send_button_status() {
-                send_button = document.getElementById("startButton");
+                const send_button = document.getElementById("startButton");
                 if (document.getElementById("requestForm").value.length && !is_doing_speech_synthesis) {
                     send_button.disabled = false;
                 } else {
@@ -482,7 +480,7 @@
                 }
                 if (listening_status()) {
                     auto_recognition_abort = true;
-                    document.getElementById("start_recognition").click();
+                    click_recognition_button();
                 }
             }
 
@@ -490,7 +488,7 @@
                 switch (event.keyCode) {
                     case 32:
                         if (document.getElementById("requestForm") != document.activeElement) {
-                            document.getElementById("start_recognition").click();
+                            click_recognition_button();
                         }
                         break;
                     case 13:

@@ -106,36 +106,6 @@
                 <span id="reset_setting_button" onclick="eel.reset_setting(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
             <style>
-                .reset_sound_setting {
-                    cursor: pointer;
-                }
-                
-                #reset_news_site_url_button {
-                    cursor: pointer;
-                    margin-left: 2rem;
-                }
-                
-                #reset_setting_button {
-                    float: right;
-                    cursor: pointer;
-                }
-                
-                section {
-                    border-top: solid 0.05rem var(--text);
-                    margin: 0;
-                    padding: 0;
-                }
-
-                h3 {
-                    margin: 0;
-                    padding: 0;
-                }
-
-                p {
-                    margin: 0;
-                    padding: 0.5rem 0;
-                }
-
                 details {
                     padding: 0;
                 }
@@ -144,32 +114,58 @@
                     padding-bottom: 1rem;
                 }
 
-                details summary::-webkit-details-marker {
-                    display: none;
-                }
-
                 details summary {
                     padding: 1rem 0;
                 }
 
-                #go_to_custom_page {
+                details summary::-webkit-details-marker {
                     display: none;
                 }
 
-                .text_input_group {
-                    display: inline-block;
+                h3 {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                input[type=range]+span, input[type=range]+span+span {
+                    margin-left: 2rem;
+                }
+
+                p {
+                    margin: 0;
+                    padding: 0.5rem 0;
                 }
 
                 #readable_text_setting {
                     display: none;
                 }
 
+                #reset_news_site_url_button {
+                    cursor: pointer;
+                    margin-left: 2rem;
+                }
+
+                #reset_setting_button {
+                    float: right;
+                    cursor: pointer;
+                }
+
+                .reset_sound_setting {
+                    cursor: pointer;
+                }
+
+                section {
+                    border-top: solid 0.05rem var(--text);
+                    margin: 0;
+                    padding: 0;
+                }
+
                 #sound_setting {
                     display: none;
                 }
 
-                input[type=range]+span, input[type=range]+span+span {
-                    margin-left: 2rem;
+                .text_input_group {
+                    display: inline-block;
                 }
             </style>
         </main>
@@ -180,8 +176,8 @@
         <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
         <script>
-            var easter_egg = new Konami(function() {
-                body_element = document.body;
+            const easter_egg = new Konami(function() {
+                const body_element = document.body;
                 body_element.style.transition = "2s";
                 body_element.style.transform = " translateY(150vmax) rotate(45deg)";
                 setTimeout(() => {
@@ -205,8 +201,8 @@
             }
 
             async function check_update() {
-                result = await eel.check_update()();
-                message = ""
+                const result = await eel.check_update()();
+                let message = ""
                 if (result[0] == "true") {
                     message = "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3];
                 } else {

@@ -169,12 +169,17 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 </div>
                 <progress value="0" max="1">0%</progress>
                 <style>
-                    .overlay_outer {
-                        overflow: hidden;
+                    #ask_continue_card a {
+                        padding: 0;
+                        margin: 0 1rem;
                     }
 
                     .overlay_inner {
                         margin-left: 100vw;
+                    }
+
+                    #licence_card {
+                        margin-left: 0;
                     }
 
                     .overlay_inner pre {
@@ -184,9 +189,8 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         overflow-x: hidden;
                     }
 
-                    #ask_continue_card a {
-                        padding: 0;
-                        margin: 0 1rem;
+                    .overlay_outer {
+                        overflow: hidden;
                     }
 
                     progress {
@@ -203,31 +207,22 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         <script src="../javascript/ripple.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            ALL_CARD = 8;
-            setup_status = 0;
-            progress = document.querySelector("progress");
+            const ALL_CARDS = 8;
+            let setup_status = 0;
+            const progress = document.querySelector("progress");
 
             function forward_card(current_card_id, next_card_id) {
                 document.getElementById(current_card_id).style.marginLeft = "-100vw";
                 document.getElementById(next_card_id).style.marginLeft = "0";
                 setup_status += 1;
-                progress.value = setup_status / ALL_CARD;
+                progress.value = setup_status / ALL_CARDS;
             }
 
             function back_card(current_card_id, back_card_id) {
                 document.getElementById(current_card_id).style.marginLeft = "100vw";
                 document.getElementById(back_card_id).style.marginLeft = "0";
                 setup_status -= 1;
-                progress.value = setup_status / ALL_CARD;
-            }
-
-            async function move_to_top_page() {
-                is_old_ui = await eel.read_setting("use_old_ui")();
-                if (is_old_ui == "True") {
-                    location.replace("old_ui.html");
-                } else {
-                    location.replace("index.html");
-                }
+                progress.value = setup_status / ALL_CARDS;
             }
 
             function save_setting() {
@@ -237,7 +232,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 eel.write_setting("news_site_url", document.getElementById("news_site_url").value);
                 eel.write_setting("search_engine", document.getElementById("search_engine").value);
                 eel.write_setting("python_interpreter", document.getElementById("python_interpreter").value);
-                move_to_top_page();
+                location.href = "index.html"
             }
         </script>
     </body>

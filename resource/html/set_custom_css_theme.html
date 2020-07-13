@@ -32,8 +32,9 @@
         <script src="../javascript/pickr.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            css_data = [];
-            old_css_data = [];
+            let css_data = [];
+            let old_css_data = [];
+
             async function check_current_css_theme_information() {
                 css_data =  await eel.check_current_css_theme_information()();
                 old_css_data = await eel.check_current_css_theme_information()();
