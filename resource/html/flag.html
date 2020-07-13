@@ -76,7 +76,7 @@
         <script src="/eel.js"></script>
         <script>
             async function read_flag(flag_name) {
-                flag_value = await eel.read_flag(flag_name)();
+                const flag_value = await eel.read_flag(flag_name)();
                 document.getElementById(flag_name).checked = flag_value;
             }
 

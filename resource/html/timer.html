@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Expires" content="86400">
-        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <!-- ORIZIN Agent HTML用の共通スタイルシートは読み込まない -->
         <link rel="shortcut icon" href="../image/favicon.ico">
         <meta name="theme-color" content="#FF6A00">
         <title>ORIZIN Agent HTML</title>
@@ -26,38 +26,6 @@
                 transition: 0.3s;
             }
 
-            main {
-                width: 100vw;
-                height: 100vh;
-                background: #111111;
-            }
-
-            #circle {
-                width: 50vmin;
-                height: 50vmin;
-                background: #222222;
-                border-radius: 100%;
-                position: absolute;
-                top: 50vh;
-                left: 50vw;
-                transform: translate(-50%, -50%);
-                text-align: center;
-            }
-
-            #time {
-                width: 50vmin;
-                height: auto;
-                position: absolute;
-                top: 50vh;
-                left: 50vw;
-                transform: translate(-50%, -50%);
-                text-align: center;
-            }
-
-            #time div {
-                padding: 0.5em;
-            }
-
             .blink {
                 animation: blink 0.7s linear infinite alternate;
             }
@@ -72,17 +40,61 @@
                 }
             }
 
-            #start {
-                background: #4444aa;
-                border: none;
-                padding: 1em;
-                border-radius: 0.5em;
+            #circle {
+                width: 50vmin;
+                height: 50vmin;
+                background: #222222;
+                border-radius: 100%;
                 position: absolute;
-                top: calc(50vmin + 40vh);
-                left: calc((100vw - 45vmax) / 4);
-                transform: translateY(-50%);
-                outline: none;
-                width: 15vmax;
+                top: 50vh;
+                left: 50vw;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                cursor: pointer;
+            }
+
+            #h {
+                position: absolute;
+                top: 0;
+                left: 30vw;
+            }
+
+            #hour {
+                position: absolute;
+                top: 0;
+                left: 20vw;
+                transform: translate(-50%);
+            }
+
+            #m {
+                position: absolute;
+                top: 0;
+                left: 60vw;
+            }
+
+            main {
+                width: 100vw;
+                height: 100vh;
+                background: #111111;
+            }
+
+            #minute {
+                position: absolute;
+                top: 0;
+                left: 50vw;
+                transform: translate(-50%);
+            }
+
+            .outer {
+                width: 100vw;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: #111111;
+                transition: 0.3s;
             }
 
             #reset {
@@ -96,6 +108,20 @@
                 transform: translateY(-50%);
                 outline: none;
                 width: 15vmax;
+                cursor: pointer;
+            }
+
+            #s {
+                position: absolute;
+                top: 0;
+                left: 90vw;
+            }
+
+            #second {
+                position: absolute;
+                top: 0;
+                left: 80vw;
+                transform: translate(-50%);
             }
 
             #set_time {
@@ -109,6 +135,53 @@
                 transform: translateY(-50%);
                 outline: none;
                 width: 15vmax;
+                cursor: pointer;
+            }
+
+            #start {
+                background: #4444aa;
+                border: none;
+                padding: 1em;
+                border-radius: 0.5em;
+                position: absolute;
+                top: calc(50vmin + 40vh);
+                left: calc((100vw - 45vmax) / 4);
+                transform: translateY(-50%);
+                outline: none;
+                width: 15vmax;
+                cursor: pointer;
+            }
+
+            #submit {
+                background: #4444aa;
+                border: none;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                outline: none;
+                width: 15vmax;
+                font-size: 1rem;
+                margin: 0;
+                height: 2.5rem;
+                position: absolute;
+                top: 15vh;
+                left: 50vw;
+                transform: translate(-50%);
+                cursor: pointer;
+            }
+
+            #time {
+                width: 50vmin;
+                height: auto;
+                position: absolute;
+                top: 50vh;
+                left: 50vw;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                cursor: pointer;
+            }
+
+            #time div {
+                padding: 0.5em;
             }
 
             .time_setting {
@@ -134,76 +207,9 @@
                 transition: 0.3s;
             }
 
-            #hour {
-                position: absolute;
-                top: 0;
-                left: 20vw;
-                transform: translate(-50%);
-            }
-
-            #minute {
-                position: absolute;
-                top: 0;
-                left: 50vw;
-                transform: translate(-50%);
-            }
-
-            #second {
-                position: absolute;
-                top: 0;
-                left: 80vw;
-                transform: translate(-50%);
-            }
-
             .time_setting input:focus {
                 border-bottom: solid 0.1rem #4444aa;
                 color: #4444aa;
-            }
-
-            #h {
-                position: absolute;
-                top: 0;
-                left: 30vw;
-            }
-
-            #m {
-                position: absolute;
-                top: 0;
-                left: 60vw;
-            }
-
-            #s {
-                position: absolute;
-                top: 0;
-                left: 90vw;
-            }
-
-            #submit {
-                background: #4444aa;
-                border: none;
-                padding: 0.5rem;
-                border-radius: 0.5rem;
-                outline: none;
-                width: 15vmax;
-                font-size: 1rem;
-                margin: 0;
-                height: 2.5rem;
-                position: absolute;
-                top: 15vh;
-                left: 50vw;
-                transform: translate(-50%);
-            }
-
-            .outer {
-                width: 100vw;
-                height: 100vh;
-                margin: 0;
-                padding: 0;
-                position: absolute;
-                top: 0;
-                left: 0;
-                background: #111111;
-                transition: 0.3s;
             }
         </style>
         <main>
@@ -239,10 +245,13 @@
             eel.expose(set_time);
             eel.expose(reset_status);
 
-            hour = 0;
-            minute = 0;
-            second = 10;
-            is_reseted = false;
+            let hour = 0;
+            let minute = 0;
+            let second = 10;
+            let is_reseted = false;
+            let is_stopped = false;
+            let is_first_start = true;
+            let is_finished = false;
 
             function update_time(time) {
                 document.querySelector("#time div").innerHTML = time;
@@ -261,7 +270,7 @@
             }
 
             function reset_status() {
-                result = is_reseted;
+                const result = is_reseted;
                 is_reseted = false;
                 return result
             }
@@ -271,8 +280,8 @@
             }
 
             $(function() {
-                var settings = new Object;
-                var pair = location.search.substring(1).split("&");
+                let settings = new Object;
+                const pair = location.search.substring(1).split("&");
                 for (var i = 0; pair[i]; i++) {
                     var kv = pair[i].split("=");
                     settings[kv[0]] = kv[1];
@@ -289,12 +298,8 @@
                 }
             });
 
-            is_stopped = false;
-            is_first_start = true;
-            is_finished = false;
-
             function reset() {
-                if(is_first_start === false) {
+                if(!is_first_start) {
                     is_reseted = true;
                 }
                 if(is_finished) {
@@ -335,7 +340,7 @@
                     display_stopped_timer();
                 }
                 if(is_first_start) {
-                    sound = new Audio("");
+                    const sound = new Audio("");
                     sound.play();
                     eel.timer(hour, minute, second);
                 }
@@ -344,7 +349,7 @@
             }
 
             function play_time_up_sound() {
-                sound = new Audio("../sound/timer.mp3");
+                const sound = new Audio("../sound/timer.mp3");
                 sound.play();
                 sound.addEventListener("ended", function() {
                     if(is_stopped === false) {
@@ -359,9 +364,9 @@
 
             function submit_time() {
                 document.querySelector("#time_setting_outer").style.top = "-100vh";
-                hour_setting = document.getElementById("hour").value;
-                minute_setting = document.getElementById("minute").value;
-                second_setting = document.getElementById("second").value;
+                const hour_setting = document.getElementById("hour").value;
+                const minute_setting = document.getElementById("minute").value;
+                const second_setting = document.getElementById("second").value;
                 update_time(hour_setting + ":" + minute_setting + ":" + second_setting);
                 hour = hour_setting;
                 minute = minute_setting;

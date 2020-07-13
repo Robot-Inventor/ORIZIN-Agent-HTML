@@ -494,8 +494,8 @@ SOFTWARE.
                     </details>
                 </section>
                 <style>
-                    details summary::-webkit-details-marker {
-                        display: none;
+                    details {
+                        border-top: 0.05em solid var(--text);
                     }
 
                     details h3 {
@@ -503,12 +503,12 @@ SOFTWARE.
                         margin: 0;
                     }
 
-                    details {
-                        border-top: 0.05em solid var(--text);
-                    }
-
                     details summary {
                         padding: 1em 0;
+                    }
+
+                    details summary::-webkit-details-marker {
+                        display: none;
                     }
 
                     section {
