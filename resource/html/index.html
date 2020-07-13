@@ -287,7 +287,7 @@
 
             function start_speak(content, will_keep_speaking_after_this_function=false, allow_continuous_speech_recognition=true) {
                 is_doing_speech_synthesis = true;
-                document.getElementById("start_recognition").disabled = true;
+                disable_recognition_button();
                 const script = new SpeechSynthesisUtterance(content);
                 script.pitch = pitch;
                 script.rate = speed;
@@ -299,10 +299,10 @@
                     }
                     change_send_button_status();
                     if (!will_keep_speaking_after_this_function || allow_continuous_speech_recognition) {
-                        document.getElementById("start_recognition").disabled = false;
+                        enable_recognition_button();
                     }
                     if (continuous_speech_recognition_user_setting && !will_keep_speaking_after_this_function && allow_continuous_speech_recognition && !is_requested_by_text && !recognition_error_happened) {
-                        document.getElementById("start_recognition").click();
+                        click_recognition_button();
                     }
                 }
             }
@@ -331,39 +331,41 @@
 
             function recognition_error(error_str) {
                 recognition_error_happened = true;
+                recognition_error_table = {
+                    "aborted": "音声認識を終了しました。",
+                    "no-speech": "認識可能な音声を検出できませんでした。",
+                    "network": "音声認識を使用するにはネット接続が必要です。",
+                    "audio-capture": "オーディオキャプチャーに失敗しました。",
+                    "not-allowed": "音声入力が許可されていません。設定を確認して下さい。",
+                    "service-not-allowed": "必要な音声サービスが許可されていませんでした。",
+                    "language-not-supported": "サポートされていない言語です。",
+                    "bad-grammar": "内部処理の文法にエラーがありました。"
+                };
                 if (error_str == "aborted") {
                     if (auto_recognition_abort) {
                         auto_recognition_abort = false;
-                        document.getElementById("start_recognition").disabled = false;
+                        enable_recognition_button();
                     } else {
-                        error_message = "音声認識を終了しました。";
-                        chat_and_speak(error_message);
+                        chat_and_speak(recognition_error_table[error_str]);
                     }
-                } else if (error_str == "no-speech") {
-                    error_message = "認識可能な音声を検出できませんでした。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "network") {
-                    error_message = "音声認識を使用するにはネット接続が必要です。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "audio-capture") {
-                    error_message = "オーディオキャプチャーに失敗しました。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "not-allowed") {
-                    error_message = "音声入力が許可されていません。設定を確認して下さい。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "service-not-allowed") {
-                    error_message = "必要な音声サービスが許可されていませんでした。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "language-not-supported") {
-                    error_message = "サポートされていない言語です。";
-                    chat_and_speak(error_message);
-                } else if (error_str == "bad-grammar") {
-                    error_message = "内部処理の文法にエラーがありました。";
-                    chat_and_speak(error_message);
+                } else if (recognition_error_table[error_str]) {
+                    chat_and_speak(recognition_error_table[error_str]);
                 } else {
                     error_message = "音声認識の際に不明なエラーが発生しました。";
                     chat_and_speak(error_message + "<br><br>エラーメッセージ:<br>" + error_str, error_message)
                 }
+            }
+
+            function click_recognition_button() {
+                document.getElementById("start_recognition").click();
+            }
+
+            function enable_recognition_button() {
+                document.getElementById("start_recognition").disabled = false;
+            }
+
+            function disable_recognition_button() {
+                document.getElementById("start_recognition").disabled = true;
             }
 
             async function response(content) {
@@ -421,7 +423,7 @@
             }
             recognition.onaudioend = function() {
                 if (!is_doing_speech_synthesis) {
-                    document.getElementById("start_recognition").disabled = true;
+                    disable_recognition_button();
                     listening_status(false);
                 }
             }
@@ -482,7 +484,7 @@
                 }
                 if (listening_status()) {
                     auto_recognition_abort = true;
-                    document.getElementById("start_recognition").click();
+                    click_recognition_button();
                 }
             }
 
@@ -490,7 +492,7 @@
                 switch (event.keyCode) {
                     case 32:
                         if (document.getElementById("requestForm") != document.activeElement) {
-                            document.getElementById("start_recognition").click();
+                            click_recognition_button();
                         }
                         break;
                     case 13:
