@@ -19,9 +19,9 @@ Eel: MIT
                 - setuptools: MIT
 - future: MIT
 
-Python標準ライブラリー: PSF
-- random: BSD
-- その他: PSF
+Python: PSF
+- 標準ライブラリー: PSF
+- 一部の標準ライブラリー: 要確認
 
 <style>
     ul {

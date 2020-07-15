@@ -95,9 +95,8 @@ def judge_with_intelligent_match(_input: str, _target: list, _threshold: typing.
 
 def respond(_dictionary: dict, _query: str) -> typing.List[str]:
     root = otfdlib.Otfd()
-    root.load_from_string("")
+    root.load_from_dictionary(_dictionary)
     root.parse()
-    root.update(_dictionary)
     _index_list = root.get_index_list()
     _most_similar_word = ""
     _most_similar_value = 0

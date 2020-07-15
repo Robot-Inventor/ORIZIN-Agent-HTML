@@ -3,121 +3,146 @@ import random
 import sys
 
 
-startMessage = True
-shipX = 240
-shipY = 200
-rivalBeam = []
-rivalBeamCount = 0
-beamSpeed = 400
+is_started = False
+ship_x = 240
+ship_y = 200
+rival_beam = {}
+rival_beam_counter = 0
+beam_speed = 400
+game_over = False
 
 
-def shutdown(event):
+BEAM_LENGTH = 20
+SHIP_WIDTH = 20
+SHIP_HEIGHT = 20
+SHIP_COLOR = "red"
+AMOUNT_OF_SHIP_MOVEMENT = 20
+AMOUNT_OF_BEAM_MOVEMENT = 20
+DISTANCE_BETWEEN_BEAMS = 20
+TIME_REDUCTION_RATE = 2
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 300
+BEAM_SPEED_REFRESH_TIME = 300
+FONT_COLOR = "red"
+BEAM_COLOR = "yellow"
+
+
+def close_window_by_shortcut(event):
+    close_window()
+    return
+
+
+def close_window():
     root.destroy()
     sys.exit()
-
-
-def auto_shutdown():
-    root.destroy()
-    sys.exit()
+    return
 
 
 def space_pressed(event):
-    global startMessage
-    if startMessage:
-        startMessage = False
-        gameTitle.destroy()
-        promptStart.destroy()
-        gameCanvas.create_rectangle(shipX, shipY, shipX + 20, shipY + 20, fill='red', tag='ship')
+    global is_started
+    if is_started is False:
+        is_started = True
+        game_title.destroy()
+        press_space_to_start.destroy()
+        game_canvas.create_rectangle(
+            ship_x, ship_y, ship_x + SHIP_WIDTH, ship_y + SHIP_HEIGHT, fill=SHIP_COLOR, tag='ship'
+        )
         how_to_play = tk.Label(
-            gameCanvas, text='矢印キーで左右へ', bg='black', fg='red', font=('', 13, 'bold', 'roman', 'normal', 'normal')
+            game_canvas, text='矢印キーで左右へ', bg='black', fg=FONT_COLOR, font=('', 13, 'bold', 'roman', 'normal', 'normal')
         )
         how_to_play.pack(anchor=tk.NW, expand=1)
-        root.after(beamSpeed, move_things)
+        root.after(beam_speed, beam_control)
         change_beam_speed()
+        return
+
+
+def move_ship(x, y):
+    game_canvas.delete('ship')
+    game_canvas.create_rectangle(x, y, x + SHIP_WIDTH, y + SHIP_HEIGHT, fill=SHIP_COLOR, tag='ship')
+    return
 
 
 def left_pressed(event):
-    global shipX
-    if startMessage is False:
-        if shipX >= 20:
-            shipX -= 20
-            gameCanvas.delete('ship')
-            gameCanvas.create_rectangle(shipX, shipY, shipX + 20, shipY + 20, fill='red', tag='ship')
+    global ship_x
+    if is_started:
+        if ship_x >= SHIP_WIDTH:
+            ship_x -= AMOUNT_OF_SHIP_MOVEMENT
+            move_ship(ship_x, ship_y)
+    return
 
 
 def right_pressed(event):
-    global shipX
-    if startMessage is False:
-        if shipX <= 460:
-            shipX += 20
-            gameCanvas.delete('ship')
-            gameCanvas.create_rectangle(shipX, shipY, shipX + 20, shipY + 20, fill='red', tag='ship')
+    global ship_x
+    if is_started:
+        if ship_x <= WINDOW_WIDTH - SHIP_WIDTH * 2:
+            ship_x += AMOUNT_OF_SHIP_MOVEMENT
+            move_ship(ship_x, ship_y)
 
 
-def move_things():
-    global rivalBeam
-    global rivalBeamCount
-    rival_beam_len = int(len(rivalBeam) / 3)
-    cursor = 0
-    for num in range(rival_beam_len):
-        id_place = cursor
-        x_place = cursor + 1
-        y_place = cursor + 2
-        cursor += 3
-        rival_beam_id = rivalBeam[id_place]
-        rival_beam_x = rivalBeam[x_place]
-        rival_beam_y = rivalBeam[y_place]
-        gameCanvas.delete(rival_beam_id)
-        gameCanvas.create_line(
-            int(rival_beam_x), int(rival_beam_y) + 20, int(rival_beam_x), int(rival_beam_y) + 40,
-            fill='yellow', tag=rival_beam_id
-        )
-        rivalBeam[y_place] = str(int(rival_beam_y) + 20)
-        if 200 >= int(rivalBeam[y_place]) >= 180 and shipX <= int(rivalBeam[x_place]) <= shipX + 20:
-            game_over = tk.Label(
-                gameCanvas, text='Game Over', bg='black', fg='red', font=('', 30, 'bold', 'roman', 'normal', 'normal')
+def beam_control():
+    global rival_beam
+    global rival_beam_counter
+    global game_over
+    if game_over:
+        return
+    else:
+        for rival_beam_id in list(rival_beam):
+            rival_beam_x = rival_beam[rival_beam_id][0]
+            rival_beam_y = rival_beam[rival_beam_id][1]
+            game_canvas.delete(rival_beam_id)
+            game_canvas.create_line(
+                rival_beam_x, rival_beam_y + BEAM_LENGTH, rival_beam_x,
+                rival_beam_y + BEAM_LENGTH + AMOUNT_OF_BEAM_MOVEMENT,
+                fill=BEAM_COLOR, tag=rival_beam_id
             )
-            game_over.pack(side=tk.TOP, expand=0, fill=tk.BOTH)
-            root.after(3000, auto_shutdown)
-        if int(rivalBeam[y_place]) <= 0:
-            rivalBeam.pop(0)
-            rivalBeam.pop(1)
-            rivalBeam.pop(2)
-    x = random.randrange(0, 500, 20)
-    gameCanvas.create_line(x, 0, x, 20, fill='yellow', tag='rivalBeam' + str(rivalBeamCount))
-    rivalBeam.append('rivalBeam' + str(rivalBeamCount))
-    rivalBeam.append(str(x))
-    rivalBeam.append('0')
-    rivalBeamCount += 1
-    root.after(beamSpeed, move_things)
+            rival_beam[rival_beam_id] = [rival_beam_x, rival_beam_y + AMOUNT_OF_BEAM_MOVEMENT]
+            if ship_y >= rival_beam_y >= ship_y - SHIP_HEIGHT and ship_x <= rival_beam_x <= ship_x + SHIP_WIDTH:
+                game_over_message = tk.Label(
+                    game_canvas, text='Game Over', bg='black', fg=FONT_COLOR,
+                    font=('', 30, 'bold', 'roman', 'normal', 'normal')
+                )
+                game_over_message.pack(side=tk.TOP, expand=0, fill=tk.BOTH)
+                game_over = True
+                root.after(3000, close_window)
+            if rival_beam_y >= WINDOW_HEIGHT:
+                del rival_beam[rival_beam_id]
+                game_canvas.delete(rival_beam_id)
+        x = random.randrange(0, WINDOW_WIDTH, DISTANCE_BETWEEN_BEAMS)
+        game_canvas.create_line(x, 0, x, BEAM_LENGTH, fill=BEAM_COLOR, tag=f"rival_beam{rival_beam_counter}")
+        rival_beam[f"rival_beam{rival_beam_counter}"] = [x, 0]
+        rival_beam_counter += 1
+        root.after(beam_speed, beam_control)
+        return
 
 
 def change_beam_speed():
-    global beamSpeed
-    beamSpeed -= 2
-    root.after(300, change_beam_speed)
+    global beam_speed
+    beam_speed -= TIME_REDUCTION_RATE
+    root.after(BEAM_SPEED_REFRESH_TIME, change_beam_speed)
+    return
 
 
 root = tk.Tk()
 root.title('ORIZIN Easter Egg')
-root.geometry("500x300")
+root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
 
-root.bind('<Control-q>', shutdown)
+root.bind('<Control-q>', close_window_by_shortcut)
 root.bind('<Left>', left_pressed)
 root.bind('<Right>', right_pressed)
 root.bind('<space>', space_pressed)
 
-gameCanvas = tk.Canvas(root, bg='black')
-gameCanvas.pack(anchor=tk.NW, expand=1, fill=tk.BOTH)
+game_canvas = tk.Canvas(root, bg='black')
+game_canvas.pack(anchor=tk.NW, expand=1, fill=tk.BOTH)
 
-gameTitle = tk.Label(
-    gameCanvas, text='Space Battleship Game', bg='black', fg='red', font=('', 30, 'bold', 'roman', 'normal', 'normal')
+game_title = tk.Label(
+    game_canvas, text='Space Battleship Game', bg='black', fg=FONT_COLOR,
+    font=('', 30, 'bold', 'roman', 'normal', 'normal')
 )
-gameTitle.pack(expand=0, fill=tk.BOTH)
-promptStart = tk.Label(
-    gameCanvas, text='スペースキーを押してスタート', bg='black', fg='red', font=('', 15, 'bold', 'roman', 'normal', 'normal')
+game_title.pack(expand=0, fill=tk.BOTH)
+press_space_to_start = tk.Label(
+    game_canvas, text='スペースキーを押してスタート', bg='black', fg=FONT_COLOR, font=('', 15, 'bold', 'roman', 'normal', 'normal')
 )
-promptStart.pack(anchor=tk.NW, expand=1, fill=tk.BOTH)
+press_space_to_start.pack(anchor=tk.NW, expand=1, fill=tk.BOTH)
 
 
 root.mainloop()
