@@ -21,6 +21,11 @@ class Otfd:
     def load_from_string(self, _otfd_string: str) -> str:
         self._otfd_content = _otfd_string
         return self._otfd_content
+
+    def load_from_dictionary(self, _otfd_dict: typing.Union[dict, OrderedDict]) -> typing.Union[dict, OrderedDict]:
+        self._parsed_otfd = _otfd_dict
+        self._otfd_content = self.to_string()
+        return self._parsed_otfd
     
     @staticmethod
     def unescape(_target: typing.Union[str, list]) -> typing.Union[str, typing.List[str]]:
