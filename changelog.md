@@ -58,6 +58,9 @@ Edition: ORIZIN Agent HTML
 #### 追加
 - 4通りの応答を辞書に追加し，応答は全てで1808通りになりました。
 
+#### 修正
+- dictionary_checker.pyのパフォーマンスを改善しました。
+
 ### [v3.5.107.2-Crane] - 2020-07-26
 #### 追加
 - ライブラリーの依存関係をlibrary_dependencies.mdに入力しました。

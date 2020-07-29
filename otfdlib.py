@@ -56,7 +56,7 @@ class Otfd:
         self._parsed_otfd = OrderedDict([_line.split(":") for _line in _splited_with_line])
         return self._parsed_otfd
 
-    def get_index_list(self) -> list:
+    def get_index_list(self) -> typing.List[str]:
         self._index_list = list(self._parsed_otfd.keys())
         return self._index_list
     
