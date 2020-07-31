@@ -1,6 +1,8 @@
 # ORIZIN Agent HTML
 
 ![ロゴ](resource/image/landscape_logo2.svg)
+[![deepcode](https://www.deepcode.ai/api/gh/badge?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF0Zm9ybTEiOiJnaCIsIm93bmVyMSI6IlJvYm90LUludmVudG9yIiwicmVwbzEiOiJPUklaSU4tQWdlbnQtSFRNTCIsImluY2x1ZGVMaW50IjpmYWxzZSwiYXV0aG9ySWQiOjE5NTA0LCJpYXQiOjE1OTYxODM4MTd9.HnkgQEaCmDcRVYTlFHoF3akTsFAVk4klexylU1LwqTA)](https://www.deepcode.ai/app/gh/Robot-Inventor/ORIZIN-Agent-HTML/_/dashboard?utm_content=gh%2FRobot-Inventor%2FORIZIN-Agent-HTML)
+
 ORIZIN Agentは，GitHub上でMITライセンスの下に公開されているオープンソースのAIアシスタントです。日本語での会話を行うことができます。本ソフトウェアは，HTMLを使用しており，GUIの表示のためにEelというPythonライブラリを使用します。また，HTMLファイルやCSSファイルを編集することでGUIをカスタマイズすることができます。
 
 **IMPORTANT! For people who don't speak Japanese language**  
