@@ -10,7 +10,7 @@ import re
 import difflib
 import tkinter as tk
 from tkinter import messagebox
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as et
 import html
 import typing
 
@@ -130,6 +130,31 @@ def respond(_dictionary: dict, _query: str) -> typing.List[str]:
         return root.unescape([_response[0], _response[0], _most_similar_word])
     else:
         return root.unescape([_response[0], _response[1], _most_similar_word])
+
+
+def fast_respond(_dictionary: dict, _query: str) -> typing.List[str]:
+    root = otfdlib.Otfd()
+    root.load_from_dictionary(_dictionary)
+    root.parse()
+    _index_list = root.get_index_list()
+    for _index in _index_list:
+        _splited_index = root.unescape(list(_index.split("/")))
+        _judge_result = judge(_query, _index.split("/"), True)
+        if _judge_result[0]:
+            _response = root.get_value(_index).split("/")
+            if len(_response) == 1:
+                return root.unescape([_response[0], _response[0], _judge_result[1]])
+            else:
+                return root.unescape([_response[0], _response[1], _judge_result[1]])
+    if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
+        with open("resource/dictionary/unknownQuestions.txt", mode="w", newline="") as _f:
+            pass
+    _unknown_question = otfdlib.Otfd()
+    _unknown_question.load("resource/dictionary/unknownQuestions.txt")
+    _unknown_question.parse()
+    _unknown_question.add(_query, "/".join("そうですか。"))
+    _unknown_question.write()
+    return ["そうですか。", "そうですか。", ""]
 
 
 def check_update(_downloaded_file_path: str, _remote_file_url: str, _update_message_url: str) ->\
@@ -292,7 +317,7 @@ def showinfo(_message: str) -> None:
 
 
 def get_google_news(number_of_items: int = 3) -> typing.List[typing.Dict[str, str]]:
-    root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
+    root = et.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
     items = root.iter("item")
     result = []
     for num in range(number_of_items):

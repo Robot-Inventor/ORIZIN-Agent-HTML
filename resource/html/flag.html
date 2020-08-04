@@ -41,6 +41,12 @@
                         設定ページに音声に関する設定を追加し，音声のピッチ・スピード・ボリュームを設定できるようにします。
                     </p>
                 </section>
+                <section>
+                    <i class="material_icon">two_wheeler</i>高速モードを有効にする　<input type="checkbox" class="toggle" id="use_fast_response_mode" onchange="save_setting()"><label for="use_fast_response_mode" class="ripple_effect"></label><br>
+                    <p>
+                        高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり，適切な応答が見つからなかったことを示す「そうですか。」という応答が返される頻度が高くなります。
+                    </p>
+                </section>
                 <span id="refresh_button" onclick="eel.reset_flag(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
@@ -84,6 +90,7 @@
             read_flag("fast_start");
             read_flag("get_news_from_google_news");
             read_flag("add_sound_setting");
+            read_flag("use_fast_response_mode");
 
             function save_setting() {
                 eel.set_flag(event.target.id, event.target.checked);

@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 import eel
+from eel import start
 import oa_core as core
 import random
 import subprocess
@@ -17,6 +18,7 @@ import hashlib
 import pickle
 import typing
 import unicodedata
+import time
 
 
 @eel.expose
@@ -409,7 +411,10 @@ def make_response(_not_normalized_query: str) -> typing.List[typing.Union[str, b
         eel.blm()
         return ["人種差別に反対します。", "人種差別に反対します。"]
     else:
-        _response = core.respond(dictionary, _query)
+        if read_flag("use_fast_response_mode"):
+            _response = core.fast_respond(dictionary, _query)
+        else:
+            _response = core.respond(dictionary, _query)
         _user_name = read_setting("user_name")
         return [_response[0].format(user_name=_user_name), _response[1].format(user_name=_user_name)]
 
