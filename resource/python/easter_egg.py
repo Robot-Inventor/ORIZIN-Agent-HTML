@@ -33,18 +33,17 @@ is_god_mode = False
 score = 0
 
 
-def close_window_by_shortcut(event):
+def close_window_by_shortcut(event) -> None:
     close_window()
     return
 
 
-def close_window():
+def close_window() -> None:
     root.destroy()
     sys.exit()
-    return
 
 
-def start_game(event):
+def start_game(event) -> None:
     global is_started
     global score_text
     global game_over
@@ -80,16 +79,16 @@ def start_game(event):
         score_label.place(x=0, y=20, relwidth=1)
         root.after(beam_speed, beam_control)
         change_beam_speed()
-        return
+    return
 
 
-def move_ship(x, y):
+def move_ship(x: int, y: int) -> None:
     game_canvas.delete('ship')
     game_canvas.create_rectangle(x, y, x + SHIP_WIDTH, y + SHIP_HEIGHT, fill=SHIP_COLOR, tag='ship')
     return
 
 
-def move_ship_to_left(event):
+def move_ship_to_left(event) -> None:
     global ship_x
     if is_started:
         ship_x -= amount_of_ship_movement
@@ -98,15 +97,16 @@ def move_ship_to_left(event):
     return
 
 
-def move_ship_to_right(event):
+def move_ship_to_right(event) -> None:
     global ship_x
     if is_started:
         ship_x += amount_of_ship_movement
         ship_x = min(max(ship_x, 0), WINDOW_WIDTH - SHIP_WIDTH)
         move_ship(ship_x, ship_y)
+    return
 
 
-def window_resize_watcher():
+def window_resize_watcher() -> None:
     global WINDOW_WIDTH
     global WINDOW_HEIGHT
     global ship_y
@@ -130,7 +130,7 @@ def window_resize_watcher():
     return
 
 
-def enable_slow_mode(event):
+def enable_slow_mode(event) -> None:
     global amount_of_ship_movement
     global is_slow_mode
     amount_of_ship_movement = DEFAULT_AMOUNT_OF_SHIP_MOVEMENT * 0.5
@@ -138,7 +138,7 @@ def enable_slow_mode(event):
     return
 
 
-def disable_slow_mode(event):
+def disable_slow_mode(event) -> None:
     global amount_of_ship_movement
     global is_slow_mode
     amount_of_ship_movement = DEFAULT_AMOUNT_OF_SHIP_MOVEMENT
@@ -146,7 +146,7 @@ def disable_slow_mode(event):
     return
 
 
-def enable_fast_mode(event):
+def enable_fast_mode(event) -> None:
     global amount_of_ship_movement
     global is_fast_mode
     amount_of_ship_movement = DEFAULT_AMOUNT_OF_SHIP_MOVEMENT * 2
@@ -154,7 +154,7 @@ def enable_fast_mode(event):
     return
 
 
-def disable_fast_mode(event):
+def disable_fast_mode(event) -> None:
     global amount_of_ship_movement
     global is_fast_mode
     amount_of_ship_movement = DEFAULT_AMOUNT_OF_SHIP_MOVEMENT
@@ -162,13 +162,13 @@ def disable_fast_mode(event):
     return
 
 
-def enable_god_mode(event):
+def enable_god_mode(event) -> None:
     global is_god_mode
     is_god_mode = True
     return
 
 
-def beam_control():
+def beam_control() -> None:
     global rival_beam
     global rival_beam_counter
     global game_over
@@ -230,7 +230,7 @@ def beam_control():
         return
 
 
-def change_beam_speed():
+def change_beam_speed() -> None:
     global beam_speed
     if not game_over:
         beam_speed = max(int(beam_speed * (1 - TIME_REDUCTION_RATE)), 5)

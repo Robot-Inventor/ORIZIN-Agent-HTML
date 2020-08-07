@@ -2,7 +2,6 @@
 # -*- coding: utf8 -*-
 
 
-import typing
 import otfdlib
 import glob
 import itertools
@@ -23,7 +22,7 @@ def return_words_setting(string: str, array: list) -> list:
     return result
 
 
-def check(file_path: str) -> typing.List[typing.Optional[str]]:
+def check(file_path: str) -> None:
     print(f"{file_path}　を検証中...", end="")
     result = []
     with open(file_path, mode="r", encoding="utf-8_sig") as f:
@@ -36,27 +35,27 @@ def check(file_path: str) -> typing.List[typing.Optional[str]]:
     root.load(file_path)
     root.parse()
     for index in [index.split("/") for index in root.get_index_list()]:
-            for index2 in list(reversed(index))[:]:
-                index.pop(-1)
-                for index3 in index:
-                    if index2 in index3 and index2 != "":
-                        errors.append(f"{file_path}　の「{index2}」は「{index3}」に含まれています。")
+        for index2 in list(reversed(index))[:]:
+            index.pop(-1)
+            for index3 in index:
+                if index2 in index3 and index2 != "":
+                    errors.append(f"{file_path}　の「{index2}」は「{index3}」に含まれています。")
     indexes = list(itertools.chain.from_iterable([index.split("/") for index in root.get_index_list()]))
     for index in indexes[:]:
-            indexes.remove(index)
-            if index != normalize(index):
-                errors.append(f"{file_path}　の「{index}」は正規化によって「{normalize(index)}」になるため無効です。")
-            if index in indexes:
-                errors.append(f"{file_path}　の「{index}」が重複しています。")
-            for index2 in indexes:
-                if index not in return_words_setting(index2, different_words) and \
-                        difflib.SequenceMatcher(None, index2, index).ratio() >= 0.9:
-                    errors.append(
-                        f"{file_path}の「{index}」は「{index2}」と似ています。"
-                        "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。"
-                    )
-                if index in index2 and index != index2 and index != "":
-                    errors.append(f"{file_path}　の「{index}」は「{index2}」に含まれています。")
+        indexes.remove(index)
+        if index != normalize(index):
+            errors.append(f"{file_path}　の「{index}」は正規化によって「{normalize(index)}」になるため無効です。")
+        if index in indexes:
+            errors.append(f"{file_path}　の「{index}」が重複しています。")
+        for index2 in indexes:
+            if index not in return_words_setting(index2, different_words) and \
+                    difflib.SequenceMatcher(None, index2, index).ratio() >= 0.9:
+                errors.append(
+                    f"{file_path}の「{index}」は「{index2}」と似ています。"
+                    "正規化を検討するかdictionary_checker_words_setting.txtに追記して下さい。"
+                )
+            if index in index2 and index != index2 and index != "":
+                errors.append(f"{file_path}　の「{index}」は「{index2}」に含まれています。")
     print("完了")
     return errors.extend(result)
 

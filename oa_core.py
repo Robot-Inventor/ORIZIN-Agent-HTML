@@ -10,14 +10,15 @@ import re
 import difflib
 import tkinter as tk
 from tkinter import messagebox
-import xml.etree.ElementTree as et
+import xml.etree.ElementTree as ET
 import html
 import typing
+import pathlib
 
 
-def normalize(_sentence: str) -> str:
+def normalize(sentence: str) -> str:
     result = normalize_with_dictionary("resource/dictionary/normalize_dictionary.otfd",
-                                       convert_kanji_to_int(unicodedata.normalize("NFKC", _sentence.lower()).translate(
+                                       convert_kanji_to_int(unicodedata.normalize("NFKC", sentence.lower()).translate(
                                            str.maketrans(
                                                "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろ"
                                                "わをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっぁぃぅぇぉゔ",
@@ -30,13 +31,13 @@ def normalize(_sentence: str) -> str:
     return result
 
 
-def normalize_with_dictionary(_file_path: str, _sentence: str) -> str:
+def normalize_with_dictionary(file_path: str, sentence: str) -> str:
     root = otfdlib.Otfd()
-    root.load(_file_path)
+    root.load(file_path)
     root.parse()
-    result = _sentence
+    result = sentence
     for element in root.get_index_list():
-        result = re.sub(element.replace("/", "|"), root.get_value(element), _sentence)
+        result = re.sub(element.replace("/", "|"), root.get_value(element), sentence)
     return result
 
 
@@ -60,9 +61,9 @@ def convert_kanji_to_int(string: str) -> str:
     return result
 
 
-def load_dictionary(_path: str) -> dict:
+def load_dictionary(path: str) -> dict:
     root = otfdlib.Otfd()
-    root.load(_path)
+    root.load(path)
     root.parse()
     return root.read()
 
@@ -70,189 +71,185 @@ def load_dictionary(_path: str) -> dict:
 bool_and_str_type_var = typing.TypeVar("bool_and_str_type_var", bool, str)
 
 
-def judge(_query: str, _dictionary: typing.Union[str, list], _matched_word: bool = False) ->\
+def judge(query: str, dictionary: typing.Union[str, list], matched_word: bool = False) ->\
         typing.Union[bool, typing.List[bool_and_str_type_var]]:
-    if type(_dictionary) == str:
-        _dictionary = [_dictionary]
-    for _word in _dictionary:
-        if bool(re.search(_word, _query)):
-            if _matched_word:
-                return [True, _word]
+    if type(dictionary) == str:
+        dictionary = [dictionary]
+    for word in dictionary:
+        if bool(re.search(word, query)):
+            if matched_word:
+                return [True, word]
             else:
                 return True
-    if _matched_word:
+    if matched_word:
         return [False, ""]
     else:
         return False
 
 
-def judge_with_intelligent_match(_input: str, _target: list, _threshold: typing.Union[int, float] = 0.75) -> bool:
-    for _content in _target:
-        if intelligent_match(_input, _content) >= _threshold:
+def judge_with_intelligent_match(input_str: str, target: list, threshold: typing.Union[int, float] = 0.75) -> bool:
+    for content in target:
+        if intelligent_match(input_str, content) >= threshold:
             return True
     return False
 
 
-def respond(_dictionary: dict, _query: str) -> typing.List[str]:
-    root = otfdlib.Otfd()
-    root.load_from_dictionary(_dictionary)
-    root.parse()
-    _index_list = root.get_index_list()
-    _most_similar_word = ""
-    _most_similar_value = 0
-    for _index in _index_list:
-        _splited_index = root.unescape(list(_index.split("/")))
-        _similarity = max([intelligent_match(_input, _query) for _input in _splited_index])
-        if _similarity >= _most_similar_value:
-            _most_similar_value = _similarity
-            _most_similar_word = _index
-        _judge_result = judge(_query, _index.split("/"), True)
-        if _judge_result[0]:
-            _response = root.get_value(_index).split("/")
-            if len(_response) == 1:
-                return root.unescape([_response[0], _response[0], _judge_result[1]])
-            else:
-                return root.unescape([_response[0], _response[1], _judge_result[1]])
-    if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
-        with open("resource/dictionary/unknownQuestions.txt", mode="w", newline="") as _f:
-            pass
-    _unknown_question = otfdlib.Otfd()
-    _unknown_question.load("resource/dictionary/unknownQuestions.txt")
-    _unknown_question.parse()
-    _response = []
-    if _most_similar_value >= 0.75:
-        _response = list(root.get_value(_most_similar_word).split("/"))
-    else:
-        _response = ["そうですか。"]
-    _unknown_question.add(_query, "/".join(_response))
-    _unknown_question.write()
-    if len(_response) == 1:
-        return root.unescape([_response[0], _response[0], _most_similar_word])
-    else:
-        return root.unescape([_response[0], _response[1], _most_similar_word])
+def add_unknown_question(question: str, response: typing.Union[str, list]) -> None:
+    unknown_questions = otfdlib.Otfd()
+    unknown_questions.load("resource/dictionary/unknownQuestions.txt")
+    unknown_questions.parse()
+    unknown_questions.add(question, "/".join(response))
+    unknown_questions.write()
+    return
 
 
-def fast_respond(_dictionary: dict, _query: str) -> typing.List[str]:
+def respond(dictionary: dict, query: str) -> typing.List[str]:
     root = otfdlib.Otfd()
-    root.load_from_dictionary(_dictionary)
+    root.load_from_dictionary(dictionary)
     root.parse()
-    _index_list = root.get_index_list()
-    for _index in _index_list:
-        _splited_index = root.unescape(list(_index.split("/")))
-        _judge_result = judge(_query, _index.split("/"), True)
-        if _judge_result[0]:
-            _response = root.get_value(_index).split("/")
-            if len(_response) == 1:
-                return root.unescape([_response[0], _response[0], _judge_result[1]])
+    index_list = root.get_index_list()
+    most_similar_word = ""
+    most_similar_value = 0
+    for index in index_list:
+        splited_index = root.unescape(list(index.split("/")))
+        similarity = max([intelligent_match(string, query) for string in splited_index])
+        if similarity >= most_similar_value:
+            most_similar_value = similarity
+            most_similar_word = index
+        judge_result = judge(query, index.split("/"), True)
+        if judge_result[0]:
+            response = root.get_value(index).split("/")
+            if len(response) == 1:
+                return root.unescape([response[0], response[0], judge_result[1]])
             else:
-                return root.unescape([_response[0], _response[1], _judge_result[1]])
+                return root.unescape([response[0], response[1], judge_result[1]])
     if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
-        with open("resource/dictionary/unknownQuestions.txt", mode="w", newline="") as _f:
-            pass
-    _unknown_question = otfdlib.Otfd()
-    _unknown_question.load("resource/dictionary/unknownQuestions.txt")
-    _unknown_question.parse()
-    _unknown_question.add(_query, "/".join("そうですか。"))
-    _unknown_question.write()
+        pathlib.Path("resource/dictionary/unknownQuestions.txt").touch()
+    if most_similar_value >= 0.75:
+        response = list(root.get_value(most_similar_word).split("/"))
+    else:
+        response = ["そうですか。"]
+    add_unknown_question(query, response)
+    if len(response) == 1:
+        return root.unescape([response[0], response[0], most_similar_word])
+    else:
+        return root.unescape([response[0], response[1], most_similar_word])
+
+
+def respond_fast(dictionary: dict, query: str) -> typing.List[str]:
+    root = otfdlib.Otfd()
+    root.load_from_dictionary(dictionary)
+    root.parse()
+    index_list = root.get_index_list()
+    for index in index_list:
+        judge_result = judge(query, index.split("/"), True)
+        if judge_result[0]:
+            response = root.get_value(index).split("/")
+            if len(response) == 1:
+                return root.unescape([response[0], response[0], judge_result[1]])
+            else:
+                return root.unescape([response[0], response[1], judge_result[1]])
+    if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
+        pathlib.Path("resource/dictionary/unknownQuestions.txt").touch()
+    add_unknown_question(query, "そうですか。")
     return ["そうですか。", "そうですか。", ""]
 
 
-def check_update(_downloaded_file_path: str, _remote_file_url: str, _update_message_url: str) ->\
-        typing.List[str]:
-    _current = otfdlib.Otfd()
-    _current.load(_downloaded_file_path)
-    _current.parse()
-    _current_version = _current.get_value("Version")
-    _remote = otfdlib.Otfd()
-    _remote.load_from_string(urllib.request.urlopen(_remote_file_url).read().decode())
-    _remote.parse()
-    _remote_version = _remote.get_value("Version")
-    _update_status = "false"
-    if _current_version != _remote_version:
-        _current_version_numbers = _current_version.split(".")
-        _remote_version_numbers = _remote_version.split(".")
-        if int(_current_version_numbers[2]) < int(_remote_version_numbers[2]):
-            _update_status = "true"
-        elif _current_version_numbers[2] == _remote_version_numbers[2]:
-            if (int(_current_version_numbers[3].replace("dev", "")) <
-                    int(_remote_version_numbers[3].replace("dev", ""))) or \
-                    ("dev" in _current_version_numbers[3] and "dev" not in _remote_version_numbers[3]):
-                _update_status = "true"
-    return [_update_status, _current_version, _remote_version,
-            urllib.request.urlopen(_update_message_url).read().decode()]
+def check_update(downloaded_file_path: str, remote_file_url: str, update_message_url: str) -> typing.List[str]:
+    current = otfdlib.Otfd()
+    current.load(downloaded_file_path)
+    current.parse()
+    current_version = current.get_value("Version")
+    remote = otfdlib.Otfd()
+    remote.load_from_string(urllib.request.urlopen(remote_file_url).read().decode())
+    remote.parse()
+    remote_version = remote.get_value("Version")
+    update_status = "false"
+    if current_version != remote_version:
+        current_version_numbers = current_version.split(".")
+        remote_version_numbers = remote_version.split(".")
+        if int(current_version_numbers[2]) < int(remote_version_numbers[2]):
+            update_status = "true"
+        elif current_version_numbers[2] == remote_version_numbers[2]:
+            if (int(current_version_numbers[3].replace("dev", "")) <
+                    int(remote_version_numbers[3].replace("dev", ""))) or \
+                    ("dev" in current_version_numbers[3] and "dev" not in remote_version_numbers[3]):
+                update_status = "true"
+    return [update_status, current_version, remote_version,
+            urllib.request.urlopen(update_message_url).read().decode()]
 
 
-def convert_to_bool(_value: typing.Any) -> bool:
-    if _value:
-        _value = normalize(str(_value))
-        if _value.isdigit():
-            return int(_value) != 0
+def convert_to_bool(value: typing.Any) -> bool:
+    if value:
+        value = normalize(str(value))
+        if value.isdigit():
+            return int(value) != 0
         else:
-            _true_level = max(list(difflib.SequenceMatcher(
-                None, _value, _target).ratio() for _target in ["yes", "true", "y"]))
-            _false_level = max(list(difflib.SequenceMatcher(
-                None, _value, _target).ratio() for _target in ["no", "false", "none", "n", "not"]))
-            if _true_level == _false_level:
+            true_level = max(list(difflib.SequenceMatcher(
+                None, value, target).ratio() for target in ["yes", "true", "y"]))
+            false_level = max(list(difflib.SequenceMatcher(
+                None, value, target).ratio() for target in ["no", "false", "none", "n", "not"]))
+            if true_level == false_level:
                 return False
             else:
-                return _false_level < _true_level
+                return false_level < true_level
     else:
         return False
 
 
-def read_setting(_setting_file_path: str, _setting_name: typing.Any) -> typing.Optional[str]:
+def read_setting(_setting_file_path: str, setting_name: typing.Any) -> typing.Optional[str]:
     if os.path.exists(_setting_file_path) is False:
         return
     else:
         root = otfdlib.Otfd()
         root.load(_setting_file_path)
         root.parse()
-        return root.get_value(_setting_name)
+        return root.get_value(setting_name)
 
 
-def write_setting(_setting_file_path: str, _setting_name: typing.Any, _setting_value: typing.Any) -> None:
+def write_setting(_setting_file_path: str, setting_name: typing.Any, setting_value: typing.Any) -> None:
     if os.path.exists(_setting_file_path) is False:
         with open(_setting_file_path, mode="w", encoding="utf-8_sig") as f:
             f.write("")
     root = otfdlib.Otfd()
     root.load(_setting_file_path)
     root.parse()
-    root.add(str(_setting_name), str(_setting_value))
+    root.add(str(setting_name), str(setting_value))
     root.write()
     return
 
 
-def read_flag(_flag_file_path: str, _flag_name: typing.Any) -> bool:
-    return convert_to_bool(read_setting(_flag_file_path, _flag_name))
+def read_flag(_flag_file_path: str, flag_name: typing.Any) -> bool:
+    return convert_to_bool(read_setting(_flag_file_path, flag_name))
 
 
-def set_flag(_flag_file_path: str, _flag_name: typing.Any, _flag_value: typing.Any) -> None:
-    write_setting(_flag_file_path, str(_flag_name), convert_to_bool(_flag_value))
+def set_flag(_flag_file_path: str, flag_name: typing.Any, flag_value: typing.Any) -> None:
+    write_setting(_flag_file_path, str(flag_name), convert_to_bool(flag_value))
     return
 
 
-def solve_setting_conflict(_default_setting_file_path: str, _current_setting_file_path: str) -> None:
-    if os.path.exists(_default_setting_file_path) is False:
-        raise Exception(f"{_default_setting_file_path}にデフォルト設定ファイルがありません。")
-    if os.path.exists(_current_setting_file_path) is False:
-        with open(_current_setting_file_path, mode="w", encoding="utf-8_sig") as _current:
-            with open(_default_setting_file_path, mode="r", encoding="utf-8_sig") as _default:
-                _current.write(_default.read())
+def solve_setting_conflict(default_setting_file_path: str, current_setting_file_path: str) -> None:
+    if os.path.exists(default_setting_file_path) is False:
+        raise Exception(f"{default_setting_file_path}にデフォルト設定ファイルがありません。")
+    if os.path.exists(current_setting_file_path) is False:
+        with open(current_setting_file_path, mode="w", encoding="utf-8_sig") as current:
+            with open(default_setting_file_path, mode="r", encoding="utf-8_sig") as default:
+                current.write(default.read())
                 return
     else:
         default_setting = otfdlib.Otfd()
-        default_setting.load(_default_setting_file_path)
+        default_setting.load(default_setting_file_path)
         default_setting.parse()
-        _default_index_list = default_setting.get_index_list()
+        default_index_list = default_setting.get_index_list()
         current_setting = otfdlib.Otfd()
-        current_setting.load(_current_setting_file_path)
+        current_setting.load(current_setting_file_path)
         current_setting.parse()
-        _current_index_list = current_setting.get_index_list()
-        _need_to_add = list(set(_default_index_list) - set(_current_index_list))
-        current_setting.update({_index: default_setting.get_value(_index) for _index in _need_to_add})
-        _need_to_delete = list(set(_current_index_list) - set(_default_index_list))
-        for _index in _need_to_delete:
-            current_setting.pop(_index)
+        current_index_list = current_setting.get_index_list()
+        need_to_add = list(set(default_index_list) - set(current_index_list))
+        current_setting.update({index: default_setting.get_value(index) for index in need_to_add})
+        need_to_delete = list(set(current_index_list) - set(default_index_list))
+        for index in need_to_delete:
+            current_setting.pop(index)
         default_setting.sorted()
         current_setting.sorted()
         default_setting.write()
@@ -300,24 +297,24 @@ def intelligent_match(a: str, b: str) -> float:
             ]))
 
 
-def showerror(_message: str) -> None:
+def showerror(message: str) -> None:
     root = tk.Tk()
     root.withdraw()
-    messagebox.showerror("ORIZIN Agent HTML　エラー", _message)
+    messagebox.showerror("ORIZIN Agent HTML　エラー", message)
     root.destroy()
     return
 
 
-def showinfo(_message: str) -> None:
+def showinfo(message: str) -> None:
     root = tk.Tk()
     root.withdraw()
-    messagebox.showinfo("ORIZIN Agent HTML", _message)
+    messagebox.showinfo("ORIZIN Agent HTML", message)
     root.destroy()
     return
 
 
 def get_google_news(number_of_items: int = 3) -> typing.List[typing.Dict[str, str]]:
-    root = et.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
+    root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
     items = root.iter("item")
     result = []
     for num in range(number_of_items):
