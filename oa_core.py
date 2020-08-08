@@ -297,7 +297,7 @@ def intelligent_match(a: str, b: str) -> float:
             ]))
 
 
-def showerror(message: str) -> None:
+def show_error(message: str) -> None:
     root = tk.Tk()
     root.withdraw()
     messagebox.showerror("ORIZIN Agent HTML　エラー", message)
@@ -305,7 +305,7 @@ def showerror(message: str) -> None:
     return
 
 
-def showinfo(message: str) -> None:
+def show_info(message: str) -> None:
     root = tk.Tk()
     root.withdraw()
     messagebox.showinfo("ORIZIN Agent HTML", message)

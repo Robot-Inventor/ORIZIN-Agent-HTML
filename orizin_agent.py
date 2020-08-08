@@ -46,7 +46,7 @@ def write_custom_css_theme(value: typing.Any) -> None:
             f.write(custom_css_data)
         return
     else:
-        core.showerror("カスタムCSSテーマに不正な値を書き込もうとしています。")
+        core.show_error("カスタムCSSテーマに不正な値を書き込もうとしています。")
         return
 
 
