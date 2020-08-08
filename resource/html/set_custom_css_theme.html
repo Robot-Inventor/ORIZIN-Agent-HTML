@@ -38,47 +38,50 @@
             async function check_current_css_theme_information() {
                 css_data =  await eel.check_current_css_theme_information()();
                 old_css_data = await eel.check_current_css_theme_information()();
+                const swatches_values = [
+                    "rgba(244, 67, 54, 1)",
+                    "rgba(233, 30, 99, 0.95)",
+                    "rgba(156, 39, 176, 0.9)",
+                    "rgba(103, 58, 183, 0.85)",
+                    "rgba(63, 81, 181, 0.8)",
+                    "rgba(33, 150, 243, 0.75)",
+                    "rgba(3, 169, 244, 0.7)",
+                    "rgba(0, 188, 212, 0.7)",
+                    "rgba(0, 150, 136, 0.75)",
+                    "rgba(76, 175, 80, 0.8)",
+                    "rgba(139, 195, 74, 0.85)",
+                    "rgba(205, 220, 57, 0.9)",
+                    "rgba(255, 235, 59, 0.95)",
+                    "rgba(255, 193, 7, 1)"
+                ]
+                const components_values = {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        rgba: true,
+                        hsla: true,
+                        hsva: true,
+                        cmyk: true,
+                        input: true,
+                        clear: true,
+                        save: true,
+                        cancel: true
+                    }
+                }
+                i18n_values = {
+                    "btn:save": "決定",
+                    "btn:clear": "リセット",
+                    "btn:cancel": "キャンセル"
+                }
                 const bg = Pickr.create({
                     el: "#bg",
                     theme: "classic",
                     default: css_data[0],
-                    swatches: [
-                        "rgba(244, 67, 54, 1)",
-                        "rgba(233, 30, 99, 0.95)",
-                        "rgba(156, 39, 176, 0.9)",
-                        "rgba(103, 58, 183, 0.85)",
-                        "rgba(63, 81, 181, 0.8)",
-                        "rgba(33, 150, 243, 0.75)",
-                        "rgba(3, 169, 244, 0.7)",
-                        "rgba(0, 188, 212, 0.7)",
-                        "rgba(0, 150, 136, 0.75)",
-                        "rgba(76, 175, 80, 0.8)",
-                        "rgba(139, 195, 74, 0.85)",
-                        "rgba(205, 220, 57, 0.9)",
-                        "rgba(255, 235, 59, 0.95)",
-                        "rgba(255, 193, 7, 1)"
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            hex: true,
-                            rgba: true,
-                            hsla: true,
-                            hsva: true,
-                            cmyk: true,
-                            input: true,
-                            clear: true,
-                            save: true,
-                            cancel: true
-                        }
-                    },
-                    i18n: {
-                        "btn:save": "決定",
-                        "btn:clear": "リセット",
-                        "btn:cancel": "キャンセル"
-                    }
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
                 });
                 bg.on("save", (color, instance) => {
                     css_data[0] = color.toHEXA().toString();
@@ -88,43 +91,9 @@
                     el: "#card_bg",
                     theme: "classic",
                     default: css_data[1],
-                    swatches: [
-                        "rgba(244, 67, 54, 1)",
-                        "rgba(233, 30, 99, 0.95)",
-                        "rgba(156, 39, 176, 0.9)",
-                        "rgba(103, 58, 183, 0.85)",
-                        "rgba(63, 81, 181, 0.8)",
-                        "rgba(33, 150, 243, 0.75)",
-                        "rgba(3, 169, 244, 0.7)",
-                        "rgba(0, 188, 212, 0.7)",
-                        "rgba(0, 150, 136, 0.75)",
-                        "rgba(76, 175, 80, 0.8)",
-                        "rgba(139, 195, 74, 0.85)",
-                        "rgba(205, 220, 57, 0.9)",
-                        "rgba(255, 235, 59, 0.95)",
-                        "rgba(255, 193, 7, 1)"
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            hex: true,
-                            rgba: true,
-                            hsla: true,
-                            hsva: true,
-                            cmyk: true,
-                            input: true,
-                            clear: true,
-                            save: true,
-                            cancel: true
-                        }
-                    },
-                    i18n: {
-                        "btn:save": "決定",
-                        "btn:clear": "リセット",
-                        "btn:cancel": "キャンセル"
-                    }
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
                 });
                 card_bg.on("save", (color, instance) => {
                     css_data[1] = color.toHEXA().toString();
@@ -134,43 +103,9 @@
                     el: "#text",
                     theme: "classic",
                     default: css_data[2],
-                    swatches: [
-                        "rgba(244, 67, 54, 1)",
-                        "rgba(233, 30, 99, 0.95)",
-                        "rgba(156, 39, 176, 0.9)",
-                        "rgba(103, 58, 183, 0.85)",
-                        "rgba(63, 81, 181, 0.8)",
-                        "rgba(33, 150, 243, 0.75)",
-                        "rgba(3, 169, 244, 0.7)",
-                        "rgba(0, 188, 212, 0.7)",
-                        "rgba(0, 150, 136, 0.75)",
-                        "rgba(76, 175, 80, 0.8)",
-                        "rgba(139, 195, 74, 0.85)",
-                        "rgba(205, 220, 57, 0.9)",
-                        "rgba(255, 235, 59, 0.95)",
-                        "rgba(255, 193, 7, 1)"
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            hex: true,
-                            rgba: true,
-                            hsla: true,
-                            hsva: true,
-                            cmyk: true,
-                            input: true,
-                            clear: true,
-                            save: true,
-                            cancel: true
-                        }
-                    },
-                    i18n: {
-                        "btn:save": "決定",
-                        "btn:clear": "リセット",
-                        "btn:cancel": "キャンセル"
-                    }
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
                 });
                 text.on("save", (color, instance) => {
                     css_data[2] = color.toHEXA().toString();
@@ -180,43 +115,9 @@
                     el: "#shadow",
                     theme: "classic",
                     default: css_data[3],
-                    swatches: [
-                        "rgba(244, 67, 54, 1)",
-                        "rgba(233, 30, 99, 0.95)",
-                        "rgba(156, 39, 176, 0.9)",
-                        "rgba(103, 58, 183, 0.85)",
-                        "rgba(63, 81, 181, 0.8)",
-                        "rgba(33, 150, 243, 0.75)",
-                        "rgba(3, 169, 244, 0.7)",
-                        "rgba(0, 188, 212, 0.7)",
-                        "rgba(0, 150, 136, 0.75)",
-                        "rgba(76, 175, 80, 0.8)",
-                        "rgba(139, 195, 74, 0.85)",
-                        "rgba(205, 220, 57, 0.9)",
-                        "rgba(255, 235, 59, 0.95)",
-                        "rgba(255, 193, 7, 1)"
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            hex: true,
-                            rgba: true,
-                            hsla: true,
-                            hsva: true,
-                            cmyk: true,
-                            input: true,
-                            clear: true,
-                            save: true,
-                            cancel: true
-                        }
-                    },
-                    i18n: {
-                        "btn:save": "決定",
-                        "btn:clear": "リセット",
-                        "btn:cancel": "キャンセル"
-                    }
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
                 });
                 shadow.on("save", (color, instance) => {
                     css_data[3] = color.toHEXA().toString();
@@ -226,43 +127,9 @@
                     el: "#theme_color",
                     theme: "classic",
                     default: css_data[4],
-                    swatches: [
-                        "rgba(244, 67, 54, 1)",
-                        "rgba(233, 30, 99, 0.95)",
-                        "rgba(156, 39, 176, 0.9)",
-                        "rgba(103, 58, 183, 0.85)",
-                        "rgba(63, 81, 181, 0.8)",
-                        "rgba(33, 150, 243, 0.75)",
-                        "rgba(3, 169, 244, 0.7)",
-                        "rgba(0, 188, 212, 0.7)",
-                        "rgba(0, 150, 136, 0.75)",
-                        "rgba(76, 175, 80, 0.8)",
-                        "rgba(139, 195, 74, 0.85)",
-                        "rgba(205, 220, 57, 0.9)",
-                        "rgba(255, 235, 59, 0.95)",
-                        "rgba(255, 193, 7, 1)"
-                    ],
-                    components: {
-                        preview: true,
-                        opacity: true,
-                        hue: true,
-                        interaction: {
-                            hex: true,
-                            rgba: true,
-                            hsla: true,
-                            hsva: true,
-                            cmyk: true,
-                            input: true,
-                            clear: true,
-                            save: true,
-                            cancel: true
-                        }
-                    },
-                    i18n: {
-                        "btn:save": "決定",
-                        "btn:clear": "リセット",
-                        "btn:cancel": "キャンセル"
-                    }
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
                 });
                 theme_color.on("save", (color, instance) => {
                     css_data[4] = color.toHEXA().toString();

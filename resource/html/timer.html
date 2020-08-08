@@ -291,7 +291,7 @@
                 second = settings.s;
                 if(hour + minute + second != 0) {
                     update_time(hour + ":" + minute + ":" + second);
-                    document.querySelector("#time_setting_outer").style.top = "-100vh";
+                    document.getElementById("time_setting_outer").style.top = "-100vh";
                     document.getElementById("hour").value = hour;
                     document.getElementById("minute").value = minute;
                     document.getElementById("second").value = second;
@@ -321,7 +321,7 @@
                 document.getElementById("start").onclick = function() {
                     display_started_timer();
                 }
-                document.querySelector("#time").onclick = function() {
+                document.getElementById("time").onclick = function() {
                     display_started_timer();
                 }
                 is_stopped = true;
@@ -336,7 +336,7 @@
                 document.getElementById("start").onclick = function() {
                     display_stopped_timer();
                 }
-                document.querySelector("#time").onclick = function() {
+                document.getElementById("time").onclick = function() {
                     display_stopped_timer();
                 }
                 if(is_first_start) {
@@ -363,7 +363,7 @@
             }
 
             function submit_time() {
-                document.querySelector("#time_setting_outer").style.top = "-100vh";
+                document.getElementById("time_setting_outer").style.top = "-100vh";
                 const hour_setting = document.getElementById("hour").value;
                 const minute_setting = document.getElementById("minute").value;
                 const second_setting = document.getElementById("second").value;
