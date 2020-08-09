@@ -20,10 +20,10 @@
 }
 
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../font/MaterialIcons-Regular.woff2") format("woff2");
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../font/MaterialIcons-Regular.woff2") format("woff2");
 }
 
 .material_icon {
@@ -467,11 +467,10 @@ progress[value]::-webkit-progress-value {
 select, select option {
     background: var(--card_bg);
     color: var(--text);
-    transition: 0.3s;
-}
-
-select option:hover {
-    background: var(--theme_color);
+    cursor: pointer;
+    border-radius: 2em;
+    border: solid 0.05rem var(--text);
+    padding: 0.5em;
 }
 
 .toggle {

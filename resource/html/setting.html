@@ -26,12 +26,19 @@
                 <section title="画面の配色（テーマ）を設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">palette</i>テーマ</summary>
-                        <form id="theme" onchange="eel.change_theme(document.getElementById('theme').theme_list.value);">
-                            <input type="radio" name="theme_list" value="theme/auto_theme.css" id="auto"><label for="auto">オート(OSやブラウザの設定に従います)</label><br>
-                            <input type="radio" name="theme_list" value="theme/light_theme.css" id="light"><label for="light">ライトテーマ</label><br>
-                            <input type="radio" name="theme_list" value="theme/dark_theme.css" id="dark"><label for="dark">ダークテーマ</label><br>
-                            <input type="radio" name="theme_list" value="theme/custom_theme.css" id="custom"><label for="custom">カスタム</label>
-                        </form>
+                        <select id="theme" onchange="eel.change_theme(document.getElementById('theme').value);">
+                            <option value="theme/auto_theme.css">オート(OSやブラウザの設定に従います)(オレンジ)</option>
+                            <option value="theme/auto_gray_theme.css">オート(OSやブラウザの設定に従います)(グレー・オレンジ)</option>
+                            <option value="theme/light_theme.css">ライトテーマ(オレンジ)</option>
+                            <option value="theme/dark_theme.css">ダークテーマ(オレンジ)</option>
+                            <option value="theme/gray_theme.css">グレーテーマ(オレンジ)</option>
+                            <option value="theme/auto_blue_theme.css">オート(OSやブラウザの設定に従います)(ブルー)</option>
+                            <option value="theme/auto_gray_blue_theme.css">オート(OSやブラウザの設定に従います)(グレー・ブルー)</option>
+                            <option value="theme/light_blue_theme.css">ライトテーマ(ブルー)</option>
+                            <option value="theme/dark_blue_theme.css">ダークテーマ(ブルー)</option>
+                            <option value="theme/gray_blue_theme.css">グレーテーマ(ブルー)</option>
+                            <option value="theme/custom_theme.css">カスタムテーマ</option>
+                        </select>
                         <a href="set_custom_css_theme.html"><i class="material_icon">edit</i>カスタムテーマの編集</a>
                     </details>
                 </section>
@@ -194,7 +201,8 @@
             }
 
             async function set_to_current_setting() {
-                document.getElementById("theme").theme_list.value = await eel.read_setting("theme")();
+                // document.getElementById("theme").theme_list.value = await eel.read_setting("theme")();
+                document.getElementById("theme").value = await eel.read_setting("theme")();
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
                 document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
