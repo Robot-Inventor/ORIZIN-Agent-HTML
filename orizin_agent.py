@@ -324,7 +324,7 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         return response
     elif core.judge(query, ["テレビ", "tv", "(番|バン)(組|グミ|クミ)", "tver", "ティーバ"]):
         webbrowser.open_new("https://tver.jp/")
-        response = ["TVerを開きます。", "TVerを開きます。", False]
+        response = ["ティーバーを開きます。", "TVerを開きます。", False]
         print_log_if_dev_mode_template()
         return response
     elif core.judge(query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]) and\
