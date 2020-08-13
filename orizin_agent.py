@@ -309,7 +309,7 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         return response
     elif core.judge(query, ["(接|セッ)(触|ショク)(確|カク)(認|ニン)アプリ", "cocoa", "ココア", "contactconfirmingapplication"]):
         webbrowser.open_new("https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html")
-        response = ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（ココア）についての厚生労働省のページを開きます。", False]
+        response = ["新型コロナウイルス接触確認アプリ（ココア）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", False]
         print_log_if_dev_mode_template()
         return response
     elif core.judge(query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
