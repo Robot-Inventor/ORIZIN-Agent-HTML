@@ -98,7 +98,10 @@ def add_unknown_question(question: str, response: typing.Union[str, list]) -> No
     unknown_questions = otfdlib.Otfd()
     unknown_questions.load("resource/dictionary/unknownQuestions.txt")
     unknown_questions.parse()
-    unknown_questions.add(question, "/".join(response))
+    if type(response) == str:
+        unknown_questions.add(question, response)
+    else:
+        unknown_questions.add(question, "/".join(response))
     unknown_questions.write()
     return
 
@@ -118,7 +121,7 @@ def respond(dictionary: dict, query: str) -> typing.List[str]:
             most_similar_word = index
         judge_result = judge(query, index.split("/"), True)
         if judge_result[0]:
-            response = root.get_value(index).split("/")
+            response = root.get_value(index, unescape=False).split("/")
             if len(response) == 1:
                 return root.unescape([response[0], response[0], judge_result[1]])
             else:
@@ -144,7 +147,7 @@ def respond_fast(dictionary: dict, query: str) -> typing.List[str]:
     for index in index_list:
         judge_result = judge(query, index.split("/"), True)
         if judge_result[0]:
-            response = root.get_value(index).split("/")
+            response = root.get_value(index, unescape=False).split("/")
             if len(response) == 1:
                 return root.unescape([response[0], response[0], judge_result[1]])
             else:
