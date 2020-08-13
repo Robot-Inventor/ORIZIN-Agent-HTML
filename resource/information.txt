@@ -1,5 +1,5 @@
 Series Name:ORIZIN Agent
 Edition:ORIZIN Agent HTML
-Version:v3.7.117.6dev
+Version:v3.8.119.0dev
 Code Name:Crane
 Date:2020-08-13 JST
