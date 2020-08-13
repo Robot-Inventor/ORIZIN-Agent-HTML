@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
+from typing import OrderedDict
 import urllib.request
 import urllib.parse
 import os
@@ -14,6 +15,7 @@ import xml.etree.ElementTree as ET
 import html
 import typing
 import pathlib
+import shutil
 
 
 def normalize(sentence: str) -> str:
@@ -327,3 +329,15 @@ def get_google_news(number_of_items: int = 3) -> typing.List[typing.Dict[str, st
             "description": html.unescape(next(one_item.iter("description")).text)
         })
     return result
+
+
+def print_log(function_name: str, description: str, log_content: OrderedDict):
+    print()
+    print(function_name + "=" * (shutil.get_terminal_size().columns - len(function_name)))
+    print()
+    print(description)
+    print()
+    for key in log_content.keys():
+        print(f"{key}: {log_content[key]}")
+    print()
+    return

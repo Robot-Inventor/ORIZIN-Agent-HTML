@@ -251,6 +251,7 @@
                 script.rate = Number(await eel.read_setting("speed")());
                 script.volume = Number(await eel.read_setting("volume")());
                 speechSynthesis.speak(script);
+                eel.print_log_if_dev_mode("Sound test.", {"Pitch": script.pitch, "Speed": script.rate, "Volume": script.volume});
             }
 
             function save_sound_setting(setting_name) {

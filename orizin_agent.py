@@ -18,6 +18,9 @@ import pickle
 import typing
 import unicodedata
 import pathlib
+import argparse
+from collections import OrderedDict
+import inspect
 
 
 @eel.expose
@@ -34,6 +37,7 @@ def change_theme(css_theme_path: str) -> None:
     with open(css_file_path, mode="w", encoding="utf-8_sig") as css_file:
         css_file.write(new_css)
     write_setting("theme", css_theme_path)
+    print_log_if_dev_mode("Change theme setting.", OrderedDict(Theme=css_theme_path))
     return
 
 
@@ -44,9 +48,11 @@ def write_custom_css_theme(value: typing.Any) -> None:
                           value[2] + ";\n    --shadow: " + value[3] + ";\n    --theme_color: " + value[4] + ";\n}"
         with open("resource/css/theme/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
             f.write(custom_css_data)
+        print_log_if_dev_mode("Write custom css theme.", OrderedDict(Values=value))
         return
     else:
         core.show_error("カスタムCSSテーマに不正な値を書き込もうとしています。")
+        print_log_if_dev_mode("Error happened when writing custom css theme.", OrderedDict(Status="ERROR"))
         return
 
 
@@ -60,28 +66,36 @@ def check_current_css_theme_information() -> typing.List[str]:
         root = otfdlib.Otfd()
         root.load_from_string(value)
         root.parse()
-        return root.get_value_list()
+    result = root.get_value_list()
+    print_log_if_dev_mode("Check current css theme information.", OrderedDict(Information=result))
+    return result
 
 
 @eel.expose
 def read_setting(setting_name: typing.Any) -> str:
-    return core.read_setting("resource/setting/setting.otfd", setting_name)
+    value = core.read_setting("resource/setting/setting.otfd", setting_name)
+    print_log_if_dev_mode("Read setting.", OrderedDict(SettingName=setting_name, SettingValue=value))
+    return value
 
 
 @eel.expose
 def write_setting(setting_name: typing.Any, setting_value: typing.Any) -> None:
+    print_log_if_dev_mode("Write setting.", OrderedDict(SettingName=setting_name, SettingValue=setting_value))
     core.write_setting("resource/setting/setting.otfd", setting_name, setting_value)
     return
 
 
 @eel.expose
 def read_flag(flag_name: typing.Any) -> bool:
-    return core.read_flag("resource/setting/flag.otfd", flag_name)
+    value = core.read_flag("resource/setting/flag.otfd", flag_name)
+    print_log_if_dev_mode("Read flag.", OrderedDict(FlagName=flag_name, FlagValue=value))
+    return value
 
 
 @eel.expose
 def set_flag(flag_name: typing.Any, flag_value: typing.Any) -> None:
     core.set_flag("resource/setting/flag.otfd", flag_name, flag_value)
+    print_log_if_dev_mode("Set flag.", OrderedDict(FlagName=flag_name, FlagValue=flag_value))
     return
 
 
@@ -93,6 +107,7 @@ def reset_setting() -> None:
         f.write(default_setting)
     write_setting("setup_finished", "True")
     change_theme("theme/auto_theme.css")
+    print_log_if_dev_mode("Reset settings.", OrderedDict(Status="OK"))
     return
 
 
@@ -102,16 +117,26 @@ def reset_flag() -> None:
         default_setting = f.read()
     with open("resource/setting/flag.otfd", mode="w", encoding="utf-8_sig") as f:
         f.write(default_setting)
+    print_log_if_dev_mode("Reset flag.", OrderedDict(Status="OK"))
     return
 
 
 def add_chat(content: str) -> None:
     eel.add_chat(content)
+    print_log_if_dev_mode("Add chat at index.html by Python.", OrderedDict(Content=content))
     return
 
 
 def start_speak(content: str) -> None:
     eel.start_speak(content, True, False)
+    print_log_if_dev_mode("Start speak at index.html by Python.", OrderedDict(Content=content))
+    return
+
+
+@eel.expose
+def print_log_if_dev_mode(description: str, log_content: OrderedDict):
+    if IS_DEV_MODE:
+        core.print_log(inspect.stack()[1].function, description, log_content)
     return
 
 
@@ -140,84 +165,124 @@ YOUTUBE_MUSIC_VIDEOS = {
 
 @eel.expose
 def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bool]]:
+    def print_log_if_dev_mode_template():
+        if IS_DEV_MODE:
+            core.print_log(inspect.stack()[1].function, "Generate response.", OrderedDict(
+                Query=not_normalized_query,
+                NormalizedQuery=query,
+                ResponseToRead=response[0],
+                ResponseToDisplay=response[1],
+                MatchedWord="Untracked"))
+        return
+
     not_normalized_query = not_normalized_query.replace("\n", "").replace("\r", "")
     query = core.normalize(not_normalized_query)
     if query == "":
-        return ["私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。", "私はオープンソースのAIアシスタント、ORIZIN Agentです。気軽に話しかけてくださいね。"]
+        response = [
+            "私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。",
+            "私はオープンソースのAIアシスタント、ORIZIN Agentです。気軽に話しかけてくださいね。"]
+        print_log_if_dev_mode_template()
+        return response
     if core.judge(query, "ジャンケン"):
         hand_shapes = ["グー", "チョキ", "パー"]
         selected_hand_shape = hand_shapes[random.randint(0, 2)]
-        return [f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。",
-                f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。"]
+        response = [f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。",
+                    f"ジャンケンですか。良いですね。やりましょう。それではいきますよ。ジャン　ケン　ポン。私は{selected_hand_shape}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["イースターエッグ", "ゲーム", "宇宙船", "宇宙戦艦", "spacebattleship", "game", "easteregg"]):
         subprocess.Popen([read_setting("python_interpreter"), "resource/python/easter_egg.py"])
-        return ["イースターエッグを起動します。", "イースターエッグを起動します。"]
+        response = ["イースターエッグを起動します。", "イースターエッグを起動します。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, [".*ノ(面積|メンセキ|広サ|ヒロサ|大キサ|オオキサ)"]):
         area_value = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/area_dictionary.otfd"), query)
         if area_value[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-            return ["面積を検索します。", "面積を検索します。", False]
+            response = ["面積を検索します。", "面積を検索します。", False]
         else:
-            return [f"{area_value[2]}の面積は{area_value[0]}です。", f"{area_value[2]}の面積は{area_value[1]}です。"]
+            response = [f"{area_value[2]}の面積は{area_value[0]}です。", f"{area_value[2]}の面積は{area_value[1]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, [".*(ノ|ニアル)(首都|シュト)"]):
         capital_name = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/capital_dictionary.otfd"), query)
         if capital_name[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-            return ["首都を検索します。", "首都を検索します。", False]
+            response = ["首都を検索します。", "首都を検索します。", False]
         else:
-            return [f"{capital_name[2]}の首都は{capital_name[0]}です。", f"{capital_name[2]}の首都は{capital_name[1]}です。"]
+            response = [f"{capital_name[2]}の首都は{capital_name[0]}です。", f"{capital_name[2]}の首都は{capital_name[1]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, [".*(ノ|使.*?イル)(言語|ゲンゴ|言葉|コトバ|公用語|コウヨウゴ)"]):
         language = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/language_dictionary.otfd"), query)
         if language[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-            return ["言語を検索します。", "言語を検索します。", False]
+            response = ["言語を検索します。", "言語を検索します。", False]
         else:
-            return [f"{language[2]}の言語は{language[0]}です。", f"{language[2]}の言語は{language[1]}です。"]
+            response = [f"{language[2]}の言語は{language[0]}です。", f"{language[2]}の言語は{language[1]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, [".*(ノ|ニ.*?(イル|デル))(人口|人口|(人|ヒト)(ノ|)(数|カズ))"]):
         population = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/population_dictionary.otfd"), query)
         if population[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-            return ["人口を検索します。", "人口を検索します。", False]
+            response = ["人口を検索します。", "人口を検索します。", False]
         else:
-            return [f"{population[2]}の人口は{population[0]}です。", f"{population[2]}の人口は{population[1]}です。"]
+            response = [f"{population[2]}の人口は{population[0]}です。", f"{population[2]}の人口は{population[1]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, [".*(ノ|デ)(宗教|シュウキョウ|信仰|シンコウ|国教|コッキョウ)"]):
         religion = core.respond(core.load_dictionary(
             "resource/dictionary/country_information_dictionary/religion_dictionary.otfd"), query)
         if religion[0] == "そうですか。":
             webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-            return ["宗教を検索します。", "宗教を検索します。", False]
+            response = ["宗教を検索します。", "宗教を検索します。", False]
         else:
-            return [f"{religion[2]}の宗教は{religion[0]}です。", f"{religion[2]}の宗教は{religion[1]}です。"]
+            response = [f"{religion[2]}の宗教は{religion[0]}です。", f"{religion[2]}の宗教は{religion[1]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["予定", "ヨテイ", "カレンダ", "calender", "リマイン", "remind"]):
         webbrowser.open_new("https://calendar.google.com/")
-        return ["Googleカレンダーを開きます", "Googleカレンダーを開きます。", False]
+        response = ["Googleカレンダーを開きます", "Googleカレンダーを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query,
                     [
                         "マップ", "地図", "チズ", "場所", "バショ", "ドコ", "何処", "行キ方", "イキカタ",
                         "ユキカタ", "行キカタ", "イキ方", "ユキ方", "案内", "アンナイ", "道", "ミチ"
                     ]):
         webbrowser.open_new("https://google.com/maps/search/" + urllib.parse.quote(not_normalized_query))
-        return [f"Googleマップで「{not_normalized_query}」を検索します。", f"Googleマップで「{not_normalized_query}」を検索します。", False]
+        response = [f"Googleマップで「{not_normalized_query}」を検索します。", f"Googleマップで「{not_normalized_query}」を検索します。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["ストップウォッチ", "ストップウオッチ", "stopwatch"]):
         webbrowser.open_new("https://google.com/search?q=stopwatch&hl=en")
-        return ["ストップウォッチを表示します。", "ストップウォッチを表示します。", False]
+        response = ["ストップウォッチを表示します。", "ストップウォッチを表示します。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(計|ケイ)(算|サン)", "(電|デン)(卓|タク)"]):
         webbrowser.open_new(core.generate_search_engine_url("google", "電卓"))
-        return ["電卓を開きます。", "電卓を開きます。", False]
+        response = ["電卓を開きます。", "電卓を開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["タイマ", "(砂|スナ)(時|ト|ド)(計|ケイ)"]) and \
             core.judge(query, ["(設|セッ)(定|テイ)", "セット", "(鳴|ナ)ラ", "(掛|カ)ケ"]):
         time = set_intelligent_timer(query)
-        return [f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。",
-                f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。"]
+        response = [f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。",
+                    f"{time}後にタイマーを設定しました。スタートボタンを押して下さい。タイマーアプリを閉じるとタイマーは破棄されます。また、画面を最小化すると音が鳴りません。ご注意下さい。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query,
                     ["(時|ジ)(刻|間|カン|コク)", "(時|ト)(計|ケイ)", "(何|ナン)(時|ジ|日|ニチ)", "(日|ヒ)(付|ヅケ|ズケ|ニチ)"]):
         time = datetime.datetime.now()
         time = time.strftime('%Y年%m月%d日 %H:%M:%S')
-        return [f"現在は{time}です。", f"現在は{time}です。"]
+        response = [f"現在は{time}です。", f"現在は{time}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["twitter", "ツイッタ", "tweet", "ツイート"]):
         if core.judge(unicodedata.normalize("NFKC", not_normalized_query.replace(" ", "").lower()), [
             "(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
@@ -233,22 +298,35 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                                                "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$",
                                                "", not_normalized_query))
             webbrowser.open_new(f"https://twitter.com/intent/tweet?text={tweet_content}")
-            return [f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。", False]
+            response = [
+                f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。",
+                f"「{tweet_content}」という内容でTwitterの投稿画面を開きます。",
+                False]
         else:
             webbrowser.open_new("https://twitter.com/")
-            return ["Twitterを開きます。", "Twitterを開きます。", False]
+            response = ["Twitterを開きます。", "Twitterを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(接|セッ)(触|ショク)(確|カク)(認|ニン)アプリ", "cocoa", "ココア", "contactconfirmingapplication"]):
         webbrowser.open_new("https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html")
-        return ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（ココア）についての厚生労働省のページを開きます。", False]
+        response = ["新型コロナウイルス接触確認アプリ（COCOA）についての厚生労働省のページを開きます。", "新型コロナウイルス接触確認アプリ（ココア）についての厚生労働省のページを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["コロナ", "corona", "covid19", "sarscov2", "(感|カン)(染|セン)", "(肺|ハイ)(炎|エン)"]):
         webbrowser.open_new("https://corona.go.jp/")
-        return ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。", False]
+        response = ["内閣官房の新型コロナウイルスに関するページを表示します。", "内閣官房の新型コロナウイルスに関するページを表示します。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["facebook", "フェースブック"]):
         webbrowser.open_new("https://www.facebook.com/")
-        return ["Facebookを開きます。", "Facebookを開きます。", False]
+        response = ["Facebookを開きます。", "Facebookを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["テレビ", "tv", "(番|バン)(組|グミ|クミ)", "tver", "ティーバ"]):
         webbrowser.open_new("https://tver.jp/")
-        return ["TVerを開きます。", "TVerを開きます。", False]
+        response = ["TVerを開きます。", "TVerを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]) and\
             core.judge(query, [
                 "テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ",
@@ -257,22 +335,34 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         webbrowser.open_new(
             core.generate_search_engine_url("https://www.youtube.com/results?search_query=",
                                             not_normalized_query, True))
-        return [f"YouTubeで「{not_normalized_query}」を検索します。", f"YouTubeで「{not_normalized_query}」を検索します。", False]
+        response = [f"YouTubeで「{not_normalized_query}」を検索します。", f"YouTubeで「{not_normalized_query}」を検索します。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["youtube", "ユーチューブ", "ヨ(ウ|ー)ツベ"]):
         webbrowser.open_new("https://www.youtube.com/")
-        return ["YouTubeを開きます。", "YouTubeを開きます。", False]
+        response = ["YouTubeを開きます。", "YouTubeを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["instagram", "インスタ"]):
         webbrowser.open_new("https://www.instagram.com/")
-        return ["Instagramを開きます。", "Instagramを開きます。", False]
+        response = ["Instagramを開きます。", "Instagramを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["github", "ギットハブ"]):
         webbrowser.open_new("https://github.com/")
-        return ["GitHubを開きます。", "GitHubを開きます。", False]
+        response = ["GitHubを開きます。", "GitHubを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(地|ジ)(震|シン)"]):
         webbrowser.open_new("https://www.jma.go.jp/jp/quake/")
-        return ["気象庁の地震情報のページを開きます。", "気象庁の地震情報のページを開きます。", False]
+        response = ["気象庁の地震情報のページを開きます。", "気象庁の地震情報のページを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["トレンド", "trend"]):
         webbrowser.open_new("https://trends.google.com/trends/trendingsearches/daily?geo=JP")
-        return ["Googleトレンドを開きます。", "Googleトレンドを開きます。", False]
+        response = ["Googleトレンドを開きます。", "Googleトレンドを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["news", "ニュース"]):
         if read_flag("get_news_from_google_news"):
             news_data = core.get_google_news()
@@ -284,13 +374,17 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                 str_to_display += title + content["description"]
             add_chat("最新のニュースを3件、Googleニュースから取得しました。")
             start_speak("最新のニュースを3件、Googleニュースから取得しました。")
-            return [str_to_read, str_to_display]
+            response = [str_to_read, str_to_display]
         else:
             webbrowser.open_new(read_setting("news_site_url"))
-            return ["ニュースを開きます。", "ニュースを開きます。", False]
+            response = ["ニュースを開きます。", "ニュースを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(翻|ホン)(訳|ヤク)"]):
         webbrowser.open_new("https://translate.google.co.jp/?hl=ja")
-        return ["Google翻訳を開きます。", "Google翻訳を開きます。", False]
+        response = ["Google翻訳を開きます。", "Google翻訳を開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["メール", "mail"]):
         if core.judge(unicodedata.normalize("NFKC", not_normalized_query.replace(" ", "").lower()), [
             "(と(|いう(|ように|ふうに|風に))|(|っ)て(|いう(|ように|ふうに|風に)))(|(|内容|ないよう)([でをの]))"
@@ -305,28 +399,34 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                 "(いて|け|ろ|ください|下さい)|し(て(|下さい|ください)|てお"
                 "(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)|)(|。|.)$", "", not_normalized_query))
             webbrowser.open_new(f"https://mail.google.com/mail/?view=cm&body={message_content}")
-            return [f"「{message_content}」という内容でGmailの送信画面を開きます", f"「{message_content}」という内容でGmailの送信画面を開きます", False]
+            response = [f"「{message_content}」という内容でGmailの送信画面を開きます", f"「{message_content}」という内容でGmailの送信画面を開きます", False]
         else:
             webbrowser.open_new("https://mail.google.com/")
-            return ["Gmailを開きます。", "Gmailを開きます。", False]
+            response = ["Gmailを開きます。", "Gmailを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["ラジオ", "radio"]):
         webbrowser.open_new("http://radiko.jp/")
-        return ["radikoを開きます。", "radikoを開きます。", False]
+        response = ["radikoを開きます。", "radikoを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(写|シャ)(真|シン)", "(画|ガ)(像|ゾウ)", "フォト", "photo", "ピクチャ", "picture"]):
         webbrowser.open_new("https://photos.google.com/")
-        return ["Googleフォトを開きます。", "Googleフォトを開きます。", False]
+        response = ["Googleフォトを開きます。", "Googleフォトを開きます。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["メモ", "memo", "(記|キ)(憶|オク|録|ロク)"]) and \
             core.judge(query, [
                 "(削|サク)(除|ジョ)", "(消|ショウ)(去|キョ)", "クリア", "clear",
                 "(消|ケ)シ", "(忘|ワス)レ", "(破|ハ|放|ホウ)(棄|キ)"
             ]):
         if os.path.exists("memo.txt") is False:
-            return ["覚えているメモはありません。", "覚えているメモはありません。"]
+            response = ["覚えているメモはありません。", "覚えているメモはありません。"]
         else:
             with open("memo.txt", mode="r", newline="") as f:
                 memo = f.read()
             if memo.strip() == "":
-                return ["覚えているメモはありません。", "覚えているメモはありません。"]
+                response = ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
                 if core.judge(query, [r"\d+?((ツ|個|コ|番|バン)(|メ|目))"]):
                     splited_memo = memo.splitlines()
@@ -334,32 +434,37 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                         r"\d+?", (re.search(r"\d+?((ツ|個|コ|番|バン)(|メ|目))", query).group())
                     ).group())
                     if memo_index > len(splited_memo) or memo_index < 1:
-                        return ["削除するメモの番号が正しくありません。", "削除するメモの番号が正しくありません。"]
+                        response = ["削除するメモの番号が正しくありません。", "削除するメモの番号が正しくありません。"]
                     else:
                         splited_memo.pop(memo_index - 1)
                         with open("memo.txt", mode="w", newline="") as f:
                             f.write("\n".join(splited_memo))
-                        return [f"{memo_index}つ目のメモを削除しました。", f"{memo_index}つ目のメモを削除しました。"]
-                with open("memo.txt", mode="w", newline="") as f:
-                    f.write("")
-                return ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
+                        response = [f"{memo_index}つ目のメモを削除しました。", f"{memo_index}つ目のメモを削除しました。"]
+                else:
+                    with open("memo.txt", mode="w", newline="") as f:
+                        f.write("")
+                    response = ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["メモ", "memo", "何", "ナニ", "(内|ナイ)(容|ヨウ)"]) and \
             core.judge(query, [
                 "(覚|オボ)エテ(イ|)ル", "(記|キ)(憶|オク|録|ロク)", "(教|オシ)エ", "(読|ヨ)(メ|ミ|ン)"
             ]):
         if os.path.exists("memo.txt") is False:
-            return ["覚えているメモはありません。", "覚えているメモはありません。"]
+            response = ["覚えているメモはありません。", "覚えているメモはありません。"]
         else:
             with open("memo.txt", mode="r", newline="") as f:
                 memo = f.read()
             if memo.strip() == "":
-                return ["覚えているメモはありません。", "覚えているメモはありません。"]
+                response = ["覚えているメモはありません。", "覚えているメモはありません。"]
             else:
                 memo_list = memo.strip().split("\n")
                 memo_list = [f"{num + 1}つ目は、「{memo_list[num]}」です。" for num in range(len(memo_list))]
                 memo_content_to_read = "".join(memo_list)
-                return [f"覚えているメモを読み上げます。{memo_content_to_read}以上が、覚えているメモです。",
-                        f"覚えているメモを読み上げます。{memo_content_to_read}以上が、覚えているメモです。"]
+                response = [f"覚えているメモを読み上げます。{memo_content_to_read}以上が、覚えているメモです。",
+                            f"覚えているメモを読み上げます。{memo_content_to_read}以上が、覚えているメモです。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["メモ", "memo", "(覚|オボ)エ", "(記|キ)(憶|オク|録|ロク)"]):
         if os.path.exists("memo.txt") is False:
             pathlib.Path("memo.txt").touch()
@@ -371,14 +476,18 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         with open("memo.txt", mode="a", newline="") as f:
             f.write(f"{memo_content}\n")
         if memo_content == "":
-            return ["申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。", "申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。"]
+            response = ["申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。", "申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。"]
         else:
-            return [f"「{memo_content}」とメモしました。", f"「{memo_content}」とメモしました。"]
+            response = [f"「{memo_content}」とメモしました。", f"「{memo_content}」とメモしました。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ", "(調|チョウ)(査|サ)"]):
         search_engine = read_setting("search_engine")
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
-        return [f"{search_engine}で「{not_normalized_query}」を検索します。",
-                f"{search_engine}で「{not_normalized_query}」を検索します。", False]
+        response = [f"{search_engine}で「{not_normalized_query}」を検索します。",
+                    f"{search_engine}で「{not_normalized_query}」を検索します。", False]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["サイコロ", "ダイス", "dice"]):
         max_number = 6
         if core.judge(query, [r"\d(面|メン)"]):
@@ -389,30 +498,50 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         max_number_message = ""
         if max_number != 6:
             max_number_message = f"{max_number}面"
-        return [f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。",
-                f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。"]
+        response = [f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。",
+                    f"{max_number_message}サイコロを振りますね。{dice_result}が出ました。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["コイン", "coin"]) and core.judge(query, ["トス", "toss", "(投|ナ)ゲ"]):
         coin = ["表", "裏"]
         result = coin[random.randint(0, 1)]
-        return [f"コイントスをしますね。{result}が出ました。", f"コイントスをしますね。{result}が出ました。"]
+        response = [f"コイントスをしますね。{result}が出ました。", f"コイントスをしますね。{result}が出ました。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["(御|神|ミ)(籤|クジ)"]):
         fortune_repertoire = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶"]
         result = fortune_repertoire[random.randint(0, len(fortune_repertoire) - 1)]
-        return [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
+        response = [f"おみくじをします。ガラガラ...。結果は・・・{result}です。", f"おみくじをします。ガラガラ...。結果は・・・{result}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, list(YOUTUBE_MUSIC_VIDEOS.keys())):
         music_data = YOUTUBE_MUSIC_VIDEOS[core.judge(query, list(YOUTUBE_MUSIC_VIDEOS.keys()), True)[1]]
         eel.add_chat(music_data[4], False, True)
-        return [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
+        response = [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["blackouttuesday", "ブラックアウトチューズデー", "blacklivesmatter", "ブラックリブズマター", "blm"]):
         eel.blm()
-        return ["人種差別に反対します。", "人種差別に反対します。"]
+        response = ["人種差別に反対します。", "人種差別に反対します。"]
+        print_log_if_dev_mode_template()
+        return response
     else:
         if read_flag("use_fast_response_mode"):
             response = core.respond_fast(dictionary, query)
         else:
             response = core.respond(dictionary, query)
         user_name = read_setting("user_name")
-        return [response[0].format(user_name=user_name), response[1].format(user_name=user_name)]
+        response_to_read = response[0].format(user_name=user_name)
+        response_to_display = response[1].format(user_name=user_name)
+        if IS_DEV_MODE:
+            print_log_if_dev_mode("Generate response.", OrderedDict(
+                Query=not_normalized_query,
+                NormalizedQuery=query,
+                ResponseToRead=response_to_read,
+                ResponseToDisplay=response_to_display,
+                MatchedWord=response[2]
+            ))
+        return [response_to_read, response_to_display]
 
 
 def set_intelligent_timer(query: str) -> str:
@@ -437,46 +566,66 @@ def set_intelligent_timer(query: str) -> str:
     if not time:
         time = "0秒"
     subprocess.Popen(f"{read_setting('python_interpreter')} timer.py {hours} {minutes} {seconds}")
+    print_log_if_dev_mode("Start timer app.", OrderedDict(Hours=hours, Minutes=minutes, Seconds=seconds))
     return time
 
 
 @eel.expose
 def check_update() -> typing.List[str]:
-    return core.check_update("resource/information.txt",
+    result = core.check_update("resource/information.txt",
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
                              "master/resource/information.txt",
                              "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
                              "master/update_message.txt")
+    print_log_if_dev_mode("Check update.", OrderedDict(UpdateStatus=result[0], CurrentVersion=result[1], RemoteVersion=result[2], UpdateMessage=result[3]))
+    return result
+
+
+IS_DEV_MODE = False
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="オープンソースの会話を目的としたAIアシスタント「ORIZIN Agent HTML」です。")
+    parser.add_argument("-D", "--dev_mode", action="store_true", help="enable development mode")
+    args = parser.parse_args()
+    IS_DEV_MODE = args.dev_mode
+    print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
     with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
         dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
+        print_log_if_dev_mode("Calculate dictionary hash.", OrderedDict(Hash=dict_hash))
     if os.path.exists("resource/dictionary/dictionary_hash.txt"):
         with open("resource/dictionary/dictionary_hash.txt", mode="r", encoding="utf-8_sig") as hash_file:
             hash_value = hash_file.read()
+            print_log_if_dev_mode("Read cached dictionary hash.", OrderedDict(Hash=hash_value))
     else:
         with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
             hash_file.write(dict_hash)
             hash_value = 0
+            print_log_if_dev_mode("Cache dictionary hash.", OrderedDict(Hash=dict_hash))
     if os.path.exists("resource/dictionary/dictionary.bin"):
         if hash_value == dict_hash:
             with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
                 dictionary = pickle.load(dict_bin_file)
+                print_log_if_dev_mode("Read cached dictionary.", OrderedDict(Status="OK"))
         else:
             with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
                 hash_file.write(dict_hash)
             dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
+            print_log_if_dev_mode("Read and parse dictionary.", OrderedDict(Status="OK"))
             with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
                 pickle.dump(dictionary, dict_bin_file)
+            print_log_if_dev_mode("Update cached dictionary.", OrderedDict(Status="OK"))
     else:
         dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
         with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
             pickle.dump(dictionary, dict_bin_file)
+        print_log_if_dev_mode("Create cache dictionary.", OrderedDict(Status="OK"))
     if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/auto_theme.css")
+        print_log_if_dev_mode("Reset theme setting.", OrderedDict(ResetedTheme="theme/auto_theme.css"))
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
+    print_log_if_dev_mode("Solve setting conflict.", OrderedDict(Status="OK"))
     eel.init("resource")
     if read_flag("fast_start"):
         eel.start("/html/index.html")
