@@ -107,10 +107,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     <p>
                         ユーザー名（あなたの呼び名）を入力してください。デフォルトは「ゲスト」です。
                     </p>
-                    <div class="text_input_group">
-                       <input type="text" placeholder="ユーザー名を入力" id="user_name" value="ゲスト">
-                       <div class="text_underline"></div>
-                    </div>
+                    <input type="text" class="underline_textbox" placeholder="ユーザー名を入力" id="user_name" value="ゲスト">
                     <menu>
                         <button onclick="back_card('user_name_setting_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
@@ -137,10 +134,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     <p>
                         ORIZIN Agentがあなたの要求に応じてニュースを開く際のサイトのURLを入力してください。デフォルトはGoogleニュースです。
                     </p>
-                    <div class="text_input_group">
-                       <input type="text" placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja">
-                       <div class="text_underline"></div>
-                    </div>
+                    <input type="text" class="underline_textbox" placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja">
                     <menu>
                         <button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('news_site_url_setting_card', 'python_interpreter_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>
@@ -150,10 +144,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     <p>
                         Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力して下さい
                     </p>
-                    <div class="text_input_group">
-                       <input type="text" placeholder="絶対パスかエイリアスを入力" id="python_interpreter" value="python">
-                       <div class="text_underline"></div>
-                    </div>
+                    <input type="text" class="underline_textbox" placeholder="絶対パスかエイリアスを入力" id="python_interpreter" value="python">
                     <menu>
                         <button onclick="back_card('python_interpreter_setting_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('python_interpreter_setting_card', 'setting_finished_message_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
                     </menu>

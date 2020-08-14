@@ -354,6 +354,7 @@ input[type=text]:focus::placeholder {
 .text_input_group {
     width: 50%;
     overflow: hidden;
+    display: inline-block;
 }
 
 .text_input_group input {
