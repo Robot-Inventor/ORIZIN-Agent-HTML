@@ -135,15 +135,25 @@ def reset_flag() -> None:
 
 
 def add_chat(content: str) -> None:
-    eel.add_chat(content)
-    print_log_if_dev_mode("Add chat at index.html by Python.", OrderedDict(Content=content))
-    return
+    if IS_CUI_MODE:
+        print()
+        print(content)
+        return
+    else:
+        eel.add_chat(content)
+        print_log_if_dev_mode("Add chat at index.html by Python.", OrderedDict(Content=content))
+        return
 
 
 def start_speak(content: str) -> None:
-    eel.start_speak(content, True, False)
-    print_log_if_dev_mode("Start speak at index.html by Python.", OrderedDict(Content=content))
-    return
+    if IS_CUI_MODE:
+        print()
+        print(content)
+        return
+    else:
+        eel.start_speak(content, True, False)
+        print_log_if_dev_mode("Start speak at index.html by Python.", OrderedDict(Content=content))
+        return
 
 
 @eel.expose
@@ -387,8 +397,12 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                 str_to_read += title + "。"
                 str_to_display += title + content["description"]
             add_chat("最新のニュースを3件、Googleニュースから取得しました。")
-            start_speak("最新のニュースを3件、Googleニュースから取得しました。")
-            response = [str_to_read, str_to_display]
+            response = []
+            if IS_CUI_MODE:
+                response = [str_to_read, str_to_read]
+            if IS_CUI_MODE is False:
+                start_speak("最新のニュースを3件、Googleニュースから取得しました。")
+                response = [str_to_read, str_to_display]
         else:
             webbrowser.open_new(read_setting("news_site_url"))
             response = ["ニュースを開きます。", "ニュースを開きます。", False]
@@ -565,7 +579,8 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         return response
     elif core.judge(query, list(YOUTUBE_MUSIC_VIDEOS.keys())):
         music_data = YOUTUBE_MUSIC_VIDEOS[core.judge(query, list(YOUTUBE_MUSIC_VIDEOS.keys()), True)[1]]
-        eel.add_chat(music_data[4], False, True)
+        if IS_CUI_MODE is False:
+            eel.add_chat(music_data[4], False, True)
         response = [f"{music_data[3]}の{music_data[1]}です。", f"{music_data[2]}の{music_data[0]}です。"]
         print_log_if_dev_mode_template()
         return response
@@ -620,13 +635,16 @@ def set_intelligent_timer(query: str) -> str:
 
 
 IS_DEV_MODE = False
+IS_CUI_MODE = False
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="オープンソースの会話を目的としたAIアシスタント「ORIZIN Agent HTML」です。")
     parser.add_argument("-D", "--dev_mode", action="store_true", help="enable development mode")
+    parser.add_argument("-C", "--cui_mode", action="store_true", help="enable CUI mode")
     args = parser.parse_args()
     IS_DEV_MODE = args.dev_mode
+    IS_CUI_MODE = args.cui_mode
     print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
     with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
         dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
@@ -664,8 +682,14 @@ if __name__ == "__main__":
     core.solve_setting_conflict("resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict("resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
     print_log_if_dev_mode("Solve setting conflict.", OrderedDict(Status="OK"))
-    eel.init("resource")
-    if read_flag("fast_start"):
-        eel.start("/html/index.html")
+    if IS_CUI_MODE:
+        print("\nProgram started. Please input query.\n")
+        while True:
+            print(">>>>>", end="")
+            print("\n" + make_response(input())[1] + "\n")
     else:
-        eel.start("/html/splash.html")
+        eel.init("resource")
+        if read_flag("fast_start"):
+            eel.start("/html/index.html")
+        else:
+            eel.start("/html/splash.html")
