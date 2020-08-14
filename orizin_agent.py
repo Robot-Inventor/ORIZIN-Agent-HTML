@@ -21,6 +21,7 @@ import pathlib
 import argparse
 from collections import OrderedDict
 import inspect
+import glob
 
 
 @eel.expose
@@ -42,11 +43,23 @@ def change_theme(css_theme_path: str) -> None:
 
 
 @eel.expose
+def return_theme_dict() -> typing.Dict[str, str]:
+    result = {}
+    for file_path in glob.glob("resource/css/theme/**/*.css", recursive=True):
+        with open(file_path, mode="r", encoding="utf-8_sig") as f:
+            css_file = f.read()
+            p = pathlib.Path(file_path)
+            file_path = str(p.resolve().relative_to(f"{p.cwd()}/resource/css")).replace("\\", "/")
+            result[file_path] = css_file.splitlines()[0].replace("/*", "").replace("*/", "").strip()
+    return result
+
+
+@eel.expose
 def write_custom_css_theme(value: typing.Any) -> None:
     if len(value) == 5:
-        custom_css_data = ":root {\n    --bg: " + value[0] + ";\n    --card_bg: " + value[1] + ";\n    --text: " + \
+        custom_css_data = "/* カスタムテーマ */\n\n:root {\n    --bg: " + value[0] + ";\n    --card_bg: " + value[1] + ";\n    --text: " + \
                           value[2] + ";\n    --shadow: " + value[3] + ";\n    --theme_color: " + value[4] + ";\n}"
-        with open("resource/css/theme/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
+        with open("resource/css/theme/user/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
             f.write(custom_css_data)
         print_log_if_dev_mode("Write custom css theme.", OrderedDict(Values=value))
         return

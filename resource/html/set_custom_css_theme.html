@@ -161,7 +161,7 @@
             window.addEventListener("beforeunload", function() {
                 if (old_css_data.toString() != css_data.toString()) {
                     eel.write_custom_css_theme(css_data);
-                    eel.change_theme("theme/custom_theme.css");
+                    eel.change_theme("theme/user/custom_theme.css");
                 }
             });
         </script>

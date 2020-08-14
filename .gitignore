@@ -131,7 +131,7 @@ dmypy.json
 # ORIZIN Agent settings and other files
 resource/setting/flag.otfd
 resource/setting/setting.otfd
-resource/css/theme/custom_theme.css
+resource/css/theme/user/*.css
 resource/dictionary/unknownQuestions.txt
 memo.txt
 
