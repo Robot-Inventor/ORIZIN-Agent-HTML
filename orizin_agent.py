@@ -482,6 +482,31 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
             response = [f"「{memo_content}」とメモしました。", f"「{memo_content}」とメモしました。"]
         print_log_if_dev_mode_template()
         return response
+    elif core.judge(query, ["(何|ナニ|ナン)ノ[日ヒ]"]):
+        now = datetime.datetime.now()
+        day_point = "今日"
+        if core.judge(query, ["一昨[々昨]日", "サキオトトイ"]):
+            now -= datetime.timedelta(days=3)
+            day_point = "一昨々日"
+        elif core.judge(query, ["一昨日", "オトトイ"]):
+            now -= datetime.timedelta(days=2)
+            day_point = "一昨日"
+        elif core.judge(query, ["(昨|サク)(日|ジツ)", "キノウ"]):
+            now -= datetime.timedelta(days=1)
+            day_point = "昨日"
+        elif core.judge(query, ["明日", "アス", "アシタ"]):
+            now += datetime.timedelta(days=1)
+            day_point = "明日"
+        elif core.judge(query, ["明後日", "アサッテ"]):
+            now += datetime.timedelta(days=2)
+            day_point = "明後日"
+        elif core.judge(query, ["明[々明]後日", "シアサッテ"]):
+            now += datetime.timedelta(days=3)
+            day_point = "明々後日"
+        webbrowser.open_new(f"https://ja.wikipedia.org/wiki/Wikipedia:今日は何の日_{now.month}月#{now.month}月{now.day}日")
+        response = [f"Wikipediaの「今日は何の日」の{day_point}のページを開きます。", f"Wikipediaの「今日は何の日」の{day_point}のページを開きます。"]
+        print_log_if_dev_mode_template()
+        return response
     elif core.judge(query, ["トリビア", "trivia", "(豆|マメ)(知|チ)(識|シキ)"]):
         with open("resource/dictionary/trivia_dictionary.txt", encoding="utf-8_sig") as trivia_file:
             trivias = trivia_file.read().splitlines()
