@@ -160,30 +160,6 @@ def respond_fast(dictionary: dict, query: str) -> typing.List[str]:
     return ["そうですか。", "そうですか。", ""]
 
 
-def check_update(downloaded_file_path: str, remote_file_url: str, update_message_url: str) -> typing.List[str]:
-    current = otfdlib.Otfd()
-    current.load(downloaded_file_path)
-    current.parse()
-    current_version = current.get_value("Version")
-    remote = otfdlib.Otfd()
-    remote.load_from_string(urllib.request.urlopen(remote_file_url).read().decode())
-    remote.parse()
-    remote_version = remote.get_value("Version")
-    update_status = "false"
-    if current_version != remote_version:
-        current_version_numbers = current_version.split(".")
-        remote_version_numbers = remote_version.split(".")
-        if int(current_version_numbers[2]) < int(remote_version_numbers[2]):
-            update_status = "true"
-        elif current_version_numbers[2] == remote_version_numbers[2]:
-            if (int(current_version_numbers[3].replace("dev", "")) <
-                    int(remote_version_numbers[3].replace("dev", ""))) or \
-                    ("dev" in current_version_numbers[3] and "dev" not in remote_version_numbers[3]):
-                update_status = "true"
-    return [update_status, current_version, remote_version,
-            urllib.request.urlopen(update_message_url).read().decode()]
-
-
 def convert_to_bool(value: typing.Any) -> bool:
     if value:
         value = normalize(str(value))

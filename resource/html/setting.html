@@ -85,7 +85,10 @@
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
-                        <button onclick="check_update()" class="ripple_effect">実行</button>
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases"  target="_blank" rel="noreferrer noopener">リリース一覧を開く<i class="material_icon">open_in_new</i></a>
+                        <p class="information">
+                            <i class="material_icon">info</i>開発版のバージョン番号には「dev」が付いており、正式版には付いていません。開発版では開発中の機能をいち早く試すことができますが、バグが含まれる可能性も高くなります。
+                        </p>
                     </details>
                 </section>
                 <section title="試験機能の有効・無効を設定します。">
@@ -154,11 +157,14 @@
                 .text_input_group {
                     display: inline-block;
                 }
+
+                .information i {
+                    margin-left: 0;
+                }
             </style>
         </main>
         <script src="../javascript/jquery-3.5.1.min.js"></script>
         <script src="../javascript/basic.js"></script>
-        <script src="../javascript/push.min.js"></script>
         <script src="../javascript/ripple.min.js"></script>
         <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
@@ -185,23 +191,6 @@
                 } else {
                     eel.write_setting(event.target.id, event.target.value);
                 }
-            }
-
-            async function check_update() {
-                const result = await eel.check_update()();
-                let message = ""
-                if (result[0] == "true") {
-                    message = "アップデートがあります。現在のバージョン" + result[1] + "から最新バージョン" + result[2] + "へ更新可能です。" + result[3];
-                } else {
-                    message = "アップデートはありません。既に最新のバージョン" + result[1] + "です。"
-                }
-                Push.create("ORIZIN Agent HTML", {
-                    body: message,
-                    icon: "../image/favicon/favicon.ico",
-                    onClick: function() {
-                        this.close();
-                    }
-                });
             }
 
             async function set_to_current_setting() {

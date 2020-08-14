@@ -606,17 +606,6 @@ def set_intelligent_timer(query: str) -> str:
     return time
 
 
-@eel.expose
-def check_update() -> typing.List[str]:
-    result = core.check_update("resource/information.txt",
-                             "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
-                             "master/resource/information.txt",
-                             "https://raw.githubusercontent.com/Robot-Inventor/ORIZIN-Agent-HTML/"
-                             "master/update_message.txt")
-    print_log_if_dev_mode("Check update.", OrderedDict(UpdateStatus=result[0], CurrentVersion=result[1], RemoteVersion=result[2], UpdateMessage=result[3]))
-    return result
-
-
 IS_DEV_MODE = False
 
 
