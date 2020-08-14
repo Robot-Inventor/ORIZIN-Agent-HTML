@@ -316,4 +316,5 @@ def print_log(function_name: str, description: str, log_content: OrderedDict):
     for key in log_content.keys():
         print(f"{key}: {log_content[key]}")
     print()
+    print("=" * shutil.get_terminal_size().columns)
     return
