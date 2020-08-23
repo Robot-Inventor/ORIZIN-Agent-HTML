@@ -131,7 +131,7 @@ def respond(dictionary: dict, query: str) -> typing.List[str]:
     if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
         pathlib.Path("resource/dictionary/unknownQuestions.txt").touch()
     if most_similar_value >= 0.75:
-        response = list(root.get_value(most_similar_word).split("/"))
+        response = root.unescape(list(root.get_value(most_similar_word, unescape=False).split("/")))
     else:
         response = ["そうですか。"]
     add_unknown_question(query, response)
