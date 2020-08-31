@@ -197,7 +197,6 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
                 ResponseToDisplay=response[1],
                 MatchedWord="Untracked"))
         return
-
     not_normalized_query = not_normalized_query.replace("\n", "").replace("\r", "")
     query = core.normalize(not_normalized_query)
     user_name = read_setting("user_name")
@@ -597,15 +596,28 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
         user_name = read_setting("user_name")
         response_to_read = response[0].format(user_name=user_name)
         response_to_display = response[1].format(user_name=user_name)
-        if IS_DEV_MODE:
-            print_log_if_dev_mode("Generate response.", OrderedDict(
-                Query=not_normalized_query,
-                NormalizedQuery=query,
-                ResponseToRead=response_to_read,
-                ResponseToDisplay=response_to_display,
-                MatchedWord=response[2]
-            ))
-        return [response_to_read, response_to_display]
+        if response_to_read == response_to_display == "そうですか。":
+            for file_path in glob.glob("resource/dictionary/inappropriate_words_ja_dictionary/*.txt"):
+                with open(file_path, mode="r", encoding="utf-8") as f:
+                    content = f.read().splitlines()
+            for word in content:
+                if word in query:
+                    response = [
+                        "不適切な可能性がある単語を検出しました。別の表現を試してみてください。",
+                        "不適切な可能性がある単語を検出しました。別の表現を試してみてください。"
+                    ]
+                    print_log_if_dev_mode_template()
+                    return response
+        else:
+            if IS_DEV_MODE:
+                print_log_if_dev_mode("Generate response.", OrderedDict(
+                    Query=not_normalized_query,
+                    NormalizedQuery=query,
+                    ResponseToRead=response_to_read,
+                    ResponseToDisplay=response_to_display,
+                    MatchedWord=response[2]
+                ))
+            return [response_to_read, response_to_display]
 
 
 def set_intelligent_timer(query: str) -> str:
