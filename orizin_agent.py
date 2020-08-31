@@ -593,7 +593,6 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
             response = core.respond_fast(dictionary, query)
         else:
             response = core.respond(dictionary, query)
-        user_name = read_setting("user_name")
         response_to_read = response[0].format(user_name=user_name)
         response_to_display = response[1].format(user_name=user_name)
         if response_to_read == response_to_display == "そうですか。":
