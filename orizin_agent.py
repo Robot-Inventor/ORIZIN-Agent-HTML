@@ -177,6 +177,7 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
 
     not_normalized_query = not_normalized_query.replace("\n", "").replace("\r", "")
     query = core.normalize(not_normalized_query)
+    user_name = read_setting("user_name")
     if query == "":
         response = [
             "私はオープンソースのAIアシスタント、オリジンエージェントです。気軽に話しかけてくださいね。",
@@ -481,6 +482,16 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
             response = [f"「{memo_content}」とメモしました。", f"「{memo_content}」とメモしました。"]
         print_log_if_dev_mode_template()
         return response
+    elif core.judge(query, ["トリビア", "trivia", "(豆|マメ)(知|チ)(識|シキ)"]):
+        with open("resource/dictionary/trivia_dictionary.txt", encoding="utf-8_sig") as trivia_file:
+            trivias = trivia_file.read().splitlines()
+            chosen_trivia = trivias[random.randint(0, len(trivias) - 1)]
+            chosen_trivia = otfdlib.Otfd().unescape(chosen_trivia.split("/"))
+            if len(chosen_trivia) == 1:
+                chosen_trivia = [chosen_trivia[0], chosen_trivia[0]]
+            response = [f"{user_name}さん、知っていましたか？{chosen_trivia[0]}", f"{user_name}さん、知っていましたか？{chosen_trivia[1]}"]
+            print_log_if_dev_mode_template()
+            return response
     elif core.judge(query, ["テ(何|ナニ)", "(意|イ)(味|ミ)", "トハ", "(教|オシ)エ", "(検|ケン)(索|サク)", "(調|シラ)ベ", "(調|チョウ)(査|サ)"]):
         search_engine = read_setting("search_engine")
         webbrowser.open_new(core.generate_search_engine_url(read_setting("search_engine"), not_normalized_query))
