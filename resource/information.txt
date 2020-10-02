@@ -1,5 +1,5 @@
 Series Name:ORIZIN Agent
 Edition:ORIZIN Agent HTML
-Version:v4.0.124.1dev
-Code Name:Crane
+Version:v4.0.125.2dev
+Code Name:Duck
 Date:2020-10-02 JST
