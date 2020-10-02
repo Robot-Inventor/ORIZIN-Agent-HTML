@@ -40,6 +40,7 @@ Edition: ORIZIN Agent HTML
 #### 変更
 
 - Pickrのバージョンを1.7.2から最新の1.7.4にアップデートしました。
+- Material design iconsのバージョンを3.0.1から最新の4.0.0にアップデートしました。
 
 #### 修正
 
