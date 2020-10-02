@@ -599,14 +599,14 @@ def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bo
             for file_path in glob.glob("resource/dictionary/inappropriate_words_ja_dictionary/*.txt"):
                 with open(file_path, mode="r", encoding="utf-8") as f:
                     content = f.read().splitlines()
-            for word in content:
-                if word in query:
-                    response = [
-                        "不適切な可能性がある単語を検出しました。別の表現を試してみてください。",
-                        "不適切な可能性がある単語を検出しました。別の表現を試してみてください。"
-                    ]
-                    print_log_if_dev_mode_template()
-                    return response
+                for word in content:
+                    if word in query:
+                        response = [
+                            "不適切な可能性がある単語を検出しました。別の表現を試してみてください。",
+                            "不適切な可能性がある単語を検出しました。別の表現を試してみてください。"
+                        ]
+            print_log_if_dev_mode_template()
+            return response
         else:
             if IS_DEV_MODE:
                 print_log_if_dev_mode("Generate response.", OrderedDict(
