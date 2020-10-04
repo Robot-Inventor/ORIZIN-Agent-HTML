@@ -19,8 +19,8 @@
                 <section title="テキストを読みやすいように設定します。" id="readable_text_setting">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">text_format</i>可読性についての設定</summary>
-                        <i class="material_icon">format_bold</i>太字を使用する　<input type="checkbox" class="toggle" id="bold_text" onchange="save_setting()"><br>
-                        <i class="material_icon">format_size</i>大きい文字を使用する　<input type="checkbox" class="toggle" id="bigger_text" onchange="save_setting()">
+                        <i class="material_icon">format_bold</i>太字を使用する　<toggle-switch id="bold_text" onchange="save_setting()"></toggle-switch><br>
+                        <i class="material_icon">format_size</i>大きい文字を使用する　<toggle-switch id="bigger_text" onchange="save_setting()"></toggle-switch>
                     </details>
                 </section>
                 <section title="画面の配色（テーマ）を設定します。">
@@ -35,7 +35,7 @@
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">person</i>ユーザー名</summary>
-                        <input type="text" class="underline_textbox" id="user_name" placeholder="ユーザー名を入力" onchange="save_setting()">
+                        <underlined-textbox id="user_name" placeholder="ユーザー名を入力" onchange="save_setting()"></underlined-textbox>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
@@ -53,14 +53,14 @@
                 <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">link</i>ニュースサイトのURL</summary>
-                        <input type="text" class="underline_textbox" id="news_site_url" placeholder="URLを入力" onchange="save_setting()">
+                        <underlined-textbox id="news_site_url" placeholder="URLを入力" onchange="save_setting()"></underlined-textbox>
                        <span id="reset_news_site_url_button" title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
                     </details>
                 </section>
                 <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">mic</i>連続音声認識</summary>
-                        音声認識終了後、自動で音声認識を再開する　<input type="checkbox" class="toggle" id="continuous_speech_recognition" onchange="save_setting()">
+                        音声認識終了後、自動で音声認識を再開する　<toggle-switch id="continuous_speech_recognition" onchange="save_setting()"></toggle-switch>
                     </details>
                 </section>
                 <section title="音声に関する設定をします。">
@@ -76,7 +76,7 @@
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">api</i>インタープリター</summary>
                         Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力して下さい。<br>
-                        <input type="text" class="underline_textbox" id="python_interpreter" placeholder="絶対パスかエイリアスを入力" onchange="save_setting()">
+                        <underlined-textbox id="python_interpreter" placeholder="絶対パスかエイリアスを入力" onchange="save_setting()"></underlined-textbox>
                     </details>
                 </section>
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
@@ -161,6 +161,7 @@
             </style>
         </main>
         <script src="../javascript/jquery-3.5.1.min.js"></script>
+        <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/ripple.min.js"></script>
         <script src="../javascript/konami.js"></script>
@@ -183,7 +184,7 @@
             });
 
             function save_setting() {
-                if (event.target.tagName == "INPUT" && event.target.type == "checkbox") {
+                if (event.target.tagName == "TOGGLE-SWITCH") {
                     eel.write_setting(event.target.id, event.target.checked);
                 } else {
                     eel.write_setting(event.target.id, event.target.value);

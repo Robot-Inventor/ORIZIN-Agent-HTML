@@ -4,13 +4,6 @@
 
 :root {
     --border_radius_size: 0.5rem;
-    --toggle_width: 2.5rem;
-    --toggle_height: 1rem;
-    --toggle_border_width: 0.075vw;
-    --toggle_border_color: gray;
-    --toggle_disabled_color: white;
-    --toggle_enabled_color: #adff99;
-    --toggle_handle_color: white;
 }
 
 @font-face {
@@ -351,39 +344,33 @@ input[type=text]:focus::placeholder {
     color: var(--theme_color);
 }
 
-.text_input_group {
-    width: 50%;
-    overflow: hidden;
+underlined-textbox {
     display: inline-block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 50%;
 }
 
-.text_input_group input {
-    width: 100%;
-    border: none;
-    border-bottom: 0.1em solid var(--text);
-    outline: none;
+underlined-textbox::part(textbox) {
     color: var(--text);
 }
 
-.text_input_group .text_underline {
-    width: 0;
-    height: 0.1em;
-    border-radius: 0.1em;
-    transition: 0.3s;
-    position: relative;
-    left: 0;
-    top: -0.1em;
-    margin-left: 50%;
-    background: var(--theme_color);
-}
-
-.text_input_group input:focus {
+underlined-textbox::part(textbox):focus,
+underlined-textbox::part(textbox):focus::placeholder {
     color: var(--theme_color);
 }
 
-.text_input_group input:focus + .text_underline{
-    width: 100%;
-    margin-left: 0;
+underlined-textbox::part(normal_underline) {
+    background: var(--text);
+}
+
+underlined-textbox::part(focused_underline) {
+    background: var(--theme_color);
+}
+
+toggle-switch {
+    vertical-align: top;
 }
 
 input+label {
@@ -471,48 +458,6 @@ select, select option {
     border-radius: 2em;
     border: solid 0.05rem var(--text);
     padding: 0.5em;
-}
-
-.toggle {
-    display: none;
-    transition: 0.3s;
-}
-
-.toggle+label {
-    display: inline-block;
-    background: var(--toggle_disabled_color);
-    width: var(--toggle_width);
-    height: var(--toggle_height);
-    border: solid var(--toggle_border_width) var(--toggle_border_color);
-    border-radius: var(--toggle_width);
-    margin: 0;
-    padding: 0;
-    vertical-align: bottom;
-    overflow: visible;
-}
-
-.toggle:checked+label {
-    background: var(--toggle_enabled_color);
-}
-
-.toggle+label::before {
-    display: block;
-    content: "";
-    background: var(--toggle_handle_color);
-    width: calc(var(--toggle_height) + 0.4rem);
-    height: calc(var(--toggle_height) + 0.4rem);
-    border: var(--toggle_border_color) solid var(--toggle_border_width);
-    border-radius: var(--toggle_width);
-    box-shadow: 0 2px 5px var(--shadow);
-    transition: 0.3s;
-    margin: 0;
-    position: relative;
-    top: calc(var(--toggle_border_width) * -1 - 0.2rem);
-    left: calc(var(--toggle_border_width) * -1 - 0.2rem);
-}
-
-.toggle:checked+label::before {
-    margin-left: calc(100% - var(--toggle_height));
 }
 
 details {

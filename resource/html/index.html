@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div id="message_input">
-                    <input type="text" class="underline_textbox" placeholder="質問を入力" id="requestForm" oninput="change_send_button_status()"><button id="startButton" disabled><i class="material_icon">send</i></button><button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ"><i class="material_icon">mic</i></button><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
+                    <underlined-textbox placeholder="質問を入力" id="requestForm" oninput="change_send_button_status()"></underlined-textbox><button id="startButton" disabled><i class="material_icon">send</i></button><button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ"><i class="material_icon">mic</i></button><span id="listening_message">聞いています。</span><i class="material_icon" id="user_speaking_status">radio_button_checked</i>
                 </div>
             </div>
             <div id="blm">
@@ -138,13 +138,6 @@
                     overflow: hidden;
                 }
 
-                #message_input input {
-                    display: inline-block;
-                    height: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-
                 #startButton {
                     border: none;
                     padding: 0;
@@ -166,11 +159,6 @@
                     color: var(--theme_color);
                     opacity: 1;
                     cursor: pointer;
-                }
-
-                .text_input_group {
-                    display: inline-block;
-                    transform: translateY(-0.2rem);
                 }
 
                 #listening_message {
@@ -251,6 +239,7 @@
             </style>
         </main>
         <script src="../javascript/jquery-3.5.1.min.js"></script>
+        <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/ripple.min.js"></script>
         <script src="../javascript/konami.js"></script>
