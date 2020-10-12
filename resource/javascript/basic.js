@@ -12,7 +12,7 @@ async function readable_text_setting() {
 $(function() {
     $("header").load("basic.html");
     eel.print_log_if_dev_mode("Page header loaded.", {"Status": "OK"});
-    $.ripple(".ripple_effect", {
+    new Ripple(".ripple_effect", {
         debug: false,
         on: 'mousedown',
         opacity: 0.4,
