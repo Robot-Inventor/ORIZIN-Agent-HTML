@@ -32,20 +32,22 @@ class Otfd:
     @staticmethod
     def unescape(target: str_or_list_that_contains_str) -> str_or_list_that_contains_str:
         if type(target) is str:
-            return target.replace("&#47", ":").replace("&#58", "/")
+            result = target.replace("&#47", ":").replace("&#58", "/")
         elif type(target) is list:
-            return [str(string).replace("&#47", ":").replace("&#58", "/") for string in target]
+            result = [str(string).replace("&#47", ":").replace("&#58", "/") for string in target]
         else:
-            return str(target)
+            result = str(target)
+        return result
     
     @staticmethod
     def escape(target: str_or_list_that_contains_str) -> str_or_list_that_contains_str:
         if type(target) is str:
-            return target.replace(":", "&#47").replace("/", "&#58")
+            result = target.replace(":", "&#47").replace("/", "&#58")
         elif type(target) is list:
-            return [string.replace(":", "&#47").replace("/", "&#58") for string in target]
+            result = [string.replace(":", "&#47").replace("/", "&#58") for string in target]
         else:
-            return str(target)
+            result = str(target)
+        return result
     
     def parse(self) -> OrderedDict:
         self.otfd_content = self.otfd_content.strip()
@@ -63,16 +65,10 @@ class Otfd:
         return self.index_list
     
     def get_value_list(self, unescape: bool = True) -> typing.List[str]:
-        if unescape:
-            return self.unescape(list(self.parsed_otfd.values()))
-        else:
-            return list(self.parsed_otfd.values())
+        return self.unescape(list(self.parsed_otfd.values())) if unescape else list(self.parsed_otfd.values())
 
     def get_value(self, index: str, unescape: bool = True) -> str:
-        if unescape:
-            return self.unescape(self.parsed_otfd.get(index))
-        else:
-            return self.parsed_otfd.get(index)
+        return self.unescape(self.parsed_otfd.get(index)) if unescape else self.parsed_otfd.get(index)
 
     def add(self, index: str, value: typing.Any) -> OrderedDict:
         self.parsed_otfd[self.escape(index)] = self.escape(value)

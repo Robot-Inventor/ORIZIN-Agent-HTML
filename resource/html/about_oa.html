@@ -55,7 +55,12 @@ SOFTWARE.
         <script src="../javascript/basic.js"></script>
         <script src="/eel.js"></script>
         <script>
-            $("#information").load("../information.txt");
+            async function load_information() {
+                const information = await fetch("../information.txt");
+                const information_content = await information.text();
+                document.getElementById("information").innerHTML = information_content;
+            }
+            load_information();
         </script>
     </body>
 </html>

@@ -14,7 +14,7 @@ $(function() {
     eel.print_log_if_dev_mode("Page header loaded.", {"Status": "OK"});
     new Ripple(".ripple_effect", {
         debug: false,
-        on: 'mousedown',
+        on: "mousedown",
         opacity: 0.4,
         color: "auto",
         multi: false,
@@ -22,7 +22,7 @@ $(function() {
         rate: function(pxPerSecond) {
             return pxPerSecond;
         },
-        easing: 'linear'
+        easing: "linear"
     });
     readable_text_setting();
     eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});

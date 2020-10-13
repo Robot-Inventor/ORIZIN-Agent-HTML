@@ -85,14 +85,14 @@ def check_current_css_theme_information() -> typing.List[str]:
 
 
 @eel.expose
-def read_setting(setting_name: typing.Any) -> str:
+def read_setting(setting_name: typing.Union[str, int, bool]) -> str:
     value = core.read_setting("resource/setting/setting.otfd", setting_name)
     print_log_if_dev_mode("Read setting.", OrderedDict(SettingName=setting_name, SettingValue=value))
     return value
 
 
 @eel.expose
-def write_setting(setting_name: typing.Any, setting_value: typing.Any) -> None:
+def write_setting(setting_name: typing.Union[str, int, bool], setting_value: typing.Union[str, int, bool]) -> None:
     print_log_if_dev_mode("Write setting.", OrderedDict(SettingName=setting_name, SettingValue=setting_value))
     core.write_setting("resource/setting/setting.otfd", setting_name, setting_value)
     return
