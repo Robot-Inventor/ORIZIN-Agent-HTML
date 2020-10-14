@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v4.1.127.0dev-Duck] - 2020-10-12
+### [v4.1.127.0dev-Duck] - 2020-10-15
 
 #### 変更
 
