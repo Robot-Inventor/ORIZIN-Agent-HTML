@@ -59,11 +59,11 @@ class Otfd:
         self.parsed_otfd = OrderedDict([line.split(":") for line in splited_with_line])
         return self.parsed_otfd
 
-    def get_index_list(self) -> typing.List[str]:
+    def get_index_list(self) -> list[str]:
         self.index_list = list(self.parsed_otfd.keys())
         return self.index_list
     
-    def get_value_list(self, unescape: bool = True) -> typing.List[str]:
+    def get_value_list(self, unescape: bool = True) -> list[str]:
         return self.unescape(list(self.parsed_otfd.values())) if unescape else list(self.parsed_otfd.values())
 
     def get_value(self, index: str, unescape: bool = True) -> str:
@@ -80,7 +80,7 @@ class Otfd:
     def read(self) -> OrderedDict:
         return self.parsed_otfd
     
-    def read_list(self) -> typing.List[list]:
+    def read_list(self) -> list[list]:
         item = list(self.parsed_otfd.items())
         return [list(item[num]) for num in range(len(item))]
     

@@ -42,7 +42,7 @@ def change_theme(css_theme_path: str) -> None:
 
 
 @eel.expose
-def return_theme_dict() -> typing.Dict[str, str]:
+def return_theme_dict() -> dict[str, str]:
     result = {}
     for file_path in glob.glob("resource/css/theme/**/*.css", recursive=True):
         with open(file_path, mode="r", encoding="utf-8_sig") as f:
@@ -69,7 +69,7 @@ def write_custom_css_theme(value: typing.Any) -> None:
 
 
 @eel.expose
-def check_current_css_theme_information() -> typing.List[str]:
+def check_current_css_theme_information() -> list[str]:
     css_file_path = read_setting("theme")
     with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
         css = f.read()
@@ -186,7 +186,7 @@ YOUTUBE_MUSIC_VIDEOS = {
 
 
 @eel.expose
-def make_response(not_normalized_query: str) -> typing.List[typing.Union[str, bool]]:
+def make_response(not_normalized_query: str) -> list[typing.Union[str, bool]]:
     def print_log_if_dev_mode_template():
         if IS_DEV_MODE:
             core.print_log(inspect.stack()[1].function, "Generate response.", OrderedDict(

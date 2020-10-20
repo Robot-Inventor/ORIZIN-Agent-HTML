@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import OrderedDict
+from collections import OrderedDict
 import urllib.request
 import urllib.parse
 import os
@@ -73,7 +73,7 @@ bool_and_str_type_var = typing.TypeVar("bool_and_str_type_var", bool, str)
 
 
 def judge(query: str, dictionary: typing.Union[str, list], matched_word: bool = False) ->\
-        typing.Union[bool, typing.List[bool_and_str_type_var]]:
+        typing.Union[bool, list[bool_and_str_type_var]]:
     if type(dictionary) == str:
         dictionary = [dictionary]
     for word in dictionary:
@@ -107,7 +107,7 @@ def add_unknown_question(question: str, response: typing.Union[str, list]) -> No
     return
 
 
-def respond(dictionary: dict, query: str) -> typing.List[str]:
+def respond(dictionary: dict, query: str) -> list[str]:
     root = otfdlib.Otfd()
     root.load_from_dictionary(dictionary)
     root.parse()
@@ -140,7 +140,7 @@ def respond(dictionary: dict, query: str) -> typing.List[str]:
         return root.unescape([response[0], response[1], most_similar_word])
 
 
-def respond_fast(dictionary: dict, query: str) -> typing.List[str]:
+def respond_fast(dictionary: dict, query: str) -> list[str]:
     root = otfdlib.Otfd()
     root.load_from_dictionary(dictionary)
     root.parse()
@@ -293,7 +293,7 @@ def show_info(message: str) -> None:
     return
 
 
-def get_google_news(number_of_items: int = 3) -> typing.List[typing.Dict[str, str]]:
+def get_google_news(number_of_items: int = 3) -> list[dict[str, str]]:
     root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
     items = root.iter("item")
     result = []
