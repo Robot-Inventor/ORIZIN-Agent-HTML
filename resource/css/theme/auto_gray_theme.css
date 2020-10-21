@@ -5,7 +5,7 @@
     --card_bg: #FFFFFF;
     --text: rgba(0, 0, 0, 0.7);
     --shadow: rgba(0, 0, 0, 0.26);
-    --theme_color: #FF6A00;
+    --theme_color: #F86806;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +14,6 @@
         --card_bg: #444444;
         --text: #FFFFFF;
         --shadow: rgba(0, 0, 0, 0.26);
-        --theme_color: #FF6A00;
+        --theme_color: #F86806;
     }
 }

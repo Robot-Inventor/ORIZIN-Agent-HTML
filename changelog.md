@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v4.1.127.0dev-Duck] - 2020-10-21
+### [v4.1.127.0dev-Duck] - 2020-10-22
 
 #### 変更
 
@@ -43,6 +43,7 @@ Edition: ORIZIN Agent HTML
 - Material design iconsのバージョンを3.0.1から最新の4.0.0にアップデートしました。
 - 一部のUIにORIZIN UIを導入しました。
 - changelog.md内の一部の表現をわかりやすいものに変更しました。
+- 画面のテーマをコントラストを考慮して変更しました。
 
 #### 修正
 
