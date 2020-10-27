@@ -369,6 +369,11 @@ underlined-textbox::part(focused_underline) {
 
 toggle-switch {
     vertical-align: top;
+    overflow: visible;
+}
+
+toggle-switch[checked]::part(foundation) {
+    background: var(--theme_color);
 }
 
 input+label {
