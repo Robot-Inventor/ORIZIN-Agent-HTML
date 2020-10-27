@@ -135,6 +135,9 @@ resource/css/theme/user/*.css
 resource/dictionary/unknownQuestions.txt
 memo.txt
 
+# Deep Code cache files
+.dccache
+
 # Pycharm settings
 .idea/**/workspace.xml
 .idea/**/tasks.xml
