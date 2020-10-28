@@ -644,18 +644,7 @@ def set_intelligent_timer(query: str) -> str:
     return time
 
 
-IS_DEV_MODE = False
-IS_CUI_MODE = False
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="オープンソースの会話を目的としたAIアシスタント「ORIZIN Agent HTML」です。")
-    parser.add_argument("-D", "--dev_mode", action="store_true", help="enable development mode")
-    parser.add_argument("-C", "--cui_mode", action="store_true", help="enable CUI mode")
-    args = parser.parse_args()
-    IS_DEV_MODE = args.dev_mode
-    IS_CUI_MODE = args.cui_mode
-    print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
+def open_dictionary():
     with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
         dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
         print_log_if_dev_mode("Calculate dictionary hash.", OrderedDict(Hash=dict_hash))
@@ -671,21 +660,38 @@ if __name__ == "__main__":
     if os.path.exists("resource/dictionary/dictionary.bin"):
         if hash_value == dict_hash:
             with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
-                dictionary = pickle.load(dict_bin_file)
+                dictionary_data = pickle.load(dict_bin_file)
                 print_log_if_dev_mode("Read cached dictionary.", OrderedDict(Status="OK"))
         else:
             with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
                 hash_file.write(dict_hash)
-            dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
+            dictionary_data = core.load_dictionary("resource/dictionary/dictionary.otfd")
             print_log_if_dev_mode("Read and parse dictionary.", OrderedDict(Status="OK"))
             with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
-                pickle.dump(dictionary, dict_bin_file)
+                pickle.dump(dictionary_data, dict_bin_file)
             print_log_if_dev_mode("Update cached dictionary.", OrderedDict(Status="OK"))
     else:
-        dictionary = core.load_dictionary("resource/dictionary/dictionary.otfd")
+        dictionary_data = core.load_dictionary("resource/dictionary/dictionary.otfd")
         with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
-            pickle.dump(dictionary, dict_bin_file)
+            pickle.dump(dictionary_data, dict_bin_file)
         print_log_if_dev_mode("Create cache dictionary.", OrderedDict(Status="OK"))
+    return dictionary_data
+
+
+IS_DEV_MODE = False
+IS_CUI_MODE = False
+
+dictionary = open_dictionary()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="オープンソースの会話を目的としたAIアシスタント「ORIZIN Agent HTML」です。")
+    parser.add_argument("-D", "--dev_mode", action="store_true", help="enable development mode")
+    parser.add_argument("-C", "--cui_mode", action="store_true", help="enable CUI mode")
+    args = parser.parse_args()
+    IS_DEV_MODE = args.dev_mode
+    IS_CUI_MODE = args.cui_mode
+    print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
     if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/auto_theme.css")
         print_log_if_dev_mode("Reset theme setting.", OrderedDict(ResetedTheme="theme/auto_theme.css"))
