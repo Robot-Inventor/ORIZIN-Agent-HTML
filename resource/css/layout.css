@@ -179,7 +179,7 @@ main {
 }
 
 #side_menu_bar {
-    background: var(--bg);
+    background: var(--card_bg);
     width: min(20rem, 80vw);
     height: 100vh;
     box-sizing: border-box;
