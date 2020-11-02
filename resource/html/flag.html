@@ -16,6 +16,9 @@
         <main>
             <div class="fill_panel">
                 <h2>試験機能</h2>
+                <div id="search_area">
+                    <i class="material-icons" id="search_icon">search</i><underlined-textbox id="search_box" placeholder="設定項目を検索"></underlined-textbox><span class="ripple_effect"><i class="material-icons" id="clear_search">clear</i></span>
+                </div>
                 <section class="warning"><i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
                 <section>
                     <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<toggle-switch id="add_readable_text_setting"></toggle-switch>
@@ -45,6 +48,33 @@
             </div>
         </main>
         <style>
+            #search_area {
+                background: var(--bg);
+                width: 50%;
+                padding: 0.25rem 0.5rem;
+                border-radius: 0.5rem;
+            }
+
+            #search_area i.material-icons {
+                vertical-align: super;
+                margin-right: 0.5rem;
+                cursor: default;
+            }
+
+            #search_area underlined-textbox {
+                width: calc(100% - 3.5rem);
+            }
+
+            #search_area underlined-textbox#search_box {
+                height: max-content;
+            }
+
+            #search_area #clear_search {
+                cursor: pointer;
+                display: none;
+                margin-left: 0.5rem;
+            }
+
             section {
                 border-bottom: solid 0.05em var(--text);
                 padding: 1em;
@@ -84,6 +114,36 @@
                 element.addEventListener("change", function() {
                     eel.set_flag(event.target.id, event.target.checked);
                 });
+            });
+
+            const search_box = document.getElementById("search_box");
+            function search_setting() {
+                const query = search_box.value;
+                let has_visible_element = false;
+                if(query) {
+                    document.getElementById("clear_search").style.display = "inline-block";
+                } else {
+                    document.getElementById("clear_search").style.display = "none";
+                }
+                document.querySelectorAll("div.fill_panel section").forEach((element) => {
+                    if(element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1) {
+                        element.style.display = "none";
+                    } else {
+                        element.style.display = element.dataset.defaultDisplay;
+                    }
+                });
+            }
+            document.querySelectorAll("div.fill_panel section").forEach((element) => {
+                element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
+            });
+            search_box.addEventListener("input", function() {
+                search_setting();
+            });
+            document.getElementById("clear_search").addEventListener("click", function() {
+                if(search_box.value) {
+                    search_box.value = "";
+                }
+                search_setting();
             });
         </script>
     </body>

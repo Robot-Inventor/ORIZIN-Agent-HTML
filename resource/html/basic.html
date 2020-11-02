@@ -1,5 +1,5 @@
 ﻿<div id="title">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る">ORIZIN Agent HTML</a></span>
+    <span><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"><a href="index.html" title="ホーム画面へ戻る">ORIZIN Agent HTML</a></span>
 </div>
 <div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
@@ -59,7 +59,7 @@
         }, 100);
     }
 
-    function move_page(place) {
+    async function move_page(place) {
         close_menu();
         setTimeout(() => {
             location.href = place;
