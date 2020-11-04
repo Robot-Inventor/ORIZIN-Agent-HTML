@@ -50,6 +50,12 @@
                         メニュー内にフィードバックボタンを表示し，必要に応じてフィードバックを送信できるようになります。
                     </p>
                 </section>
+                <section>
+                    <i class="material_icon">search</i>設定の検索を有効にする　<toggle-switch id="show_setting_search_box"></toggle-switch>
+                    <p class="information">
+                        設定ページと試験機能ページに設定の検索ボックスを追加します。
+                    </p>
+                </section>
                 <span id="refresh_button" onclick="eel.reset_flag(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
@@ -59,6 +65,7 @@
                 width: 50%;
                 padding: 0.25rem 0.5rem;
                 border-radius: 0.5rem;
+                display: none;
             }
 
             #search_area i.material-icons {
@@ -116,6 +123,7 @@
             read_flag("get_news_from_google_news");
             read_flag("use_fast_response_mode");
             read_flag("show_feedback_button");
+            read_flag("show_setting_search_box")
 
             document.querySelectorAll("toggle-switch").forEach((element) => {
                 element.addEventListener("change", function() {
@@ -152,6 +160,13 @@
                 }
                 search_setting();
             });
+
+            async function show_search_area() {
+                if(await eel.read_flag("show_setting_search_box")()) {
+                    document.getElementById("search_area").style.display = "block";
+                }
+            }
+            show_search_area();
         </script>
     </body>
 </html>

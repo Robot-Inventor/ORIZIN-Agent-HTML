@@ -106,6 +106,7 @@
                     padding: 0.25rem 0.5rem;
                     border-radius: 0.5rem;
                     margin-bottom: 1rem;
+                    display: none;
                 }
 
                 #search_area i.material-icons {
@@ -280,6 +281,9 @@
                     document.getElementById("readable_text_setting").style.display = "block";
                 }
 
+                if(await eel.read_flag("show_setting_search_box")()) {
+                    document.getElementById("search_area").style.display = "block";
+                }
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
                     element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
                 });
