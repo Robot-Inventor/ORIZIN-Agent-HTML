@@ -44,6 +44,12 @@
                         高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり，適切な応答が見つからなかったことを示す「そうですか。」という応答が返される頻度が高くなります。
                     </p>
                 </section>
+                <section>
+                    <i class="material_icon">feedback</i>フィードバックボタンを表示する　<toggle-switch id="show_feedback_button"></toggle-switch>
+                    <p class="information">
+                        メニュー内にフィードバックボタンを表示し，必要に応じてフィードバックを送信できるようになります。
+                    </p>
+                </section>
                 <span id="refresh_button" onclick="eel.reset_flag(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
@@ -109,6 +115,7 @@
             read_flag("fast_start");
             read_flag("get_news_from_google_news");
             read_flag("use_fast_response_mode");
+            read_flag("show_feedback_button");
 
             document.querySelectorAll("toggle-switch").forEach((element) => {
                 element.addEventListener("change", function() {

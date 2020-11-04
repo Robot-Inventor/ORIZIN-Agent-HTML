@@ -1,4 +1,5 @@
 ﻿add_readable_text_setting:False
 fast_start:False
 get_news_from_google_news:False
+show_feedback_button:False
 use_fast_response_mode:False

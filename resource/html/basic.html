@@ -20,6 +20,10 @@
         <i class="material_icon">privacy_tip</i>プライバシーポリシー
     </div>
     <hr>
+    <div class="ripple_effect" onclick="move_page('feedback.html')" id="feedback_button" title="フィードバックを送信する">
+        <i class="material_icon">feedback</i>フィードバック
+    </div>
+    <hr>
     <div class="ripple_effect" onclick="move_page('about_oa.html')" title="バージョンやソフトウェアの概要を見る">
         <i class="material_icon">info</i>ORIZIN Agentについて
     </div>
@@ -34,6 +38,11 @@
         Copyright &copy; 2019 - 2020 Robot-Inventor
     </div>
 </div>
+<style>
+    #feedback_button {
+        display: none;
+    }
+</style>
 <script>
     const TRANSITION_TIME = 300;
 
@@ -65,4 +74,11 @@
             location.href = place;
         }, TRANSITION_TIME);
     }
+
+    async function feed_buck_setting() {
+        if(await eel.read_flag("show_feedback_button")()) {
+            document.getElementById("feedback_button").style.display = "block";
+        }
+    }
+    feed_buck_setting();
 </script>
