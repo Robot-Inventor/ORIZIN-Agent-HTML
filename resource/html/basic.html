@@ -1,5 +1,5 @@
 ﻿<div id="title">
-    <span><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"><a href="index.html" title="ホーム画面へ戻る">ORIZIN Agent HTML</a></span>
+    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る">ORIZIN Agent HTML</a></span>
 </div>
 <div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
@@ -44,41 +44,5 @@
     }
 </style>
 <script>
-    const TRANSITION_TIME = 300;
-
-    function open_menu() {
-        document.getElementById("menu_open_button").style.transform = "rotate(180deg)";
-        setTimeout(() => {
-            $("#side_menu_bar_overlay").fadeIn(TRANSITION_TIME);
-            document.getElementById("side_menu_bar").style.transform = "none";
-        }, 50);
-        setTimeout(() => {
-            document.getElementById("menu_close_button").style.transform = "rotate(180deg)";
-        }, 100);
-    }
-
-    function close_menu() {
-        document.getElementById("menu_close_button").style.transform = "rotate(0deg)";
-        setTimeout(() => {
-            $("#side_menu_bar_overlay").fadeOut(TRANSITION_TIME);
-            document.getElementById("side_menu_bar").style.transform = "translate(-100%)";
-        }, 50);
-        setTimeout(() => {
-            document.getElementById("menu_open_button").style.transform = "rotate(0deg)";
-        }, 100);
-    }
-
-    async function move_page(place) {
-        close_menu();
-        setTimeout(() => {
-            location.href = place;
-        }, TRANSITION_TIME);
-    }
-
-    async function feed_buck_setting() {
-        if(await eel.read_flag("show_feedback_button")()) {
-            document.getElementById("feedback_button").style.display = "block";
-        }
-    }
-    feed_buck_setting();
+    
 </script>
