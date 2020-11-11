@@ -32,7 +32,7 @@
                         <select id="theme" onchange="eel.change_theme(document.getElementById('theme').value);">
                             <!-- ここの中身はJavaScriptで動的に生成 -->
                         </select>
-                        <a href="set_custom_css_theme.html"><i class="material_icon">edit</i>カスタムテーマの編集</a>
+                        <a href="set_custom_css_theme.html" class="ripple_effect"><i class="material_icon">edit</i>カスタムテーマの編集</a>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
@@ -45,11 +45,11 @@
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">search</i>検索エンジン</summary>
                         <form id="search_engine" onchange="eel.write_setting('search_engine', document.getElementById('search_engine').search_engine_list.value)">
-                            <input type="radio" name="search_engine_list" value="Google" id="google"><label for="google">Google(デフォルト)</label><br>
-                            <input type="radio" name="search_engine_list" value="Bing" id="bing"><label for="bing">Bing</label><br>
-                            <input type="radio" name="search_engine_list" value="YahooJapan" id="yahoojapan"><label for="yahoojapan">Yahoo! Japan</label><br>
-                            <input type="radio" name="search_engine_list" value="Yahoo" id="yahoo"><label for="yahoo">Yahoo!</label><br>
-                            <input type="radio" name="search_engine_list" value="DuckDuckGo" id="duckduckgo"><label for="duckduckgo">DuckDuckGo</label><br>
+                            <input type="radio" name="search_engine_list" value="Google" id="google"><label for="google" class="ripple_effect">Google(デフォルト)</label><br>
+                            <input type="radio" name="search_engine_list" value="Bing" id="bing"><label for="bing" class="ripple_effect">Bing</label><br>
+                            <input type="radio" name="search_engine_list" value="YahooJapan" id="yahoojapan"><label for="yahoojapan" class="ripple_effect">Yahoo! Japan</label><br>
+                            <input type="radio" name="search_engine_list" value="Yahoo" id="yahoo"><label for="yahoo" class="ripple_effect">Yahoo!</label><br>
+                            <input type="radio" name="search_engine_list" value="DuckDuckGo" id="duckduckgo"><label for="duckduckgo" class="ripple_effect">DuckDuckGo</label><br>
                         </form>
                     </details>
                 </section>
@@ -57,7 +57,7 @@
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">link</i>ニュースサイトのURL</summary>
                         <underlined-textbox id="news_site_url" placeholder="URLを入力" onchange="save_setting()"></underlined-textbox>
-                       <span id="reset_news_site_url_button" title="デフォルトであるGoogleニュースのURLに戻します。" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
+                       <span id="reset_news_site_url_button" title="デフォルトであるGoogleニュースのURLに戻します。" class="ripple_effect" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
                     </details>
                 </section>
                 <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
@@ -69,10 +69,10 @@
                 <section title="音声に関する設定をします。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">speaker</i>音声に関する設定</summary>
-                        <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="save_sound_setting('pitch')"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" class="reset_sound_setting"><i class="material_icon">refresh</i></span><br>
-                        <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="save_sound_setting('speed')"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" class="reset_sound_setting"><i class="material_icon">refresh</i></span><br>
-                        <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="save_sound_setting('volume')"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" class="reset_sound_setting"><i class="material_icon">refresh</i></span><br>
-                        <button onclick="sound_test()"><i class="material_icon">hearing</i>テスト</button>
+                        <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="save_sound_setting('pitch')"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
+                        <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="save_sound_setting('speed')"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
+                        <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="save_sound_setting('volume')"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
+                        <button onclick="sound_test()" class="ripple_effect"><i class="material_icon">hearing</i>テスト</button>
                     </details>
                 </section>
                 <section title="Pythonのインタープリターを設定します。">
@@ -85,19 +85,21 @@
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
-                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases"  target="_blank" rel="noreferrer noopener">リリース一覧を開く<i class="material_icon">open_in_new</i></a>
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect">リリース一覧を開く<i class="material_icon">open_in_new</i></a>
                         <p class="information">
                             <i class="material_icon">info</i>開発版のバージョン番号には「dev」が付いており、正式版には付いていません。開発版では開発中の機能をいち早く試すことができますが、バグが含まれる可能性も高くなります。
                         </p>
+                        <button id="check_update" class="ripple_effect">アップデートを確認</button>
+                        <p id="update_detail"></p>
                     </details>
                 </section>
                 <section title="試験機能の有効・無効を設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
-                        <a href="flag.html">試験機能を設定<i class="material_icon">arrow_forward</i></a>
+                        <a href="flag.html" class="ripple_effect">試験機能を設定<i class="material_icon">arrow_forward</i></a>
                     </details>
                 </section>
-                <span id="reset_setting_button" onclick="eel.reset_setting(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <span id="reset_setting_button" onclick="eel.reset_setting(); location.reload();" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
             <style>
                 #search_area {
@@ -166,15 +168,29 @@
                 #reset_news_site_url_button {
                     cursor: pointer;
                     margin-left: 2rem;
+                    display: inline-block;
+                    padding: 0.25rem;
+                    vertical-align: bottom;
+                    border-radius: 0.25rem;
                 }
 
                 #reset_setting_button {
                     float: right;
                     cursor: pointer;
+                    padding: 0.25rem;
+                    border-radius: 0.25rem;
+                }
+
+                #check_update {
+                    display: none;
                 }
 
                 .reset_sound_setting {
                     cursor: pointer;
+                    display: inline-block;
+                    padding: 0.1rem;
+                    border-radius: 0.1rem;
+                    vertical-align: bottom;
                 }
 
                 section {
@@ -189,6 +205,20 @@
 
                 .information i {
                     margin-left: 0;
+                }
+
+                a.ripple_effect {
+                    display: inline-block;
+                    padding: 0.25rem;
+                    border-radius: 0.25rem;
+                    vertical-align: bottom;
+                }
+
+                label.ripple_effect {
+                    display: inline-block;
+                    padding: 0rem 0.25rem 0.25rem 0.25rem;
+                    border-radius: 0.25rem;
+                    vertical-align: bottom;
                 }
             </style>
         </main>
@@ -231,9 +261,11 @@
                     }
                 });
             }
+
             search_box.addEventListener("input", function() {
                 search_setting();
             });
+
             document.getElementById("clear_search").addEventListener("click", function() {
                 if(search_box.value) {
                     search_box.value = "";
@@ -268,6 +300,7 @@
                 document.getElementById("pitch").value = document.getElementById("pitch_value").innerHTML = await eel.read_setting("pitch")();
                 document.getElementById("speed").value = document.getElementById("speed_value").innerHTML = await eel.read_setting("speed")();
                 document.getElementById("volume").value = document.getElementById("volume_value").innerHTML = await eel.read_setting("volume")();
+
                 if (await eel.read_setting("bold_text")() == "True") {
                     document.getElementById("bold_text").checked = true;
                 }
@@ -284,6 +317,10 @@
                 if(await eel.read_flag("show_setting_search_box")()) {
                     document.getElementById("search_area").style.display = "block";
                 }
+                if(await eel.read_flag("enable_update_checker")()) {
+                    document.getElementById("check_update").style.display = "block";
+                }
+
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
                     element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
                 });
@@ -304,6 +341,59 @@
                 document.getElementById(setting_name + "_value").innerHTML = document.getElementById(setting_name).value;
                 save_setting();
             }
+
+            function compare_and_return_latest_version_num(version1, version2) {
+                if(version1 === version2) {
+                    return version1;
+                } else {
+                    let v1_array = version1.split(".");
+                    for(let i = 0; i < v1_array.lengh; i++) {
+                        v1_array[i] = parseInt(v1_array[i]);
+                    }
+                    let v2_array = version2.split(".");
+                    for(let i = 0; i < v2_array.lengh; i++) {
+                        v2_array[i] = parseInt(v2_array[i]);
+                    }
+
+                    if(v1_array[0] < v2_array[0]) {
+                        return version2;
+                    } else if(v1_array[0] > v2_array[0]) {
+                        return version1;
+                    } else {
+                        if(v1_array[1] < v2_array[1]) {
+                            return version2;
+                        } else if(v1_array[1] > v2_array[1]) {
+                            return version1;
+                        } else {
+                            if(v1_array[2] < v2_array[2]) {
+                                return version2;
+                            } else {
+                                return version1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            document.getElementById("check_update").addEventListener("click", async function() {
+                let release_data;
+                const response = await fetch("../information.txt");
+                const information_data = await response.text();
+                const version_information = information_data.match(/Version:.*/)[0];
+                if(version_information.indexOf("dev") === -1) {
+                    release_data = await eel.get_release("stable")();
+                } else {
+                    release_data = await eel.get_release("develop")();
+                }
+
+                let update_detail;
+                if(compare_and_return_latest_version_num(version_information.replace("Version:", ""), release_data[0]) === version_information.replace("Version:", "")) {
+                    update_detail = "利用可能なアップデートはありません。最新のバージョンを使用中です。";
+                } else {
+                    update_detail = `<h1>${release_data[0]}</h1>` + release_data[1];
+                }
+                document.getElementById("update_detail").innerHTML = update_detail;
+            });
         </script>
     </body>
 </html>

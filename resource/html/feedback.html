@@ -23,16 +23,16 @@
                     <div class="question_group">
                         <label for="entry.1463225208" class="question_text"><i class="material_icon">feedback</i>フィードバックの種類を選択してください。</label>
                         <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="バグの報告" id="bug" required><label for="bug">バグの報告</label>
+                            <input type="radio" name="entry.1463225208" value="バグの報告" id="bug" required><label for="bug" class="ripple_effect">バグの報告</label>
                         </div>
                         <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="機能提案" id="feature_suggestion" required><label for="feature_suggestion">機能提案</label>
+                            <input type="radio" name="entry.1463225208" value="機能提案" id="feature_suggestion" required><label for="feature_suggestion" class="ripple_effect">機能提案</label>
                         </div>
                         <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="改善の希望" id="improve" required><label for="improve">改善の希望</label>
+                            <input type="radio" name="entry.1463225208" value="改善の希望" id="improve" required><label for="improve" class="ripple_effect">改善の希望</label>
                         </div>
                         <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="その他" id="else" required><label for="else">その他</label>
+                            <input type="radio" name="entry.1463225208" value="その他" id="else" required><label for="else" class="ripple_effect">その他</label>
                         </div>
                     </div>
                     <div class="question_group">
@@ -90,6 +90,13 @@
 
                 #words_of_thanks {
                     display: none;
+                }
+
+                label.ripple_effect {
+                    display: inline-block;
+                    padding: 0.25rem;
+                    border-radius: 0.25rem;
+                    vertical-align: bottom;
                 }
             </style>
         </main>

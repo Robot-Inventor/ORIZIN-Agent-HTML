@@ -56,7 +56,13 @@
                         設定ページと試験機能ページに設定の検索ボックスを追加します。
                     </p>
                 </section>
-                <span id="refresh_button" onclick="eel.reset_flag(); location.reload();"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <section>
+                    <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<toggle-switch id="enable_update_checker"></toggle-switch>
+                    <p class="information">
+                        設定ページの「アップデートを確認」セクションにアップデートチェッカーボタンを表示します。
+                    </p>
+                </section>
+                <span id="refresh_button" onclick="eel.reset_flag(); location.reload();" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
         <style>
@@ -102,6 +108,9 @@
             #refresh_button {
                 float: right;
                 cursor: pointer;
+                padding: 0.25rem;
+                border-radius: 0.25rem;
+                margin-top: 2rem;
             }
 
             .information {
@@ -123,7 +132,8 @@
             read_flag("get_news_from_google_news");
             read_flag("use_fast_response_mode");
             read_flag("show_feedback_button");
-            read_flag("show_setting_search_box")
+            read_flag("show_setting_search_box");
+            read_flag("enable_update_checker");
 
             document.querySelectorAll("toggle-switch").forEach((element) => {
                 element.addEventListener("change", function() {

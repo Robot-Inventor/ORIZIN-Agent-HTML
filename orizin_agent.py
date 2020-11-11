@@ -2,6 +2,7 @@
 
 import eel
 import oa_core as core
+import release_manager as release
 import random
 import subprocess
 import webbrowser
@@ -676,6 +677,12 @@ def open_dictionary():
             pickle.dump(dictionary_data, dict_bin_file)
         print_log_if_dev_mode("Create cache dictionary.", OrderedDict(Status="OK"))
     return dictionary_data
+
+
+@eel.expose
+def get_release(channel: typing.Literal["stable", "develop"]):
+    latest_version = release.get_latest_version(channel)
+    return [latest_version, release.get_release(channel, latest_version)]
 
 
 IS_DEV_MODE = False
