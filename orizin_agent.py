@@ -625,11 +625,11 @@ def set_intelligent_timer(query: str) -> str:
     query = re.sub(r"フン|プン|minute", "分", query)
     query = re.sub(r"ビョウ|second", "秒", query)
     query = query.replace("半", "30")
-    if '時間' in query:
+    if "時間" in query:
         hours = int(re.search(r'\d*', re.search(r'\d*時間', query).group()).group())
-    if '分' in query:
+    if "分" in query:
         minutes = int(re.search(r'\d*', re.search(r'\d*分', query).group()).group())
-    if '秒' in query:
+    if "秒" in query:
         seconds = int(re.search(r'\d*', re.search(r'\d*秒', query).group()).group())
     time = ""
     if hours:

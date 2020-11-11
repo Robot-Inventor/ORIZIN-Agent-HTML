@@ -253,15 +253,15 @@
             let is_finished = false;
 
             function update_time(time) {
-                document.querySelector("#time div").innerHTML = time;
-                if(time.match("0+:0+:0+")) {
+                document.querySelector("#time div").textContent = time;
+                if (time.match("0+:0+:0+")) {
                     document.querySelector("#time div").classList.add("blink");
                     is_finished = true;
                 }
             }
 
             function timer_status() {
-                if(is_stopped) {
+                if (is_stopped) {
                     return "stopped"
                 } else {
                     return "started"
@@ -288,7 +288,7 @@
                 hour = settings.h;
                 minute = settings.m;
                 second = settings.s;
-                if(hour + minute + second != 0) {
+                if (hour + minute + second != 0) {
                     update_time(hour + ":" + minute + ":" + second);
                     document.getElementById("time_setting_outer").style.top = "-100vh";
                     document.getElementById("hour").value = hour;
@@ -298,10 +298,10 @@
             });
 
             function reset() {
-                if(!is_first_start) {
+                if (!is_first_start) {
                     is_reseted = true;
                 }
-                if(is_finished) {
+                if (is_finished) {
                     is_reseted = false;
                     is_finished = false;
                 }
@@ -313,32 +313,20 @@
 
             function display_stopped_timer() {
                 document.querySelector("#time div").classList.add("blink");
-                document.getElementById("start").innerHTML = "スタート";
-                document.getElementById("circle").onclick = function() {
-                    display_started_timer();
-                }
-                document.getElementById("start").onclick = function() {
-                    display_started_timer();
-                }
-                document.getElementById("time").onclick = function() {
-                    display_started_timer();
-                }
+                document.getElementById("start").textContent = "スタート";
+                document.getElementById("circle").addEventListener("click", display_started_timer);
+                document.getElementById("start").addEventListener("click", display_started_timer);
+                document.getElementById("time").addEventListener("click", display_started_timer);
                 is_stopped = true;
             }
 
             function display_started_timer() {
                 document.querySelector("#time div").classList.remove("blink");
-                document.getElementById("start").innerHTML = "ストップ";
-                document.getElementById("circle").onclick = function() {
-                    display_stopped_timer();
-                }
-                document.getElementById("start").onclick = function() {
-                    display_stopped_timer();
-                }
-                document.getElementById("time").onclick = function() {
-                    display_stopped_timer();
-                }
-                if(is_first_start) {
+                document.getElementById("start").textContent = "ストップ";
+                document.getElementById("circle").addEventListener("click", display_stopped_timer);
+                document.getElementById("start").addEventListener("click", display_stopped_timer);
+                document.getElementById("time").addEventListener("click", display_stopped_timer);
+                if (is_first_start) {
                     const sound = new Audio("");
                     sound.play();
                     eel.timer(hour, minute, second);
@@ -351,7 +339,7 @@
                 const sound = new Audio("../sound/timer.mp3");
                 sound.play();
                 sound.addEventListener("ended", function() {
-                    if(is_stopped === false) {
+                    if (is_stopped === false) {
                         sound.currentTime = 0;
                         sound.play();
                     } else {

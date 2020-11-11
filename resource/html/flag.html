@@ -127,52 +127,42 @@
                 document.getElementById(flag_name).checked = flag_value;
             }
 
-            read_flag("add_readable_text_setting");
-            read_flag("fast_start");
-            read_flag("get_news_from_google_news");
-            read_flag("use_fast_response_mode");
-            read_flag("show_feedback_button");
-            read_flag("show_setting_search_box");
-            read_flag("enable_update_checker");
+            document.querySelectorAll("div.fill_panel section toggle-switch").forEach((element) => {
+                read_flag(element.id);
 
-            document.querySelectorAll("toggle-switch").forEach((element) => {
                 element.addEventListener("change", function() {
                     eel.set_flag(event.target.id, event.target.checked);
                 });
             });
 
             const search_box = document.getElementById("search_box");
+
             function search_setting() {
                 const query = search_box.value;
                 let has_visible_element = false;
-                if(query) {
-                    document.getElementById("clear_search").style.display = "inline-block";
-                } else {
-                    document.getElementById("clear_search").style.display = "none";
-                }
+
+                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
+
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    if(element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1) {
-                        element.style.display = "none";
-                    } else {
-                        element.style.display = element.dataset.defaultDisplay;
-                    }
+                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
                 });
             }
+
             document.querySelectorAll("div.fill_panel section").forEach((element) => {
                 element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
             });
+
             search_box.addEventListener("input", function() {
                 search_setting();
             });
+
             document.getElementById("clear_search").addEventListener("click", function() {
-                if(search_box.value) {
-                    search_box.value = "";
-                }
+                search_box.value = "";
                 search_setting();
             });
 
             async function show_search_area() {
-                if(await eel.read_flag("show_setting_search_box")()) {
+                if (await eel.read_flag("show_setting_search_box")()) {
                     document.getElementById("search_area").style.display = "block";
                 }
             }

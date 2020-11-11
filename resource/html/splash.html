@@ -150,12 +150,7 @@
 
             async function move_to_top_page() {
                 const is_finished_setup = await eel.read_setting("setup_finished")();
-                let place = "";
-                if (is_finished_setup == "False") {
-                    place = "setup.html";
-                } else {
-                    place = "index.html";
-                }
+                const place = is_finished_setup == "False" ? "setup.html" : "index.html";
                 eel.print_log_if_dev_mode("Move to next page.", {"IsFinishedSetup": is_finished_setup, "Page": place});
                 location.replace(place);
             }

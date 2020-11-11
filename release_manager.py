@@ -7,6 +7,7 @@ import typing
 def get_content(string: str, tag_name: str) -> str:
     pattern = re.compile(f"<{tag_name}(| type=\".*?\")>.*?</{tag_name}>", re.MULTILINE | re.DOTALL)
     result = re.search(pattern, string)
+
     if(result):
         return re.sub(f"(<(|/){tag_name}(| type=\".*?\")>)", "", result.group())
     else:

@@ -115,7 +115,7 @@
 
             function get_textbox_value(name) {
                 const element = document.querySelector(`input[type=text][name="${name}"]`);
-                if(element.value) {
+                if (element.value) {
                     return element.value;
                 } else {
                     return ""
@@ -127,14 +127,15 @@
                 dummy_send_target.style.display = "none";
                 dummy_send_target.name = "dummy_send_target";
                 document.getElementById("feedback").appendChild(dummy_send_target);
+
                 const form_iframe = document.createElement("iframe");
                 form_iframe.src = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfxjq1neTulfxxCG1TlGGj_lYn-R1Wo7ciPwPyM3cNwTYuZ7A/formResponse?entry.1463225208=${get_radio_value("entry.1463225208")}&entry.166666813=${get_textbox_value("entry.166666813")}&entry.99636056=${get_textbox_value("entry.99636056")}&submit=Submit`);
                 form_iframe.style.display = "none";
+
                 form_iframe.addEventListener("load", function() {
-                    form_iframe.remove();
                     document.getElementById("feedback").remove();
-                    dummy_send_target.remove();
                     document.getElementById("words_of_thanks").style.display = "block";
+
                     window.removeEventListener("beforeunload", ask_changing_page, false);
                 });
                 document.getElementById("feedback").appendChild(form_iframe);

@@ -260,10 +260,12 @@
                 body_element.style.transition = "7.5s";
                 body_element.style.transform = "rotate(3600deg) scale(0.01)";
                 body_element.style.opacity = "0";
+
                 setTimeout(() => {
                     body_element.style.transition = "0s";
                     body_element.style.transform = "translateY(-100%)";
                 }, 7500);
+
                 setTimeout(() => {
                     body_element.style.transition = "2s";
                     body_element.style.transform = "none";
@@ -274,11 +276,13 @@
             function start_speak(content, will_keep_speaking_after_this_function=false, allow_continuous_speech_recognition=true) {
                 is_doing_speech_synthesis = true;
                 disable_recognition_button();
+
                 const script = new SpeechSynthesisUtterance(content);
                 script.pitch = pitch;
                 script.rate = speed;
                 script.volume = volume;
                 speechSynthesis.speak(script);
+
                 script.onend = function() {
                     if (!will_keep_speaking_after_this_function) {
                         is_doing_speech_synthesis = false;
@@ -300,9 +304,10 @@
                 }
                 if (is_youtube) {
                     class_names.push("video");
-                    content = '<iframe src="https://www.youtube.com/embed/' + content + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                    content = `<iframe src="https://www.youtube.com/embed/${content}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 }
-                document.getElementById("chat_area").insertAdjacentHTML("beforeend", "<div class='chat_outer " + class_names.join(" ") + "'><div class='chat'>" + content + "</div></div>");
+
+                document.getElementById("chat_area").insertAdjacentHTML("beforeend", `<div class="chat_outer ${class_names.join(" ")}"><div class="chat">${content}</div></div>`);
                 const chat_area_element = document.getElementById("chat_area");
                 chat_area_element.scrollTop = chat_area_element.scrollHeight;
             }
@@ -327,6 +332,7 @@
                     "language-not-supported": "サポートされていない言語です。",
                     "bad-grammar": "内部処理の文法にエラーがありました。"
                 };
+
                 if (error_str === "aborted") {
                     if (auto_recognition_abort) {
                         auto_recognition_abort = false;
@@ -356,8 +362,10 @@
 
             async function response(content) {
                 document.body.style.cursor = "progress";
+
                 query_history.unshift(content);
                 add_chat(content, true);
+
                 const script = await eel.make_response(content)();
                 if (script.length === 3) {
                     start_speak(script[0], false, script[2]);
@@ -365,16 +373,13 @@
                     start_speak(script[0]);
                 }
                 add_chat(script[1], false);
+
                 document.body.style.cursor = "default";
             }
 
             async function read_setting() {
-                continuous_speech_recognition_user_setting = await eel.read_setting("continuous_speech_recognition")();
-                if (continuous_speech_recognition_user_setting == "True") {
-                    continuous_speech_recognition_user_setting = true;
-                } else {
-                    continuous_speech_recognition_user_setting = false;
-                }
+                continuous_speech_recognition_user_setting = (await eel.read_setting("continuous_speech_recognition")() == "True");
+
                 pitch = Number(await eel.read_setting("pitch")());
                 speed = Number(await eel.read_setting("speed")());
                 volume = Number(await eel.read_setting("volume")());
@@ -412,21 +417,26 @@
                 response(event.results[0][0].transcript);
                 listening_status(false);
             }
+
             recognition.onaudioend = function() {
                 if (!is_doing_speech_synthesis) {
                     disable_recognition_button();
                     listening_status(false);
                 }
             }
+
             recognition.onnomatch = function() {
                 chat_and_speak("音声を正しく認識できませんでした。もう一度試してみて下さい。");
             }
+
             recognition.onerror = function(event) {
                 recognition_error(event.error);
             }
+
             recognition.onspeechstart = function() {
                 document.getElementById("user_speaking_status").style.opacity = "1"
             }
+
             recognition.onspeechend = function() {
                 document.getElementById("user_speaking_status").style.opacity = "0"
             }
@@ -464,11 +474,8 @@
 
             function change_send_button_status() {
                 const send_button = document.getElementById("startButton");
-                if (document.getElementById("requestForm").value.length && !is_doing_speech_synthesis) {
-                    send_button.disabled = false;
-                } else {
-                    send_button.disabled = true;
-                }
+
+                send_button.disabled = !(document.getElementById("requestForm").value.length && !is_doing_speech_synthesis);
                 if (listening_status()) {
                     auto_recognition_abort = true;
                     click_recognition_button();

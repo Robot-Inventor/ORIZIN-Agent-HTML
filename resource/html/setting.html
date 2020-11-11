@@ -85,7 +85,7 @@
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
-                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect">リリース一覧を開く<i class="material_icon">open_in_new</i></a>
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect">リリースページを開く<i class="material_icon">open_in_new</i></a>
                         <p class="information">
                             <i class="material_icon">info</i>開発版のバージョン番号には「dev」が付いており、正式版には付いていません。開発版では開発中の機能をいち早く試すことができますが、バグが含まれる可能性も高くなります。
                         </p>
@@ -232,11 +232,13 @@
                 const body_element = document.body;
                 body_element.style.transition = "2s";
                 body_element.style.transform = " translateY(150vmax) rotate(45deg)";
+
                 setTimeout(() => {
                     body_element.style.transition = "0s";
                     body_element.style.transform = "scale(1.2)";
                     body_element.style.opacity = "0";
                 }, 2000);
+
                 setTimeout(() => {
                     body_element.style.transition = "2s";
                     body_element.style.transform = "none";
@@ -247,18 +249,9 @@
             const search_box = document.getElementById("search_box");
             function search_setting() {
                 const query = search_box.value;
-                let has_visible_element = false;
-                if(query) {
-                    document.getElementById("clear_search").style.display = "inline-block";
-                } else {
-                    document.getElementById("clear_search").style.display = "none";
-                }
+                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    if(element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1) {
-                        element.style.display = "none";
-                    } else {
-                        element.style.display = element.dataset.defaultDisplay;
-                    }
+                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
                 });
             }
 
@@ -267,18 +260,15 @@
             });
 
             document.getElementById("clear_search").addEventListener("click", function() {
-                if(search_box.value) {
+                if (search_box.value) {
                     search_box.value = "";
                 }
                 search_setting();
             });
 
             function save_setting() {
-                if (event.target.tagName == "TOGGLE-SWITCH") {
-                    eel.write_setting(event.target.id, event.target.checked);
-                } else {
-                    eel.write_setting(event.target.id, event.target.value);
-                }
+                const setting_value = event.target.tagName == "TOGGLE-SWITCH" ? event.target.checked : event.target.value;
+                eel.write_setting(event.target.id, setting_value);
             }
 
             async function generate_theme_menu() {
@@ -314,10 +304,10 @@
                     document.getElementById("readable_text_setting").style.display = "block";
                 }
 
-                if(await eel.read_flag("show_setting_search_box")()) {
+                if (await eel.read_flag("show_setting_search_box")()) {
                     document.getElementById("search_area").style.display = "block";
                 }
-                if(await eel.read_flag("enable_update_checker")()) {
+                if (await eel.read_flag("enable_update_checker")()) {
                     document.getElementById("check_update").style.display = "block";
                 }
 
@@ -334,38 +324,41 @@
                 script.rate = Number(await eel.read_setting("speed")());
                 script.volume = Number(await eel.read_setting("volume")());
                 speechSynthesis.speak(script);
-                eel.print_log_if_dev_mode("Sound test.", {"Pitch": script.pitch, "Speed": script.rate, "Volume": script.volume});
+
+                eel.print_log_if_dev_mode("Sound test.", {
+                    "Pitch": script.pitch, "Speed": script.rate, "Volume": script.volume
+                });
             }
 
             function save_sound_setting(setting_name) {
-                document.getElementById(setting_name + "_value").innerHTML = document.getElementById(setting_name).value;
+                document.getElementById(setting_name + "_value").textContent = document.getElementById(setting_name).value;
                 save_setting();
             }
 
             function compare_and_return_latest_version_num(version1, version2) {
-                if(version1 === version2) {
+                if (version1 === version2) {
                     return version1;
                 } else {
                     let v1_array = version1.split(".");
-                    for(let i = 0; i < v1_array.lengh; i++) {
+                    for (let i = 0; i < v1_array.lengh; i++) {
                         v1_array[i] = parseInt(v1_array[i]);
                     }
                     let v2_array = version2.split(".");
-                    for(let i = 0; i < v2_array.lengh; i++) {
+                    for (let i = 0; i < v2_array.lengh; i++) {
                         v2_array[i] = parseInt(v2_array[i]);
                     }
 
-                    if(v1_array[0] < v2_array[0]) {
+                    if (v1_array[0] < v2_array[0]) {
                         return version2;
-                    } else if(v1_array[0] > v2_array[0]) {
+                    } else if (v1_array[0] > v2_array[0]) {
                         return version1;
                     } else {
-                        if(v1_array[1] < v2_array[1]) {
+                        if (v1_array[1] < v2_array[1]) {
                             return version2;
-                        } else if(v1_array[1] > v2_array[1]) {
+                        } else if (v1_array[1] > v2_array[1]) {
                             return version1;
                         } else {
-                            if(v1_array[2] < v2_array[2]) {
+                            if (v1_array[2] < v2_array[2]) {
                                 return version2;
                             } else {
                                 return version1;
@@ -376,23 +369,15 @@
             }
 
             document.getElementById("check_update").addEventListener("click", async function() {
-                let release_data;
+                document.getElementById("update_detail").innerHTML = "アップデートを確認中です...";
                 const response = await fetch("../information.txt");
                 const information_data = await response.text();
-                const version_information = information_data.match(/Version:.*/)[0];
-                if(version_information.indexOf("dev") === -1) {
-                    release_data = await eel.get_release("stable")();
-                } else {
-                    release_data = await eel.get_release("develop")();
-                }
+                const version_information = information_data.match(/Version:.*/)[0].replace("Version:", "");
+                const release_data = version_information.indexOf("dev") === -1 ? await eel.get_release("stable")() : await eel.get_release("develop")();
 
-                let update_detail;
-                if(compare_and_return_latest_version_num(version_information.replace("Version:", ""), release_data[0]) === version_information.replace("Version:", "")) {
-                    update_detail = "利用可能なアップデートはありません。最新のバージョンを使用中です。";
-                } else {
-                    update_detail = `<h1>${release_data[0]}</h1>` + release_data[1];
-                }
-                document.getElementById("update_detail").innerHTML = update_detail;
+                const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
+                const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}`;
+                document.getElementById("update_detail").innerHTML = update_detail + "<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>";
             });
         </script>
     </body>

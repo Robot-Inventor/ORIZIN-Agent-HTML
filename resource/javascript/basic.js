@@ -9,8 +9,6 @@ async function readable_text_setting() {
     }
 }
 
-// $("header").load("basic.html");
-
 async function load_header() {
     const response = await fetch("basic.html");
     const data = await response.text();
@@ -27,6 +25,20 @@ async function load_header() {
         },
         easing: "linear"
     });
+}
+
+async function load_file(file_path, target_element) {
+    const fetch_response = await fetch(file_path);
+    const response_content = await fetch_response.text();
+    const target_type = Object.prototype.toString.call(target_element);
+    switch (target_type) {
+        case "[object HTMLPreElement]":
+            target_element.innerHTML = response_content;
+            break;
+        case "[object String]":
+            document.querySelector(target_element).innerHTML = response_content;
+            break;
+    }
 }
 
 $(function() {
