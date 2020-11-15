@@ -376,8 +376,8 @@
                 const release_data = version_information.indexOf("dev") === -1 ? await eel.get_release("stable")() : await eel.get_release("develop")();
 
                 const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
-                const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}`;
-                document.getElementById("update_detail").innerHTML = update_detail + "<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>";
+                const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
+                document.getElementById("update_detail").innerHTML = update_detail;
             });
         </script>
     </body>
