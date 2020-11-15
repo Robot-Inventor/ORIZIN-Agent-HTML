@@ -475,7 +475,7 @@
             function change_send_button_status() {
                 const send_button = document.getElementById("startButton");
 
-                send_button.disabled = !(document.getElementById("requestForm").value.length && !is_doing_speech_synthesis);
+                send_button.disabled = !(document.getElementById("requestForm").value && !is_doing_speech_synthesis);
                 if (listening_status()) {
                     auto_recognition_abort = true;
                     click_recognition_button();
