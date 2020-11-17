@@ -46,6 +46,7 @@ Edition: ORIZIN Agent HTML
 #### 修正
 
 - 一部のtypoを修正しました。
+- リファクタリングを行いました。
 
 ### [v4.1.129.2dev-Duck] - 2020-11-15
 
