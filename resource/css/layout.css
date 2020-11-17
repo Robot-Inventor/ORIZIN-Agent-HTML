@@ -96,7 +96,7 @@
 }
 
 html, body {
-    font-family: "League Spartan", "Yu Gothic UI", sans-selif;
+    font-family: "League Spartan", "Yu Gothic UI", sans-serif;
     position: relative;
     width: 100vw;
     min-height: 100vh;
@@ -299,7 +299,7 @@ a {
     display: inline-block;
     padding: 0.3em 1em;
     color: var(--theme_color);
-    border: solid 2px var(--theme_color);
+    border: none;
     border-radius: var(--border_radius_size);
     text-decoration: none;
     margin: 10px 10px 10px 0px;
@@ -308,7 +308,12 @@ a {
     cursor: pointer;
 }
 
-.button:hover, button:hover {
+.button.stroke, button.stroke {
+    border: solid 2px var(--theme_color);
+}
+
+.button.fill, button.fill,
+.button.hover:hover, button.hover:hover {
     background: var(--theme_color);
     color: var(--text_color);
 }
