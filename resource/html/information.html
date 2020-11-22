@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Expires" content="86400">
+        <link rel="stylesheet" type="text/css" href="../css/layout.css">
+        <link rel="shortcut icon" href="../image/favicon.ico">
+        <meta name="theme-color" content="#FF6A00">
+        <title>ORIZIN Agent HTML</title>
+        <meta name="description" content="オープンソースのAIアシスタント「ORIZIN Agent HTML」です。">
+    </head>
+    <body>
+        <main>
+            <div id="left_section">
+                <img src="../image/logo_icon_only.svg" alt="logo">
+                <img src="../image/logo_text_only.svg" alt="orizin agent" id="logo_text">
+                <img src="../image/logo_slogan_only.svg" alt="Always, with you. Your open partner" id="slogan">
+            </div>
+            <div id="right_section">
+                <p id="information_area">情報を取得中...</p>
+                <p id="update_status">更新を確認中...</p>
+                <p>
+                    ORIZIN Agent HTMLは<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/blob/main/LICENSE.txt" target="_blank" rel="noopener noreferrer">MITライセンス</a>の下で<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML" target="_blank" rel="noopener noreferrer">GitHub</a>で公開されている日本語での会話を主な目的としたオープンソースのAIアシスタントです。
+                </p>
+                <p>
+                    <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/blob/main/resource/privacy_policy.txt" target="_blank" rel="noopener noreferrer" class="ripple_effect">プライバシーポリシー</a> | <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/graphs/contributors" target="_blank" rel="noopener noreferrer" class="ripple_effect">コントリビューター</a>
+                </p>
+            </div>
+        </main>
+        <style>
+            body {
+                background: #222222;
+            }
+
+            main {
+                height: 100vh;
+            }
+
+            div#left_section {
+                width: 40vw;
+                height: auto;
+                padding: 0;
+                margin: 0;
+                position: fixed;
+                top: 50vh;
+                left: 5vw;
+                transform: translateY(-50%);
+            }
+
+            div#right_section {
+                width: 45vw;
+                height: auto;
+                padding: 0;
+                margin: 0;
+                position: fixed;
+                top: 50vh;
+                right: 5vw;
+                transform: translateY(-50%);
+            }
+
+            img#logo_text {
+                margin-top: 1.5rem;
+            }
+
+            img#slogan {
+                width: 80%;
+                height: auto;
+            }
+
+            p {
+                color: #c1c1c1;
+                letter-spacing: 0.05rem;
+                margin: 0 0 0.5rem 0;
+            }
+
+            i.material_icon {
+                margin-left: 0;
+            }
+
+            a.ripple_effect {
+                padding: 0.1rem 0.2rem;
+                border-radius: 0.25rem;
+                display: inline-block;
+                vertical-align: text-top;
+            }
+        </style>
+        <script src="/eel.js"></script>
+        <script src="../javascript/orizin_ui.min.js"></script>
+        <script>
+            new Ripple(".ripple_effect");
+
+            function compare_and_return_latest_version_num(version1, version2) {
+                if (version1 === version2) {
+                    return version1;
+                } else {
+                    let v1_array = version1.split(".");
+                    for (let i = 0; i < v1_array.length; i++) {
+                        v1_array[i] = parseInt(v1_array[i]);
+                    }
+                    let v2_array = version2.split(".");
+                    for (let i = 0; i < v2_array.length; i++) {
+                        v2_array[i] = parseInt(v2_array[i]);
+                    }
+
+                    if (v1_array[0] < v2_array[0]) {
+                        return version2;
+                    } else if (v1_array[0] > v2_array[0]) {
+                        return version1;
+                    } else {
+                        if (v1_array[1] < v2_array[1]) {
+                            return version2;
+                        } else if (v1_array[1] > v2_array[1]) {
+                            return version1;
+                        } else {
+                            if (v1_array[2] < v2_array[2]) {
+                                return version2;
+                            } else {
+                                return version1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            async function load_information() {
+                const fetch_response = await fetch("../information.txt");
+                const information_content = await fetch_response.text();
+
+                document.getElementById("information_area").innerHTML = information_content.replace(/\n/g, "<br>");
+
+                const version_information = information_content.match(/Version:.*/)[0].replace("Version:", "");
+                const release_data = version_information.indexOf("dev") === -1 ? await eel.get_release("stable")() : await eel.get_release("develop")();
+                const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
+
+                document.getElementById("update_status").innerHTML = version_information === latest_version ? "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。" : `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`
+            }
+            load_information();
+        </script>
+    </body>
+</html>
