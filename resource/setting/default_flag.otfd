@@ -1,4 +1,5 @@
 ﻿add_readable_text_setting:False
+enable_improved_custom_theme_editor:False
 enable_update_checker:False
 fast_start:False
 get_news_from_google_news:False

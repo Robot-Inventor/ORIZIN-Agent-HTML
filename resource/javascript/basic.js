@@ -85,3 +85,70 @@ async function feed_buck_setting() {
         document.getElementById("feedback_button").style.display = "block";
     }
 }
+
+class ModalWindow {
+    constructor() {
+        const modal_style = document.createElement("style");
+        modal_style.textContent = `
+#modal_window_outer {
+    background: var(--card_bg);
+    color: var(--text);
+    font-size: 1rem;
+    font-family: "Yu Gothic UI", sans-serif;
+    padding: 1rem;
+    min-width: 50vmin;
+    max-width: 50vmax;
+    max-height: 50vh;
+    border-radius: 0.5rem;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.8);
+    display: none;
+    overflow-y: scroll;
+    transition: 0s;
+}
+
+#modal_window_overlay {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    display: none;
+    transition: 0s;
+}
+        `;
+        document.body.appendChild(modal_style);
+    }
+
+    show_modal(content="", z_index=2) {
+        this.close_modal();
+        document.body.insertAdjacentHTML("beforeend", "<div id='modal_window_overlay'></div><div id='modal_window_outer'><p id='modal_window_inner'></p></div>");
+        document.getElementById("modal_window_inner").innerHTML = content;
+        const overlay = document.getElementById("modal_window_overlay");
+        overlay.style.zIndex = z_index;
+        overlay.style.display = "block";
+        const modal = document.getElementById("modal_window_outer");
+        modal.style.zIndex = z_index;
+        modal.style.display = "block";
+        document.getElementById("modal_window_overlay").addEventListener("click", () => {
+            this.close_modal();
+        });
+    }
+
+    close_modal() {
+        const outer = document.getElementById("modal_window_outer");
+        if(outer) {
+            outer.remove();
+        }
+        const overlay = document.getElementById("modal_window_overlay");
+        if(overlay) {
+            overlay.remove();
+        }
+    }
+}

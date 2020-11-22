@@ -32,7 +32,7 @@
                         <select id="theme" onchange="eel.change_theme(document.getElementById('theme').value);">
                             <!-- ここの中身はJavaScriptで動的に生成 -->
                         </select>
-                        <a href="set_custom_css_theme.html" class="ripple_effect"><i class="material_icon">edit</i>カスタムテーマの編集</a>
+                        <a href="set_custom_css_theme.html" class="ripple_effect" id="edit_theme"><i class="material_icon">edit</i>カスタムテーマの編集</a>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
@@ -309,6 +309,10 @@
                 }
                 if (await eel.read_flag("enable_update_checker")()) {
                     document.getElementById("check_update").style.display = "block";
+                }
+
+                if (await eel.read_flag("enable_improved_custom_theme_editor")()) {
+                    document.getElementById("edit_theme").href = "improved_set_custom_css_theme.html";
                 }
 
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
