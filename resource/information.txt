@@ -1,5 +1,5 @@
 Series Name:ORIZIN Agent
 Edition:ORIZIN Agent HTML
-Version:v4.1.132.5dev
+Version:v4.1.132.5
 Code Name:Duck
 Date:2020-11-23 JST
