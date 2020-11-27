@@ -10,7 +10,8 @@ def get_chat_id(yt_url):
     print("video_id: ", video_id)
 
     url = "https://www.googleapis.com/youtube/v3/videos?"
-    parameters = {"key": YT_API_KEY, "id": video_id, "part": "liveStreamingDetails"}
+    parameters = {"key": YT_API_KEY, "id": video_id,
+                  "part": "liveStreamingDetails"}
     data = urllib.request.urlopen(url + urllib.parse.urlencode(parameters))
     data = json.loads(data.read().decode(encoding="utf-8"))
 
@@ -27,7 +28,8 @@ def get_chat_id(yt_url):
 
 def get_chat(chat_id, page_token):
     url = "https://www.googleapis.com/youtube/v3/liveChat/messages?"
-    parameters = {"key": YT_API_KEY, "liveChatId": chat_id, "part": "id,snippet,authorDetails"}
+    parameters = {"key": YT_API_KEY, "liveChatId": chat_id,
+                  "part": "id,snippet,authorDetails"}
     if type(page_token) == str:
         parameters["pageToken"] = page_token
 

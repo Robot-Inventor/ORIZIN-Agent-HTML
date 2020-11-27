@@ -1,19 +1,19 @@
 /* オート(OSやブラウザの設定に従います)(グレー・オレンジ) */
 
 :root {
-    --bg: #FAFAFA;
-    --card_bg: #FFFFFF;
+    --bg: #fafafa;
+    --card_bg: #ffffff;
     --text: rgba(0, 0, 0, 0.7);
     --shadow: rgba(0, 0, 0, 0.26);
-    --theme_color: #F86806;
+    --theme_color: #f86806;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --bg: #333333;
         --card_bg: #444444;
-        --text: #FFFFFF;
+        --text: #ffffff;
         --shadow: rgba(0, 0, 0, 0.26);
-        --theme_color: #F86806;
+        --theme_color: #f86806;
     }
 }

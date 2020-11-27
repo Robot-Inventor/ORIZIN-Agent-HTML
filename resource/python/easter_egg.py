@@ -86,7 +86,8 @@ def start_game(event) -> None:
 
 def move_ship(x: int, y: int) -> None:
     game_canvas.delete('ship')
-    game_canvas.create_rectangle(x, y, x + SHIP_WIDTH, y + SHIP_HEIGHT, fill=SHIP_COLOR, tag='ship')
+    game_canvas.create_rectangle(
+        x, y, x + SHIP_WIDTH, y + SHIP_HEIGHT, fill=SHIP_COLOR, tag='ship')
     return
 
 
@@ -193,7 +194,8 @@ def beam_control() -> None:
                 rival_beam_y + BEAM_LENGTH + AMOUNT_OF_BEAM_MOVEMENT,
                 fill=BEAM_COLOR, tag=rival_beam_id
             )
-            rival_beam[rival_beam_id] = [rival_beam_x, rival_beam_y + AMOUNT_OF_BEAM_MOVEMENT]
+            rival_beam[rival_beam_id] = [rival_beam_x,
+                                         rival_beam_y + AMOUNT_OF_BEAM_MOVEMENT]
             if is_god_mode:
                 while ship_y >= rival_beam_y >= ship_y - SHIP_HEIGHT and \
                         ship_x <= rival_beam_x <= ship_x + SHIP_WIDTH:
@@ -222,10 +224,12 @@ def beam_control() -> None:
                 game_clear_message.place(x=0, y=0, relwidth=1, relheight=1)
                 game_over = True
                 is_started = False
-        x = random.randrange(DISTANCE_BETWEEN_BEAMS, WINDOW_WIDTH, DISTANCE_BETWEEN_BEAMS)
+        x = random.randrange(DISTANCE_BETWEEN_BEAMS,
+                             WINDOW_WIDTH, DISTANCE_BETWEEN_BEAMS)
         if x == WINDOW_WIDTH:
             x -= 2
-        game_canvas.create_line(x, 0, x, BEAM_LENGTH, fill=BEAM_COLOR, tag=f"rival_beam{rival_beam_counter}")
+        game_canvas.create_line(
+            x, 0, x, BEAM_LENGTH, fill=BEAM_COLOR, tag=f"rival_beam{rival_beam_counter}")
         rival_beam[f"rival_beam{rival_beam_counter}"] = [x, 0]
         rival_beam_counter += 1
         root.after(beam_speed, beam_control)

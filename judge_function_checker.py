@@ -10,12 +10,14 @@ if __name__ == "__main__":
             continue
         print(f"{file} を検証中...", end="")
         with open(file, mode="r", encoding="utf-8_sig") as f:
-            content = re.sub(" *", "", f.read().replace("\n", "").replace(' "', '"').replace(" [", "["))
+            content = re.sub(" *", "", f.read().replace("\n",
+                                                        "").replace(' "', '"').replace(" [", "["))
         pattern = re.compile(r"judge\(.*?\)", re.MULTILINE | re.DOTALL)
         functions = re.findall(pattern, content)
         for target in functions:
             if target.replace("judge(_query,", "") != normalize(target.replace("judge(_query,", "")):
-                result.append(f'\033[31m{file}　内の{target}に正規化によって無効になる文字が含まれています。\033[0m')
+                result.append(
+                    f'\033[31m{file}　内の{target}に正規化によって無効になる文字が含まれています。\033[0m')
         print("完了")
     print("すべてのファイルの検証が完了しました。")
     if result:

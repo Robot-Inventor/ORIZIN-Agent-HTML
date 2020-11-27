@@ -11,27 +11,27 @@
 }
 
 @font-face {
-    font-family: 'Material Icons';
+    font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
     src: url("../font/MaterialIcons-Regular.ttf") format("truetype");
 }
 
 .material_icon {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  transform: translateY(0.15em);
-  margin: 0 0.4em;
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateY(0.15em);
+    margin: 0 0.4em;
 }
 
 * {
@@ -95,7 +95,8 @@
     color: red;
 }
 
-html, body {
+html,
+body {
     font-family: "League Spartan", "Yu Gothic UI", sans-serif;
     position: relative;
     width: 100vw;
@@ -142,7 +143,7 @@ main {
     color: white;
     cursor: pointer;
     font-size: 5vh;
-    font-variation-settings: 'wght' 450;
+    font-variation-settings: "wght" 450;
     display: inline-block;
     transform: translateY(-2vh);
 }
@@ -241,7 +242,8 @@ pre {
     white-space: pre-wrap;
 }
 
-#waiting, #listening {
+#waiting,
+#listening {
     width: calc(100% - 4vh);
     height: 38vh;
     position: absolute;
@@ -295,7 +297,8 @@ a {
     text-decoration: none;
 }
 
-.button, button {
+.button,
+button {
     display: inline-block;
     padding: 0.3em 1em;
     color: var(--theme_color);
@@ -308,12 +311,15 @@ a {
     cursor: pointer;
 }
 
-.button.stroke, button.stroke {
+.button.stroke,
+button.stroke {
     border: solid 2px var(--theme_color);
 }
 
-.button.fill, button.fill,
-.button.hover:hover, button.hover:hover {
+.button.fill,
+button.fill,
+.button.hover:hover,
+button.hover:hover {
     background: var(--theme_color);
     color: var(--text_color);
 }
@@ -332,7 +338,7 @@ li {
     overflow: visible;
 }
 
-input[type=text] {
+input[type="text"] {
     border: none;
     border-bottom: solid 0.1em var(--text);
     display: block;
@@ -342,11 +348,11 @@ input[type=text] {
     transition: 0.3s;
 }
 
-input[type=text]::placeholder {
+input[type="text"]::placeholder {
     transition: 0.3s;
 }
 
-input[type=text]:focus::placeholder {
+input[type="text"]:focus::placeholder {
     color: var(--theme_color);
 }
 
@@ -384,7 +390,7 @@ toggle-switch[checked]::part(foundation) {
     background: var(--theme_color);
 }
 
-input+label {
+input + label {
     cursor: pointer;
 }
 
@@ -462,7 +468,8 @@ progress[value]::-webkit-progress-value {
     background: var(--theme_color);
 }
 
-select, select option {
+select,
+select option {
     background: var(--card_bg);
     color: var(--text);
     cursor: pointer;
@@ -484,7 +491,7 @@ details summary {
     cursor: pointer;
 }
 
-input[type=range] {
+input[type="range"] {
     -webkit-appearance: none;
     cursor: pointer;
     background: var(--text);
@@ -494,7 +501,7 @@ input[type=range] {
     overflow: visible;
 }
 
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: var(--theme_color);
     width: 1rem;

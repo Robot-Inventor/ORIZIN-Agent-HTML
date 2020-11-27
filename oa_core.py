@@ -38,12 +38,14 @@ def normalize_with_dictionary(file_path: str, sentence: str) -> str:
     root.parse()
     result = sentence
     for element in root.get_index_list():
-        result = re.sub(element.replace("/", "|"), root.get_value(element), sentence)
+        result = re.sub(element.replace("/", "|"),
+                        root.get_value(element), sentence)
     return result
 
 
 def convert_kanji_to_int(string: str) -> str:
-    result = string.translate(str.maketrans("零〇一壱二弐三参四五六七八九拾", "00112233456789十", ""))
+    result = string.translate(str.maketrans(
+        "零〇一壱二弐三参四五六七八九拾", "00112233456789十", ""))
     convert_table = {
         "十": "0", "百": "00", "千": "000", "万": "0000", "億": "00000000", "兆": "000000000000", "京": "0000000000000000"
     }
@@ -57,7 +59,8 @@ def convert_kanji_to_int(string: str) -> str:
             for number in re.findall(r"(\d+)" + unit, result):
                 result = result.replace(number + unit, number + zeros)
             for number in re.findall(unit + r"(\d+)", result):
-                result = result.replace(unit + number, "1" + zeros[len(number):len(zeros)] + number)
+                result = result.replace(
+                    unit + number, "1" + zeros[len(number):len(zeros)] + number)
             result = result.replace(unit, "1" + zeros)
     return result
 
@@ -116,7 +119,8 @@ def respond(dictionary: dict, query: str) -> list[str]:
     most_similar_value = 0
     for index in index_list:
         splited_index = root.unescape(list(index.split("/")))
-        similarity = max([intelligent_match(string, query) for string in splited_index])
+        similarity = max([intelligent_match(string, query)
+                          for string in splited_index])
         if similarity >= most_similar_value:
             most_similar_value = similarity
             most_similar_word = index
@@ -130,7 +134,8 @@ def respond(dictionary: dict, query: str) -> list[str]:
     if os.path.exists("resource/dictionary/unknownQuestions.txt") is False:
         pathlib.Path("resource/dictionary/unknownQuestions.txt").touch()
     if most_similar_value >= 0.75:
-        response = root.unescape(list(root.get_value(most_similar_word, unescape=False).split("/")))
+        response = root.unescape(
+            list(root.get_value(most_similar_word, unescape=False).split("/")))
     else:
         response = ["そうですか。"]
     add_unknown_question(query, response)
@@ -226,8 +231,10 @@ def solve_setting_conflict(default_setting_file_path: str, current_setting_file_
         current_setting.parse()
         current_index_list = current_setting.get_index_list()
         need_to_add = list(set(default_index_list) - set(current_index_list))
-        current_setting.update({index: default_setting.get_value(index) for index in need_to_add})
-        need_to_delete = list(set(current_index_list) - set(default_index_list))
+        current_setting.update(
+            {index: default_setting.get_value(index) for index in need_to_add})
+        need_to_delete = list(set(current_index_list) -
+                              set(default_index_list))
         for index in need_to_delete:
             current_setting.pop(index)
         default_setting.sorted()
@@ -294,7 +301,8 @@ def show_info(message: str) -> None:
 
 
 def get_google_news(number_of_items: int = 3) -> list[dict[str, str]]:
-    root = ET.fromstring(urllib.request.urlopen("https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
+    root = ET.fromstring(urllib.request.urlopen(
+        "https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja").read().decode())
     items = root.iter("item")
     result = []
     for num in range(number_of_items):
@@ -308,7 +316,8 @@ def get_google_news(number_of_items: int = 3) -> list[dict[str, str]]:
 
 def print_log(function_name: str, description: str, log_content: OrderedDict):
     print()
-    print(function_name + "=" * (shutil.get_terminal_size().columns - len(function_name)))
+    print(function_name + "=" *
+          (shutil.get_terminal_size().columns - len(function_name)))
     print()
     print(description)
     print()

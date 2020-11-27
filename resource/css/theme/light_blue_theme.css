@@ -1,9 +1,9 @@
 /* ライトテーマ(ブルー) */
 
 :root {
-    --bg: #EEEEEE;
-    --card_bg: #FFFFFF;
+    --bg: #eeeeee;
+    --card_bg: #ffffff;
     --text: rgba(0, 0, 0, 0.7);
     --shadow: rgba(0, 0, 0, 0.26);
-    --theme_color: #359FD3;
+    --theme_color: #359fd3;
 }

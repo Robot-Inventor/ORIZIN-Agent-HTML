@@ -39,12 +39,15 @@ def check(file_path: str) -> None:
             index.pop(-1)
             for index3 in index:
                 if index2 in index3 and index2 != "":
-                    errors.append(f"{file_path}　の「{index2}」は「{index3}」に含まれています。")
-    indexes = list(itertools.chain.from_iterable([index.split("/") for index in root.get_index_list()]))
+                    errors.append(
+                        f"{file_path}　の「{index2}」は「{index3}」に含まれています。")
+    indexes = list(itertools.chain.from_iterable(
+        [index.split("/") for index in root.get_index_list()]))
     for index in indexes[:]:
         indexes.remove(index)
         if index != normalize(index):
-            errors.append(f"{file_path}　の「{index}」は正規化によって「{normalize(index)}」になるため無効です。")
+            errors.append(
+                f"{file_path}　の「{index}」は正規化によって「{normalize(index)}」になるため無効です。")
         if index in indexes:
             errors.append(f"{file_path}　の「{index}」が重複しています。")
         for index2 in indexes:
@@ -66,7 +69,8 @@ if __name__ == "__main__":
     with open("dictionary_checker_words_setting.txt", mode="r", encoding="utf-8_sig") as f:
         words_setting = f.read().splitlines()
         different_words = [word.split("!=") for word in words_setting]
-    file_list = [file.replace("\\", "/") for file in glob.glob("resource/dictionary/**/*.otfd", recursive=True)]
+    file_list = [file.replace(
+        "\\", "/") for file in glob.glob("resource/dictionary/**/*.otfd", recursive=True)]
     file_list = [file for file in file_list if file not in ignore_file_list]
     with Pool() as p:
         p.map(check, file_list)
