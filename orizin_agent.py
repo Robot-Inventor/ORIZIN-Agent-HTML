@@ -675,11 +675,6 @@ def make_response(not_normalized_query: str) -> list[typing.Union[str, bool]]:
         print_log_if_dev_mode_template()
         return response
 
-    elif core.judge(query, ["blackouttuesday", "ブラックアウトチューズデー", "blacklivesmatter", "ブラックリブズマター", "blm"]):
-        eel.blm()
-        response = ["人種差別に反対します。", "人種差別に反対します。"]
-        print_log_if_dev_mode_template()
-        return response
     else:
         if read_flag("use_fast_response_mode"):
             response = core.respond_fast(dictionary, query)

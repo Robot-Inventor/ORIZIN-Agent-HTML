@@ -72,7 +72,7 @@
                         <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="save_sound_setting('pitch')"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
                         <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="save_sound_setting('speed')"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
                         <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="save_sound_setting('volume')"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
-                        <button onclick="sound_test()" class="ripple_effect stroke hover"><i class="material_icon">hearing</i>テスト</button>
+                        <button onclick="sound_test()" class="ripple_effect stroke"><i class="material_icon">hearing</i>テスト</button>
                     </details>
                 </section>
                 <section title="Pythonのインタープリターを設定します。">
@@ -85,21 +85,21 @@
                 <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
-                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect">リリースページを開く<i class="material_icon">open_in_new</i></a>
                         <p class="information">
                             <i class="material_icon">info</i>開発版のバージョン番号には「dev」が付いており、正式版には付いていません。開発版では開発中の機能をいち早く試すことができますが、バグが含まれる可能性も高くなります。
                         </p>
-                        <button id="check_update" class="ripple_effect stroke hover">アップデートを確認</button>
+                        <button id="check_update" class="ripple_effect fill">アップデートを確認</button>
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect button">リリースページを開く<i class="material_icon">open_in_new</i></a>
                         <p id="update_detail"></p>
                     </details>
                 </section>
                 <section title="試験機能の有効・無効を設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
-                        <a href="flag.html" class="ripple_effect">試験機能を設定<i class="material_icon">arrow_forward</i></a>
+                        <a href="flag.html" class="ripple_effect">試験機能の設定<i class="material_icon">arrow_forward</i></a>
                     </details>
                 </section>
-                <span id="reset_setting_button" onclick="eel.reset_setting(); location.reload();" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <span id="reset_setting_button" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
             <style>
                 #search_area {
@@ -222,7 +222,6 @@
                 }
             </style>
         </main>
-        <script src="../javascript/jquery-3.5.1.min.js"></script>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/konami.js"></script>
@@ -308,7 +307,7 @@
                     document.getElementById("search_area").style.display = "block";
                 }
                 if (await eel.read_flag("enable_update_checker")()) {
-                    document.getElementById("check_update").style.display = "block";
+                    document.getElementById("check_update").style.display = "inline-block";
                 }
 
                 if (await eel.read_flag("enable_improved_custom_theme_editor")()) {
@@ -382,6 +381,17 @@
                 const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
                 const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
                 document.getElementById("update_detail").innerHTML = update_detail;
+            });
+
+            const modal = new ModalWindow();
+
+            document.getElementById("reset_setting_button").addEventListener("click", () => {
+                modal.show_modal(`
+設定をすべてデフォルトに戻します。よろしいですか。
+<menu>
+    <button id="do_reset_button" class="fill shadow" onclick="eel.reset_setting(); location.reload();">はい</button><button id="cancel_reset_button" onclick="modal.close_modal();">キャンセル</button>
+</menu>
+                `);
             });
         </script>
     </body>

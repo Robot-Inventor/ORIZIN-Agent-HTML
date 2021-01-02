@@ -232,7 +232,6 @@
                 </form>
             </div>
         </main>
-        <script src="../javascript/jquery-3.5.1.min.js"></script>
         <script src="../javascript/fitty.min.js"></script>
         <script src="/eel.js"></script>
         <script>
@@ -278,7 +277,7 @@
                 update_time(hour + ":" + minute + ":" + second);
             }
 
-            $(function() {
+            window.addEventListener("load", () => {
                 let settings = new Object;
                 const pair = location.search.substring(1).split("&");
                 for (var i = 0; pair[i]; i++) {

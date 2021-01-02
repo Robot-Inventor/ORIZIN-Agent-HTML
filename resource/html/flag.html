@@ -19,56 +19,63 @@
                 <div id="search_area">
                     <i class="material-icons" id="search_icon">search</i><underlined-textbox id="search_box" placeholder="設定項目を検索"></underlined-textbox><span class="ripple_effect"><i class="material-icons" id="clear_search">clear</i></span>
                 </div>
-                <section class="warning"><i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。自己責任で有効にしてください。</section>
-                <section>
-                    <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<toggle-switch id="add_readable_text_setting"></toggle-switch>
-                    <p class="information">
-                        設定ページにテキストを読みやすくするための項目を追加します。
-                    </p>
+                <section class="warning">
+                    <i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。<span id="continue_question">本当に設定を変更しますか。</span>
+                    <menu id="continue_check_menu">
+                        <button id="continue_button" class="fill shadow ripple_effect">はい</button><button id="back_button" class="ripple_effect">いいえ（戻る）</button>
+                    </menu>
                 </section>
-                <section>
-                    <i class="material_icon">power_settings_new</i>高速起動を有効にする　<toggle-switch id="fast_start"></toggle-switch>
-                    <p class="information">
-                        スプラッシュスクリーンをスキップし，高速起動します。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">rss_feed</i>Google News RSSを使用する　<toggle-switch id="get_news_from_google_news"></toggle-switch>
-                    <p class="information">
-                        ユーザーがニュースを要求した際，GoogleニュースのWEBページを開くのではなくGoogle News RSSを使用してインターネットからニュースを自動で取得します。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">two_wheeler</i>高速モードを有効にする　<toggle-switch id="use_fast_response_mode"></toggle-switch>
-                    <p class="information">
-                        高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり，適切な応答が見つからなかったことを示す「そうですか。」という応答が返される頻度が高くなります。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">feedback</i>フィードバックボタンを表示する　<toggle-switch id="show_feedback_button"></toggle-switch>
-                    <p class="information">
-                        メニュー内にフィードバックボタンを表示し，必要に応じてフィードバックを送信できるようになります。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">search</i>設定の検索を有効にする　<toggle-switch id="show_setting_search_box"></toggle-switch>
-                    <p class="information">
-                        設定ページと試験機能ページに設定の検索ボックスを追加します。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<toggle-switch id="enable_update_checker"></toggle-switch>
-                    <p class="information">
-                        設定ページの「アップデートを確認」セクションにアップデートチェッカーボタンを表示します。
-                    </p>
-                </section>
-                <section>
-                    <i class="material_icon">edit</i>改善されたカスタムテーマの編集ページを使用する　<toggle-switch id="enable_improved_custom_theme_editor"></toggle-switch>
-                    <p class="information">
-                        設定ページのテーマセクションで「カスタムテーマの編集」を押した際に改善されたページを表示します。
-                    </p>
-                </section>
-                <span id="refresh_button" onclick="eel.reset_flag(); location.reload();" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <div id="section_outer">
+                    <section>
+                        <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<toggle-switch id="add_readable_text_setting"></toggle-switch>
+                        <p class="information">
+                            設定ページにテキストを読みやすくするための項目を追加します。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">power_settings_new</i>高速起動を有効にする　<toggle-switch id="fast_start"></toggle-switch>
+                        <p class="information">
+                            スプラッシュスクリーンをスキップし，高速起動します。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">rss_feed</i>Google News RSSを使用する　<toggle-switch id="get_news_from_google_news"></toggle-switch>
+                        <p class="information">
+                            ユーザーがニュースを要求した際，GoogleニュースのWEBページを開くのではなくGoogle News RSSを使用してインターネットからニュースを自動で取得します。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">two_wheeler</i>高速モードを有効にする　<toggle-switch id="use_fast_response_mode"></toggle-switch>
+                        <p class="information">
+                            高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり，適切な応答が見つからなかったことを示す「そうですか。」という応答が返される頻度が高くなります。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">feedback</i>フィードバックボタンを表示する　<toggle-switch id="show_feedback_button"></toggle-switch>
+                        <p class="information">
+                            メニュー内にフィードバックボタンを表示し，必要に応じてフィードバックを送信できるようになります。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">search</i>設定の検索を有効にする　<toggle-switch id="show_setting_search_box"></toggle-switch>
+                        <p class="information">
+                            設定ページと試験機能ページに設定の検索ボックスを追加します。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<toggle-switch id="enable_update_checker"></toggle-switch>
+                        <p class="information">
+                            設定ページの「アップデートを確認」セクションにアップデートチェッカーボタンを表示します。
+                        </p>
+                    </section>
+                    <section>
+                        <i class="material_icon">edit</i>改善されたカスタムテーマの編集ページを使用する　<toggle-switch id="enable_improved_custom_theme_editor"></toggle-switch>
+                        <p class="information">
+                            設定ページのテーマセクションで「カスタムテーマの編集」を押した際に改善されたページを表示します。
+                        </p>
+                    </section>
+                </div>
+                <span id="refresh_button" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
             </div>
         </main>
         <style>
@@ -100,6 +107,10 @@
                 margin-left: 0.5rem;
             }
 
+            #section_outer {
+                display: none;
+            }
+
             section {
                 border-bottom: solid 0.05em var(--text);
                 padding: 1em;
@@ -123,11 +134,11 @@
                 padding-left: 1.5rem;
             }
         </style>
-        <script src="../javascript/jquery-3.5.1.min.js"></script>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="/eel.js"></script>
         <script>
+            const modal = new ModalWindow();
             async function read_flag(flag_name) {
                 const flag_value = await eel.read_flag(flag_name)();
                 document.getElementById(flag_name).checked = flag_value;
@@ -139,6 +150,26 @@
                 element.addEventListener("change", function() {
                     eel.set_flag(event.target.id, event.target.checked);
                 });
+            });
+
+            document.getElementById("continue_button").addEventListener("click", function() {
+                document.getElementById("section_outer").style.display = "block";
+                document.getElementById("continue_check_menu").style.display = "none";
+                document.getElementById("continue_question").style.display = "none";
+            });
+
+            document.getElementById("back_button").addEventListener("click", function() {
+                window.history.back(-1);
+                return false;
+            });
+
+            document.getElementById("refresh_button").addEventListener("click", () => {
+                modal.show_modal(`
+試験機能の設定をすべてデフォルトに戻します。よろしいですか。
+<menu>
+    <button id="do_reset_button" class="fill shadow" onclick="eel.reset_flag(); location.reload();">はい</button><button id="cancel_reset_button" onclick="modal.close_modal();">キャンセル</button>
+</menu>
+                `);
             });
 
             const search_box = document.getElementById("search_box");

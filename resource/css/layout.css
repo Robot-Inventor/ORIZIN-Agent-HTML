@@ -1,9 +1,5 @@
 ﻿@import url("theme/auto_theme.css");
 
-:root {
-    --border_radius_size: 0.5rem;
-}
-
 @font-face {
     font-family: "League Spartan";
     src: url("../font/LeagueSpartanVariable.woff2") format("woff2-variations");
@@ -119,7 +115,7 @@ header {
     min-height: 6vh;
     margin: 0;
     padding: 0;
-    box-shadow: 0 2px 5px var(--shadow);
+    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
 }
 
 main {
@@ -156,16 +152,11 @@ main {
     width: calc(100vw - 8vh);
     height: 82vh;
     background: var(--card_bg);
-    border-radius: var(--border_radius_size);
-    box-shadow: 0 2px 5px var(--shadow);
+    border-radius: 0.5rem;
+    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
     margin: 2vh;
     padding: 2vh;
     transition: 0.3s;
-}
-
-.fill_panel:hover {
-    background: var(--card_bg);
-    box-shadow: 2px 5px 5px var(--shadow);
 }
 
 #side_menu_bar_overlay {
@@ -317,20 +308,29 @@ a {
 .button,
 button {
     display: inline-block;
-    padding: 0.3em 1em;
+    font-size: 1rem;
     color: var(--theme_color);
     border: none;
-    border-radius: var(--border_radius_size);
+    border-radius: 0.25rem;
     text-decoration: none;
-    margin: 10px 10px 10px 0px;
+    margin: 0.5rem;
     background: transparent;
     transition: 0.3s;
     cursor: pointer;
 }
 
+.button.shadow,
+button.shadow {
+    backdrop-filter: brightness(2);
+    box-shadow: 0 0.2rem 0.06rem -0.1rem var(--shadow), 0 0.1rem 0.1rem 0 var(--shadow),
+        0 0.06rem 0.3rem 0 var(--shadow);
+    padding: 0.5em 1em !important;
+}
+
 .button.stroke,
 button.stroke {
-    border: solid 2px var(--theme_color);
+    border: solid 0.075rem var(--theme_color);
+    padding: 0.25em 1em !important;
 }
 
 .button.fill,
@@ -338,7 +338,8 @@ button.fill,
 .button.hover:hover,
 button.hover:hover {
     background: var(--theme_color);
-    color: var(--text_color);
+    padding: 0.25em 1em !important;
+    color: white;
 }
 
 .pre {
@@ -411,6 +412,11 @@ input + label {
     cursor: pointer;
 }
 
+menu {
+    padding: 0;
+    margin-bottom: 0;
+}
+
 .overlay_outer {
     width: 100vw;
     height: 100vh;
@@ -420,8 +426,8 @@ input + label {
 }
 
 .overlay_inner {
-    border-radius: var(--border_radius_size);
-    box-shadow: 0 2px 5px var(--shadow);
+    border-radius: 0.5rem;
+    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
     padding: 2vh;
     background: var(--card_bg);
     width: 50vw;
