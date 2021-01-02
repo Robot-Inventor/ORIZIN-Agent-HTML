@@ -176,7 +176,14 @@ main {
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     display: none;
+    opacity: 0;
     z-index: 2;
+    transition: 0.3s;
+}
+
+#side_menu_bar_overlay.visible {
+    display: block;
+    opacity: 1;
 }
 
 #side_menu_bar {
@@ -194,6 +201,11 @@ main {
     transition: 0.3s;
 }
 
+#side_menu_bar.open {
+    transform: none;
+    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
+}
+
 #side_menu_bar a {
     color: var(--text);
 }
@@ -204,12 +216,14 @@ main {
     padding: 2rem 1rem;
     height: auto;
     transition: 0.3s;
+    cursor: pointer;
 }
 
-#side_menu_bar div:hover {
+#side_menu_bar div:not(#copyright_in_menu):hover {
     background: var(--card_bg);
     color: var(--theme_color);
     padding-left: 1.5rem;
+    filter: brightness(1.3);
 }
 
 #side_menu_bar hr {
@@ -226,12 +240,6 @@ main {
     left: 0;
     opacity: 0.5;
     cursor: default;
-}
-
-#side_menu_bar #copyright_in_menu:hover {
-    background: none;
-    color: var(--text);
-    padding-left: 1rem;
 }
 
 .logo {
@@ -271,6 +279,10 @@ pre {
     transition: 0.3s;
 }
 
+#menu_open_button.open {
+    transform: rotate(180deg);
+}
+
 #menu_close_button {
     border: none;
     color: var(--text);
@@ -278,6 +290,11 @@ pre {
     margin: 2vh 0 2vh 0;
     padding: 0;
     transition: 0.3s;
+    transform: rotate(0deg);
+}
+
+#menu_close_button.open {
+    transform: rotate(180deg);
 }
 
 #menu_close_button:hover {
@@ -485,10 +502,7 @@ details {
 details summary {
     cursor: pointer;
     transform: translate(-1.5rem) !important;
-}
-
-#side_menu_bar div {
-    cursor: pointer;
+    transition: 0.3s;
 }
 
 input[type="range"] {

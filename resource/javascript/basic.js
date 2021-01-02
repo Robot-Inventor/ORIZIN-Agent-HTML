@@ -41,35 +41,25 @@ async function load_file(file_path, target_element) {
     }
 }
 
-$(function() {
-    load_header();
-    eel.print_log_if_dev_mode("Page header loaded.", {"Status": "OK"});
-    readable_text_setting();
-    feed_buck_setting();
-    eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
-});
-
-const TRANSITION_TIME = 300;
-
 function open_menu() {
-    document.getElementById("menu_open_button").style.transform = "rotate(180deg)";
+    document.getElementById("menu_open_button").classList.add("open");
     setTimeout(() => {
-        $("#side_menu_bar_overlay").fadeIn(TRANSITION_TIME);
-        document.getElementById("side_menu_bar").style.transform = "none";
+        document.getElementById("side_menu_bar_overlay").classList.add("visible");
+        document.getElementById("side_menu_bar").classList.add("open");
     }, 50);
     setTimeout(() => {
-        document.getElementById("menu_close_button").style.transform = "rotate(180deg)";
+        document.getElementById("menu_close_button").classList.add("open");
     }, 100);
 }
 
 function close_menu() {
-    document.getElementById("menu_close_button").style.transform = "rotate(0deg)";
+    document.getElementById("menu_close_button").classList.remove("open");
     setTimeout(() => {
-        $("#side_menu_bar_overlay").fadeOut(TRANSITION_TIME);
-        document.getElementById("side_menu_bar").style.transform = "translate(-100%)";
+        document.getElementById("side_menu_bar_overlay").classList.remove("visible");
+        document.getElementById("side_menu_bar").classList.remove("open");
     }, 50);
     setTimeout(() => {
-        document.getElementById("menu_open_button").style.transform = "rotate(0deg)";
+        document.getElementById("menu_open_button").classList.remove("open");
     }, 100);
 }
 
@@ -77,7 +67,7 @@ async function move_page(place) {
     close_menu();
     setTimeout(() => {
         location.href = place;
-    }, TRANSITION_TIME);
+    }, 300);
 }
 
 async function feed_buck_setting() {
@@ -152,3 +142,11 @@ class ModalWindow {
         }
     }
 }
+
+window.addEventListener("load", () => {
+    load_header();
+    eel.print_log_if_dev_mode("Page header loaded.", {"Status": "OK"});
+    readable_text_setting();
+    feed_buck_setting();
+    eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
+});
