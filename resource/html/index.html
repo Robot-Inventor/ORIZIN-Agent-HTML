@@ -358,6 +358,47 @@
                 volume = Number(await eel.read_setting("volume")());
             }
 
+            function listening_status(status=false) {
+                if (arguments[0] !== undefined) {
+                    if (status) {
+                        document.getElementById("listening_message").style.opacity = 1;
+                        document.getElementById("start_recognition").classList.add("listening");
+                        is_listening = true;
+                    } else {
+                        document.getElementById("listening_message").style.opacity = 0;
+                        document.getElementById("start_recognition").classList.remove("listening");
+                        is_listening = false;
+                    }
+                    return is_listening;
+                } else {
+                    return is_listening;
+                }
+            }
+
+            function start_recognition() {
+                recognition_error_happened = false;
+                if (!is_doing_speech_synthesis) {
+                    is_requested_by_text = false;
+                    if (listening_status()) {
+                        recognition.abort();
+                        listening_status(false);
+                    } else if (document.getElementById("requestForm") != document.activeElement) {
+                        recognition.start();
+                        listening_status(true);
+                    }
+                }
+            }
+
+            function change_send_button_status() {
+                const send_button = document.getElementById("startButton");
+
+                send_button.disabled = !(document.getElementById("requestForm").value && !is_doing_speech_synthesis);
+                if (listening_status()) {
+                    auto_recognition_abort = true;
+                    click_recognition_button();
+                }
+            }
+
             let pitch = 1;
             let speed = 1;
             let volume = 1;
@@ -412,47 +453,6 @@
 
             recognition.onspeechend = function() {
                 document.getElementById("user_speaking_status").style.opacity = "0"
-            }
-
-            function listening_status(status=false) {
-                if (arguments[0] !== undefined) {
-                    if (status) {
-                        document.getElementById("listening_message").style.opacity = 1;
-                        document.getElementById("start_recognition").classList.add("listening");
-                        is_listening = true;
-                    } else {
-                        document.getElementById("listening_message").style.opacity = 0;
-                        document.getElementById("start_recognition").classList.remove("listening");
-                        is_listening = false;
-                    }
-                    return is_listening;
-                } else {
-                    return is_listening;
-                }
-            }
-
-            function start_recognition() {
-                recognition_error_happened = false;
-                if (!is_doing_speech_synthesis) {
-                    is_requested_by_text = false;
-                    if (listening_status()) {
-                        recognition.abort();
-                        listening_status(false);
-                    } else if (document.getElementById("requestForm") != document.activeElement) {
-                        recognition.start();
-                        listening_status(true);
-                    }
-                }
-            }
-
-            function change_send_button_status() {
-                const send_button = document.getElementById("startButton");
-
-                send_button.disabled = !(document.getElementById("requestForm").value && !is_doing_speech_synthesis);
-                if (listening_status()) {
-                    auto_recognition_abort = true;
-                    click_recognition_button();
-                }
             }
 
             document.addEventListener("keydown", function() {

@@ -139,9 +139,29 @@
         <script src="/eel.js"></script>
         <script>
             const modal = new ModalWindow();
+
+            const search_box = document.getElementById("search_box");
+
             async function read_flag(flag_name) {
                 const flag_value = await eel.read_flag(flag_name)();
                 document.getElementById(flag_name).checked = flag_value;
+            }
+
+            function search_setting() {
+                const query = search_box.value;
+                let has_visible_element = false;
+
+                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
+
+                document.querySelectorAll("div.fill_panel section").forEach((element) => {
+                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
+                });
+            }
+
+            async function show_search_area() {
+                if (await eel.read_flag("show_setting_search_box")()) {
+                    document.getElementById("search_area").style.display = "block";
+                }
             }
 
             document.querySelectorAll("div.fill_panel section toggle-switch").forEach((element) => {
@@ -172,19 +192,6 @@
                 `);
             });
 
-            const search_box = document.getElementById("search_box");
-
-            function search_setting() {
-                const query = search_box.value;
-                let has_visible_element = false;
-
-                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
-
-                document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
-                });
-            }
-
             document.querySelectorAll("div.fill_panel section").forEach((element) => {
                 element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
             });
@@ -198,11 +205,6 @@
                 search_setting();
             });
 
-            async function show_search_area() {
-                if (await eel.read_flag("show_setting_search_box")()) {
-                    document.getElementById("search_area").style.display = "block";
-                }
-            }
             show_search_area();
         </script>
     </body>

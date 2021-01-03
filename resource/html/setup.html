@@ -223,8 +223,6 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 }
             }
 
-            generate_theme_menu();
-
             async function set_to_current_setting() {
                 document.getElementById("theme").value = await eel.read_setting("theme")();
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
@@ -232,8 +230,6 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
                 document.getElementById("python_interpreter").value = await eel.read_setting("python_interpreter")();
             }
-
-            set_to_current_setting();
 
             function save_setting() {
                 eel.write_setting("setup_finished", "True");
@@ -246,6 +242,10 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
 
                 location.href = "index.html"
             }
+
+            generate_theme_menu();
+
+            set_to_current_setting();
         </script>
     </body>
 </html>

@@ -121,6 +121,13 @@
                 }
             }
 
+            function ask_changing_page(event) {
+                event.preventDefault();
+                event.returnValue = "";
+            }
+
+            window.addEventListener("beforeunload", ask_changing_page);
+
             document.getElementById("feedback").addEventListener("submit", function() {
                 const dummy_send_target = document.createElement("iframe");
                 dummy_send_target.style.display = "none";
@@ -139,13 +146,6 @@
                 });
                 document.getElementById("feedback").appendChild(form_iframe);
             });
-
-            function ask_changing_page(event) {
-                event.preventDefault();
-                event.returnValue = "";
-            }
-
-            window.addEventListener("beforeunload", ask_changing_page);
         </script>
     </body>
 </html>
