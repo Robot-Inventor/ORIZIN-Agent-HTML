@@ -17,6 +17,7 @@
             <div class="fill_panel">
                 <h2>ORIZIN Agentについて</h2>
                 <pre id="information"></pre>
+                <button class="shadow ripple_effect" id="copy_information_button">コピー</button>
                 <h3><i class="material_icon">info</i>ORIZIN Agentとは</h3>
                 ORIZIN Agentは，MITライセンスの下に公開されているオープンソースの会話を目的としたルールベースのAIアシスタントです。Robot-Inventorによって開発されました。詳しくは、<a href="https://robot-inventor.github.io/ORIZIN_Agent/" target="_blank">ORIZIN Agent公式サイト<i class="material_icon">open_in_new</i></a>を御覧ください。
                 <h3><i class="material_icon">help</i>情報を表示</h3>
@@ -57,11 +58,23 @@ SOFTWARE.
         <script src="/eel.js"></script>
         <script>
             load_file("../information.txt", "#information");
+
             document.getElementById("open_splash_screen_button").addEventListener("click", function() {
                 const screen_width = screen.availWidth;
                 const screen_height = screen.availHeight;
                 const window_option = `top=${screen_height / 4}, left=${screen_width / 4}, width=${screen_width / 2}, height=${screen_height / 2}`;
                 window.open("information.html", "_blank", window_option);
+            });
+
+            const notifier = new Notification();
+
+            document.getElementById("copy_information_button").addEventListener("click", () => {
+                navigator.clipboard.writeText(document.getElementById("information").textContent);
+                notifier.notify({
+                    message: "クリップボードにコピーしました。",
+                    auto_close_time: 3000,
+                    type: "normal",
+                });
             });
         </script>
     </body>
