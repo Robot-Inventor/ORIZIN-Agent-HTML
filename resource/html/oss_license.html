@@ -19,7 +19,7 @@
                     <h2>オープンソースソフトウェアライセンス</h2>
                     本ソフトウェア（ORIZIN Agent HTML）では，以下のオープンソースソフトウェア（OSS）を使用しています。各項目をクリックするとライセンスが表示されます。
                 </section>
-                <section>
+                <section id="license_section">
                     <details>
                         <summary class="ripple_effect">epic-spinners v1.1.0</summary>
                         <pre>
@@ -503,5 +503,11 @@ SOFTWARE.
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="/eel.js"></script>
+        <script>
+            async function insert_license() {
+                document.getElementById("license_section").insertAdjacentHTML("beforeend", await eel.generate_node_license_report()());
+            }
+            insert_license();
+        </script>
     </body>
 </html>

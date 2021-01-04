@@ -1,0 +1,22 @@
+{
+  "name": "orizin-agent-html",
+  "version": "4.2.0",
+  "description": "An open source AI assistant.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robot-Inventor/ORIZIN-Agent-HTML"
+  },
+  "author": "Robot-Inventor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues"
+  },
+  "homepage": "https://github.com/Robot-Inventor/ORIZIN-Agent-HTML#readme",
+  "dependencies": {
+    "@material/mwc-button": "^0.20.0"
+  }
+}

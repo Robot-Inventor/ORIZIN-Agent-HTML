@@ -22,6 +22,7 @@ import argparse
 from collections import OrderedDict
 import inspect
 import glob
+import generate_node_license_report as node_license_report
 
 
 @eel.expose
@@ -784,6 +785,11 @@ def open_dictionary():
 def get_release(channel: typing.Literal["stable", "develop"]):
     latest_version = release.get_latest_version(channel)
     return [latest_version, release.get_release(channel, latest_version)]
+
+
+@eel.expose
+def generate_node_license_report():
+    return node_license_report.generate()
 
 
 IS_DEV_MODE = False
