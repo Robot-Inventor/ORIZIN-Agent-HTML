@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/Robot-Inventor/ORIZIN-Agent-HTML#readme",
   "dependencies": {
-    "@material/mwc-button": "^0.20.0"
+    "@material/mwc-button": "^0.20.0",
+    "@material/mwc-dialog": "^0.20.0",
+    "@material/mwc-icon-button": "^0.20.0",
+    "@material/mwc-snackbar": "^0.20.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
   }
 }

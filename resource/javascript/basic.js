@@ -41,6 +41,12 @@ async function load_file(file_path, target_element) {
     }
 }
 
+async function feed_buck_setting() {
+    if(await eel.read_flag("show_feedback_button")()) {
+        document.getElementById("feedback_button").style.display = "block";
+    }
+}
+
 function open_menu() {
     document.getElementById("menu_open_button").classList.add("open");
     setTimeout(() => {
@@ -68,12 +74,6 @@ async function move_page(place) {
     setTimeout(() => {
         location.href = place;
     }, 300);
-}
-
-async function feed_buck_setting() {
-    if(await eel.read_flag("show_feedback_button")()) {
-        document.getElementById("feedback_button").style.display = "block";
-    }
 }
 
 class ModalWindow {

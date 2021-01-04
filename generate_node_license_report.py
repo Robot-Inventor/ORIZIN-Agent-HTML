@@ -5,7 +5,7 @@ import re
 
 
 LICENSE_ALLOW_LIST = ["MIT", "ISC", "BSD-3-Clause", "0BSD",
-                      "Apache-2.0", "(MIT OR Apache-2.0)", "BSD-2-Clause"]
+                      "Apache-2.0", "(MIT OR Apache-2.0)", "BSD-2-Clause", "CC-BY-4.0"]
 
 
 def generate():
@@ -79,7 +79,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 "^git\+", "", package_data["repository"]["url"])
             package_repository_url = re.sub(
                 r"git://github\.com/(.*?)\.git", r"https://github.com/\1", package_repository_url)
-            package_repository_link_button = f'<a href="{package_repository_url}" target="_blank" rel="noopener noreferrer" class="ripple_effect button shadow">リポジトリーを開く<i class="material_icon">open_in_new</i></a>'
+            package_repository_link_button = f'<a href="{package_repository_url}" target="_blank" rel="noopener noreferrer"><mwc-button label="リポジトリーを開く" icon="open_in_new" trailingIcon></mwc-button></a>'
 
         package_dictionary[package_name] = f"""<details>
                         <summary class="ripple_effect">{package_name} {package_version}</summary>

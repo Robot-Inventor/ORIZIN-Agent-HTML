@@ -17,11 +17,11 @@
             <div class="fill_panel">
                 <h2>ORIZIN Agentについて</h2>
                 <pre id="information"></pre>
-                <button class="shadow ripple_effect" id="copy_information_button">コピー</button>
+                <mwc-button unelevated label="コピー" icon="content_copy" id="copy_information_button"></mwc-button>
                 <h3><i class="material_icon">info</i>ORIZIN Agentとは</h3>
                 ORIZIN Agentは，MITライセンスの下に公開されているオープンソースの会話を目的としたルールベースのAIアシスタントです。Robot-Inventorによって開発されました。詳しくは、<a href="https://robot-inventor.github.io/ORIZIN_Agent/" target="_blank">ORIZIN Agent公式サイト<i class="material_icon">open_in_new</i></a>を御覧ください。
                 <h3><i class="material_icon">help</i>情報を表示</h3>
-                ORIZIN Agent HTMLに関する情報が書かれたウィンドウを開きます。<button class="ripple_effect" id="open_splash_screen_button">開く</button>
+                ORIZIN Agent HTMLに関する情報が書かれたウィンドウを開きます。<mwc-button label="開く" id="open_splash_screen_button"></mwc-button>
                 <h3><i class="material_icon">assignment</i>ライセンス</h3>
                 <pre>
 MIT License
@@ -46,6 +46,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
                 </pre>
+                <mwc-snackbar id="copied_message_snackbar" labelText="クリップボードにコピーしました。">
+                    <mwc-icon-button icon="close" slot="dismiss"></mwc-icon-button>
+                </mwc-snackbar>
             </div>
         </main>
         <style>
@@ -55,6 +58,7 @@ SOFTWARE.
         </style>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/bundle.js"></script>
         <script src="/eel.js"></script>
         <script>
             load_file("../information.txt", "#information");
@@ -66,15 +70,9 @@ SOFTWARE.
                 window.open("information.html", "_blank", window_option);
             });
 
-            const notifier = new Notification();
-
             document.getElementById("copy_information_button").addEventListener("click", () => {
                 navigator.clipboard.writeText(document.getElementById("information").textContent);
-                notifier.notify({
-                    message: "クリップボードにコピーしました。",
-                    auto_close_time: 3000,
-                    type: "normal",
-                });
+                document.getElementById("copied_message_snackbar").show();
             });
         </script>
     </body>

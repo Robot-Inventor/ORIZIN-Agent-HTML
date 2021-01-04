@@ -22,7 +22,7 @@
                 <section class="warning">
                     <i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。<span id="continue_question">本当に設定を変更しますか。</span>
                     <menu id="continue_check_menu">
-                        <button id="continue_button" class="fill shadow ripple_effect">はい</button><button id="back_button" class="ripple_effect">いいえ（戻る）</button>
+                        <mwc-button label="はい" id="continue_button" unelevated></mwc-button><mwc-button label="いいえ（戻る）" id="back_button"></mwc-button>
                     </menu>
                 </section>
                 <div id="section_outer">
@@ -75,7 +75,16 @@
                         </p>
                     </section>
                 </div>
-                <span id="refresh_button" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <mwc-button label="すべてデフォルトに戻す" icon="refresh" id="refresh_button"></mwc-button>
+                <mwc-dialog id="reset_check_dialog">
+                    <div>設定をすべてデフォルトに戻します。よろしいですか。</div>
+                    <mwc-button slot="primaryAction" dialogAction="yes">
+                      はい
+                    </mwc-button>
+                    <mwc-button slot="secondaryAction" dialogAction="cancel">
+                      キャンセル
+                    </mwc-button>
+                </mwc-dialog>
             </div>
         </main>
         <style>
@@ -136,6 +145,7 @@
         </style>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/bundle.js"></script>
         <script src="/eel.js"></script>
         <script>
             const modal = new ModalWindow();
@@ -184,12 +194,14 @@
             });
 
             document.getElementById("refresh_button").addEventListener("click", () => {
-                modal.show_modal(`
-試験機能の設定をすべてデフォルトに戻します。よろしいですか。
-<menu>
-    <button id="do_reset_button" class="fill shadow" onclick="eel.reset_flag(); location.reload();">はい</button><button id="cancel_reset_button" onclick="modal.close_modal();">キャンセル</button>
-</menu>
-                `);
+                const dialog = document.getElementById("reset_check_dialog");
+                dialog.show();
+                dialog.addEventListener("closed", () => {
+                    if (event.detail.action === "yes") {
+                        eel.reset_flag();
+                        location.reload();
+                    }
+                });
             });
 
             document.querySelectorAll("div.fill_panel section").forEach((element) => {

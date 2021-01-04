@@ -32,7 +32,7 @@
                         <select id="theme" onchange="eel.change_theme(document.getElementById('theme').value);">
                             <!-- ここの中身はJavaScriptで動的に生成 -->
                         </select>
-                        <a href="set_custom_css_theme.html" class="ripple_effect" id="edit_theme"><i class="material_icon">edit</i>カスタムテーマの編集</a>
+                        <a href="set_custom_css_theme.html" id="edit_theme"><mwc-button label="カスタムテーマの編集" icon="edit"></mwc-button></a>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
@@ -57,7 +57,7 @@
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">link</i>ニュースサイトのURL</summary>
                         <underlined-textbox id="news_site_url" placeholder="URLを入力" onchange="save_setting()"></underlined-textbox>
-                       <span id="reset_news_site_url_button" title="デフォルトであるGoogleニュースのURLに戻します。" class="ripple_effect" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)" style="cursor: pointer; margin-left: 2rem;"><i class="material_icon">refresh</i>デフォルトに戻す</span>
+                        <mwc-button label="デフォルトに戻す" icon="refresh" id="reset_news_site_url_button" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)"></mwc-button>
                     </details>
                 </section>
                 <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
@@ -72,7 +72,7 @@
                         <i class="material_icon">height</i>ピッチ　<input type="range" min="0" max="2" step="0.1" id="pitch" oninput="save_sound_setting('pitch')"><span id="pitch_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('pitch').value = document.getElementById('pitch_value').innerHTML = 1; eel.write_setting('pitch', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
                         <i class="material_icon">speed</i>スピード　<input type="range" min="0.1" max="10" step="0.1" id="speed" oninput="save_sound_setting('speed')"><span id="speed_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('speed').value = document.getElementById('speed_value').innerHTML = 1; eel.write_setting('speed', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
                         <i class="material_icon">volume_up</i>ボリューム　<input type="range" min="0" max="1" step="0.1" id="volume" oninput="save_sound_setting('volume')"><span id="volume_value"></span><span title="値をデフォルトに戻します。" onclick="document.getElementById('volume').value = document.getElementById('volume_value').innerHTML = 1; eel.write_setting('volume', 1);" class="reset_sound_setting ripple_effect"><i class="material_icon">refresh</i></span><br>
-                        <button onclick="sound_test()" class="ripple_effect stroke"><i class="material_icon">hearing</i>テスト</button>
+                        <mwc-button outlined label="テスト" icon="hearing" onclick="sound_test()"></mwc-button>
                     </details>
                 </section>
                 <section title="Pythonのインタープリターを設定します。">
@@ -88,18 +88,27 @@
                         <p class="information">
                             <i class="material_icon">info</i>開発版のバージョン番号には「dev」が付いており、正式版には付いていません。開発版では開発中の機能をいち早く試すことができますが、バグが含まれる可能性も高くなります。
                         </p>
-                        <button id="check_update" class="ripple_effect fill">アップデートを確認</button>
-                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener" class="ripple_effect button">リリースページを開く<i class="material_icon">open_in_new</i></a>
+                        <mwc-button unelevated label="アップデートを確認" id="check_update"></mwc-button>
+                        <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases" target="_blank" rel="noreferrer noopener"><mwc-button label="リリースページを開く" icon="open_in_new" trailingIcon></mwc-button></a>
                         <p id="update_detail"></p>
                     </details>
                 </section>
                 <section title="試験機能の有効・無効を設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
-                        <a href="flag.html" class="ripple_effect">試験機能の設定<i class="material_icon">arrow_forward</i></a>
+                        <a href="flag.html"><mwc-button label="試験機能の設定" icon="arrow_forward" trailingIcon></mwc-button></a>
                     </details>
                 </section>
-                <span id="reset_setting_button" class="ripple_effect"><i class="material_icon">refresh</i>すべてデフォルトに戻す</span>
+                <mwc-button label="すべてデフォルトに戻す" icon="refresh" id="reset_setting_button"></mwc-button>
+                <mwc-dialog id="reset_check_dialog">
+                    <div>設定をすべてデフォルトに戻します。よろしいですか。</div>
+                    <mwc-button slot="primaryAction" dialogAction="yes">
+                      はい
+                    </mwc-button>
+                    <mwc-button slot="secondaryAction" dialogAction="cancel">
+                      キャンセル
+                    </mwc-button>
+                </mwc-dialog>
             </div>
             <style>
                 #search_area {
@@ -224,6 +233,7 @@
         </main>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/bundle.js"></script>
         <script src="../javascript/konami.js"></script>
         <script src="/eel.js"></script>
         <script>
@@ -383,15 +393,17 @@
                 document.getElementById("update_detail").innerHTML = update_detail;
             });
 
-            const modal = new ModalWindow();
+            // const modal = new ModalWindow();
 
             document.getElementById("reset_setting_button").addEventListener("click", () => {
-                modal.show_modal(`
-設定をすべてデフォルトに戻します。よろしいですか。
-<menu>
-    <button id="do_reset_button" class="fill shadow" onclick="eel.reset_setting(); location.reload();">はい</button><button id="cancel_reset_button" onclick="modal.close_modal();">キャンセル</button>
-</menu>
-                `);
+                const dialog = document.getElementById("reset_check_dialog");
+                dialog.show();
+                dialog.addEventListener("closed", () => {
+                    if (event.detail.action === "yes") {
+                        eel.reset_setting();
+                        location.reload();
+                    }
+                });
             });
         </script>
     </body>

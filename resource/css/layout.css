@@ -13,6 +13,16 @@
     src: url("../font/MaterialIcons-Regular.ttf") format("truetype");
 }
 
+:root {
+    --mdc-theme-primary: var(--theme_color);
+    --mdc-theme-on-primary: white;
+    --mdc-button-outline-color: var(--theme_color);
+    --mdc-theme-surface: var(--card_bg);
+    --mdc-theme-on-surface: var(--text);
+    --mdc-dialog-heading-ink-color: var(--text);
+    --mdc-dialog-content-ink-color: var(--text);
+}
+
 .material_icon {
     font-family: "Material Icons";
     font-weight: normal;
