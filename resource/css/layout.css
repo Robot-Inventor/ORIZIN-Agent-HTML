@@ -14,6 +14,7 @@
 }
 
 :root {
+    /* Material Web Componentsの設定 */
     --mdc-theme-primary: var(--theme_color);
     --mdc-theme-on-primary: white;
     --mdc-button-outline-color: var(--theme_color);
@@ -21,6 +22,66 @@
     --mdc-theme-on-surface: var(--text);
     --mdc-dialog-heading-ink-color: var(--text);
     --mdc-dialog-content-ink-color: var(--text);
+
+    /* Elevationの各dp時のbox-shadowの設定。Material Components for the webのCSSを元に作成 */
+    /**
+    * @license
+    * Copyright Google LLC All Rights Reserved.
+    *
+    * Use of this source code is governed by an MIT-style license that can be
+    * found in the LICENSE file at https://github.com/material-components/material-components-web/blob/master/LICENSE
+    */
+
+    --mdc-elevation-z0-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z1-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z2-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z3-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z4-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z5-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z6-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z7-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z8-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z9-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z10-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14),
+        0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z11-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14),
+        0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z12-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z13-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14),
+        0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z14-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14),
+        0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z15-shadow: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14),
+        0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z16-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+        0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z17-shadow: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14),
+        0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z18-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14),
+        0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z19-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14),
+        0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z20-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14),
+        0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z21-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14),
+        0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z22-shadow: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14),
+        0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z23-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14),
+        0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+    --mdc-elevation-z24-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+        0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 
 .material_icon {
@@ -125,7 +186,7 @@ header {
     min-height: 6vh;
     margin: 0;
     padding: 0;
-    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
+    box-shadow: var(--mdc-elevation-z4-shadow);
 }
 
 main {
@@ -163,10 +224,10 @@ main {
     height: 82vh;
     background: var(--card_bg);
     border-radius: 0.5rem;
-    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
     margin: 2vh;
     padding: 2vh;
     transition: 0.3s;
+    box-shadow: var(--mdc-elevation-z1-shadow);
 }
 
 #side_menu_bar_overlay {
@@ -188,7 +249,7 @@ main {
 }
 
 #side_menu_bar {
-    background: var(--card_bg);
+    background: var(--bg);
     width: min(20rem, 80vw);
     height: 100vh;
     box-sizing: border-box;
@@ -202,9 +263,22 @@ main {
     transition: 0.3s;
 }
 
+#side_menu_bar::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    background: white;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
 #side_menu_bar.open {
     transform: none;
-    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
+    box-shadow: var(--mdc-elevation-z16-shadow);
 }
 
 #side_menu_bar a {
@@ -221,10 +295,26 @@ main {
 }
 
 #side_menu_bar div:not(#copyright_in_menu):hover {
-    background: var(--card_bg);
     color: var(--theme_color);
     padding-left: 1.5rem;
-    filter: brightness(1.3);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#side_menu_bar div:not(#copyright_in_menu):hover::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--mdc-theme-on-surface);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    opacity: 0.1;
 }
 
 #side_menu_bar hr {
@@ -513,6 +603,24 @@ select option {
 
 details {
     padding-left: 1.5rem !important;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+details:not([open]):hover::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--mdc-theme-on-surface);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    opacity: 0.1;
 }
 
 details summary {
@@ -545,4 +653,114 @@ input[type="range"]::-webkit-slider-thumb {
     font-weight: normal;
     font-size: 0.9em;
     opacity: 0.7;
+}
+
+/* ここからはマテリアルデザインのElevationの設定 */
+
+/**
+* @license
+* Copyright Google LLC All Rights Reserved.
+*
+* Use of this source code is governed by an MIT-style license that can be
+* found in the LICENSE file at https://github.com/material-components/material-components-web/blob/master/LICENSE
+*/
+
+.mdc-elevation--z0 {
+    box-shadow: var(--mdc-elevation-z0-shadow);
+}
+
+.mdc-elevation--z1 {
+    box-shadow: var(--mdc-elevation-z1-shadow);
+}
+
+.mdc-elevation--z2 {
+    box-shadow: var(--mdc-elevation-z2-shadow);
+}
+
+.mdc-elevation--z3 {
+    box-shadow: var(--mdc-elevation-z3-shadow);
+}
+
+.mdc-elevation--z4 {
+    box-shadow: var(--mdc-elevation-z4-shadow);
+}
+
+.mdc-elevation--z5 {
+    box-shadow: var(--mdc-elevation-z5-shadow);
+}
+
+.mdc-elevation--z6 {
+    box-shadow: var(--mdc-elevation-z6-shadow);
+}
+
+.mdc-elevation--z7 {
+    box-shadow: var(--mdc-elevation-z7-shadow);
+}
+
+.mdc-elevation--z8 {
+    box-shadow: var(--mdc-elevation-z8-shadow);
+}
+
+.mdc-elevation--z9 {
+    box-shadow: var(--mdc-elevation-z9-shadow);
+}
+
+.mdc-elevation--z10 {
+    box-shadow: var(--mdc-elevation-z10-shadow);
+}
+
+.mdc-elevation--z11 {
+    box-shadow: var(--mdc-elevation-z11-shadow);
+}
+
+.mdc-elevation--z12 {
+    box-shadow: var(--mdc-elevation-z12-shadow);
+}
+
+.mdc-elevation--z13 {
+    box-shadow: var(--mdc-elevation-z13-shadow);
+}
+
+.mdc-elevation--z14 {
+    box-shadow: var(--mdc-elevation-z14-shadow);
+}
+
+.mdc-elevation--z15 {
+    box-shadow: var(--mdc-elevation-z15-shadow);
+}
+
+.mdc-elevation--z16 {
+    box-shadow: var(--mdc-elevation-z16-shadow);
+}
+
+.mdc-elevation--z17 {
+    box-shadow: var(--mdc-elevation-z17-shadow);
+}
+
+.mdc-elevation--z18 {
+    box-shadow: var(--mdc-elevation-z18-shadow);
+}
+
+.mdc-elevation--z19 {
+    box-shadow: var(--mdc-elevation-z19-shadow);
+}
+
+.mdc-elevation--z20 {
+    box-shadow: var(--mdc-elevation-z20-shadow);
+}
+
+.mdc-elevation--z21 {
+    box-shadow: var(--mdc-elevation-z21-shadow);
+}
+
+.mdc-elevation--z22 {
+    box-shadow: var(--mdc-elevation-z22-shadow);
+}
+
+.mdc-elevation--z23 {
+    box-shadow: var(--mdc-elevation-z23-shadow);
+}
+
+.mdc-elevation--z24 {
+    box-shadow: var(--mdc-elevation-z24-shadow);
 }
