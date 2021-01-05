@@ -45,6 +45,10 @@
                 </div>
             </div>
             <style>
+                :root {
+                    --border_radius_size: 0.25rem;
+                }
+
                 .chat {
                     border-radius: 0rem var(--border_radius_size) var(--border_radius_size) var(--border_radius_size);
                     display: inline-block;
@@ -60,14 +64,34 @@
                     box-sizing: border-box;
                 }
 
-                .chat:not(.user) {
-                    background: var(--bg);
+                .chat_outer:not(.user) .chat {
+                    background: var(--card_bg);
                     color: var(--text);
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    overflow: visible;
+                }
+
+                .chat_outer:not(.user) .chat::before {
+                    content: "";
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: none;
+                    opacity: 0.2;
+                    border: solid 1px var(--text);
+                    border-radius: var(--border_radius_size);
+                    pointer-events: none;
                 }
 
                 .chat_outer {
                     padding-top: 2rem;
                     width: 80%;
+                    overflow: visible;
                 }
 
                 .chat_outer.user {
@@ -114,10 +138,29 @@
                     width: 100%;
                     height: 3rem;
                     border-radius: var(--border_radius_size);
-                    background: var(--bg);
+                    background: var(--card_bg);
                     box-sizing: border-box;
                     vertical-align: center;
                     overflow: hidden;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    overflow: visible;
+                }
+
+                #message_input::before {
+                    content: "";
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: none;
+                    opacity: 0.2;
+                    border: solid 1px var(--text);
+                    border-radius: var(--border_radius_size);
+                    pointer-events: none;
                 }
 
                 #startButton {

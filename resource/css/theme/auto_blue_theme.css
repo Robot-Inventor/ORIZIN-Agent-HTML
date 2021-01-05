@@ -1,7 +1,7 @@
 /* オート(OSやブラウザの設定に従います)(ブルー) */
 
 :root {
-    --bg: #fafafa;
+    --bg: #ffffff;
     --card_bg: #ffffff;
     --text: rgba(0, 0, 0, 0.7);
     --shadow: rgba(0, 0, 0, 0.26);
