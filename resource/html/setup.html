@@ -44,7 +44,7 @@ SOFTWARE.
 </pre>
                     </p>
                     <menu>
-                        <button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button><button onclick="forward_card('licence_card', 'privacy_policy_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button>
+                        <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card('licence_card', 'privacy_policy_card')" icon="check" label="同意する"></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="privacy_policy_card">
@@ -74,7 +74,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
 本ソフトウェアの制作者は，いつでもその意志でこのプライバシーポリシーを変更できるものとします。ただし，変更後のプライバシーポリシーが変更前にダウンロードされた本ソフトウェアに遡って適用されることはありません。
 </pre>
                         <menu>
-                            <button onclick="window.close()" class="ripple_effect"><i class="material_icon">close</i>同意しない</button><button onclick="forward_card('privacy_policy_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">check</i>同意する</button>
+                            <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card('privacy_policy_card', 'ask_continue_card')" icon="check" label="同意する"></mwc-button>
                         </menu>
                     </p>
                 </div>
@@ -84,7 +84,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         これから，ORIZIN Agent HTMLの初期設定を行います。設定はスキップでき，あとから変更することもできます。設定を続行しますか？
                     </p>
                     <menu>
-                        <button onclick="save_setting()" class="ripple_effect"><i class="material_icon">cancel</i>スキップ</button><button onclick="forward_card('ask_continue_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">check</i>続行</button>
+                        <mwc-button onclick="save_setting()" icon="cancel" label="スキップ"></mwc-button><mwc-button onclick="forward_card('ask_continue_card', 'theme_setting_card')" icon="check" label="続行"></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="theme_setting_card">
@@ -97,7 +97,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <button onclick="back_card('theme_setting_card', 'ask_continue_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('theme_setting_card', 'user_name_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <mwc-button onclick="back_card('theme_setting_card', 'ask_continue_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('theme_setting_card', 'user_name_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="user_name_setting_card">
@@ -107,7 +107,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="ユーザー名を入力" id="user_name" value="ゲスト"></underlined-textbox>
                     <menu>
-                        <button onclick="back_card('user_name_setting_card', 'theme_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <mwc-button onclick="back_card('user_name_setting_card', 'theme_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="search_engine_setting_card">
@@ -124,7 +124,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <button onclick="back_card('search_engine_setting_card', 'user_name_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('search_engine_setting_card', 'news_site_url_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <mwc-button onclick="back_card('search_engine_setting_card', 'user_name_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('search_engine_setting_card', 'news_site_url_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="news_site_url_setting_card">
@@ -134,7 +134,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja"></underlined-textbox>
                     <menu>
-                        <button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('news_site_url_setting_card', 'python_interpreter_setting_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <mwc-button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('news_site_url_setting_card', 'python_interpreter_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="python_interpreter_setting_card">
@@ -144,7 +144,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="絶対パスかエイリアスを入力" id="python_interpreter" value="python"></underlined-textbox>
                     <menu>
-                        <button onclick="back_card('python_interpreter_setting_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="forward_card('python_interpreter_setting_card', 'setting_finished_message_card')" class="ripple_effect">次へ<i class="material_icon">arrow_forward</i></button>
+                        <mwc-button onclick="back_card('python_interpreter_setting_card', 'news_site_url_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('python_interpreter_setting_card', 'setting_finished_message_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="setting_finished_message_card">
@@ -153,7 +153,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         設定が完了しました！
                     </p>
                     <menu>
-                        <button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')" class="ripple_effect"><i class="material_icon">arrow_back</i>戻る</button><button onclick="save_setting()" class="ripple_effect"><i class="material_icon">check</i>初期設定を終了</button>
+                        <mwc-button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="save_setting()" icon="check" label="初期設定を終了" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <progress value="0" max="1">0%</progress>
@@ -193,6 +193,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         </main>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/bundle.js"></script>
         <script src="/eel.js"></script>
         <script>
             const ALL_CARDS = 8;
@@ -227,7 +228,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 document.getElementById("theme").value = await eel.read_setting("theme")();
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
-                document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
+                document.getElementById("search_engine").value = await eel.read_setting("search_engine")();
                 document.getElementById("python_interpreter").value = await eel.read_setting("python_interpreter")();
             }
 
