@@ -27,17 +27,13 @@ import generate_node_license_report as node_license_report
 
 @eel.expose
 def change_theme(css_theme_path: str) -> None:
-    css_file_path = "resource/css/layout.css"
     if os.path.exists(f"resource/css/{css_theme_path}") is False:
         with open("resource/css/theme/light_theme.css", mode="r", encoding="utf-8_sig") as light_theme_file:
             light_theme = light_theme_file.read()
         with open(f"resource/css/{css_theme_path}", mode="w", encoding="utf-8_sig") as new_theme:
             new_theme.write(light_theme)
-    with open(css_file_path, mode="r", encoding="utf-8_sig") as css_file:
-        old_css = css_file.read()
-    new_css = f'@import url("{css_theme_path}");{old_css[old_css.find(";") + 1:]}'
-    with open(css_file_path, mode="w", encoding="utf-8_sig") as css_file:
-        css_file.write(new_css)
+    with open("resource/css/theme_setting.css", mode="w", encoding="utf-8_sig") as css_file:
+        css_file.write(f"@import url('{css_theme_path}');")
     write_setting("theme", css_theme_path)
     print_log_if_dev_mode("Change theme setting.",
                           OrderedDict(Theme=css_theme_path))
