@@ -7,6 +7,7 @@
     --shadow: rgba(0, 0, 0, 0.26);
     --theme_color: #359fd3;
     --header_background_color: var(--theme_color);
+    --error_text_color: #b00020;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +18,6 @@
         --shadow: rgba(0, 0, 0, 0.26);
         --theme_color: #359fd3;
         --header_background_color: #555555;
+        --error_text_color: #cf6679;
     }
 }

@@ -161,11 +161,11 @@
 }
 
 .warning {
-    color: red;
+    color: var(--error_text_color);
 
     .material_icon,
     * {
-        color: red;
+        color: var(--error_text_color);
     }
 }
 

@@ -59,7 +59,7 @@ def write_custom_css_theme(value: typing.Any) -> None:
     if len(value) == 5:
         custom_css_data = "/* カスタムテーマ */\n\n:root {\n    --bg: " + value[0] + ";\n    --card_bg: " + value[1] + ";\n    --text: " + \
                           value[2] + ";\n    --shadow: " + value[3] + \
-            ";\n    --theme_color: " + value[4] + ";\n    --header_background_color: " + value[5] + ";\n}"
+            ";\n    --theme_color: " + value[4] + ";\n    --header_background_color: " + value[5] + ";\n    --error_text_color: " + value[6] + ";\n}"
         with open("resource/css/theme/user/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
             f.write(custom_css_data)
         print_log_if_dev_mode("Write custom css theme.",

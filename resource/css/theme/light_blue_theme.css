@@ -7,4 +7,5 @@
     --shadow: rgba(0, 0, 0, 0.26);
     --theme_color: #359fd3;
     --header_background_color: var(--theme_color);
+    --error_text_color: #b00020;
 }

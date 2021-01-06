@@ -35,6 +35,9 @@
                 <section>
                     ヘッダーの背景色<div id="header_background_color"></div>
                 </section>
+                <section>
+                    エラーの文字色<div id="error_text_color"></div>
+                </section>
             </div>
         </main>
         <style>
@@ -170,8 +173,21 @@
                     i18n: i18n_values
                 });
                 header_background_color.on("save", (color, instance) => {
-                    css_data[4] = color.toHEXA().toString();
+                    css_data[5] = color.toHEXA().toString();
                     header_background_color.hide();
+                });
+
+                const error_text_color= Pickr.create({
+                    el: "#error_text_color",
+                    theme: "classic",
+                    default: css_data[6],
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
+                });
+                error_text_color.on("save", (color, instance) => {
+                    css_data[6] = color.toHEXA().toString();
+                    error_text_color.hide();
                 });
             }
 
