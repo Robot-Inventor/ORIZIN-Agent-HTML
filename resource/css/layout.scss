@@ -153,10 +153,20 @@
 
 .important {
     color: var(--theme_color);
+
+    .material_icon,
+    * {
+        color: var(--theme_color);
+    }
 }
 
 .warning {
     color: red;
+
+    .material_icon,
+    * {
+        color: red;
+    }
 }
 
 html,
@@ -272,6 +282,10 @@ header {
             height: auto;
             transition: 0.3s;
             cursor: pointer;
+
+            .material_icon {
+                color: var(--text);
+            }
         }
 
         div:not(#copyright_in_menu):hover {
@@ -280,6 +294,10 @@ header {
             position: relative;
             top: 0;
             left: 0;
+
+            .material_icon {
+                color: var(--theme_color);
+            }
 
             &::before {
                 content: "";
@@ -355,6 +373,10 @@ hr {
 a {
     color: var(--theme_color);
     text-decoration: none;
+
+    .material_icon {
+        color: var(--theme_color);
+    }
 }
 
 .button,
@@ -402,6 +424,7 @@ img {
 li {
     list-style-type: disc;
     overflow: visible;
+    margin-left: 1.5em;
 }
 
 underlined-textbox {
