@@ -32,6 +32,9 @@
                 <section>
                     テーマ色<div id="theme_color"></div>
                 </section>
+                <section>
+                    ヘッダーの背景色<div id="header_background_color"></div>
+                </section>
             </div>
         </main>
         <style>
@@ -156,6 +159,19 @@
                 theme_color.on("save", (color, instance) => {
                     css_data[4] = color.toHEXA().toString();
                     theme_color.hide();
+                });
+
+                const header_background_color= Pickr.create({
+                    el: "#header_background_color",
+                    theme: "classic",
+                    default: css_data[5],
+                    swatches: swatches_values,
+                    components: components_values,
+                    i18n: i18n_values
+                });
+                header_background_color.on("save", (color, instance) => {
+                    css_data[4] = color.toHEXA().toString();
+                    header_background_color.hide();
                 });
             }
 
