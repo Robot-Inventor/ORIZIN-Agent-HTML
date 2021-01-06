@@ -89,11 +89,30 @@
         </main>
         <style>
             #search_area {
-                background: var(--bg);
-                width: 50%;
-                padding: 0.25rem 0.5rem;
-                border-radius: 0.5rem;
-                display: none;
+                    background: var(--card_bg);
+                    width: 50%;
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.5rem;
+                    margin-bottom: 1rem;
+                    display: none;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    overflow: visible;
+                }
+
+            #search_area::before {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 0.25rem;
+                border: solid 1px var(--text);
+                opacity: 0.2;
+                pointer-events: none;
             }
 
             #search_area i.material_icon {
