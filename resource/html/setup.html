@@ -158,6 +158,43 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 </div>
                 <progress value="0" max="1">0%</progress>
                 <style>
+                    .overlay_outer {
+                        width: 100vw;
+                        height: 100vh;
+                        position: fixed;
+                        background: rgb(100, 100, 100, 0.5);
+                        z-index: 2;
+                    }
+
+                    .overlay_inner {
+                        border-radius: 0.5rem;
+                        box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
+                        padding: 2vh;
+                        background: var(--card_bg);
+                        width: 50vw;
+                        height: auto;
+                        max-height: 80vh;
+                        position: absolute;
+                        top: 50vh;
+                        left: 50vw;
+                        transform: translateY(-50%) translateX(-50%);
+                        box-sizing: border-box;
+                        z-index: 3;
+                        transition: 0.3s;
+                    }
+
+                    .overlay_inner menu {
+                        float: right;
+                    }
+
+                    .overlay_inner button {
+                        background: none;
+                        color: var(--theme_color);
+                        border: none;
+                        font-size: 100%;
+                        margin: 0 1rem;
+                    }
+
                     #ask_continue_card a {
                         padding: 0;
                         margin: 0 1rem;

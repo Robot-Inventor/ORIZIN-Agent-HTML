@@ -64,6 +64,10 @@
                     box-sizing: border-box;
                 }
 
+                .chat_outer + .chat_outer:not(.user) .chat {
+                    margin-top: 2em;
+                }
+
                 .chat_outer:not(.user) .chat {
                     background: var(--card_bg);
                     color: var(--text);

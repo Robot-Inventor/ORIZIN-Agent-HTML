@@ -103,8 +103,9 @@
 
 * {
     overflow: scroll;
-    -ms-overflow-style: none;
     scrollbar-width: none;
+    margin: 0;
+    padding: 0;
 }
 
 *::-webkit-scrollbar {
@@ -168,38 +169,27 @@ body {
     position: relative;
     width: 100vw;
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
     background: var(--bg);
     color: var(--text);
     overflow: hidden;
 }
 
-.material-icons {
-    font-family: "Material Icons";
-    font-style: normal;
-    color: var(--text);
+main {
+    width: 100vw;
+    height: 96vh;
 }
+
+/* ここからヘッダーとメニューの設定 */
 
 header {
     width: 100vw;
     min-height: 6vh;
-    margin: 0;
-    padding: 0;
     box-shadow: var(--mdc-elevation-z4-shadow);
-}
-
-main {
-    width: 100vw;
-    height: 96vh;
-    margin: 0;
-    padding: 0;
 }
 
 #title {
     max-width: 100vw;
     height: 6vh;
-    margin: 0;
     padding: 2vh;
     background: var(--theme_color);
     color: white;
@@ -217,17 +207,6 @@ main {
 
 #title img {
     vertical-align: top;
-}
-
-.fill_panel {
-    width: calc(100vw - 8vh);
-    height: 82vh;
-    background: var(--card_bg);
-    border-radius: 0.5rem;
-    margin: 2vh;
-    padding: 2vh;
-    transition: 0.3s;
-    box-shadow: var(--mdc-elevation-z1-shadow);
 }
 
 #side_menu_bar_overlay {
@@ -318,8 +297,6 @@ main {
 }
 
 #side_menu_bar hr {
-    margin: 0;
-    padding: 0;
     height: 0.05rem;
     color: var(--text);
     opacity: 0.5;
@@ -331,36 +308,6 @@ main {
     left: 0;
     opacity: 0.5;
     cursor: default;
-}
-
-.logo {
-    height: 30vh;
-}
-
-pre {
-    white-space: pre-wrap;
-}
-
-#waiting,
-#listening {
-    width: calc(100% - 4vh);
-    height: 38vh;
-    position: absolute;
-    top: 10vh;
-    left: 0vw;
-    z-index: 1;
-    margin: 2vh;
-}
-
-#listening {
-    display: none;
-}
-
-.message {
-    width: 100vw;
-    position: absolute;
-    bottom: 2vh;
-    left: 0;
 }
 
 #menu_open_button {
@@ -379,7 +326,6 @@ pre {
     color: var(--text);
     font-size: 2rem;
     margin: 2vh 0 2vh 0;
-    padding: 0;
     transition: 0.3s;
     transform: rotate(0deg);
 }
@@ -391,6 +337,23 @@ pre {
 #menu_close_button:hover {
     color: var(--theme_color);
     background: none;
+}
+
+/* ここから色々なUIの設定 */
+
+.fill_panel {
+    width: calc(100vw - 8vh);
+    height: 82vh;
+    background: var(--card_bg);
+    border-radius: 0.5rem;
+    margin: 2vh;
+    padding: 2vh;
+    transition: 0.3s;
+    box-shadow: var(--mdc-elevation-z1-shadow);
+}
+
+pre {
+    white-space: pre-wrap;
 }
 
 hr {
@@ -456,29 +419,9 @@ li {
     overflow: visible;
 }
 
-input[type="text"] {
-    border: none;
-    border-bottom: solid 0.1em var(--text);
-    display: block;
-    width: 50%;
-    color: var(--text);
-    background: none;
-    transition: 0.3s;
-}
-
-input[type="text"]::placeholder {
-    transition: 0.3s;
-}
-
-input[type="text"]:focus::placeholder {
-    color: var(--theme_color);
-}
-
 underlined-textbox {
     display: inline-block;
     height: 100%;
-    margin: 0;
-    padding: 0;
     width: 50%;
 }
 
@@ -510,50 +453,6 @@ toggle-switch[checked]::part(foundation) {
 
 input + label {
     cursor: pointer;
-}
-
-menu {
-    padding: 0;
-    margin-bottom: 0;
-}
-
-.overlay_outer {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background: rgb(100, 100, 100, 0.5);
-    z-index: 2;
-}
-
-.overlay_inner {
-    border-radius: 0.5rem;
-    box-shadow: 0.1rem 0.1rem 1rem var(--shadow);
-    padding: 2vh;
-    background: var(--card_bg);
-    width: 50vw;
-    height: auto;
-    max-height: 80vh;
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translateY(-50%) translateX(-50%);
-    margin: 0;
-    box-sizing: border-box;
-    z-index: 3;
-    transition: 0.3s;
-}
-
-.overlay_inner menu {
-    float: right;
-}
-
-.overlay_inner button {
-    background: none;
-    color: var(--theme_color);
-    border: none;
-    font-size: 100%;
-    padding: 0;
-    margin: 0 1rem;
 }
 
 progress {
@@ -648,11 +547,25 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .information {
-    margin: 0;
-    padding: 0;
     font-weight: normal;
     font-size: 0.9em;
     opacity: 0.7;
+}
+
+h2 {
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+}
+
+/* ここからはMaterial Web Componentsの設定 */
+
+mwc-button {
+    margin: 0.5em 0;
+    vertical-align: middle;
 }
 
 /* ここからはマテリアルデザインのElevationの設定 */
