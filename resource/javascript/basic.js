@@ -120,7 +120,8 @@ new Ripple(".ripple_effect", {
     easing: "linear"
 });
 
-eel.print_log_if_dev_mode("Page header loaded.", {"Status": "OK"});
-readable_text_setting();
-feed_buck_setting();
-eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
+window.addEventListener("load", () => {
+    readable_text_setting();
+    feed_buck_setting();
+    eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
+});
