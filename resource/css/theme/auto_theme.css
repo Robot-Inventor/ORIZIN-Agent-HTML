@@ -3,7 +3,7 @@
 :root {
     --bg: #ffffff;
     --card_bg: #ffffff;
-    --text: rgba(0, 0, 0, 0.7);
+    --text: rgba(0, 0, 0, 0.87);
     --shadow: rgba(0, 0, 0, 0.26);
     --theme_color: #f86806;
     --header_background_color: var(--theme_color);
