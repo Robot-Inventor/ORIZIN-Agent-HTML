@@ -13,7 +13,7 @@
     :root {
         --bg: #121212;
         --card_bg: #1d1d1d;
-        --text: #ffffff;
+        --text: rgba(255, 255, 255, 0.87);
         --shadow: rgba(0, 0, 0, 0.26);
         --theme_color: #359fd3;
         --header_background_color: #272727;
