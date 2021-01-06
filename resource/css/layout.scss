@@ -194,13 +194,13 @@ header {
     box-shadow: var(--mdc-elevation-z4-shadow);
     background: var(--theme_color);
 
-    #title {
+    #top_app_bar {
         max-width: 100vw;
         height: 6vh;
         color: white;
         overflow: hidden;
 
-        a {
+        #app_name {
             cursor: pointer;
             font-size: 5vh;
             font-variation-settings: "wght" 450;

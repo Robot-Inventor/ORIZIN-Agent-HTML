@@ -60,8 +60,8 @@ async function move_page(place) {
 
 
 document.querySelector("header").innerHTML = `
-<div id="title">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る">ORIZIN Agent HTML</a></span>
+<div id="top_app_bar">
+    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る" id="app_name">ORIZIN Agent HTML</a></span>
 </div>
 <div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
