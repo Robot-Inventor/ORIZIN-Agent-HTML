@@ -1,4 +1,4 @@
-﻿@import url("theme_setting.css");
+@import url("theme_setting.css");
 
 @font-face {
     font-family: "League Spartan";
@@ -106,10 +106,19 @@
     scrollbar-width: none;
     margin: 0;
     padding: 0;
-}
 
-*::-webkit-scrollbar {
-    display: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::selection {
+        background: var(--theme_color);
+        color: white;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
 
 #side_menu_bar::-webkit-scrollbar,
@@ -117,16 +126,10 @@
     display: block;
     width: 0.2rem;
     transition: 0.3s;
-}
 
-#side_menu_bar::-webkit-scrollbar,
-.fill_panel::-webkit-scrollbar {
-    width: 0.2rem;
-}
-
-#side_menu_bar::-webkit-scrollbar:hover,
-.fill_panel::-webkit-scrollbar:hover {
-    width: 0.8rem;
+    &:hover {
+        width: 0.8rem;
+    }
 }
 
 #side_menu_bar::-webkit-scrollbar-thumb,
@@ -144,15 +147,6 @@
 .fill_panel::-webkit-scrollbar-corner,
 #chat_area::-webkit-scrollbar-corner {
     display: none;
-}
-
-*::selection {
-    background: var(--theme_color);
-    color: white;
-}
-
-*:focus {
-    outline: none;
 }
 
 .important {
@@ -185,28 +179,28 @@ header {
     width: 100vw;
     min-height: 6vh;
     box-shadow: var(--mdc-elevation-z4-shadow);
-}
 
-#title {
-    max-width: 100vw;
-    height: 6vh;
-    padding: 2vh;
-    background: var(--theme_color);
-    color: white;
-    overflow: hidden;
-}
+    #title {
+        max-width: 100vw;
+        height: 6vh;
+        padding: 2vh;
+        background: var(--theme_color);
+        color: white;
+        overflow: hidden;
 
-#title a {
-    color: white;
-    cursor: pointer;
-    font-size: 5vh;
-    font-variation-settings: "wght" 450;
-    display: inline-block;
-    transform: translateY(-2vh);
-}
+        a {
+            color: white;
+            cursor: pointer;
+            font-size: 5vh;
+            font-variation-settings: "wght" 450;
+            display: inline-block;
+            transform: translateY(-2vh);
+        }
 
-#title img {
-    vertical-align: top;
+        img {
+            vertical-align: top;
+        }
+    }
 }
 
 #side_menu_bar_overlay {
@@ -220,16 +214,16 @@ header {
     opacity: 0;
     z-index: 2;
     transition: 0.3s;
-}
 
-#side_menu_bar_overlay.visible {
-    display: block;
-    opacity: 1;
+    &.visible {
+        display: block;
+        opacity: 1;
+    }
 }
 
 #side_menu_bar {
     background: var(--bg);
-    width: min(20rem, 80vw);
+    width: unquote("min(20rem, 80vw)");
     height: 100vh;
     box-sizing: border-box;
     transform: translate(-100%);
@@ -240,74 +234,74 @@ header {
     z-index: 3;
     overflow-x: hidden;
     transition: 0.3s;
-}
 
-#side_menu_bar::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    background: white;
-    opacity: 0.15;
-    pointer-events: none;
-}
+    &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        background: white;
+        opacity: 0.15;
+        pointer-events: none;
+    }
 
-#side_menu_bar.open {
-    transform: none;
-    box-shadow: var(--mdc-elevation-z16-shadow);
-}
+    &.open {
+        transform: none;
+        box-shadow: var(--mdc-elevation-z16-shadow);
+    }
 
-#side_menu_bar a {
-    color: var(--text);
-}
+    a {
+        color: var(--text);
+    }
 
-#side_menu_bar div {
-    width: calc(100% - 2rem);
-    min-height: 2rem;
-    padding: 2rem 1rem;
-    height: auto;
-    transition: 0.3s;
-    cursor: pointer;
-}
+    div {
+        width: calc(100% - 2rem);
+        min-height: 2rem;
+        padding: 2rem 1rem;
+        height: auto;
+        transition: 0.3s;
+        cursor: pointer;
+    }
 
-#side_menu_bar div:not(#copyright_in_menu):hover {
-    color: var(--theme_color);
-    padding-left: 1.5rem;
-    position: relative;
-    top: 0;
-    left: 0;
-}
+    div:not(#copyright_in_menu):hover {
+        color: var(--theme_color);
+        padding-left: 1.5rem;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
 
-#side_menu_bar div:not(#copyright_in_menu):hover::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--mdc-theme-on-surface);
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.3s;
-    opacity: 0.1;
-}
+    div:not(#copyright_in_menu):hover::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--mdc-theme-on-surface);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        opacity: 0.1;
+    }
 
-#side_menu_bar hr {
-    height: 0.05rem;
-    color: var(--text);
-    opacity: 0.5;
-}
+    hr {
+        height: 0.05rem;
+        color: var(--text);
+        opacity: 0.5;
+    }
 
-#side_menu_bar #copyright_in_menu {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    opacity: 0.5;
-    cursor: default;
+    #copyright_in_menu {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        opacity: 0.5;
+        cursor: default;
+    }
 }
 
 #menu_open_button {
@@ -315,10 +309,10 @@ header {
     cursor: pointer;
     margin-right: 1.5rem;
     transition: 0.3s;
-}
 
-#menu_open_button.open {
-    transform: rotate(180deg);
+    &.open {
+        transform: rotate(180deg);
+    }
 }
 
 #menu_close_button {
@@ -328,15 +322,15 @@ header {
     margin: 2vh 0 2vh 0;
     transition: 0.3s;
     transform: rotate(0deg);
-}
 
-#menu_close_button.open {
-    transform: rotate(180deg);
-}
+    &.open {
+        transform: rotate(180deg);
+    }
 
-#menu_close_button:hover {
-    color: var(--theme_color);
-    background: none;
+    &:hover {
+        color: var(--theme_color);
+        background: none;
+    }
 }
 
 /* ここから色々なUIの設定 */
@@ -380,29 +374,25 @@ button {
     background: transparent;
     transition: 0.3s;
     cursor: pointer;
-}
 
-.button.shadow,
-button.shadow {
-    backdrop-filter: brightness(2);
-    box-shadow: 0 0.2rem 0.06rem -0.1rem var(--shadow), 0 0.1rem 0.1rem 0 var(--shadow),
-        0 0.06rem 0.3rem 0 var(--shadow);
-    padding: 0.5em 1em !important;
-}
+    &.shadow {
+        backdrop-filter: brightness(2);
+        box-shadow: 0 0.2rem 0.06rem -0.1rem var(--shadow), 0 0.1rem 0.1rem 0 var(--shadow),
+            0 0.06rem 0.3rem 0 var(--shadow);
+        padding: 0.5em 1em !important;
+    }
 
-.button.stroke,
-button.stroke {
-    border: solid 0.075rem var(--theme_color);
-    padding: 0.25em 1em !important;
-}
+    &.stroke {
+        border: solid 0.075rem var(--theme_color);
+        padding: 0.25em 1em !important;
+    }
 
-.button.fill,
-button.fill,
-.button.hover:hover,
-button.hover:hover {
-    background: var(--theme_color);
-    padding: 0.25em 1em !important;
-    color: white;
+    &.fill,
+    &.hover:hover {
+        background: var(--theme_color);
+        padding: 0.25em 1em !important;
+        color: white;
+    }
 }
 
 .pre {
@@ -423,32 +413,32 @@ underlined-textbox {
     display: inline-block;
     height: 100%;
     width: 50%;
-}
 
-underlined-textbox::part(textbox) {
-    color: var(--text);
-}
+    &::part(textbox) {
+        color: var(--text);
 
-underlined-textbox::part(textbox):focus,
-underlined-textbox::part(textbox):focus::placeholder {
-    color: var(--theme_color);
-}
+        &:focus,
+        &:focus::placeholder {
+            color: var(--theme_color);
+        }
+    }
 
-underlined-textbox::part(normal_underline) {
-    background: var(--text);
-}
+    &::part(normal_underline) {
+        background: var(--text);
+    }
 
-underlined-textbox::part(focused_underline) {
-    background: var(--theme_color);
+    &::part(focused_underline) {
+        background: var(--theme_color);
+    }
 }
 
 toggle-switch {
     vertical-align: top;
     overflow: visible;
-}
 
-toggle-switch[checked]::part(foundation) {
-    background: var(--theme_color);
+    &[checked]::part(foundation) {
+        background: var(--theme_color);
+    }
 }
 
 input + label {
@@ -458,19 +448,24 @@ input + label {
 progress {
     -webkit-appearance: none;
     border-radius: 0.5rem;
-}
 
-progress:not([value]) {
-    -webkit-appearance: none;
-}
+    &:not([value]) {
+        -webkit-appearance: none;
+        background: var(--theme_color);
+        animation: progress_animation 0.5s linear infinite alternate;
 
-progress:not([value])::-webkit-progress-bar {
-    background: none;
-}
+        &::-webkit-progress-bar {
+            background: none;
+        }
+    }
 
-progress:not([value]) {
-    background: var(--theme_color);
-    animation: progress_animation 0.5s linear infinite alternate;
+    &::-webkit-progress-bar {
+        background: var(--bg);
+    }
+
+    &[value]::-webkit-progress-value {
+        background: var(--theme_color);
+    }
 }
 
 @keyframes progress_animation {
@@ -480,14 +475,6 @@ progress:not([value]) {
     100% {
         background: var(--bg);
     }
-}
-
-progress::-webkit-progress-bar {
-    background: var(--bg);
-}
-
-progress[value]::-webkit-progress-value {
-    background: var(--theme_color);
 }
 
 select,
@@ -505,27 +492,27 @@ details {
     position: relative;
     top: 0;
     left: 0;
-}
 
-details:not([open]):hover::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--mdc-theme-on-surface);
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.3s;
-    opacity: 0.1;
-}
+    &:not([open]):hover::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--mdc-theme-on-surface);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        opacity: 0.1;
+    }
 
-details summary {
-    cursor: pointer;
-    transform: translate(-1.5rem) !important;
-    transition: 0.3s;
+    summary {
+        cursor: pointer;
+        transform: translate(-1.5rem) !important;
+        transition: 0.3s;
+    }
 }
 
 input[type="range"] {
@@ -536,14 +523,14 @@ input[type="range"] {
     height: 0.25rem;
     border-radius: 0.25rem;
     overflow: visible;
-}
 
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background: var(--theme_color);
-    width: 1rem;
-    height: 1rem;
-    border-radius: 1rem;
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background: var(--theme_color);
+        width: 1rem;
+        height: 1rem;
+        border-radius: 1rem;
+    }
 }
 
 .information {
@@ -578,102 +565,104 @@ mwc-button {
 * found in the LICENSE file at https://github.com/material-components/material-components-web/blob/master/LICENSE
 */
 
-.mdc-elevation--z0 {
-    box-shadow: var(--mdc-elevation-z0-shadow);
-}
+.wdc-elevation {
+    &--z0 {
+        box-shadow: var(--mdc-elevation-z0-shadow);
+    }
 
-.mdc-elevation--z1 {
-    box-shadow: var(--mdc-elevation-z1-shadow);
-}
+    &--z1 {
+        box-shadow: var(--mdc-elevation-z1-shadow);
+    }
 
-.mdc-elevation--z2 {
-    box-shadow: var(--mdc-elevation-z2-shadow);
-}
+    &--z2 {
+        box-shadow: var(--mdc-elevation-z2-shadow);
+    }
 
-.mdc-elevation--z3 {
-    box-shadow: var(--mdc-elevation-z3-shadow);
-}
+    &--z3 {
+        box-shadow: var(--mdc-elevation-z3-shadow);
+    }
 
-.mdc-elevation--z4 {
-    box-shadow: var(--mdc-elevation-z4-shadow);
-}
+    &--z4 {
+        box-shadow: var(--mdc-elevation-z4-shadow);
+    }
 
-.mdc-elevation--z5 {
-    box-shadow: var(--mdc-elevation-z5-shadow);
-}
+    &--z5 {
+        box-shadow: var(--mdc-elevation-z5-shadow);
+    }
 
-.mdc-elevation--z6 {
-    box-shadow: var(--mdc-elevation-z6-shadow);
-}
+    &--z6 {
+        box-shadow: var(--mdc-elevation-z6-shadow);
+    }
 
-.mdc-elevation--z7 {
-    box-shadow: var(--mdc-elevation-z7-shadow);
-}
+    &--z7 {
+        box-shadow: var(--mdc-elevation-z7-shadow);
+    }
 
-.mdc-elevation--z8 {
-    box-shadow: var(--mdc-elevation-z8-shadow);
-}
+    &--z8 {
+        box-shadow: var(--mdc-elevation-z8-shadow);
+    }
 
-.mdc-elevation--z9 {
-    box-shadow: var(--mdc-elevation-z9-shadow);
-}
+    &--z9 {
+        box-shadow: var(--mdc-elevation-z9-shadow);
+    }
 
-.mdc-elevation--z10 {
-    box-shadow: var(--mdc-elevation-z10-shadow);
-}
+    &--z10 {
+        box-shadow: var(--mdc-elevation-z10-shadow);
+    }
 
-.mdc-elevation--z11 {
-    box-shadow: var(--mdc-elevation-z11-shadow);
-}
+    &--z11 {
+        box-shadow: var(--mdc-elevation-z11-shadow);
+    }
 
-.mdc-elevation--z12 {
-    box-shadow: var(--mdc-elevation-z12-shadow);
-}
+    &--z12 {
+        box-shadow: var(--mdc-elevation-z12-shadow);
+    }
 
-.mdc-elevation--z13 {
-    box-shadow: var(--mdc-elevation-z13-shadow);
-}
+    &--z13 {
+        box-shadow: var(--mdc-elevation-z13-shadow);
+    }
 
-.mdc-elevation--z14 {
-    box-shadow: var(--mdc-elevation-z14-shadow);
-}
+    &--z14 {
+        box-shadow: var(--mdc-elevation-z14-shadow);
+    }
 
-.mdc-elevation--z15 {
-    box-shadow: var(--mdc-elevation-z15-shadow);
-}
+    &--z15 {
+        box-shadow: var(--mdc-elevation-z15-shadow);
+    }
 
-.mdc-elevation--z16 {
-    box-shadow: var(--mdc-elevation-z16-shadow);
-}
+    &--z16 {
+        box-shadow: var(--mdc-elevation-z16-shadow);
+    }
 
-.mdc-elevation--z17 {
-    box-shadow: var(--mdc-elevation-z17-shadow);
-}
+    &--z17 {
+        box-shadow: var(--mdc-elevation-z17-shadow);
+    }
 
-.mdc-elevation--z18 {
-    box-shadow: var(--mdc-elevation-z18-shadow);
-}
+    &--z18 {
+        box-shadow: var(--mdc-elevation-z18-shadow);
+    }
 
-.mdc-elevation--z19 {
-    box-shadow: var(--mdc-elevation-z19-shadow);
-}
+    &--z19 {
+        box-shadow: var(--mdc-elevation-z19-shadow);
+    }
 
-.mdc-elevation--z20 {
-    box-shadow: var(--mdc-elevation-z20-shadow);
-}
+    &--z20 {
+        box-shadow: var(--mdc-elevation-z20-shadow);
+    }
 
-.mdc-elevation--z21 {
-    box-shadow: var(--mdc-elevation-z21-shadow);
-}
+    &--z21 {
+        box-shadow: var(--mdc-elevation-z21-shadow);
+    }
 
-.mdc-elevation--z22 {
-    box-shadow: var(--mdc-elevation-z22-shadow);
-}
+    &--z22 {
+        box-shadow: var(--mdc-elevation-z22-shadow);
+    }
 
-.mdc-elevation--z23 {
-    box-shadow: var(--mdc-elevation-z23-shadow);
-}
+    &--z23 {
+        box-shadow: var(--mdc-elevation-z23-shadow);
+    }
 
-.mdc-elevation--z24 {
-    box-shadow: var(--mdc-elevation-z24-shadow);
+    &--z24 {
+        box-shadow: var(--mdc-elevation-z24-shadow);
+    }
 }
