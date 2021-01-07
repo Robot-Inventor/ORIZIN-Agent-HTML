@@ -1,0 +1,17 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2021
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "eel": false,
+        "load_file()": false,
+        "open_menu()": false,
+        "move_page()": false,
+        "Ripple": false
+    }
+}

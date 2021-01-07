@@ -4,7 +4,8 @@
   "description": "An open source AI assistant.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "@material/mwc-dialog": "^0.20.0",
     "@material/mwc-icon-button": "^0.20.0",
     "@material/mwc-snackbar": "^0.20.0",
+    "eslint": "^7.17.0",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1"
   }

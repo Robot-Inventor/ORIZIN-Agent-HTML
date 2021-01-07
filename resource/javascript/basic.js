@@ -9,6 +9,7 @@ async function readable_text_setting() {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function load_file(file_path, target_element) {
     const fetch_response = await fetch(file_path);
     const response_content = await fetch_response.text();
@@ -29,6 +30,7 @@ async function feed_buck_setting() {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function open_menu() {
     document.getElementById("menu_open_button").classList.add("open");
     setTimeout(() => {
@@ -51,6 +53,7 @@ function close_menu() {
     }, 100);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function move_page(place) {
     close_menu();
     setTimeout(() => {
