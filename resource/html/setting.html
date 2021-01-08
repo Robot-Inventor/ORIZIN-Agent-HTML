@@ -16,9 +16,7 @@
         <main>
             <div class="fill_panel">
                 <h2>設定</h2>
-                <div id="search_area">
-                    <i class="material_icon" id="search_icon">search</i><underlined-textbox id="search_box" placeholder="設定項目を検索"></underlined-textbox><span class="ripple_effect"><i class="material_icon" id="clear_search">clear</i></span>
-                </div>
+                <search-box id="search_box"></search-box>
                 <section title="テキストを読みやすいように設定します。" id="readable_text_setting">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">text_format</i>可読性についての設定</summary>
@@ -111,51 +109,8 @@
                 </mwc-dialog>
             </div>
             <style>
-                #search_area {
-                    background: var(--card_bg);
-                    width: 50%;
-                    padding: 0.25rem 0.5rem;
-                    border-radius: 0.5rem;
-                    margin-bottom: 1rem;
+                search-box {
                     display: none;
-                    position: relative;
-                    top: 0;
-                    left: 0;
-                    overflow: visible;
-                }
-
-                #search_area::before {
-                    content: "";
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    border-radius: 0.25rem;
-                    border: solid 1px var(--text);
-                    opacity: 0.2;
-                    pointer-events: none;
-                }
-
-                #search_area i.material_icon {
-                    vertical-align: super;
-                    margin-right: 0.5rem;
-                    cursor: default;
-                }
-
-                #search_area underlined-textbox {
-                    width: calc(100% - 3.5rem);
-                }
-
-                #search_area underlined-textbox#search_box {
-                    height: max-content;
-                }
-
-                #search_area #clear_search {
-                    cursor: pointer;
-                    display: none;
-                    margin-left: 0.5rem;
                 }
 
                 h3 {
@@ -260,20 +215,13 @@
             const search_box = document.getElementById("search_box");
             function search_setting() {
                 const query = search_box.value;
-                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
+
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
                     element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
                 });
             }
 
             search_box.addEventListener("input", function() {
-                search_setting();
-            });
-
-            document.getElementById("clear_search").addEventListener("click", function() {
-                if (search_box.value) {
-                    search_box.value = "";
-                }
                 search_setting();
             });
 
@@ -316,7 +264,7 @@
                 }
 
                 if (await eel.read_flag("show_setting_search_box")()) {
-                    document.getElementById("search_area").style.display = "block";
+                    document.getElementById("search_box").style.display = "block";
                 }
                 if (await eel.read_flag("enable_update_checker")()) {
                     document.getElementById("check_update").style.display = "inline-block";
@@ -394,8 +342,6 @@
                 const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
                 document.getElementById("update_detail").innerHTML = update_detail;
             });
-
-            // const modal = new ModalWindow();
 
             document.getElementById("reset_setting_button").addEventListener("click", () => {
                 const dialog = document.getElementById("reset_check_dialog");

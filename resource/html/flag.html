@@ -16,11 +16,9 @@
         <main>
             <div class="fill_panel">
                 <h2>試験機能</h2>
-                <div id="search_area">
-                    <i class="material_icon" id="search_icon">search</i><underlined-textbox id="search_box" placeholder="設定項目を検索"></underlined-textbox><span class="ripple_effect"><i class="material_icon" id="clear_search">clear</i></span>
-                </div>
-                <section class="warning">
-                    <i class="material_icon">warning</i>ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。<span id="continue_question">本当に設定を変更しますか。</span>
+                <search-box id="search_box"></search-box>
+                <section>
+                    <warning-message id="continue_check_message" content="ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。本当に設定を変更しますか。"></warning-message>
                     <menu id="continue_check_menu">
                         <mwc-button label="はい" id="continue_button" unelevated></mwc-button><mwc-button label="いいえ（戻る）" id="back_button"></mwc-button>
                     </menu>
@@ -88,51 +86,8 @@
             </div>
         </main>
         <style>
-            #search_area {
-                    background: var(--card_bg);
-                    width: 50%;
-                    padding: 0.25rem 0.5rem;
-                    border-radius: 0.5rem;
-                    margin-bottom: 1rem;
-                    display: none;
-                    position: relative;
-                    top: 0;
-                    left: 0;
-                    overflow: visible;
-                }
-
-            #search_area::before {
-                content: "";
-                display: block;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                border-radius: 0.25rem;
-                border: solid 1px var(--text);
-                opacity: 0.2;
-                pointer-events: none;
-            }
-
-            #search_area i.material_icon {
-                vertical-align: super;
-                margin-right: 0.5rem;
-                cursor: default;
-            }
-
-            #search_area underlined-textbox {
-                width: calc(100% - 3.5rem);
-            }
-
-            #search_area underlined-textbox#search_box {
-                height: max-content;
-            }
-
-            #search_area #clear_search {
-                cursor: pointer;
+            search-box {
                 display: none;
-                margin-left: 0.5rem;
             }
 
             #section_outer {
@@ -143,11 +98,8 @@
                 border-bottom: solid 0.05em var(--text);
                 padding: 1em;
                 padding-left: 0;
-
-            }
-
-            section:not(.warning) {
                 font-weight: bold;
+
             }
 
             #refresh_button {
@@ -176,9 +128,6 @@
 
             function search_setting() {
                 const query = search_box.value;
-                let has_visible_element = false;
-
-                document.getElementById("clear_search").style.display = query ? "inline-block" : "none";
 
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
                     element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
@@ -187,7 +136,7 @@
 
             async function show_search_area() {
                 if (await eel.read_flag("show_setting_search_box")()) {
-                    document.getElementById("search_area").style.display = "block";
+                    search_box.style.display = "block";
                 }
             }
 
@@ -202,7 +151,7 @@
             document.getElementById("continue_button").addEventListener("click", function() {
                 document.getElementById("section_outer").style.display = "block";
                 document.getElementById("continue_check_menu").style.display = "none";
-                document.getElementById("continue_question").style.display = "none";
+                document.getElementById("continue_check_message").content = "ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。";
             });
 
             document.getElementById("back_button").addEventListener("click", function() {
@@ -226,11 +175,6 @@
             });
 
             search_box.addEventListener("input", function() {
-                search_setting();
-            });
-
-            document.getElementById("clear_search").addEventListener("click", function() {
-                search_box.value = "";
                 search_setting();
             });
 

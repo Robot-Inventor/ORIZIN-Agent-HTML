@@ -128,3 +128,226 @@ window.addEventListener("load", () => {
     feed_buck_setting();
     eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
 });
+
+class WarningMessage extends HTMLElement {
+    constructor() {
+        super();
+
+        const shadow = this.attachShadow({mode: "open"});
+
+        this.content_element = document.createElement("span");
+        this.content_element.innerHTML = this.getAttribute("content");
+
+        const icon_element = document.createElement("i");
+        icon_element.setAttribute("class", "material_icon");
+        icon_element.textContent = "warning";
+
+        const style_element = document.createElement("style");
+        style_element.textContent = `
+:host {
+    display: block;
+}
+
+* {
+    color: var(--error_text_color);
+    font-weight: bold;
+}
+
+i.material_icon {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateY(0.15em);
+    margin: 0 0.4em;
+}
+        `;
+
+        shadow.appendChild(icon_element);
+        shadow.appendChild(this.content_element);
+        shadow.appendChild(style_element);
+    }
+
+    static get observedAttributes() {
+        return ["content"];
+    }
+
+    attributeChangedCallback(name, old_value, new_value) {
+        switch(name) {
+            case "content":
+                this.content_element.innerHTML = new_value;
+                break;
+        }
+    }
+
+    get content() {
+        return this.content_element.innerHTML;
+    }
+
+    set content(value) {
+        this.setAttribute("content", value);
+    }
+}
+
+customElements.define("warning-message", WarningMessage);
+
+class SearchBox extends HTMLElement {
+    constructor() {
+        super();
+
+        const input_event = new Event("input");
+
+        const shadow = this.attachShadow({mode: "open"});
+
+        const outer_element = document.createElement("div");
+        outer_element.setAttribute("id", "outer");
+
+        const search_icon_element = document.createElement("i");
+        search_icon_element.textContent = "search";
+        search_icon_element.setAttribute("id", "search_icon");
+        search_icon_element.setAttribute("class", "material_icon");
+
+        this.text_box = document.createElement("underlined-textbox");
+        this.text_box.setAttribute("id", "search_box");
+        this.text_box.setAttribute("placeholder", "設定項目を検索");
+        this.text_box.addEventListener("input", () => {
+            const value = this.text_box.value;
+            this.setAttribute("value", value);
+            this.dispatchEvent(input_event);
+            clear_icon_element.style.display = value ? "inline-block" : "none";
+        });
+
+        const clear_icon_element = document.createElement("i");
+        clear_icon_element.textContent = "clear";
+        clear_icon_element.setAttribute("id", "clear_icon");
+        clear_icon_element.setAttribute("class", "material_icon ripple_effect");
+        clear_icon_element.addEventListener("click", () => {
+            this.setAttribute("value", "");
+            this.dispatchEvent(input_event);
+            clear_icon_element.style.display = "none";
+        });
+
+        const style_element = document.createElement("style");
+        style_element.textContent = `
+#outer {
+    background: var(--card_bg);
+    width: 50%;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: visible;
+}
+
+#outer::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0.25rem;
+    border: solid 1px var(--text);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.material_icon {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateY(0.15em);
+}
+
+#search_icon {
+    margin: 0 0.4em;
+    margin-right: 0.5rem;
+    cursor: default;
+}
+
+underlined-textbox {
+    display:inline-block;
+    height:100%;
+    width:50%;
+}
+
+underlined-textbox::part(textbox) {
+    color:var(--text);
+}
+
+underlined-textbox::part(textbox):focus,
+underlined-textbox::part(textbox):focus::placeholder {
+    color:var(--theme_color);
+}
+
+underlined-textbox::part(normal_underline) {
+    background:var(--text);
+    height:0.075rem;
+}
+
+underlined-textbox::part(focused_underline) {
+    background:var(--theme_color);
+    height:0.075rem;
+}
+
+#search_box {
+    width: calc(100% - 3.5rem);
+    height: max-content;
+}
+
+#clear_icon {
+    cursor: pointer;
+    display: none;
+    margin-left: 0.5rem;
+}
+        `;
+
+        outer_element.appendChild(search_icon_element);
+        outer_element.appendChild(this.text_box);
+        outer_element.appendChild(clear_icon_element);
+        shadow.appendChild(outer_element);
+        shadow.appendChild(style_element);
+    }
+
+    static get observedAttributes() {
+        return ["value"];
+    }
+
+    attributeChangedCallback(name, old_value, new_value) {
+        switch(name) {
+            case "value":
+                this.text_box.value = new_value;
+                break;
+        }
+    }
+
+    get value() {
+        return this.text_box.value;
+    }
+
+    set value(value) {
+        this.text_box.setAttribute("value", value);
+    }
+}
+
+customElements.define("search-box", SearchBox);
