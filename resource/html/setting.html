@@ -42,13 +42,21 @@
                 <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">search</i>検索エンジン</summary>
-                        <form id="search_engine" onchange="eel.write_setting('search_engine', document.getElementById('search_engine').search_engine_list.value)">
-                            <input type="radio" name="search_engine_list" value="Google" id="google"><label for="google" class="ripple_effect">Google(デフォルト)</label><br>
-                            <input type="radio" name="search_engine_list" value="Bing" id="bing"><label for="bing" class="ripple_effect">Bing</label><br>
-                            <input type="radio" name="search_engine_list" value="YahooJapan" id="yahoojapan"><label for="yahoojapan" class="ripple_effect">Yahoo! Japan</label><br>
-                            <input type="radio" name="search_engine_list" value="Yahoo" id="yahoo"><label for="yahoo" class="ripple_effect">Yahoo!</label><br>
-                            <input type="radio" name="search_engine_list" value="DuckDuckGo" id="duckduckgo"><label for="duckduckgo" class="ripple_effect">DuckDuckGo</label><br>
-                        </form>
+                        <mwc-formfield label="Google（デフォルト）">
+                            <mwc-radio name="search_engine_list" value="Google"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="Bing">
+                            <mwc-radio name="search_engine_list" value="Bing"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="Yahoo! Japan">
+                            <mwc-radio name="search_engine_list" value="YahooJapan"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="Yahoo!">
+                            <mwc-radio name="search_engine_list" value="Yahoo"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="DuckDuckGo">
+                            <mwc-radio name="search_engine_list" value="DuckDuckGo"></mwc-radio>
+                        </mwc-formfield>
                     </details>
                 </section>
                 <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
@@ -61,7 +69,7 @@
                 <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">mic</i>連続音声認識</summary>
-                        音声認識終了後、自動で音声認識を再開する　<toggle-switch id="continuous_speech_recognition" onchange="save_setting()"></toggle-switch>
+                        音声認識終了後、自動で音声認識を再開する　<mwc-switch id="continuous_speech_recognition" onchange="save_setting()"></mwc-switch>
                     </details>
                 </section>
                 <section title="音声に関する設定をします。">
@@ -153,6 +161,10 @@
                     padding: 0;
                 }
 
+                mwc-formfield {
+                    display: block;
+                }
+
                 .text_input_group {
                     display: inline-block;
                 }
@@ -214,7 +226,7 @@
             });
 
             function save_setting() {
-                const setting_value = event.target.tagName == "TOGGLE-SWITCH" ? event.target.checked : event.target.value;
+                const setting_value = event.target.tagName == "MWC-SWITCH" ? event.target.checked : event.target.value;
                 eel.write_setting(event.target.id, setting_value);
             }
 
@@ -232,7 +244,8 @@
                 document.getElementById("theme").value = await eel.read_setting("theme")();
                 document.getElementById("user_name").value = await eel.read_setting("user_name")();
                 document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
-                document.getElementById("search_engine").search_engine_list.value = await eel.read_setting("search_engine")();
+                const search_engine_setting = await eel.read_setting("search_engine")();
+                document.querySelector(`mwc-radio[name='search_engine_list'][value='${search_engine_setting}']`).checked = true;
                 document.getElementById("python_interpreter").value = await eel.read_setting("python_interpreter")();
                 document.getElementById("pitch").value = document.getElementById("pitch_value").innerHTML = await eel.read_setting("pitch")();
                 document.getElementById("speed").value = document.getElementById("speed_value").innerHTML = await eel.read_setting("speed")();
@@ -318,6 +331,14 @@
                     }
                 }
             }
+
+            document.querySelectorAll("mwc-radio[name='search_engine_list']").forEach((element) => {
+                element.addEventListener("change", () => {
+                    setTimeout(() => {
+                        eel.write_setting("search_engine", document.querySelector("mwc-radio[name='search_engine_list'][checked]").value);
+                    }, 100);
+                });
+            });
 
             document.getElementById("check_update").addEventListener("click", async function() {
                 document.getElementById("update_detail").innerHTML = "アップデートを確認中です...";

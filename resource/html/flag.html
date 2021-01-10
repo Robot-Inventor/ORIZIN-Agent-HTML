@@ -25,49 +25,49 @@
                 </section>
                 <div id="section_outer">
                     <section>
-                        <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<toggle-switch id="add_readable_text_setting"></toggle-switch>
+                        <i class="material_icon">text_format</i>可読性を上げる設定を追加する　<mwc-switch id="add_readable_text_setting"></mwc-switch>
                         <p class="information">
                             設定ページにテキストを読みやすくするための項目を追加します。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">power_settings_new</i>高速起動を有効にする　<toggle-switch id="fast_start"></toggle-switch>
+                        <i class="material_icon">power_settings_new</i>高速起動を有効にする　<mwc-switch id="fast_start"></mwc-switch>
                         <p class="information">
                             スプラッシュスクリーンをスキップし，高速起動します。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">rss_feed</i>Google News RSSを使用する　<toggle-switch id="get_news_from_google_news"></toggle-switch>
+                        <i class="material_icon">rss_feed</i>Google News RSSを使用する　<mwc-switch id="get_news_from_google_news"></mwc-switch>
                         <p class="information">
                             ユーザーがニュースを要求した際，GoogleニュースのWEBページを開くのではなくGoogle News RSSを使用してインターネットからニュースを自動で取得します。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">two_wheeler</i>高速モードを有効にする　<toggle-switch id="use_fast_response_mode"></toggle-switch>
+                        <i class="material_icon">two_wheeler</i>高速モードを有効にする　<mwc-switch id="use_fast_response_mode"></mwc-switch>
                         <p class="information">
                             高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり，適切な応答が見つからなかったことを示す「そうですか。」という応答が返される頻度が高くなります。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">feedback</i>フィードバックボタンを表示する　<toggle-switch id="show_feedback_button"></toggle-switch>
+                        <i class="material_icon">feedback</i>フィードバックボタンを表示する　<mwc-switch id="show_feedback_button"></mwc-switch>
                         <p class="information">
                             メニュー内にフィードバックボタンを表示し，必要に応じてフィードバックを送信できるようになります。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">search</i>設定の検索を有効にする　<toggle-switch id="show_setting_search_box"></toggle-switch>
+                        <i class="material_icon">search</i>設定の検索を有効にする　<mwc-switch id="show_setting_search_box"></mwc-switch>
                         <p class="information">
                             設定ページと試験機能ページに設定の検索ボックスを追加します。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<toggle-switch id="enable_update_checker"></toggle-switch>
+                        <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<mwc-switch id="enable_update_checker"></mwc-switch>
                         <p class="information">
                             設定ページの「アップデートを確認」セクションにアップデートチェッカーボタンを表示します。
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">edit</i>改善されたカスタムテーマの編集ページを使用する　<toggle-switch id="enable_improved_custom_theme_editor"></toggle-switch>
+                        <i class="material_icon">edit</i>改善されたカスタムテーマの編集ページを使用する　<mwc-switch id="enable_improved_custom_theme_editor"></mwc-switch>
                         <p class="information">
                             設定ページのテーマセクションで「カスタムテーマの編集」を押した際に改善されたページを表示します。
                         </p>
@@ -140,7 +140,7 @@
                 }
             }
 
-            document.querySelectorAll("div.fill_panel section toggle-switch").forEach((element) => {
+            document.querySelectorAll("div.fill_panel section mwc-switch").forEach((element) => {
                 read_flag(element.id);
 
                 element.addEventListener("change", function() {

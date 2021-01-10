@@ -18,10 +18,13 @@
     --mdc-theme-primary: var(--theme_color);
     --mdc-theme-on-primary: white;
     --mdc-button-outline-color: var(--theme_color);
-    --mdc-theme-surface: var(--card_bg);
+    --mdc-theme-surface: var(--text);
     --mdc-theme-on-surface: var(--text);
+    --mdc-theme-secondary: var(--theme_color);
     --mdc-dialog-heading-ink-color: var(--text);
     --mdc-dialog-content-ink-color: var(--text);
+    --mdc-radio-unchecked-color: var(--text);
+    --mdc-theme-text-primary-on-background: var(--text);
 
     /* Elevationの各dp時のbox-shadowの設定。Material Components for the webのCSSを元に作成 */
     /**
@@ -581,6 +584,10 @@ h3 {
 mwc-button {
     margin: 0.5em 0;
     vertical-align: middle;
+}
+
+mwc-switch {
+    overflow: visible;
 }
 
 /* ここからはマテリアルデザインのElevationの設定 */
