@@ -43,6 +43,10 @@ Edition: ORIZIN Agent HTML
 
 ### [v5.0.134.1dev-Eagle] - 2020-01-10
 
+#### 変更
+
+- webpackのMinify化を有効にしました。
+
 #### 修正
 
 - リファクタリングを行いました。

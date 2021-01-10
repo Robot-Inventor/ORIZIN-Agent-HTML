@@ -8,6 +8,6 @@ module.exports = {
         path: path.join(__dirname, "resource/javascript")
     },
     optimization: {
-        minimize: false
+        minimize: true
     }
 };
