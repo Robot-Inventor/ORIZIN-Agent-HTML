@@ -18,7 +18,6 @@
     --mdc-theme-primary: var(--theme_color);
     --mdc-theme-on-primary: white;
     --mdc-button-outline-color: var(--theme_color);
-    --mdc-theme-surface: white;
     --mdc-theme-on-surface: var(--text);
     --mdc-theme-secondary: var(--theme_color);
     --mdc-dialog-heading-ink-color: var(--text);
@@ -586,8 +585,13 @@ mwc-button {
     vertical-align: middle;
 }
 
+mwc-dialog {
+    --mdc-theme-surface: var(--card_bg);
+}
+
 mwc-switch {
     overflow: visible;
+    --mdc-theme-surface: white;
 }
 
 /* ここからはマテリアルデザインのElevationの設定 */

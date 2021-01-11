@@ -1,5 +1,5 @@
 Series Name:ORIZIN Agent
 Edition:ORIZIN Agent HTML
-Version:v5.0.134.1dev
+Version:v5.0.135.2dev
 Code Name:Eagle
 Date:2021-01-11 JST
