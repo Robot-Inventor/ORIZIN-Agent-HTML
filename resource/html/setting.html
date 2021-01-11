@@ -99,6 +99,14 @@
                         <p id="update_detail"></p>
                     </details>
                 </section>
+                <section title="初期化します。">
+                    <details>
+                        <summary class="ripple_effect"><i class="material_icon">delete</i>初期化</summary>
+                        ORIZIN Agent HTMLをダウンロード時の状態に初期化します。
+                        <warning-message>すべての設定や試験機能をデフォルトに戻します。メモや辞書ファイル本体、辞書ファイルのキャッシュなどはリセットされません。また、初期化後はセットアップ画面が表示されます。</warning-message>
+                        <mwc-button label="初期化する" id="factory_reset_button" unelevated></mwc-button>
+                    </details>
+                </section>
                 <section title="試験機能の有効・無効を設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
@@ -107,7 +115,7 @@
                 </section>
                 <mwc-button label="すべてデフォルトに戻す" icon="refresh" id="reset_setting_button"></mwc-button>
                 <mwc-dialog id="reset_check_dialog">
-                    <div>設定をすべてデフォルトに戻します。よろしいですか。</div>
+                    <div id="dialog_content"></div>
                     <mwc-button slot="primaryAction" dialogAction="yes">
                       はい
                     </mwc-button>
@@ -354,11 +362,24 @@
 
             document.getElementById("reset_setting_button").addEventListener("click", () => {
                 const dialog = document.getElementById("reset_check_dialog");
+                document.getElementById("dialog_content").textContent = "設定をすべてデフォルトに戻します。よろしいですか。";
                 dialog.show();
                 dialog.addEventListener("closed", () => {
                     if (event.detail.action === "yes") {
                         eel.reset_setting();
                         location.reload();
+                    }
+                });
+            });
+
+            document.getElementById("factory_reset_button").addEventListener("click", () => {
+                const dialog = document.getElementById("reset_check_dialog");
+                document.getElementById("dialog_content").textContent = "ORIZIN Agent HTMLを初期化します。よろしいですか。";
+                dialog.show();
+                dialog.addEventListener("closed", () => {
+                    if (event.detail.action === "yes") {
+                        eel.factory_reset();
+                        location.href = "splash.html";
                     }
                 });
             });

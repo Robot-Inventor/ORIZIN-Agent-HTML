@@ -90,8 +90,8 @@ def reset_flag() -> None:
 
 
 @eel.expose
-def reset_all() -> None:
-    reset.all()
+def factory_reset() -> None:
+    reset.factory_reset()
 
 
 def add_chat(content: str) -> None:

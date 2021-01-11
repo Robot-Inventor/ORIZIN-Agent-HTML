@@ -135,8 +135,7 @@ class WarningMessage extends HTMLElement {
 
         const shadow = this.attachShadow({mode: "open"});
 
-        this.content_element = document.createElement("span");
-        this.content_element.innerHTML = this.getAttribute("content");
+        this.slot_element = document.createElement("slot");
 
         const icon_element = document.createElement("i");
         icon_element.setAttribute("class", "material_icon");
@@ -167,33 +166,13 @@ i.material_icon {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transform: translateY(0.15em);
-    margin: 0 0.4em;
+    margin: 0 0.4em 0 0;
 }
         `;
 
         shadow.appendChild(icon_element);
-        shadow.appendChild(this.content_element);
+        shadow.appendChild(this.slot_element);
         shadow.appendChild(style_element);
-    }
-
-    static get observedAttributes() {
-        return ["content"];
-    }
-
-    attributeChangedCallback(name, old_value, new_value) {
-        switch(name) {
-            case "content":
-                this.content_element.innerHTML = new_value;
-                break;
-        }
-    }
-
-    get content() {
-        return this.content_element.innerHTML;
-    }
-
-    set content(value) {
-        this.setAttribute("content", value);
     }
 }
 
