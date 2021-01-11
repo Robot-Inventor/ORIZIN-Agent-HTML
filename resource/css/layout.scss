@@ -18,7 +18,7 @@
     --mdc-theme-primary: var(--theme_color);
     --mdc-theme-on-primary: white;
     --mdc-button-outline-color: var(--theme_color);
-    --mdc-theme-surface: var(--text);
+    --mdc-theme-surface: white;
     --mdc-theme-on-surface: var(--text);
     --mdc-theme-secondary: var(--theme_color);
     --mdc-dialog-heading-ink-color: var(--text);
@@ -515,7 +515,7 @@ details {
     top: 0;
     left: 0;
 
-    &:not([open]):hover::before {
+    &:hover::before {
         content: "";
         width: 100%;
         height: 100%;
@@ -531,7 +531,7 @@ details {
     }
 
     &[open] {
-        margin-bottom: 1rem;
+        padding-bottom: 1rem;
     }
 
     summary {
