@@ -13,8 +13,6 @@ import urllib.request
 import urllib.parse
 import html
 import otfdlib
-import hashlib
-import pickle
 import typing
 import unicodedata
 import pathlib
@@ -23,70 +21,29 @@ from collections import OrderedDict
 import inspect
 import glob
 import generate_node_license_report as node_license_report
+import reset
+import theme
+import dictlib
 
 
 @eel.expose
 def change_theme(css_theme_path: str) -> None:
-    if os.path.exists(f"resource/css/{css_theme_path}") is False:
-        with open("resource/css/theme/light_theme.css", mode="r", encoding="utf-8_sig") as light_theme_file:
-            light_theme = light_theme_file.read()
-        with open(f"resource/css/{css_theme_path}", mode="w", encoding="utf-8_sig") as new_theme:
-            new_theme.write(light_theme)
-    with open("resource/css/theme_setting.css", mode="w", encoding="utf-8_sig") as css_file:
-        css_file.write(f"@import url('{css_theme_path}');")
-    write_setting("theme", css_theme_path)
-    print_log_if_dev_mode("Change theme setting.",
-                          OrderedDict(Theme=css_theme_path))
-    return
+    theme.change(css_theme_path)
 
 
 @eel.expose
 def return_theme_dict() -> dict[str, str]:
-    result = {}
-    for file_path in glob.glob("resource/css/theme/**/*.css", recursive=True):
-        with open(file_path, mode="r", encoding="utf-8_sig") as f:
-            css_file = f.read()
-            p = pathlib.Path(file_path)
-            file_path = str(p.resolve().relative_to(
-                f"{p.cwd()}/resource/css")).replace("\\", "/")
-            result[file_path] = css_file.splitlines()[0].replace(
-                "/*", "").replace("*/", "").strip()
-    return result
+    return theme.return_dict()
 
 
 @eel.expose
-def write_custom_css_theme(value: typing.Any) -> None:
-    if len(value) == 5:
-        custom_css_data = "/* カスタムテーマ */\n\n:root {\n    --bg: " + value[0] + ";\n    --card_bg: " + value[1] + ";\n    --text: " + \
-                          value[2] + ";\n    --shadow: " + value[3] + \
-            ";\n    --theme_color: " + value[4] + ";\n    --header_background_color: " + value[5] + ";\n    --error_text_color: " + value[6] + ";\n}"
-        with open("resource/css/theme/user/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
-            f.write(custom_css_data)
-        print_log_if_dev_mode("Write custom css theme.",
-                              OrderedDict(Values=value))
-        return
-    else:
-        core.show_error("カスタムCSSテーマに不正な値を書き込もうとしています。")
-        print_log_if_dev_mode(
-            "Error happened when writing custom css theme.", OrderedDict(Status="ERROR"))
-        return
+def write_custom_css_theme(value: list[str]) -> None:
+    theme.write_custom(value)
 
 
 @eel.expose
 def check_current_css_theme_information() -> list[str]:
-    css_file_path = read_setting("theme")
-    with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
-        css = f.read()
-        pattern = re.compile(r":root {.*?}", re.MULTILINE | re.DOTALL)
-        value = re.sub(r"(:root {)|}|( *)|-|;", "",
-                       re.search(pattern, css).group())
-        root = otfdlib.Otfd()
-        root.load_from_string(value)
-        root.parse()
-    result = root.get_value_list()
-    print_log_if_dev_mode(
-        "Check current css theme information.", OrderedDict(Information=result))
-    return result
+    return theme.current()
 
 
 @eel.expose
@@ -124,24 +81,17 @@ def set_flag(flag_name: typing.Any, flag_value: typing.Any) -> None:
 
 @eel.expose
 def reset_setting() -> None:
-    with open("resource/setting/default_setting.otfd", encoding="utf-8_sig") as f:
-        default_setting = f.read()
-    with open("resource/setting/setting.otfd", mode="w", encoding="utf-8_sig") as f:
-        f.write(default_setting)
-    write_setting("setup_finished", "True")
-    change_theme("theme/auto_theme.css")
-    print_log_if_dev_mode("Reset settings.", OrderedDict(Status="OK"))
-    return
+    reset.setting()
 
 
 @eel.expose
 def reset_flag() -> None:
-    with open("resource/setting/default_flag.otfd", encoding="utf-8_sig") as f:
-        default_setting = f.read()
-    with open("resource/setting/flag.otfd", mode="w", encoding="utf-8_sig") as f:
-        f.write(default_setting)
-    print_log_if_dev_mode("Reset flag.", OrderedDict(Status="OK"))
-    return
+    reset.flag()
+
+
+@eel.expose
+def reset_all() -> None:
+    reset.all()
 
 
 def add_chat(content: str) -> None:
@@ -734,49 +684,6 @@ def set_intelligent_timer(query: str) -> str:
     return time
 
 
-def open_dictionary():
-    with open("resource/dictionary/dictionary.otfd", mode="r", encoding="utf-8_sig") as dict_file:
-        dict_hash = hashlib.sha256(dict_file.read().encode()).hexdigest()
-        print_log_if_dev_mode("Calculate dictionary hash.",
-                              OrderedDict(Hash=dict_hash))
-    if os.path.exists("resource/dictionary/dictionary_hash.txt"):
-        with open("resource/dictionary/dictionary_hash.txt", mode="r", encoding="utf-8_sig") as hash_file:
-            hash_value = hash_file.read()
-            print_log_if_dev_mode(
-                "Read cached dictionary hash.", OrderedDict(Hash=hash_value))
-    else:
-        with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
-            hash_file.write(dict_hash)
-            hash_value = 0
-            print_log_if_dev_mode("Cache dictionary hash.",
-                                  OrderedDict(Hash=dict_hash))
-    if os.path.exists("resource/dictionary/dictionary.bin"):
-        if hash_value == dict_hash:
-            with open("resource/dictionary/dictionary.bin", mode="rb") as dict_bin_file:
-                dictionary_data = pickle.load(dict_bin_file)
-                print_log_if_dev_mode(
-                    "Read cached dictionary.", OrderedDict(Status="OK"))
-        else:
-            with open("resource/dictionary/dictionary_hash.txt", mode="w", encoding="utf-8_sig") as hash_file:
-                hash_file.write(dict_hash)
-            dictionary_data = core.load_dictionary(
-                "resource/dictionary/dictionary.otfd")
-            print_log_if_dev_mode(
-                "Read and parse dictionary.", OrderedDict(Status="OK"))
-            with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
-                pickle.dump(dictionary_data, dict_bin_file)
-            print_log_if_dev_mode(
-                "Update cached dictionary.", OrderedDict(Status="OK"))
-    else:
-        dictionary_data = core.load_dictionary(
-            "resource/dictionary/dictionary.otfd")
-        with open("resource/dictionary/dictionary.bin", mode="wb") as dict_bin_file:
-            pickle.dump(dictionary_data, dict_bin_file)
-        print_log_if_dev_mode("Create cache dictionary.",
-                              OrderedDict(Status="OK"))
-    return dictionary_data
-
-
 @eel.expose
 def get_release(channel: typing.Literal["stable", "develop"]):
     latest_version = release.get_latest_version(channel)
@@ -791,7 +698,7 @@ def generate_node_license_report():
 IS_DEV_MODE = False
 IS_CUI_MODE = False
 
-dictionary = open_dictionary()
+dictionary = dictlib.load("resource/dictionary/dictionary.otfd")
 
 
 if __name__ == "__main__":
@@ -805,15 +712,18 @@ if __name__ == "__main__":
     IS_DEV_MODE = args.dev_mode
     IS_CUI_MODE = args.cui_mode
     print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
+
     if os.path.exists("resource/setting/setting.otfd") is False:
         change_theme("theme/auto_theme.css")
         print_log_if_dev_mode("Reset theme setting.", OrderedDict(
             ResetedTheme="theme/auto_theme.css"))
+
     core.solve_setting_conflict(
         "resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
     core.solve_setting_conflict(
         "resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
     print_log_if_dev_mode("Solve setting conflict.", OrderedDict(Status="OK"))
+
     if IS_CUI_MODE:
         print("\nProgram started. Please input query.\n")
         while True:

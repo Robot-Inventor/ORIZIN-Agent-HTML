@@ -65,7 +65,7 @@ def convert_kanji_to_int(string: str) -> str:
     return result
 
 
-def load_dictionary(path: str) -> dict:
+def load_dictionary(path: str) -> OrderedDict:
     root = otfdlib.Otfd()
     root.load(path)
     root.parse()
