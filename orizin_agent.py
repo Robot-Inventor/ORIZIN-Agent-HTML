@@ -730,8 +730,8 @@ if __name__ == "__main__":
             print(">>>>>", end="")
             print("\n" + make_response(input())[1] + "\n")
     else:
-        eel.init("")
+        eel.init("resource/")
         if read_flag("fast_start"):
-            eel.start("resource/html/index.html")
+            eel.start("html/index.html")
         else:
-            eel.start("resource/html/splash.html")
+            eel.start("html/splash.html")
