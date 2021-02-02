@@ -55,18 +55,6 @@
                         </p>
                     </section>
                     <section>
-                        <i class="material_icon">search</i>設定の検索を有効にする　<mwc-switch id="show_setting_search_box"></mwc-switch>
-                        <p class="information">
-                            設定ページと試験機能ページに設定の検索ボックスを追加します。
-                        </p>
-                    </section>
-                    <section>
-                        <i class="material_icon">upgrade</i>アップデートチェッカーを有効にする　<mwc-switch id="enable_update_checker"></mwc-switch>
-                        <p class="information">
-                            設定ページの「アップデートを確認」セクションにアップデートチェッカーボタンを表示します。
-                        </p>
-                    </section>
-                    <section>
                         <i class="material_icon">edit</i>改善されたカスタムテーマの編集ページを使用する　<mwc-switch id="enable_improved_custom_theme_editor"></mwc-switch>
                         <p class="information">
                             設定ページのテーマセクションで「カスタムテーマの編集」を押した際に改善されたページを表示します。
@@ -86,10 +74,6 @@
             </div>
         </main>
         <style>
-            search-box {
-                display: none;
-            }
-
             #section_outer {
                 display: none;
             }
@@ -132,12 +116,6 @@
                 document.querySelectorAll("div.fill_panel section").forEach((element) => {
                     element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
                 });
-            }
-
-            async function show_search_area() {
-                if (await eel.read_flag("show_setting_search_box")()) {
-                    search_box.style.display = "block";
-                }
             }
 
             document.querySelectorAll("div.fill_panel section mwc-switch").forEach((element) => {

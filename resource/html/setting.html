@@ -125,10 +125,6 @@
                 </mwc-dialog>
             </div>
             <style>
-                search-box {
-                    display: none;
-                }
-
                 h3 {
                     margin: 0;
                     padding: 0;
@@ -149,10 +145,6 @@
 
                 #reset_setting_button {
                     float: right;
-                }
-
-                #check_update {
-                    display: none;
                 }
 
                 .reset_sound_setting {
@@ -270,13 +262,6 @@
                 }
                 if (await eel.read_flag("add_readable_text_setting")()) {
                     document.getElementById("readable_text_setting").style.display = "block";
-                }
-
-                if (await eel.read_flag("show_setting_search_box")()) {
-                    document.getElementById("search_box").style.display = "block";
-                }
-                if (await eel.read_flag("enable_update_checker")()) {
-                    document.getElementById("check_update").style.display = "inline-block";
                 }
 
                 if (await eel.read_flag("enable_improved_custom_theme_editor")()) {
