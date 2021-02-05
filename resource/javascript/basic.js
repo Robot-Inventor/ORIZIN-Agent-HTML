@@ -194,7 +194,7 @@ class SearchBox extends HTMLElement {
         search_icon_element.setAttribute("id", "search_icon");
         search_icon_element.setAttribute("class", "material_icon");
 
-        this.text_box = document.createElement("underlined-textbox");
+        this.text_box = document.createElement("input");
         this.text_box.setAttribute("id", "search_box");
         this.text_box.setAttribute("placeholder", "設定項目を検索");
         this.text_box.addEventListener("input", () => {
@@ -202,6 +202,12 @@ class SearchBox extends HTMLElement {
             this.setAttribute("value", value);
             this.dispatchEvent(input_event);
             clear_icon_element.style.display = value ? "inline-block" : "none";
+        });
+        this.text_box.addEventListener("focusin", () => {
+            outer_element.classList.add("focused");
+        });
+        this.text_box.addEventListener("focusout", () => {
+            outer_element.classList.remove("focused");
         });
 
         const clear_icon_element = document.createElement("i");
@@ -240,6 +246,12 @@ class SearchBox extends HTMLElement {
     border: solid 1px var(--text);
     opacity: 0.2;
     pointer-events: none;
+    transition: 0.3s;
+}
+
+#outer.focused::before {
+    border: solid 1px var(--theme_color);
+    opacity: 0.75;
 }
 
 .material_icon {
@@ -256,42 +268,32 @@ class SearchBox extends HTMLElement {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transform: translateY(0.15em);
+    color: var(--text);
 }
 
 #search_icon {
     margin: 0 0.4em;
     margin-right: 0.5rem;
     cursor: default;
+    transition: 0.3s;
 }
 
-underlined-textbox {
-    display:inline-block;
-    height:100%;
-    width:50%;
-}
-
-underlined-textbox::part(textbox) {
-    color:var(--text);
-}
-
-underlined-textbox::part(textbox):focus,
-underlined-textbox::part(textbox):focus::placeholder {
-    color:var(--theme_color);
-}
-
-underlined-textbox::part(normal_underline) {
-    background:var(--text);
-    height:0.075rem;
-}
-
-underlined-textbox::part(focused_underline) {
-    background:var(--theme_color);
-    height:0.075rem;
+#outer.focused #search_icon {
+    color: var(--theme_color);
 }
 
 #search_box {
-    width: calc(100% - 3.5rem);
-    height: max-content;
+    width: calc(100% - 4rem);
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: var(--text);
+}
+
+#search_box:placeholder {
+    color: var(--text);
+    opacity: 0.5;
 }
 
 #clear_icon {
