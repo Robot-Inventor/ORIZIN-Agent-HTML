@@ -156,7 +156,24 @@
                 search_setting();
             });
 
-            show_search_area();
+            document.addEventListener("keydown", () => {
+                const search_box = document.getElementById("search_box");
+                is_search_box_active = document.activeElement === search_box;
+                switch (event.key) {
+                    case "/":
+                        if (!is_search_box_active) {
+                            event.preventDefault();
+                            search_box.shadowRoot.querySelector("input").focus();
+                        }
+                        break;
+
+                    case "Escape":
+                        if (is_search_box_active) {
+                            search_box.shadowRoot.querySelector("input").blur();
+                        }
+                        break;
+                }
+            });
         </script>
     </body>
 </html>
