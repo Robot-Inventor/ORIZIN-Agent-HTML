@@ -101,6 +101,8 @@
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/bundle.js"></script>
+        <script src="../javascript/mousetrap.min.js"></script>
+        <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
         <script>
             const search_box = document.getElementById("search_box");
@@ -156,24 +158,35 @@
                 search_setting();
             });
 
-            document.addEventListener("keydown", () => {
-                const search_box = document.getElementById("search_box");
-                is_search_box_active = document.activeElement === search_box;
-                switch (event.key) {
-                    case "/":
-                        if (!is_search_box_active) {
-                            event.preventDefault();
-                            search_box.shadowRoot.querySelector("input").focus();
-                        }
-                        break;
+            function focus_search_box() {
+                const is_search_box_active = document.activeElement === search_box;
+                if (!is_search_box_active) {
+                    event.preventDefault();
+                    search_box.shadowRoot.querySelector("input").focus();
+                }
+            }
 
-                    case "Escape":
-                        if (is_search_box_active) {
-                            search_box.shadowRoot.querySelector("input").blur();
-                        }
-                        break;
+            Mousetrap.bind({
+                "/": focus_search_box,
+                "s": focus_search_box,
+                "esc": () => {
+                    const is_search_box_active = document.activeElement === search_box;
+                    if (is_search_box_active) {
+                        search_box.shadowRoot.querySelector("input").blur();
+                    }
                 }
             });
+
+            Mousetrap.prototype.stopCallback = function(e, element) {
+                var self = this;
+                if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
+                    return false;
+                }
+                if (document.activeElement === search_box) {
+                    return false;
+                }
+                return element.tagName == 'INPUT' || element.tagName == 'SELECT' || element.tagName == 'TEXTAREA' || element.isContentEditable;
+            };
         </script>
     </body>
 </html>
