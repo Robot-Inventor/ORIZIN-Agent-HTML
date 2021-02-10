@@ -578,6 +578,24 @@ h3 {
     margin-bottom: 0.5em;
 }
 
+table,
+table tr,
+table th,
+table td {
+    overflow: visible;
+}
+
+table {
+    margin: 1rem;
+    border-collapse: collapse;
+
+    th,
+    td {
+        border: solid 0.1rem var(--text);
+        padding: 0.5rem;
+    }
+}
+
 /* ここからはMaterial Web Componentsの設定 */
 
 mwc-button {
