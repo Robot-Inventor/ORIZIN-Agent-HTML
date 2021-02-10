@@ -176,17 +176,6 @@
                     }
                 }
             });
-
-            Mousetrap.prototype.stopCallback = function(e, element) {
-                var self = this;
-                if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
-                    return false;
-                }
-                if (document.activeElement === search_box) {
-                    return false;
-                }
-                return element.tagName == 'INPUT' || element.tagName == 'SELECT' || element.tagName == 'TEXTAREA' || element.isContentEditable;
-            };
         </script>
     </body>
 </html>

@@ -127,6 +127,44 @@ window.addEventListener("load", () => {
     readable_text_setting();
     feed_buck_setting();
     eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
+
+    Mousetrap.prototype.stopCallback = function(e, element, combo) {
+        var self = this;
+        if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
+            return false;
+        }
+        if (element.tagName === "SEARCH-BOX" || element.tagName === "UNDERLINED-TEXTBOX") {
+            if (combo === "esc" || combo === "enter" || combo === "up" || combo === "down") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return element.tagName == 'INPUT' || element.tagName == 'SELECT' || element.tagName == 'TEXTAREA' || element.isContentEditable;
+    };
+
+    Mousetrap.bind({
+        "mod+,": () => {
+            location.href = "setting.html";
+        },
+        "t": () => {
+            location.href = "index.html";
+        },
+        "h": () => {
+            location.href = "index.html";
+        },
+        "home": () => {
+            location.href = "index.html";
+        },
+        "m": () => {
+            if (document.getElementById("menu_open_button").classList.contains("open")) {
+                document.getElementById("menu_close_button").click();
+            } else {
+                document.getElementById("menu_open_button").click();
+            }
+        }
+    });
 });
 
 class WarningMessage extends HTMLElement {

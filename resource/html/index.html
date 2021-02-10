@@ -431,7 +431,7 @@
                     if (listening_status()) {
                         recognition.abort();
                         listening_status(false);
-                    } else if (document.getElementById("requestForm") != document.activeElement) {
+                    } else if (request_form != document.activeElement) {
                         recognition.start();
                         listening_status(true);
                     }
@@ -439,9 +439,9 @@
             }
 
             function change_send_button_status() {
-                const send_button = document.getElementById("startButton");
+                const send_button = start_button;
 
-                send_button.disabled = !(document.getElementById("requestForm").value && !is_doing_speech_synthesis);
+                send_button.disabled = !(request_form.value && !is_doing_speech_synthesis);
                 if (listening_status()) {
                     auto_recognition_abort = true;
                     click_recognition_button();
@@ -462,13 +462,13 @@
             let query_history = [];
             let query_history_index = 0;
 
-            const requestForm = document.getElementById("requestForm");
-      　    const startButton = document.getElementById("startButton");
+            const request_form = document.getElementById("requestForm");
+      　    const start_button = document.getElementById("startButton");
 
-            startButton.addEventListener("click", function() {
+            start_button.addEventListener("click", function() {
                 if (!is_doing_speech_synthesis) {
-                    response(requestForm.value);
-                    requestForm.value = "";
+                    response(request_form.value);
+                    request_form.value = "";
                     is_requested_by_text = true;
                     change_send_button_status();
                 }
@@ -504,44 +504,52 @@
                 document.getElementById("user_speaking_status").style.opacity = "0"
             }
 
-            document.addEventListener("keydown", function() {
-                switch (event.keyCode) {
-                    case 32:
-                        if (document.getElementById("requestForm") != document.activeElement) {
-                            click_recognition_button();
-                        }
-                        break;
-
-                    case 13:
-                        document.getElementById("startButton").click();
-                        break;
-
-                    case 38:
-                        text_box = document.getElementById("requestForm");
-                        if (text_box === document.activeElement) {
-                            if (query_history.length != false) {
-                                if (query_history_index < query_history.length) {
-                                    query_history_index += 1;
-                                }
-                                text_box.value = query_history[query_history_index - 1];
-                            }
-                            change_send_button_status();
-                        }
-                        break;
-
-                    case 40:
-                        text_box = document.getElementById("requestForm");
-                        if (text_box === document.activeElement) {
-                            if (query_history_index > 0) {
-                                query_history_index -= 1;
+            Mousetrap.bind({
+                "space": () => {
+                    if (request_form != document.activeElement) {
+                        click_recognition_button();
+                    }
+                },
+                "enter": () => {
+                    start_button.click();
+                },
+                "up": () => {
+                    const text_box = request_form;
+                    if (text_box === document.activeElement) {
+                        if (query_history.length != false) {
+                            if (query_history_index < query_history.length) {
+                                query_history_index += 1;
                             }
                             text_box.value = query_history[query_history_index - 1];
-                            if (query_history_index === 0) {
-                                text_box.value = "";
-                            }
-                            change_send_button_status();
                         }
-                        break;
+                        change_send_button_status();
+                    }
+                },
+                "down": () => {
+                    const text_box = request_form;
+                    if (text_box === document.activeElement) {
+                        if (query_history_index > 0) {
+                            query_history_index -= 1;
+                        }
+                        text_box.value = query_history[query_history_index - 1];
+                        if (query_history_index === 0) {
+                            text_box.value = "";
+                        }
+                        change_send_button_status();
+                    }
+                },
+                "/": () => {
+                    event.preventDefault();
+                    request_form.shadowRoot.querySelector("input").focus();
+                },
+                "s": () => {
+                    event.preventDefault();
+                    request_form.shadowRoot.querySelector("input").focus();
+                },
+                "esc": () => {
+                    if (document.activeElement === request_form) {
+                        request_form.shadowRoot.querySelector("input").blur();
+                    }
                 }
             });
         </script>
