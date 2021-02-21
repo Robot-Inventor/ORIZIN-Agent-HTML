@@ -44,7 +44,7 @@ SOFTWARE.
 </pre>
                     </p>
                     <menu>
-                        <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card('licence_card', 'privacy_policy_card')" icon="check" label="同意する"></mwc-button>
+                        <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card()" icon="check" label="同意する"></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="privacy_policy_card">
@@ -74,7 +74,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
 本ソフトウェアの制作者は，いつでもその意志でこのプライバシーポリシーを変更できるものとします。ただし，変更後のプライバシーポリシーが変更前にダウンロードされた本ソフトウェアに遡って適用されることはありません。
 </pre>
                         <menu>
-                            <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card('privacy_policy_card', 'ask_continue_card')" icon="check" label="同意する"></mwc-button>
+                            <mwc-button onclick="window.close()" icon="close" label="同意しない"></mwc-button><mwc-button onclick="forward_card()" icon="check" label="同意する"></mwc-button>
                         </menu>
                     </p>
                 </div>
@@ -84,7 +84,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         これから，ORIZIN Agent HTMLの初期設定を行います。設定はスキップでき，あとから変更することもできます。設定を続行しますか？
                     </p>
                     <menu>
-                        <mwc-button onclick="save_setting()" icon="cancel" label="スキップ"></mwc-button><mwc-button onclick="forward_card('ask_continue_card', 'theme_setting_card')" icon="check" label="続行"></mwc-button>
+                        <mwc-button onclick="save_setting()" icon="cancel" label="スキップ"></mwc-button><mwc-button onclick="forward_card()" icon="check" label="続行"></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="theme_setting_card">
@@ -97,7 +97,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <mwc-button onclick="back_card('theme_setting_card', 'ask_continue_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('theme_setting_card', 'user_name_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card()" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="user_name_setting_card">
@@ -107,7 +107,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="ユーザー名を入力" id="user_name" value="ゲスト"></underlined-textbox>
                     <menu>
-                        <mwc-button onclick="back_card('user_name_setting_card', 'theme_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('user_name_setting_card', 'search_engine_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card()" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="search_engine_setting_card">
@@ -124,7 +124,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </select>
                     <br>
                     <menu>
-                        <mwc-button onclick="back_card('search_engine_setting_card', 'user_name_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('search_engine_setting_card', 'news_site_url_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card()" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="news_site_url_setting_card">
@@ -134,7 +134,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="URLを入力" id="news_site_url" value="https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja"></underlined-textbox>
                     <menu>
-                        <mwc-button onclick="back_card('news_site_url_setting_card', 'search_engine_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('news_site_url_setting_card', 'python_interpreter_setting_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card()" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="python_interpreter_setting_card">
@@ -144,7 +144,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                     </p>
                     <underlined-textbox placeholder="絶対パスかエイリアスを入力" id="python_interpreter" value="python"></underlined-textbox>
                     <menu>
-                        <mwc-button onclick="back_card('python_interpreter_setting_card', 'news_site_url_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card('python_interpreter_setting_card', 'setting_finished_message_card')" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="forward_card()" icon="arrow_forward" label="次へ" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <div class="overlay_inner" id="setting_finished_message_card">
@@ -153,7 +153,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                         設定が完了しました！
                     </p>
                     <menu>
-                        <mwc-button onclick="back_card('setting_finished_message_card', 'news_site_url_setting_card')" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="save_setting()" icon="check" label="初期設定を終了" trailingicon></mwc-button>
+                        <mwc-button onclick="back_card()" icon="arrow_back" label="戻る"></mwc-button><mwc-button onclick="save_setting()" icon="check" label="初期設定を終了" trailingicon></mwc-button>
                     </menu>
                 </div>
                 <progress value="0" max="1">0%</progress>
@@ -235,21 +235,27 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            const ALL_CARDS = 8;
-            let setup_status = 0;
+            const ALL_CARDS = document.querySelectorAll("div.overlay_inner").length;
+            let setup_status = 1;
+
             const progress = document.querySelector("progress");
+            progress.value = setup_status / ALL_CARDS;
+
+            const card_array = document.querySelectorAll("div.overlay_inner");
+            let current_card_index = 0;
 
             function forward_card(current_card_id, next_card_id) {
-                document.getElementById(current_card_id).style.marginLeft = "-100vw";
-                document.getElementById(next_card_id).style.marginLeft = "0";
+                card_array[current_card_index].style.marginLeft = "-100vw";
+                current_card_index ++;
+                card_array[current_card_index].style.marginLeft = "0";
                 setup_status += 1;
                 progress.value = setup_status / ALL_CARDS;
             }
 
             function back_card(current_card_id, back_card_id) {
-                document.getElementById(current_card_id).style.marginLeft = "100vw";
-                document.getElementById(back_card_id).style.marginLeft = "0";
-
+                card_array[current_card_index].style.marginLeft = "100vw";
+                current_card_index --;
+                card_array[current_card_index].style.marginLeft = "0";
                 setup_status -= 1;
                 progress.value = setup_status / ALL_CARDS;
             }
@@ -264,11 +270,11 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
             }
 
             async function set_to_current_setting() {
-                document.getElementById("theme").value = await eel.read_setting("theme")();
-                document.getElementById("user_name").value = await eel.read_setting("user_name")();
-                document.getElementById("news_site_url").value = await eel.read_setting("news_site_url")();
-                document.getElementById("search_engine").value = await eel.read_setting("search_engine")();
-                document.getElementById("python_interpreter").value = await eel.read_setting("python_interpreter")();
+                const setting_name_list = ["theme", "user_name", "news_site_url", "search_engine", "python_interpreter"];
+                for (let i = 0; i < setting_name_list.length; i++) {
+                    const setting_name = setting_name_list[i];
+                    document.getElementById(setting_name) = await eel.read_setting(setting_name)();
+                }
             }
 
             function save_setting() {
@@ -280,7 +286,7 @@ https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/ 並びにそれより下の
                 eel.write_setting("search_engine", document.getElementById("search_engine").value);
                 eel.write_setting("python_interpreter", document.getElementById("python_interpreter").value);
 
-                location.href = "index.html"
+                location.href = "index.html";
             }
 
             generate_theme_menu();

@@ -514,26 +514,24 @@
                     start_button.click();
                 },
                 "up": () => {
-                    const text_box = request_form;
-                    if (text_box === document.activeElement) {
+                    if (request_form === document.activeElement) {
                         if (query_history.length != false) {
                             if (query_history_index < query_history.length) {
                                 query_history_index += 1;
                             }
-                            text_box.value = query_history[query_history_index - 1];
+                            request_form.value = query_history[query_history_index - 1];
                         }
                         change_send_button_status();
                     }
                 },
                 "down": () => {
-                    const text_box = request_form;
-                    if (text_box === document.activeElement) {
+                    if (request_form === document.activeElement) {
                         if (query_history_index > 0) {
                             query_history_index -= 1;
                         }
-                        text_box.value = query_history[query_history_index - 1];
+                        request_form.value = query_history[query_history_index - 1];
                         if (query_history_index === 0) {
-                            text_box.value = "";
+                            request_form.value = "";
                         }
                         change_send_button_status();
                     }

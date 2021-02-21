@@ -250,19 +250,6 @@
                 }, 4000);
             });
 
-            const search_box = document.getElementById("search_box");
-            function search_setting() {
-                const query = search_box.value;
-
-                document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
-                });
-            }
-
-            search_box.addEventListener("input", function() {
-                search_setting();
-            });
-
             function save_setting() {
                 const setting_value = event.target.tagName == "MWC-SWITCH" ? event.target.checked : event.target.value;
                 eel.write_setting(event.target.id, setting_value);
@@ -305,10 +292,6 @@
                 if (await eel.read_flag("enable_improved_custom_theme_editor")()) {
                     document.getElementById("edit_theme").href = "improved_set_custom_css_theme.html";
                 }
-
-                document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
-                });
             }
 
             set_to_current_setting();
@@ -407,22 +390,19 @@
                 });
             });
 
-            function focus_search_box() {
-                const is_search_box_active = document.activeElement === search_box;
-                if (!is_search_box_active) {
-                    event.preventDefault();
-                    search_box.shadowRoot.querySelector("input").focus();
-                }
-            }
-
+            const search_box = document.getElementById("search_box");
+            search_box.init("div.fill_panel section");
             Mousetrap.bind({
-                "/": focus_search_box,
-                "s": focus_search_box,
+                "/": () => {
+                    search_box.focus();
+                    event.preventDefault();
+                },
+                "s": () => {
+                    search_box.focus();
+                    event.preventDefault();
+                },
                 "esc": () => {
-                    const is_search_box_active = document.activeElement === search_box;
-                    if (is_search_box_active) {
-                        search_box.shadowRoot.querySelector("input").blur();
-                    }
+                    search_box.blur();
                 }
             });
         </script>

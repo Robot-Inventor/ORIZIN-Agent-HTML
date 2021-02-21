@@ -25,7 +25,7 @@ async function load_file(file_path, target_element) {
 }
 
 async function feed_buck_setting() {
-    if(await eel.read_flag("show_feedback_button")()) {
+    if (await eel.read_flag("show_feedback_button")()) {
         document.getElementById("feedback_button").style.display = "block";
     }
 }
@@ -117,7 +117,7 @@ new Ripple(".ripple_effect", {
     color: "auto",
     multi: false,
     duration: 0.7,
-    rate: function(pxPerSecond) {
+    rate: function (pxPerSecond) {
         return pxPerSecond;
     },
     easing: "linear"
@@ -126,9 +126,9 @@ new Ripple(".ripple_effect", {
 window.addEventListener("load", () => {
     readable_text_setting();
     feed_buck_setting();
-    eel.print_log_if_dev_mode("Page rendered.", {"File": location.pathname});
+    eel.print_log_if_dev_mode("Page rendered.", { "File": location.pathname });
 
-    Mousetrap.prototype.stopCallback = function(e, element, combo) {
+    Mousetrap.prototype.stopCallback = function (e, element, combo) {
         var self = this;
         if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
             return false;
@@ -171,7 +171,7 @@ class WarningMessage extends HTMLElement {
     constructor() {
         super();
 
-        const shadow = this.attachShadow({mode: "open"});
+        const shadow = this.attachShadow({ mode: "open" });
 
         this.slot_element = document.createElement("slot");
 
@@ -222,7 +222,7 @@ class SearchBox extends HTMLElement {
 
         const input_event = new Event("input");
 
-        const shadow = this.attachShadow({mode: "open"});
+        const shadow = this.attachShadow({ mode: "open" });
 
         const outer_element = document.createElement("div");
         outer_element.setAttribute("id", "outer");
@@ -254,7 +254,8 @@ class SearchBox extends HTMLElement {
         clear_icon_element.setAttribute("class", "material_icon ripple_effect");
         clear_icon_element.addEventListener("click", () => {
             this.setAttribute("value", "");
-            this.dispatchEvent(input_event);
+            this.text_box.value = "";
+            this.text_box.dispatchEvent(input_event);
             clear_icon_element.style.display = "none";
         });
 
@@ -348,12 +349,44 @@ class SearchBox extends HTMLElement {
         shadow.appendChild(style_element);
     }
 
+    init(selector) {
+        document.querySelectorAll(selector).forEach((element) => {
+            const display_property = getComputedStyle(element).getPropertyValue("display");
+            element.dataset.defaultDisplayProperty = display_property;
+        });
+
+        this.text_box.addEventListener("input", () => {
+            const query = this.value.toLowerCase();
+
+            document.querySelectorAll(selector).forEach((element) => {
+                const content_text = element.innerText.toLowerCase();
+                const default_display_property = element.dataset.defaultDisplayProperty;
+                const is_match = content_text.indexOf(query) === -1;
+                element.style.display = is_match ? "none" : default_display_property;
+            });
+        }, false);
+    }
+
+    focus() {
+        const is_search_box_active = document.activeElement === this;
+        if (!is_search_box_active) {
+            this.text_box.focus();
+        }
+    }
+
+    blur() {
+        const is_search_box_active = document.activeElement === this;
+        if (is_search_box_active) {
+            this.text_box.blur();
+        }
+    }
+
     static get observedAttributes() {
         return ["value"];
     }
 
     attributeChangedCallback(name, old_value, new_value) {
-        switch(name) {
+        switch (name) {
             case "value":
                 this.text_box.value = new_value;
                 break;

@@ -18,7 +18,7 @@
                 <h2>試験機能</h2>
                 <search-box id="search_box"></search-box>
                 <section>
-                    <warning-message id="continue_check_message">ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。本当に設定を変更しますか。</warning-message>
+                    <warning-message id="continue_check_message">ここにある機能は全て試験機能であり、実装が不十分な可能性があります。有効にするとデータが破損したり、動作が不安定になったり、その他の問題が生じたりする場合があります。本当に設定を変更しますか。</warning-message>
                     <menu id="continue_check_menu">
                         <mwc-button label="はい" id="continue_button" unelevated></mwc-button><mwc-button label="いいえ（戻る）" id="back_button"></mwc-button>
                     </menu>
@@ -112,14 +112,6 @@
                 document.getElementById(flag_name).checked = flag_value;
             }
 
-            function search_setting() {
-                const query = search_box.value;
-
-                document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                    element.style.display = element.innerText.toLowerCase().indexOf(query.toLowerCase()) === -1 ? "none" : element.dataset.defaultDisplay;
-                });
-            }
-
             document.querySelectorAll("div.fill_panel section mwc-switch").forEach((element) => {
                 read_flag(element.id);
 
@@ -131,7 +123,7 @@
             document.getElementById("continue_button").addEventListener("click", function() {
                 document.getElementById("section_outer").style.display = "block";
                 document.getElementById("continue_check_menu").style.display = "none";
-                document.getElementById("continue_check_message").content = "ここにある機能は全て試験機能であり，実装が不十分な可能性があります。有効にするとデータが破損したり，動作が不安定になったり，その他の問題が生じたりする場合があります。";
+                document.getElementById("continue_check_message").content = "ここにある機能は全て試験機能であり、実装が不十分な可能性があります。有効にするとデータが破損したり、動作が不安定になったり、その他の問題が生じたりする場合があります。";
             });
 
             document.getElementById("back_button").addEventListener("click", function() {
@@ -150,30 +142,18 @@
                 });
             });
 
-            document.querySelectorAll("div.fill_panel section").forEach((element) => {
-                element.dataset.defaultDisplay = getComputedStyle(element).getPropertyValue("display");
-            });
-
-            search_box.addEventListener("input", function() {
-                search_setting();
-            });
-
-            function focus_search_box() {
-                const is_search_box_active = document.activeElement === search_box;
-                if (!is_search_box_active) {
-                    event.preventDefault();
-                    search_box.shadowRoot.querySelector("input").focus();
-                }
-            }
-
+            search_box.init("div.fill_panel section");
             Mousetrap.bind({
-                "/": focus_search_box,
-                "s": focus_search_box,
+                "/": () => {
+                    search_box.focus();
+                    event.preventDefault();
+                },
+                "s": () => {
+                    search_box.focus();
+                    event.preventDefault();
+                },
                 "esc": () => {
-                    const is_search_box_active = document.activeElement === search_box;
-                    if (is_search_box_active) {
-                        search_box.shadowRoot.querySelector("input").blur();
-                    }
+                    search_box.blur();
                 }
             });
         </script>
