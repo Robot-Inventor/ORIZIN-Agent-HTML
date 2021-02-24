@@ -16,45 +16,73 @@
         <main>
             <div class="fill_panel">
                 <h2>フィードバック</h2>
+                <p>
+                    *が付いている項目は必須です。
+                </p>
                 <p class="information">
-                    <i class="material_icon">info</i>フィードバックは以下のフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また，以下のフォームに入力された内容は自動でそのままGoogleフォームで送信されます。
+                    <i class="material_icon">info</i>フィードバックは以下のフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また、以下のフォームに入力された内容は自動でGoogleフォームに送信されます。フォームには、個人情報やパスワードなどを入力しないでください。
                 </p>
                 <form id="feedback" target="dummy_send_target">
                     <div class="question_group">
-                        <label for="entry.1463225208" class="question_text"><i class="material_icon">feedback</i>フィードバックの種類を選択してください。</label>
-                        <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="バグの報告" id="bug" required><label for="bug" class="ripple_effect">バグの報告</label>
-                        </div>
-                        <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="機能提案" id="feature_suggestion" required><label for="feature_suggestion" class="ripple_effect">機能提案</label>
-                        </div>
-                        <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="改善の希望" id="improve" required><label for="improve" class="ripple_effect">改善の希望</label>
-                        </div>
-                        <div class="radio_group">
-                            <input type="radio" name="entry.1463225208" value="その他" id="else" required><label for="else" class="ripple_effect">その他</label>
-                        </div>
+                        <label for="entry.1463225208" class="question_text"><i class="material_icon">feedback</i>フィードバックの種類を選択してください。*</label>
+                        <mwc-formfield label="バグの報告">
+                            <mwc-radio name="entry.1463225208" value="バグの報告"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="機能提案">
+                            <mwc-radio name="entry.1463225208" value="機能提案"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="改善の希望">
+                            <mwc-radio name="entry.1463225208" value="改善の希望"></mwc-radio>
+                        </mwc-formfield>
+                        <mwc-formfield label="その他">
+                            <mwc-radio name="entry.1463225208" value="その他"></mwc-radio>
+                        </mwc-formfield>
                     </div>
                     <div class="question_group">
-                        <label for="entry.166666813" class="question_text"><i class="material_icon">rate_review</i>上記内容について詳しく教えて下さい。</label>
-                        <underlined-textbox name="entry.166666813" placeholder="ここに入力..." oninput="sync_text('entry.166666813')"></underlined-textbox><input type="text" class="hidden_input" name="entry.166666813" required>
+                        <label for="entry.166666813" class="question_text"><i class="material_icon">rate_review</i>上記内容について詳しく教えてください。*</label>
+                        <underlined-textbox name="entry.166666813" placeholder="ここに入力..."></underlined-textbox>
                     </div>
                     <div class="question_group">
                         <label for="entry.99636056" class="question_text"><i class="material_icon">link</i>GitHubに上記と同じ内容のIssuesやPull Requestsを送信した場合、そのURLを書いてください。</label>
-                        <underlined-textbox name="entry.99636056" placeholder="https://github.com/で始まるURLを入力..." oninput="sync_text('entry.99636056')"></underlined-textbox><input type="text" class="hidden_input" name="entry.99636056" pattern="https://github\.com/[\w!?/+\-_~;.,*&@#$%()'[\]]+">
+                        <underlined-textbox name="entry.99636056" placeholder="https://github.com/で始まるURLを入力..."></underlined-textbox>
                     </div>
-                    <button type="submit" id="submit" class="ripple_effect shadow"><i class="material_icon">send</i>送信</button>
+                    <warning-message id="error_message"></warning-message>
+                    <mwc-button label="送信" icon="send" id="submit" unelevated></mwc-button>
                 </form>
                 <p id="words_of_thanks">
                     フィードバックを送信していただき、ありがとうございました。ORIZIN Agent HTMLの改善に役立たせていただきます。
                 </p>
+                <mwc-dialog id="error_dialog">
+                    <div id="dialog_content"></div>
+                    <mwc-button slot="primaryAction" dialogAction="yes">
+                      OK
+                    </mwc-button>
+                </mwc-dialog>
             </div>
             <style>
                 div.question_group {
                     margin-top: 2rem;
-                    background: var(--bg);
                     padding: 1rem;
                     border-radius: 0.5rem;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    overflow: visible;
+                }
+
+                div.question_group::before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0.5rem;
+                    border: solid var(--text) 0.1rem;
+                    opacity: 0.2;
+                    box-sizing: border-box;
+                    user-select: none;
                 }
 
                 label.question_text {
@@ -65,23 +93,9 @@
                     margin-bottom: 1rem;
                 }
 
-                div.radio_group {
-                    padding-left: 1rem;
-                }
-
-                input[type=radio] + label {
-                    margin-left: 0.5rem;
-                }
-
                 underlined-textbox {
                     margin-left: 1rem;
                     transform: translateY(0.5rem)
-                }
-
-                .hidden_input {
-                    opacity: 0;
-                    user-select: none;
-                    cursor: default;
                 }
 
                 #submit {
@@ -92,34 +106,38 @@
                     display: none;
                 }
 
-                label.ripple_effect {
-                    display: inline-block;
-                    padding: 0.25rem;
-                    border-radius: 0.25rem;
-                    vertical-align: bottom;
+                mwc-formfield {
+                    display: block;
+                }
+
+                #error_message {
+                    margin-top: 2rem;
+                    display: none;
                 }
             </style>
         </main>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
+        <script src="../javascript/bundle.js"></script>
         <script src="../javascript/mousetrap.min.js"></script>
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            function sync_text(name) {
-                document.querySelector(`underlined-textbox[name='${name}'] + input`).value = document.querySelector(`underlined-textbox[name='${name}']`).value;
-            }
-
             function get_radio_value(name) {
-                return document.getElementById("feedback")[name].value;
+                const selected_radio = document.querySelector(`mwc-radio[name="${name}"][checked]`);
+                if (selected_radio) {
+                    return selected_radio.value;
+                } else {
+                    return null;
+                }
             }
 
             function get_textbox_value(name) {
-                const element = document.querySelector(`input[type=text][name="${name}"]`);
+                const element = document.querySelector(`underlined-textbox[name="${name}"]`);
                 if (element.value) {
                     return element.value;
                 } else {
-                    return ""
+                    return "";
                 }
             }
 
@@ -128,16 +146,51 @@
                 event.returnValue = "";
             }
 
+            function show_error(message_content) {
+                const dialog = document.getElementById("error_dialog");
+                document.getElementById("dialog_content").innerHTML = message_content;
+                dialog.show();
+
+                const error_message = document.getElementById("error_message");
+                error_message.textContent = message_content;
+                error_message.style.display = "block";
+            }
+
             window.addEventListener("beforeunload", ask_changing_page);
 
-            document.getElementById("feedback").addEventListener("submit", function() {
+            document.getElementById("submit").addEventListener("click", () => {
+                const feedback_type_name = "entry.1463225208";
+                const feedback_detail_name = "entry.166666813";
+                const github_url_name = "entry.99636056";
+
+                const feedback_type_value = get_radio_value(feedback_type_name);
+                const feedback_detail_value = get_textbox_value(feedback_detail_name);
+                const github_url_value = get_textbox_value(github_url_name);
+
+                const github_url_regex = /https:\/\/github\.com\/[\w!?/+\-_~;.,*&@#$%()'[\]]+/;
+
+                if (feedback_type_value === null) {
+                    show_error("フィードバックの種類を選択してください。");
+                    return;
+                }
+
+                if (feedback_detail_value === "") {
+                    show_error("テキストボックスに詳細を入力してください。");
+                    return;
+                }
+
+                if (github_url_value !== "" && !github_url_regex.test(github_url_value)) {
+                    show_error("GitHubの有効なURLを入力してください。");
+                    return;
+                }
+
                 const dummy_send_target = document.createElement("iframe");
                 dummy_send_target.style.display = "none";
                 dummy_send_target.name = "dummy_send_target";
                 document.getElementById("feedback").appendChild(dummy_send_target);
 
                 const form_iframe = document.createElement("iframe");
-                form_iframe.src = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfxjq1neTulfxxCG1TlGGj_lYn-R1Wo7ciPwPyM3cNwTYuZ7A/formResponse?entry.1463225208=${get_radio_value("entry.1463225208")}&entry.166666813=${get_textbox_value("entry.166666813")}&entry.99636056=${get_textbox_value("entry.99636056")}&submit=Submit`);
+                form_iframe.src = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfxjq1neTulfxxCG1TlGGj_lYn-R1Wo7ciPwPyM3cNwTYuZ7A/formResponse?${feedback_type_name}=${feedback_type_value}&${feedback_detail_name}=${feedback_detail_value}&${github_url_name}=${github_url_value}&submit=Submit`);
                 form_iframe.style.display = "none";
 
                 form_iframe.addEventListener("load", function() {
