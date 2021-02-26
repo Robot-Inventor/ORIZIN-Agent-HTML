@@ -261,9 +261,9 @@ header {
 
         &::before {
             content: "";
-            width: 100%;
+            width: unquote("min(20rem, 80vw)");
             height: 100%;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             display: block;
