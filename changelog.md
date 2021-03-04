@@ -42,6 +42,8 @@ Edition: ORIZIN Agent HTML
 - フィードバックページのデザインを改善しました　[#37](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/37)
 - スクロールバーのデザインと挙動を改善しました　[#39](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/39)
 - details要素のホバー時のオーバーレイの不透明度を下げ、色を改善しました　[#74](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/74)
+- League Spartan VariableのバージョンをVersion 2.201から最新のVersion 2.220にアップデートしました
+- Pickrをv1.7.4から最新のv1.8.0にアップデートしました
 
 #### 修正
 

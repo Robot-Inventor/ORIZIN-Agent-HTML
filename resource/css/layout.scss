@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "League Spartan";
-    src: url("../font/LeagueSpartanVariable.woff2") format("woff2-variations");
+    src: url("../font/LeagueSpartan-VF.woff2") format("woff2-variations");
     font-display: swap;
 }
 
@@ -182,7 +182,7 @@ header {
             font-size: 5vh;
             font-variation-settings: "wght" 450;
             display: inline-block;
-            transform: translateY(-2vh);
+            transform: translateY(1vh);
             color: white;
         }
 
