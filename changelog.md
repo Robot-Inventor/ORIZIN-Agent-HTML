@@ -51,6 +51,10 @@ Edition: ORIZIN Agent HTML
 
 ![スクリーンショット](changelog_picture/issue_63.png)
 
+- Chromeの仕様変更によって発生した、details要素にに三角形が出てしまうバグを修正しました　[#72](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/72)
+
+![スクリーンショット](changelog_picture/issue_72.png)
+
 ### [v5.0.138.5dev-Eagle] - 2020-02-10
 
 #### 追加
