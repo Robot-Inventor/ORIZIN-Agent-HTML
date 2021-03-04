@@ -403,3 +403,66 @@ class SearchBox extends HTMLElement {
 }
 
 customElements.define("search-box", SearchBox);
+
+class Scrollbar {
+    attach({
+        selector = "body",
+        color = "black",
+        width_thin = 4,
+        visibility_class = "show_scrollbar"
+    } = {}) {
+        this.target_selector = selector;
+        this.scrollbar_color = color;
+        this.scrollbar_visibility_class = visibility_class;
+        this.scrollbar_width_thin = width_thin;
+
+        this.hide_scrollbar_timer = setTimeout(() => { });
+
+        const style_element = document.createElement("style");
+        style_element.textContent = `
+${this.target_selector} {
+    overflow: hidden overlay;
+}
+${this.target_selector}::-webkit-scrollbar {
+    display: none;
+}
+
+${this.target_selector}.${this.scrollbar_visibility_class}::-webkit-scrollbar {
+    display: block;
+    width: ${this.scrollbar_width_thin}px;
+}
+
+${this.target_selector}.${this.scrollbar_visibility_class}::-webkit-scrollbar-thumb {
+    background: ${this.scrollbar_color};
+    border-radius: ${this.scrollbar_width_thin}px;
+}
+
+${this.target_selector}.${this.scrollbar_visibility_class}::-webkit-scrollbar-corner {
+    display: none;
+}
+        `;
+        document.body.insertAdjacentElement("beforeend", style_element);
+
+        document.querySelectorAll(this.target_selector).forEach((element) => {
+            element.addEventListener("mouseover", () => {
+                element.classList.add(this.scrollbar_visibility_class);
+            }, false);
+
+            element.addEventListener("mouseleave", () => {
+                element.classList.remove(this.scrollbar_visibility_class);
+            }, false);
+
+            element.addEventListener("scroll", () => {
+                clearTimeout(this.hide_scrollbar_timer);
+                element.classList.add(this.scrollbar_visibility_class);
+                this.hide_scrollbar_timer = setTimeout(() => {
+                    element.classList.remove(this.scrollbar_visibility_class);
+                }, 5000);
+            }, false);
+        });
+    }
+}
+
+const scrollbar = new Scrollbar();
+scrollbar.attach({ selector: "#side_menu_bar", color: "var(--text)" });
+scrollbar.attach({ selector: ".fill_panel", color: "var(--text)" });
