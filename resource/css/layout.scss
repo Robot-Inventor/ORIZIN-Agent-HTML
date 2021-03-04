@@ -498,10 +498,9 @@ details {
         top: 0;
         left: 0;
         background: var(--mdc-theme-on-surface);
-        opacity: 0;
         pointer-events: none;
         transition: 0.3s;
-        opacity: 0.1;
+        opacity: 0.05;
     }
 
     &[open] {

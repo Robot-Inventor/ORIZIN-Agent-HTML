@@ -41,6 +41,7 @@ Edition: ORIZIN Agent HTML
 
 - フィードバックページのデザインを改善しました　[#37](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/37)
 - スクロールバーのデザインと挙動を改善しました　[#39](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/39)
+- details要素のホバー時のオーバーレイの不透明度を下げ、色を改善しました　[#74](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/74)
 
 #### 修正
 
@@ -51,7 +52,7 @@ Edition: ORIZIN Agent HTML
 
 ![スクリーンショット](changelog_picture/issue_63.png)
 
-- Chromeの仕様変更によって発生した、details要素にに三角形が出てしまうバグを修正しました　[#72](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/72)
+- Chromeの仕様変更によって発生した、details要素に三角形が出てしまうバグを修正しました　[#72](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/72)
 
 ![スクリーンショット](changelog_picture/issue_72.png)
 
