@@ -35,11 +35,12 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.0.139.6dev-Eagle] - 2020-02-28
+### [v5.0.139.6dev-Eagle] - 2020-03-05
 
 #### 変更
 
 - フィードバックページのデザインを改善しました　[#37](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/37)
+- スクロールバーのデザインと挙動を改善しました　[#39](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/39)
 
 #### 修正
 

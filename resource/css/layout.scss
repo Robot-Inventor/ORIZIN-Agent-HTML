@@ -124,33 +124,8 @@
     }
 }
 
-#side_menu_bar::-webkit-scrollbar,
-.fill_panel::-webkit-scrollbar {
-    display: block;
-    width: 0.2rem;
-    transition: 0.3s;
-
-    &:hover {
-        width: 0.8rem;
-    }
-
-    &-thumb {
-        background: none;
-        border-radius: 0.2rem;
-    }
-
-    &-corner {
-        display: none;
-    }
-}
-
 #chat_area::-webkit-scrollbar-corner {
     display: none;
-}
-
-#side_menu_bar:hover::-webkit-scrollbar-thumb,
-.fill_panel:hover::-webkit-scrollbar-thumb {
-    background: var(--text);
 }
 
 .important {
