@@ -509,14 +509,11 @@ details {
     }
 
     summary {
+        display: block;
         cursor: pointer;
         padding: 1em 0;
         transform: translate(-1.5rem) !important;
         transition: 0.3s;
-
-        &::-webkit-details-marker {
-            display: none;
-        }
     }
 }
 
