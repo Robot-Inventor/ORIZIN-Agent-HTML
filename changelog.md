@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.0.139.6dev-Eagle] - 2020-03-05
+### [v5.0.139.6dev-Eagle] - 2020-03-06
 
 #### 変更
 
@@ -57,6 +57,8 @@ Edition: ORIZIN Agent HTML
 - Chromeの仕様変更によって発生した、details要素に三角形が出てしまうバグを修正しました　[#72](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/72)
 
 ![スクリーンショット](changelog_picture/issue_72.png)
+
+- カスタムテーマを保存できないバグを修正しました　[#78](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/78)
 
 #### 削除
 
