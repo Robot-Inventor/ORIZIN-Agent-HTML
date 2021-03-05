@@ -16,12 +16,14 @@
         <main>
             <div class="fill_panel">
                 <h2>フィードバック</h2>
-                <p>
-                    *が付いている項目は必須です。
-                </p>
-                <p class="information">
-                    <i class="material_icon">info</i>フィードバックは以下のフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また、以下のフォームに入力された内容は自動でGoogleフォームに送信されます。フォームには、個人情報やパスワードなどを入力しないでください。
-                </p>
+                <div id="instruction_message">
+                    <p>
+                        *が付いている項目は必須です。
+                    </p>
+                    <p class="information">
+                        <i class="material_icon">info</i>フィードバックは以下のフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また、以下のフォームに入力された内容は自動でGoogleフォームに送信されます。フォームには、個人情報やパスワードなどを入力しないでください。
+                    </p>
+                </div>
                 <form id="feedback" target="dummy_send_target">
                     <div class="question_group">
                         <label for="entry.1463225208" class="question_text"><i class="material_icon">feedback</i>フィードバックの種類を選択してください。*</label>
@@ -158,7 +160,10 @@
 
             window.addEventListener("beforeunload", ask_changing_page);
 
-            document.getElementById("submit").addEventListener("click", () => {
+            const submit_button = document.getElementById("submit");
+            submit_button.addEventListener("click", () => {
+                submit_button.disabled = true;
+
                 const feedback_type_name = "entry.1463225208";
                 const feedback_detail_name = "entry.166666813";
                 const github_url_name = "entry.99636056";
@@ -171,16 +176,19 @@
 
                 if (feedback_type_value === null) {
                     show_error("フィードバックの種類を選択してください。");
+                    submit_button.disabled = false;
                     return;
                 }
 
                 if (feedback_detail_value === "") {
                     show_error("テキストボックスに詳細を入力してください。");
+                    submit_button.disabled = false;
                     return;
                 }
 
                 if (github_url_value !== "" && !github_url_regex.test(github_url_value)) {
                     show_error("GitHubの有効なURLを入力してください。");
+                    submit_button.disabled = false;
                     return;
                 }
 
@@ -195,6 +203,7 @@
 
                 form_iframe.addEventListener("load", function() {
                     document.getElementById("feedback").remove();
+                    document.getElementById("instruction_message").remove();
                     document.getElementById("words_of_thanks").style.display = "block";
 
                     window.removeEventListener("beforeunload", ask_changing_page, false);
