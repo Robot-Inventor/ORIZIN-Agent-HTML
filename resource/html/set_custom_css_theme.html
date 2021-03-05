@@ -58,12 +58,10 @@
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
         <script>
-            let css_data = [];
-            let old_css_data = [];
+            let css_data = {};
 
             async function check_current_css_theme_information() {
                 css_data =  await eel.check_current_css_theme_information()();
-                old_css_data = await eel.check_current_css_theme_information()();
                 const swatches_values = [
                     "rgb(244, 67, 54)",
                     "rgb(233, 30, 99)",
@@ -104,91 +102,91 @@
                 const bg = Pickr.create({
                     el: "#bg",
                     theme: "classic",
-                    default: css_data[0],
+                    default: css_data["--bg"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 bg.on("save", (color, instance) => {
-                    css_data[0] = color.toHEXA().toString();
+                    css_data["--bg"] = color.toHEXA().toString();
                     bg.hide();
                 });
 
                 const card_bg = Pickr.create({
                     el: "#card_bg",
                     theme: "classic",
-                    default: css_data[1],
+                    default: css_data["--card_bg"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 card_bg.on("save", (color, instance) => {
-                    css_data[1] = color.toHEXA().toString();
+                    css_data["--card_bg"] = color.toHEXA().toString();
                     card_bg.hide();
                 });
 
                 const text = Pickr.create({
                     el: "#text",
                     theme: "classic",
-                    default: css_data[2],
+                    default: css_data["--text"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 text.on("save", (color, instance) => {
-                    css_data[2] = color.toHEXA().toString();
+                    css_data["--text"] = color.toHEXA().toString();
                     text.hide();
                 });
 
                 const shadow = Pickr.create({
                     el: "#shadow",
                     theme: "classic",
-                    default: css_data[3],
+                    default: css_data["--shadow"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 shadow.on("save", (color, instance) => {
-                    css_data[3] = color.toHEXA().toString();
+                    css_data["--shadow"] = color.toHEXA().toString();
                     shadow.hide();
                 });
 
                 const theme_color = Pickr.create({
                     el: "#theme_color",
                     theme: "classic",
-                    default: css_data[4],
+                    default: css_data["--theme_color"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 theme_color.on("save", (color, instance) => {
-                    css_data[4] = color.toHEXA().toString();
+                    css_data["--theme_color"] = color.toHEXA().toString();
                     theme_color.hide();
                 });
 
                 const header_background_color= Pickr.create({
                     el: "#header_background_color",
                     theme: "classic",
-                    default: css_data[5],
+                    default: css_data["--header_background_color"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 header_background_color.on("save", (color, instance) => {
-                    css_data[5] = color.toHEXA().toString();
+                    css_data["--header_background_color"] = color.toHEXA().toString();
                     header_background_color.hide();
                 });
 
                 const error_text_color= Pickr.create({
                     el: "#error_text_color",
                     theme: "classic",
-                    default: css_data[6],
+                    default: css_data["--error_text_color"],
                     swatches: swatches_values,
                     components: components_values,
                     i18n: i18n_values
                 });
                 error_text_color.on("save", (color, instance) => {
-                    css_data[6] = color.toHEXA().toString();
+                    css_data["--error_text_color"] = color.toHEXA().toString();
                     error_text_color.hide();
                 });
             }
@@ -196,10 +194,8 @@
             check_current_css_theme_information();
 
             window.addEventListener("beforeunload", function() {
-                if (old_css_data.toString() != css_data.toString()) {
-                    eel.write_custom_css_theme(css_data);
-                    eel.change_theme("theme/user/custom_theme.css");
-                }
+                eel.write_custom_css_theme(css_data);
+                eel.change_theme("theme/user/custom_theme.css");
             });
         </script>
     </body>

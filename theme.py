@@ -6,6 +6,7 @@ import pathlib
 import oa_core as core
 import re
 import otfdlib
+from collections import OrderedDict
 
 
 def change(css_theme_path: str) -> None:
@@ -34,29 +35,30 @@ def return_dict() -> dict[str, str]:
     return result
 
 
-def write_custom(value: list[str]) -> None:
-    if len(value) == 5:
-        custom_css_data = "/* カスタムテーマ */\n\n:root {\n    --bg: " + value[0] + ";\n    --card_bg: " + value[1] + ";\n    --text: " + \
-                          value[2] + ";\n    --shadow: " + value[3] + \
-            ";\n    --theme_color: " + value[4] + ";\n    --header_background_color: " + \
-            value[5] + ";\n    --error_text_color: " + value[6] + ";\n}"
-        with open("resource/css/theme/user/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
-            f.write(custom_css_data)
-        return
-    else:
-        core.show_error("カスタムCSSテーマに不正な値を書き込もうとしています。")
-        return
+def write_custom(theme_dictionary: dict[str, str]) -> None:
+    value = ""
+    for key in theme_dictionary:
+        value += f"    {key}: {theme_dictionary[key]};\n"
+    content = "/* カスタムテーマ */\n\n:root {\n" + value + "}"
+    with open("resource/css/theme/user/custom_theme.css", mode="w", encoding="utf-8_sig") as f:
+        f.write(content)
+    return
 
 
-def current() -> list[str]:
+def current() -> OrderedDict:
     css_file_path = core.read_setting("resource/setting/setting.otfd", "theme")
     with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
         css = f.read()
-        pattern = re.compile(r":root {.*?}", re.MULTILINE | re.DOTALL)
-        value = re.sub(r"(:root {)|}|( *)|-|;", "",
-                       re.search(pattern, css).group())
+        pattern = re.compile(r"( *?--.*?:.*?;(\n|))+",
+                             re.MULTILINE | re.DOTALL)
+        value = re.search(pattern, css).group()
+        delete_space_pattern = re.compile(r"^ *", re.MULTILINE | re.DOTALL)
+        value = re.sub(delete_space_pattern, "", value)
+        delete_semicolon_pattern = re.compile(r";$", re.MULTILINE | re.DOTALL)
+        value = re.sub(delete_semicolon_pattern, "", value)
+        value = re.sub(r" *: *", ":", value)
         root = otfdlib.Otfd()
         root.load_from_string(value)
         root.parse()
-    result = root.get_value_list()
+    result = root.read()
     return result

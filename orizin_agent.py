@@ -37,7 +37,7 @@ def return_theme_dict() -> dict[str, str]:
 
 
 @eel.expose
-def write_custom_css_theme(value: list[str]) -> None:
+def write_custom_css_theme(value: dict[str, str]) -> None:
     theme.write_custom(value)
 
 
