@@ -40,8 +40,9 @@ Edition: ORIZIN Agent HTML
 #### 修正
 
 - フィードバックで送信ボタンを連打すると重複して送信される可能性がある問題を修正しました　[#57](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/57)
+- changelog.md内で、リリース日の2021となるべきところが2020のままになっている箇所があったため修正しました　[#84](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/84)
 
-### [v5.0.139.6dev-Eagle] - 2020-03-06
+### [v5.0.139.6dev-Eagle] - 2021-03-06
 
 #### 変更
 
@@ -70,7 +71,7 @@ Edition: ORIZIN Agent HTML
 
 - 不要になったbasic.htmlを削除しました　[#80](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/80)
 
-### [v5.0.138.5dev-Eagle] - 2020-02-10
+### [v5.0.138.5dev-Eagle] - 2021-02-10
 
 #### 追加
 
@@ -89,7 +90,7 @@ Edition: ORIZIN Agent HTML
 
 - 設定の検索ボックスのデザインを改善しました　[#38](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/38)
 
-### [v5.0.137.4dev-Eagle] - 2020-02-02
+### [v5.0.137.4dev-Eagle] - 2021-02-02
 
 #### 変更
 
@@ -97,7 +98,7 @@ Edition: ORIZIN Agent HTML
   - 設定の検索
   - アップデートチェッカー
 
-### [v5.0.136.3dev-Eagle] - 2020-02-02
+### [v5.0.136.3dev-Eagle] - 2021-02-02
 
 #### 変更
 
@@ -107,7 +108,7 @@ Edition: ORIZIN Agent HTML
 
 - `npm install`を実行すると起動にかかる時間が長くなる問題を修正しました
 
-### [v5.0.135.2dev-Eagle] - 2020-01-11
+### [v5.0.135.2dev-Eagle] - 2021-01-11
 
 #### 追加
 
@@ -119,7 +120,7 @@ Edition: ORIZIN Agent HTML
 - テーマのデフォルトの設定のが間違っていたため修正しました
 - リファクタリングを行いました
 
-### [v5.0.134.1dev-Eagle] - 2020-01-11
+### [v5.0.134.1dev-Eagle] - 2021-01-11
 
 #### 変更
 
@@ -131,7 +132,7 @@ Edition: ORIZIN Agent HTML
 - リファクタリングを行いました
 - v5.0.133.0dev-Eagleのコミット525b04ac89ee9bae2b1d6444d26ea36b0df8afe4における「テーマの設定を変更した状態で``git pull``を実行するとコンフリクトが発生する問題」の修正が不完全だったため対応しました
 
-### [v5.0.133.0dev-Eagle] - 2020-01-10
+### [v5.0.133.0dev-Eagle] - 2021-01-10
 
 #### 追加
 
