@@ -58,6 +58,10 @@ Edition: ORIZIN Agent HTML
 
 ![スクリーンショット](changelog_picture/issue_72.png)
 
+#### 削除
+
+- 不要になったbasic.htmlを削除しました　[#80](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/80)
+
 ### [v5.0.138.5dev-Eagle] - 2020-02-10
 
 #### 追加
