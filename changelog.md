@@ -42,6 +42,7 @@ Edition: ORIZIN Agent HTML
 - フィードバックで送信ボタンを連打すると重複して送信される可能性がある問題を修正しました　[#57](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/57)
 - changelog.md内で、リリース日の2021となるべきところが2020のままになっている箇所があったため修正しました　[#84](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/84)
 - UIなどの読点を「、」に統一しました　[#62](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/62)
+- UIやプライバシーポリシーなど、全体的に文章を改善しました　[#87](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/87)
 
 ### [v5.0.139.6dev-Eagle] - 2021-03-06
 

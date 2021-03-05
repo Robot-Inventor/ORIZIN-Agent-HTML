@@ -66,10 +66,10 @@
                         <mwc-button label="デフォルトに戻す" icon="refresh" id="reset_news_site_url_button" onclick="default_url = 'https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja'; document.getElementById('news_site_url').value = default_url; eel.write_setting('news_site_url', default_url)"></mwc-button>
                     </details>
                 </section>
-                <section title="音声合成終了後、自動で音声認識を再開するか設定します。">
+                <section title="音声合成の終了後、自動で音声認識を再開するか設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">mic</i>連続音声認識</summary>
-                        音声認識終了後、自動で音声認識を再開する　<mwc-switch id="continuous_speech_recognition" onchange="save_setting()"></mwc-switch>
+                        音声認識の終了後、自動で音声認識を再開する　<mwc-switch id="continuous_speech_recognition" onchange="save_setting()"></mwc-switch>
                     </details>
                 </section>
                 <section title="音声に関する設定をします。">
@@ -84,7 +84,7 @@
                 <section title="Pythonのインタープリターを設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">api</i>インタープリター</summary>
-                        Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力して下さい。<br>
+                        Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力してください。<br>
                         <underlined-textbox id="python_interpreter" placeholder="絶対パスかエイリアスを入力" onchange="save_setting()"></underlined-textbox>
                     </details>
                 </section>
