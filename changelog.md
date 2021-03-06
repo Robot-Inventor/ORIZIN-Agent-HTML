@@ -44,6 +44,7 @@ Edition: ORIZIN Agent HTML
 - UIなどの読点を「、」に統一しました　[#62](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/62)
 - UIやプライバシーポリシーなど、全体的に文章を改善しました　[#87](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/87)
 - 連続音声認識の設定の文章が「音声合成の終了後、自動で音声認識を再開する」とするべきところが「音声認識の終了後、自動で音声認識を再開する」となっていたため修正しました　[#89](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/89)
+- 初期設定画面で表示されるライセンスとプライバシーポリシーを最新の内容に更新しました　[#86](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/86)
 
 ### [v5.0.139.6dev-Eagle] - 2021-03-06
 
