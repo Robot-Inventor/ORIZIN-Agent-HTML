@@ -35,6 +35,101 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.0.142.9dev-Eagle] - 2021-03-07
+
+#### 変更
+
+- HTMLファイルに直書きとなっていたCSSとJavaScriptを別ファイルに切り出しました　[#93](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/93)
+
+### [v5.0.141.8-Eagle] - 2021-03-07
+
+#### 追加
+
+- オープンソースソフトウェアライセンスページにOSSのリポジトリーを開くボタンを追加しました
+- ORIZIN Agentについてページにバージョンなどの情報をコピーするボタンを追加しました
+- node_modulesのライセンス管理システムを追加しました
+- SCSSを導入しました
+- 「カスタムテーマの編集」ページでカスタマイズできる項目に「ヘッダーの背景色」を追加しました
+- 「カスタムテーマの編集」ページでカスタマイズできる項目に「エラーの文字色」を追加しました
+- ESLintを導入しました
+- 設定ページに初期化を追加しました
+- ホームのテキストボックスと、設定の検索ボックス、試験機能の検索ボックスに次のショートカットキーを追加しました　[#36](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/36)
+  - ``/``で検索ボックスにフォーカス
+  - ``S``で検索ボックスにフォーカス
+  - ``Esc``で検索ボックスからフォーカスを外す
+  - ``Ctrl + Backspace``で検索ボックスをクリア
+- 次のグローバルなショートカットキーを追加しました　[#44](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/44)
+  - ``Ctrl + ,``で設定を開く
+  - ``H``、``T``または``Home``でホームに戻る
+  - ``M``でメニューを開く
+- 設定ページにショートカットキーの一覧を追加しました　[#47](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/47)
+
+#### 変更
+
+- ライセンスとメニュー下部の西暦を「2019 - 2020」から「2019 - 2021」に変更しました
+- メニューのUXを改善しました
+- 全体的なデザインを改善しました
+- UIの一部をMaterial Web Componentsに置き換えました
+- ダークモード時の背景色をマテリアルデザインに基づいて改善しました
+- ライトテーマ時の背景色をマテリアルデザインに基づいて改善しました
+- 影やマウスホバー時の色などをマテリアルデザインに基づいて改善しました
+- トップページのデザインをマテリアルデザインに基づいて改善しました
+- ページ読み込み時のレイアウトシフトを軽減しました
+- ダークモード時のヘッダーの色をダークグレーに変更しました
+- ダークモード時の文字色をマテリアルデザインに基づいて改善しました
+- ライトテーマ時の文字色をマテリアルデザインに基づいて改善しました
+- エラーの文字色をマテリアルデザインに基づいて改善しました
+- 一部のUIをカスタム要素を用いてコンポーネント化しました
+- v5.0になったため、コードネームをDuckからEagleに変更しました
+- webpackのMinify化を有効にしました
+- UIの一部をMaterial Web Componentsに置き換えました
+- プライバシーポリシーを変更しました
+- 次の機能を正式な機能に移行しました
+  - 設定の検索
+  - アップデートチェッカー
+- 設定の検索ボックスのデザインを改善しました　[#38](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/38)
+- フィードバックページのデザインを改善しました　[#37](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/37)
+- スクロールバーのデザインと挙動を改善しました　[#39](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/39)
+- details要素のホバー時のオーバーレイの不透明度を下げ、色を改善しました　[#74](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/74)
+- League Spartan VariableのバージョンをVersion 2.201から最新のVersion 2.220にアップデートしました
+- Pickrをv1.7.4から最新のv1.8.0にアップデートしました
+
+#### 修正
+
+- リファクタリングを行いました
+- オープンソースソフトウェアライセンスページのOSSをアルファベット順になっていない箇所があったため修正しました
+- テーマの設定を変更した状態で``git pull``を実行するとコンフリクトが発生する問題を修正しました
+- v5.0.133.0dev-Eagleのコミット525b04ac89ee9bae2b1d6444d26ea36b0df8afe4における「テーマの設定を変更した状態で``git pull``を実行するとコンフリクトが発生する問題」の修正が不完全だったため対応しました
+- UIの一部の色を修正しました
+- テーマのデフォルトの設定のが間違っていたため修正しました
+- `npm install`を実行すると起動にかかる時間が長くなる問題を修正しました
+- チャットの入力欄がオーバーフローにより上下にスクロールできるバグを修正しました　[#60](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/60)
+- v5.0.133.0dev-Eagleのコミットe79bf9b0b9a4c701e1cb67050841ed1254bdf041における、resource/css/layout.scssの変更によって生じた、音声認識中にマイクアイコンの色が変わらないバグを修正しました　[#61](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/61)
+- メニューにスクロールが発生すると、白の半透明のオーバーレイの高さがスクロールを考慮していないために色が不自然になるバグを修正しました　[#63](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/63)
+
+![スクリーンショット](changelog_picture/issue_63.png)
+
+- Chromeの仕様変更によって発生した、details要素に三角形が出てしまうバグを修正しました　[#72](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/72)
+
+![スクリーンショット](changelog_picture/issue_72.png)
+
+- カスタムテーマを保存できないバグを修正しました　[#78](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/78)
+- フィードバックで送信ボタンを連打すると重複して送信される可能性がある問題を修正しました　[#57](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/57)
+- changelog.md内で、リリース日の2021となるべきところが2020のままになっている箇所があったため修正しました　[#84](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/84)
+- UIなどの読点を「、」に統一しました　[#62](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/62)
+- UIやプライバシーポリシーなど、全体的に文章を改善しました　[#87](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/87)
+- 連続音声認識の設定の文章が「音声合成の終了後、自動で音声認識を再開する」とするべきところが「音声認識の終了後、自動で音声認識を再開する」となっていたため修正しました　[#89](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/89)
+- 初期設定画面で表示されるライセンスとプライバシーポリシーを最新の内容に更新しました　[#86](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/86)
+
+#### 削除
+
+- jQueryを削除しました
+- 不要になったbasic.htmlを削除しました　[#80](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/80)
+
+#### Notice
+
+- このバージョンは、v5.0.133.0dev-Eagleからv5.0.140.7dev-Eagleまでのアップデートの正式版です
+
 ### [v5.0.140.7dev-Eagle] - 2021-03-07
 
 #### 修正

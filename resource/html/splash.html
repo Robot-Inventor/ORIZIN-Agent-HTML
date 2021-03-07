@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Expires" content="86400">
-        <link rel="stylesheet" type="text/css" href="../css/layout.min.css">
+        <link rel="stylesheet" href="../css/layout.min.css">
+        <link rel="stylesheet" href="../css/splash.min.css">
         <link rel="shortcut icon" href="../image/favicon.ico">
         <meta name="theme-color" content="#FF6A00">
         <title>ORIZIN Agent HTML</title>
@@ -29,132 +30,11 @@
                 </div>
             </div>
         </main>
-        <style>
-            * {
-                cursor: wait;
-            }
-
-            .half-circle-spinner, .half-circle-spinner * {
-                box-sizing: border-box;
-            }
-
-            .half-circle-spinner {
-                width: 40vmin;
-                height: 40vmin;
-                border-radius: 100%;
-                position: relative;
-                top: calc(50vh - 20vmin);
-                left: calc(50vw - 20vmin);
-            }
-
-            .half-circle-spinner .circle {
-                content: "";
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border-radius: 100%;
-                border: calc(40vmin / 10) solid transparent;
-            }
-
-            .half-circle-spinner .circle.circle-1 {
-                border-top-color: var(--theme_color);
-                animation: half-circle-spinner-animation 1.5s infinite;
-            }
-
-            .half-circle-spinner .circle.circle-2 {
-                border-bottom-color: var(--theme_color);
-                animation: half-circle-spinner-animation 1.5s infinite alternate;
-            }
-
-            @keyframes half-circle-spinner-animation {
-                0% {
-                    transform: rotate(0deg);
-
-                }
-                100%{
-                    transform: rotate(360deg);
-                }
-            }
-
-            #background {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: var(--bg);
-                text-align: center;
-            }
-
-            .loading {
-                width: 100vmin;
-                position: absolute;
-                top: calc(50vh - 50vmin);
-                left: calc((100vw - 100vmin) / 2);
-                filter: drop-shadow(0 0 1em #ffffffaa);
-            }
-
-            .loading_div {
-                margin: 0;
-                padding: 0;
-                width: 100vw;
-                height: 100vh;
-                position: relative;
-            }
-
-            #now_loading {
-                position: absolute;
-                text-align: center;
-                width: 100vw;
-                top: 80vh;
-                left: 0;
-                transform: translateY(calc(-50% - 0.75em));
-                color: var(--text);
-                font-size: 2.5vmin;
-                font-variation-settings: "wght" 200;
-                letter-spacing: 0.15em;
-                opacity: 0.75;
-            }
-
-            #program_name {
-                position: absolute;
-                text-align: center;
-                width: 100vw;
-                top: 50vh;
-                left: 0;
-                transform: translateY(-50%);
-                color: var(--text);
-                font-size: 6vmin;
-                font-variation-settings: "wght" 250;
-                letter-spacing: 0.125em;
-                text-shadow: 0 0 1em white, 0 0 1em white, 0 0 2em white;
-                overflow: visible;
-            }
-        </style>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
         <script src="../javascript/mousetrap.min.js"></script>
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
-        <script>
-            async function move_to_top_page() {
-                const is_finished_setup = await eel.read_setting("setup_finished")();
-                const place = is_finished_setup == "False" ? "setup.html" : "index.html";
-                eel.print_log_if_dev_mode("Move to next page.", {"IsFinishedSetup": is_finished_setup, "Page": place});
-                location.replace(place);
-            }
-
-            if (!"speechSynthesis" in window) {
-                alert("ご利用のブラウザは音声合成(TTS / Text To Speech)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
-            }
-
-            if (!"webkitSpeechRecognition" in window) {
-                alert("ご利用のブラウザは音声認識(Speech To Text / STT / Speech Recognition)に対応していません。Web Speech APIに対応した最新のブラウザをお使いください。")
-            }
-
-            setTimeout(() => {
-                move_to_top_page();
-            }, 2000);
-        </script>
+        <script src="../javascript/splash.js"></script>
     </body>
 </html>

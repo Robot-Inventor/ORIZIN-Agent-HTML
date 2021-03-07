@@ -1,0 +1,224 @@
+:root {
+    --border_radius_size: 0.25rem;
+}
+
+.chat {
+    border-radius: 0rem var(--border_radius_size) var(--border_radius_size) var(--border_radius_size);
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+#chat_area {
+    margin: 0;
+    padding: 0 0 2rem 0;
+    width: 100%;
+    height: calc(100% - 3rem);
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+.chat_outer + .chat_outer:not(.user) .chat {
+    margin-top: 2em;
+}
+
+.chat_outer {
+    padding-top: 2rem;
+    width: 80%;
+    overflow: visible;
+
+    &:not(.user) .chat {
+        background: var(--card_bg);
+        color: var(--text);
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: visible;
+    
+        &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: none;
+            opacity: 0.2;
+            border: solid 1px var(--text);
+            border-radius: var(--border_radius_size);
+            pointer-events: none;
+        }
+    }
+
+    &.user {
+        float: right;
+
+        .chat {
+            color: white;
+            background: var(--theme_color);
+            float: right;
+            border-radius: var(--border_radius_size) 0rem var(--border_radius_size) var(--border_radius_size);
+        }
+    }
+
+    &.video {
+        width: 50%;
+
+        .chat {
+            width: 100%;
+            height: 0;
+            padding: 0;
+            padding-bottom: 56.25%;
+            margin: 0;
+            position: relative;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+body {
+    cursor: default;
+}
+
+#message_input {
+    margin: 0;
+    padding: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--border_radius_size);
+    background: var(--card_bg);
+    box-sizing: border-box;
+    vertical-align: center;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: visible;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: none;
+        opacity: 0.2;
+        border: solid 1px var(--text);
+        border-radius: var(--border_radius_size);
+        pointer-events: none;
+    }
+}
+
+#requestForm {
+    overflow: hidden;
+}
+
+#startButton {
+    border: none;
+    padding: 0;
+    margin-left: 1rem;
+    transform: translateY(-0.5rem);
+    vertical-align: top;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    background: none;
+
+    &:disabled {
+        color: var(--text);
+        opacity: 0.3;
+        cursor: default;
+    }
+
+    &:enabled {
+        color: var(--theme_color);
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+#listening_message {
+    color: var(--theme_color);
+    float: right;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateY(0.2rem);
+}
+
+#start_recognition {
+    float: right;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    &:enabled {
+        color: var(--text);
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    &:disabled:not(.listening) {
+        color: var(--text);
+        opacity: 0.3;
+        cursor: default;
+    }
+
+    &.listening i {
+        color: var(--theme_color);
+    }
+}
+
+#user_speaking_status {
+    opacity: 0;
+    overflow: visible;
+    position: relative;
+    float: right;
+    transform: translate(-1rem, 0.3rem);
+    transition: 0.3s;
+    color: var(--theme_color);
+    font-size: 1.5em;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        opacity: 0.5;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 1rem;
+        background: var(--theme_color);
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: user_speaking_status_animation 0.75s ease normal infinite;
+    }
+}
+
+@keyframes user_speaking_status_animation {
+    0% {
+        opacity: 0.5;
+        width: 1.5rem;
+        height: 1.5rem;
+        top: 0;
+        left: 0;
+    }
+    100% {
+        opacity: 0;
+        width: 2rem;
+        height: 2rem;
+        top: -0.25rem;
+        left: -0.25rem;
+    }
+}

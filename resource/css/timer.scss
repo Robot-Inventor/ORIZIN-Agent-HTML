@@ -1,0 +1,199 @@
+@font-face {
+    font-family: "League Spartan";
+    src: url("../font/LeagueSpartan-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "League Spartan", "Yu Gothic UI", sans-selif;
+    color: white;
+    transition: 0.3s;
+}
+
+.blink {
+    animation: blink 0.7s linear infinite alternate;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+#circle {
+    width: 50vmin;
+    height: 50vmin;
+    background: #222222;
+    border-radius: 100%;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    cursor: pointer;
+}
+
+#h {
+    position: absolute;
+    top: 0;
+    left: 30vw;
+}
+
+#hour {
+    position: absolute;
+    top: 0;
+    left: 20vw;
+    transform: translate(-50%);
+}
+
+#m {
+    position: absolute;
+    top: 0;
+    left: 60vw;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    background: #111111;
+}
+
+#minute {
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    transform: translate(-50%);
+}
+
+.outer {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #111111;
+    transition: 0.3s;
+}
+
+#reset {
+    background: #4444aa;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    position: absolute;
+    top: calc(50vmin + 40vh);
+    left: calc((100vw - 45vmax) / 2 + 15vmax);
+    transform: translateY(-50%);
+    outline: none;
+    width: 15vmax;
+    cursor: pointer;
+}
+
+#s {
+    position: absolute;
+    top: 0;
+    left: 90vw;
+}
+
+#second {
+    position: absolute;
+    top: 0;
+    left: 80vw;
+    transform: translate(-50%);
+}
+
+#set_time {
+    background: #4444aa;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    position: absolute;
+    top: calc(50vmin + 40vh);
+    left: calc(((100vw - 45vmax) / 4) * 3 + 30vmax);
+    transform: translateY(-50%);
+    outline: none;
+    width: 15vmax;
+    cursor: pointer;
+}
+
+#start {
+    background: #4444aa;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    position: absolute;
+    top: calc(50vmin + 40vh);
+    left: calc((100vw - 45vmax) / 4);
+    transform: translateY(-50%);
+    outline: none;
+    width: 15vmax;
+    cursor: pointer;
+}
+
+#submit {
+    background: #4444aa;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    width: 15vmax;
+    font-size: 1rem;
+    margin: 0;
+    height: 2.5rem;
+    position: absolute;
+    top: 15vh;
+    left: 50vw;
+    transform: translate(-50%);
+    cursor: pointer;
+}
+
+#time {
+    width: 50vmin;
+    height: auto;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    cursor: pointer;
+
+    div {
+        padding: 0.5em;
+    }
+}
+
+.time_setting {
+    font-size: 10vmin;
+    position: absolute;
+    top: 50vh;
+    left: 0;
+    transform: translateY(-50%);
+    text-align: center;
+
+    input {
+        width: 20vw;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-bottom: solid 0.1rem white;
+        outline: none;
+        text-align: center;
+        height: 10vh;
+        color: white;
+        font-size: inherit;
+        transition: 0.3s;
+    
+        &:focus {
+            border-bottom: solid 0.1rem #4444aa;
+            color: #4444aa;
+        }
+    }
+}

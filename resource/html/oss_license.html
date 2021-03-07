@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Expires" content="86400">
-        <link rel="stylesheet" type="text/css" href="../css/layout.min.css">
+        <link rel="stylesheet" href="../css/layout.min.css">
+        <link rel="stylesheet" href="../css/oss_license.min.css">
         <link rel="shortcut icon" href="../image/favicon.ico">
         <meta name="theme-color" content="#FF6A00">
         <title>ORIZIN Agent HTML</title>
@@ -700,20 +701,6 @@ SOFTWARE.
                         <a href="https://github.com/Simonwep/pickr" target="_blank" rel="noopener noreferrer"><mwc-button label="リポジトリーを開く" icon="open_in_new" trailingIcon></mwc-button></a>
                     </details>
                 </section>
-                <style>
-                    details {
-                        border-top: 0.05em solid var(--text);
-                    }
-
-                    details h3 {
-                        padding: 0;
-                        margin: 0;
-                    }
-
-                    section {
-                        padding: 1em 0;
-                    }
-                </style>
             </div>
         </main>
         <script src="../javascript/orizin_ui.min.js"></script>
@@ -722,11 +709,6 @@ SOFTWARE.
         <script src="../javascript/mousetrap.min.js"></script>
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
         <script src="/eel.js"></script>
-        <script>
-            async function insert_license() {
-                document.getElementById("license_section").insertAdjacentHTML("beforeend", await eel.generate_node_license_report()());
-            }
-            insert_license();
-        </script>
+        <script src="../javascript/oss_license.js"></script>
     </body>
 </html>
