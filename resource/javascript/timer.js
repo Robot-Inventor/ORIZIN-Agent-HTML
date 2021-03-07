@@ -24,16 +24,16 @@ function update_time(time) {
 
 function timer_status() {
     if (is_stopped) {
-        return "stopped"
+        return "stopped";
     } else {
-        return "started"
+        return "started";
     }
 }
 
 function reset_status() {
     const result = is_reseted;
     is_reseted = false;
-    return result
+    return result;
 }
 
 function set_time() {
@@ -41,11 +41,19 @@ function set_time() {
 }
 
 window.addEventListener("load", () => {
-    let settings = new Object;
+    let settings = {};
+    settings.h = 0;
+    settings.m = 0;
+    settings.s = 0;
+
     const pair = location.search.substring(1).split("&");
     for (var i = 0; pair[i]; i++) {
-        var kv = pair[i].split("=");
-        settings[kv[0]] = kv[1];
+        const kv = pair[i].split("=");
+
+        const name = kv[0];
+        const value = settings.hasOwnProperty(name) ? kv[1] : null;
+
+        settings[name] = value;
     }
     hour = settings.h;
     minute = settings.m;

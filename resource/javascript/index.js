@@ -59,7 +59,7 @@ function add_chat(content, is_user = false, is_youtube = false) {
 }
 
 function chat_and_speak(chat_content, speak_content = "") {
-    if (arguments[1] === undefined) {
+    if (speak_content === undefined) {
         speak_content = chat_content;
     }
     add_chat(chat_content);
@@ -132,7 +132,7 @@ async function read_setting() {
 }
 
 function listening_status(status = false) {
-    if (arguments[0] !== undefined) {
+    if (status !== undefined) {
         if (status) {
             document.getElementById("listening_message").style.opacity = 1;
             document.getElementById("start_recognition").classList.add("listening");
