@@ -35,6 +35,12 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.0.142.9dev-Eagle] - 2021-03-07
+
+#### 変更
+
+- HTMLファイルに直書きとなっていたCSSとJavaScriptを別ファイルに切り出しました　[#93](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/93)
+
 ### [v5.0.141.8-Eagle] - 2021-03-07
 
 #### 追加

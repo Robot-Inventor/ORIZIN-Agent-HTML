@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,AAAC,CACJ,UAAU,CAAE,MAAM,CAAC,KAAK,CAAC,WAAW,CAMvC,AAPD,AAGI,OAHG,CAGH,EAAE,AAAC,CACC,OAAO,CAAE,CAAC,CACV,MAAM,CAAE,CAAC,CACZ,AAGL,AAAA,OAAO,AAAC,CACJ,OAAO,CAAE,KAAK,CACjB",
+    "sources": [
+        "oss_license.scss"
+    ],
+    "names": [],
+    "file": "oss_license.min.css"
+}
