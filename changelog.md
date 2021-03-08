@@ -35,6 +35,26 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.0.144.11dev-Eagle] - 2021-03-09
+
+#### 修正
+
+- 試験機能ページの続行確認完了後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
+
+### [v5.0.143.10-Eagle] - 2021-03-08
+
+#### 変更
+
+- HTMLファイルに直書きとなっていたCSSとJavaScriptを別ファイルに切り出しました　[#93](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/93)
+
+#### セキュリティー
+
+- プロトタイプ汚染脆弱性を修正しました　[#96](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/96)
+
+#### Notice
+
+- このバージョンは、脆弱性修正の緊急アップデートv5.0.142.9dev-Eagleの正式版です
+
 ### [v5.0.142.9dev-Eagle] - 2021-03-08
 
 #### 変更

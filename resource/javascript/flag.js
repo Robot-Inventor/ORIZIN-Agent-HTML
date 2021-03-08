@@ -16,7 +16,7 @@ document.querySelectorAll("div.fill_panel section mwc-switch").forEach((element)
 document.getElementById("continue_button").addEventListener("click", function () {
     document.getElementById("section_outer").style.display = "block";
     document.getElementById("continue_check_menu").style.display = "none";
-    document.getElementById("continue_check_message").content = "ここにある機能は全て試験機能であり、実装が不十分な可能性があります。有効にするとデータが破損したり、動作が不安定になったり、その他の問題が生じたりする場合があります。";
+    document.getElementById("continue_check_message").textContent = "ここにある機能は全て試験機能であり、実装が不十分な可能性があります。有効にするとデータが破損したり、動作が不安定になったり、その他の問題が生じたりする場合があります。";
 });
 
 document.getElementById("back_button").addEventListener("click", function () {
