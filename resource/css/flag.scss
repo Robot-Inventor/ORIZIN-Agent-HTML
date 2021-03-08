@@ -1,13 +1,5 @@
 #section_outer {
     display: none;
-
-    section {
-        border-bottom: solid 0.05em var(--text);
-        padding: 1em;
-        padding-left: 0;
-        font-weight: bold;
-    
-    }
 }
 
 #refresh_button {
@@ -16,8 +8,4 @@
     padding: 0.25rem;
     border-radius: 0.25rem;
     margin-top: 2rem;
-}
-
-.information {
-    padding-left: 1.5rem;
 }
