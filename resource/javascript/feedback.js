@@ -1,3 +1,5 @@
+load_script("../javascript/component/warning_message.js");
+
 function get_radio_value(name) {
     const selected_radio = document.querySelector(`mwc-radio[name="${name}"][checked]`);
     if (selected_radio) {
