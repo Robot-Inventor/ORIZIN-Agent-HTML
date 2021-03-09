@@ -39,13 +39,15 @@ Edition: ORIZIN Agent HTML
 
 #### 修正
 
-- 試験機能ページの続行確認完了後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
+- 試験機能ページで続行確認後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
+- 試験機能ページの各項目をコンポーネント化しました　[#101](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/101)
 
 ### [v5.0.143.10-Eagle] - 2021-03-08
 
 #### 変更
 
 - HTMLファイルに直書きとなっていたCSSとJavaScriptを別ファイルに切り出しました　[#93](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/93)
+- 試験機能ページの各項目をコンポーネント化しました　[#101](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/101)
 
 #### セキュリティー
 
