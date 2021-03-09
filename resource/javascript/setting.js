@@ -54,10 +54,6 @@ async function set_to_current_setting() {
     if (await eel.read_flag("add_readable_text_setting")()) {
         document.getElementById("readable_text_setting").style.display = "block";
     }
-
-    if (await eel.read_flag("enable_improved_custom_theme_editor")()) {
-        document.getElementById("edit_theme").href = "improved_set_custom_css_theme.html";
-    }
 }
 
 set_to_current_setting();
