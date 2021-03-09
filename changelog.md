@@ -37,6 +37,10 @@ Edition: ORIZIN Agent HTML
 
 ### [v5.0.144.11dev-Eagle] - 2021-03-09
 
+#### 変更
+
+- コンポーネント関連のJavaScriptを別ファイルに分けました　[#105](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/105)
+
 #### 削除
 
 - 「改善されたカスタムテーマの編集ページを使用する」試験機能を削除しました　[#98](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/98)

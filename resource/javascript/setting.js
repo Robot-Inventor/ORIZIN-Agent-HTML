@@ -1,3 +1,6 @@
+load_script("../javascript/component/search_box.js");
+load_script("../javascript/component/warning_message.js");
+
 new Konami(function () {
     const body_element = document.body;
     body_element.style.transition = "2s";
