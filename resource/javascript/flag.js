@@ -151,11 +151,6 @@ const experiment_list = {
         icon: "feedback",
         title: "フィードバックボタンを表示する",
         information: "メニュー内にフィードバックボタンを表示し、必要に応じてフィードバックを送信できるようになります。"
-    },
-    enable_improved_custom_theme_editor: {
-        icon: "edit",
-        title: "改善されたカスタムテーマの編集ページを使用する",
-        information: "設定ページのテーマセクションで [カスタムテーマの編集] を押した際に改善されたページを表示します。"
     }
 };
 

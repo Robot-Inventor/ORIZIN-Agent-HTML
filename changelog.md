@@ -37,6 +37,10 @@ Edition: ORIZIN Agent HTML
 
 ### [v5.0.144.11dev-Eagle] - 2021-03-09
 
+#### 削除
+
+- 「改善されたカスタムテーマの編集ページを使用する」試験機能を削除しました　[#98](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/98)
+
 #### 修正
 
 - 試験機能ページで続行確認後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
