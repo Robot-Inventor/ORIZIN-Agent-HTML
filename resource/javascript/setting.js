@@ -155,8 +155,11 @@ document.getElementById("factory_reset_button").addEventListener("click", () => 
     });
 });
 
-const search_box = document.getElementById("search_box");
-search_box.init("div.fill_panel section");
+window.addEventListener("load", () => {
+    const search_box = document.getElementById("search_box");
+    search_box.init("div.fill_panel section");
+});
+
 Mousetrap.bind({
     "/": () => {
         search_box.focus();
