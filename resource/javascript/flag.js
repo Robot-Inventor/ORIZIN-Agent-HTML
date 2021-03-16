@@ -64,9 +64,10 @@ document.getElementById("refresh_button").addEventListener("click", () => {
     });
 });
 
-const search_box = document.getElementById("search_box");
-
-search_box.init("experiment-card");
+window.addEventListener("load", () => {
+    const search_box = document.getElementById("search_box");
+    search_box.init("experiment-card");
+});
 
 Mousetrap.bind({
     "/": () => {
