@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.0.144.11dev-Eagle] - 2021-03-17
+### [v5.0.144.11dev-Eagle] - 2021-05-03
 
 #### 変更
 
@@ -50,6 +50,7 @@ Edition: ORIZIN Agent HTML
 
 - 試験機能ページで続行確認後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
 - 検索機能が動作しないバグを修正しました　[#110](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/110)
+- 初期設定画面でメニューを開くと背景をクリックしてもメニューが閉じないバグを修正しました　[#94](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/94)
 
 ### [v5.0.143.10-Eagle] - 2021-03-08
 

@@ -211,7 +211,7 @@ header {
         background: rgba(0, 0, 0, 0.5);
         display: none;
         opacity: 0;
-        z-index: 2;
+        z-index: 3;
         transition: 0.3s;
 
         &.visible {
