@@ -82,6 +82,12 @@
                         <mwc-button outlined label="テスト" icon="hearing" onclick="sound_test()"></mwc-button>
                     </details>
                 </section>
+                <section title="ヒントに関する設定をします。" id="tips_setting">
+                    <details>
+                        <summary class="ripple_effect"><i class="material_icon">lightbulb</i>ヒント</summary>
+                        ホームにヒントを表示する　<mwc-switch id="show_tips" onchange="save_setting()"></mwc-switch>
+                    </details>
+                </section>
                 <section title="Pythonのインタープリターを設定します。">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">api</i>インタープリター</summary>

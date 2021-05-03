@@ -6,6 +6,7 @@ pitch:1
 python_interpreter:python
 search_engine:Google
 setup_finished:False
+show_tips:False
 speed:1
 theme:theme&#58auto_theme.css
 user_name:ゲスト
