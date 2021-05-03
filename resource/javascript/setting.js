@@ -54,8 +54,14 @@ async function set_to_current_setting() {
     if (await eel.read_setting("continuous_speech_recognition")() == "True") {
         document.getElementById("continuous_speech_recognition").checked = true;
     }
+    if (await eel.read_setting("show_tips")() == "True") {
+        document.getElementById("show_tips").checked = true;
+    }
     if (await eel.read_flag("add_readable_text_setting")()) {
         document.getElementById("readable_text_setting").style.display = "block";
+    }
+    if (await eel.read_flag("show_tips_setting")()) {
+        document.getElementById("tips_setting").style.display = "block";
     }
 }
 

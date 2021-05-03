@@ -27,6 +27,11 @@ const experiment_list = {
         icon: "feedback",
         title: "フィードバックボタンを表示する",
         information: "メニュー内にフィードバックボタンを表示し、必要に応じてフィードバックを送信できるようになります。"
+    },
+    show_tips_setting: {
+        icon: "lightbulb",
+        title: "ヒントの設定を表示する",
+        information: "ホームに表示されるヒントについての設定を表示します。"
     }
 };
 
