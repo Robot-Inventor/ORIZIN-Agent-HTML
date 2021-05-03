@@ -35,6 +35,12 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.1.145.0dev-Eagle] - 2021-05-03
+
+#### 追加
+
+- 設定の検索時に検索対象・検索キーワードの両方に対し、半角・全角の正規化とひらがな・カタカナの正規化を行う機能を追加しました　[#120](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/120)
+
 ### [v5.0.144.11dev-Eagle] - 2021-05-03
 
 #### 変更

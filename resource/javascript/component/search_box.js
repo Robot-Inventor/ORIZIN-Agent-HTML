@@ -138,10 +138,10 @@ class SearchBox extends HTMLElement {
         });
 
         this.text_box.addEventListener("input", () => {
-            const query = this.value.toLowerCase();
+            const query = this.normalize_text(this.value);
 
             document.querySelectorAll(selector).forEach((element) => {
-                const content_text = element.innerText.toLowerCase();
+                const content_text = this.normalize_text(element.innerText);
                 const default_display_property = element.dataset.defaultDisplayProperty;
                 const is_match = content_text.indexOf(query) === -1;
                 element.style.display = is_match ? "none" : default_display_property;
@@ -161,6 +161,13 @@ class SearchBox extends HTMLElement {
         if (is_search_box_active) {
             this.text_box.blur();
         }
+    }
+
+    normalize_text(text) {
+        return text.toLowerCase().normalize("NFKC").replace(/[\u3041-\u3096]/g, (match) => {
+            var result = match.charCodeAt(0) + 0x60;
+            return String.fromCharCode(result);
+        });
     }
 
     static get observedAttributes() {
