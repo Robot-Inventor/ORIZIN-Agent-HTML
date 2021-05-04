@@ -583,6 +583,10 @@ mwc-switch {
     --mdc-theme-surface: white;
 }
 
+mwc-checkbox {
+    --mdc-checkbox-unchecked-color: var(--text);
+}
+
 /* ここからはマテリアルデザインのElevationの設定 */
 
 /**

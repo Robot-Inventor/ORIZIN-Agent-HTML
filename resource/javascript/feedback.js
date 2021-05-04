@@ -33,7 +33,16 @@ function show_error(message_content) {
     error_message.style.display = "block";
 }
 
+function get_system_info() {
+    return JSON.stringify(UAParser(), null, 4);
+}
+
 window.addEventListener("beforeunload", ask_changing_page);
+
+document.getElementById("show_system_info").addEventListener("click", () => {
+    document.getElementById("system_info_preview").textContent = get_system_info();
+    event.target.remove();
+});
 
 const submit_button = document.getElementById("submit");
 submit_button.addEventListener("click", () => {
@@ -42,6 +51,7 @@ submit_button.addEventListener("click", () => {
     const feedback_type_name = "entry.1463225208";
     const feedback_detail_name = "entry.166666813";
     const github_url_name = "entry.99636056";
+    const system_info_name = "entry.1783167764";
 
     const feedback_type_value = get_radio_value(feedback_type_name);
     const feedback_detail_value = get_textbox_value(feedback_detail_name);
@@ -67,13 +77,15 @@ submit_button.addEventListener("click", () => {
         return;
     }
 
+    const system_info = document.getElementById("send_system_info").checked ? UAParser() : "";
+
     const dummy_send_target = document.createElement("iframe");
     dummy_send_target.style.display = "none";
     dummy_send_target.name = "dummy_send_target";
     document.getElementById("feedback").appendChild(dummy_send_target);
 
     const form_iframe = document.createElement("iframe");
-    form_iframe.src = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfxjq1neTulfxxCG1TlGGj_lYn-R1Wo7ciPwPyM3cNwTYuZ7A/formResponse?${feedback_type_name}=${feedback_type_value}&${feedback_detail_name}=${feedback_detail_value}&${github_url_name}=${github_url_value}&submit=Submit`);
+    form_iframe.src = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfxjq1neTulfxxCG1TlGGj_lYn-R1Wo7ciPwPyM3cNwTYuZ7A/formResponse?${feedback_type_name}=${feedback_type_value}&${feedback_detail_name}=${feedback_detail_value}&${github_url_name}=${github_url_value}&${system_info_name}=${system_info}&submit=Submit`);
     form_iframe.style.display = "none";
 
     form_iframe.addEventListener("load", function () {

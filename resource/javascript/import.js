@@ -1,3 +1,4 @@
+import "@material/mwc-checkbox";
 import "@material/mwc-button";
 import "@material/mwc-snackbar";
 import "@material/mwc-icon-button";
