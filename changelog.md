@@ -47,6 +47,10 @@ Edition: ORIZIN Agent HTML
 
 - フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
 
+#### 修正
+
+- 「オープンソースソフトウェアライセンス」ページのデータをjson化しました　[#124](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/124)
+
 ### [v5.0.144.11dev-Eagle] - 2021-05-03
 
 #### 変更
