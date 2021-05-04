@@ -50,6 +50,7 @@ Edition: ORIZIN Agent HTML
 #### 修正
 
 - 「オープンソースソフトウェアライセンス」ページのデータをjson化しました　[#124](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/124)
+- オープンソースソフトウェアライセンスに[Material Web Components](https://github.com/material-components/material-components-web-components)が抜けていたため修正しました　[#128](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/128)
 
 ### [v5.0.144.11dev-Eagle] - 2021-05-03
 
