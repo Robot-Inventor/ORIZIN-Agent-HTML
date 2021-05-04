@@ -24,6 +24,7 @@ import generate_node_license_report as node_license_report
 import reset
 import theme
 import dictlib
+import platform
 
 
 @eel.expose
@@ -92,6 +93,24 @@ def reset_flag() -> None:
 @eel.expose
 def factory_reset() -> None:
     reset.factory_reset()
+
+
+@eel.expose
+def get_python_version() -> str:
+    return platform.python_version()
+
+
+@eel.expose
+def get_os() -> str:
+    system_name = platform.system()
+    if system_name == "Windows":
+        return "Windows" + platform.win32_ver()[1]
+    elif system_name == "Darwin":
+        return "macOS" + platform.mac_ver()[0]
+    elif system_name == "Linux":
+        return "Linux"
+    else:
+        return "other"
 
 
 def add_chat(content: str) -> None:

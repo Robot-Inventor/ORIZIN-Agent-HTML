@@ -35,12 +35,17 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.1.145.0dev-Eagle] - 2021-05-04
+### [v5.1.145.0dev-Eagle] - 2021-05-05
 
 #### 追加
 
 - 設定の検索時に検索対象・検索キーワードの両方に対し、半角・全角の正規化とひらがな・カタカナの正規化を行う機能を追加しました　[#120](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/120)
 - ホーム画面に使い方を表示する機能を追加しました [#53](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/53)
+- フィードバックにシステム情報を含めるオプションを追加しました [#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+
+#### 変更
+
+- フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
 
 ### [v5.0.144.11dev-Eagle] - 2021-05-03
 
