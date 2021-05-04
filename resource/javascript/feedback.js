@@ -33,19 +33,30 @@ function show_error(message_content) {
     error_message.style.display = "block";
 }
 
-function get_system_info() {
-    return JSON.stringify(UAParser(), null, 4);
+async function get_oa_info() {
+    const fetch_response = await fetch("../information.txt");
+    const information_content = await fetch_response.text();
+    return information_content.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+}
+
+async function get_system_info() {
+    const system_info = UAParser();
+    system_info.python_version = await eel.get_python_version()();
+    system_info.python_os = await eel.get_os()();
+    system_info.oa_info = await get_oa_info();
+    return JSON.stringify(system_info, null, 4);
 }
 
 window.addEventListener("beforeunload", ask_changing_page);
 
-document.getElementById("show_system_info").addEventListener("click", () => {
-    document.getElementById("system_info_preview").textContent = get_system_info();
-    event.target.remove();
+const show_system_info_button = document.getElementById("show_system_info");
+show_system_info_button.addEventListener("click", async () => {
+    document.getElementById("system_info_preview").textContent = await get_system_info();
+    show_system_info_button.remove();
 });
 
 const submit_button = document.getElementById("submit");
-submit_button.addEventListener("click", () => {
+submit_button.addEventListener("click", async () => {
     submit_button.disabled = true;
 
     const feedback_type_name = "entry.1463225208";
@@ -56,6 +67,7 @@ submit_button.addEventListener("click", () => {
     const feedback_type_value = get_radio_value(feedback_type_name);
     const feedback_detail_value = get_textbox_value(feedback_detail_name);
     const github_url_value = get_textbox_value(github_url_name);
+    const system_info = document.getElementById("send_system_info").checked ? await get_system_info() : "";
 
     const github_url_regex = /https:\/\/github\.com\/[\w!?/+\-_~;.,*&@#$%()'[\]]+/;
 
@@ -76,8 +88,6 @@ submit_button.addEventListener("click", () => {
         submit_button.disabled = false;
         return;
     }
-
-    const system_info = document.getElementById("send_system_info").checked ? UAParser() : "";
 
     const dummy_send_target = document.createElement("iframe");
     dummy_send_target.style.display = "none";
