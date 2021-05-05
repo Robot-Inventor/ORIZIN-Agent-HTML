@@ -145,6 +145,16 @@ class SearchBox extends HTMLElement {
                 const default_display_property = element.dataset.defaultDisplayProperty;
                 const is_match = content_text.indexOf(query) === -1;
                 element.style.display = is_match ? "none" : default_display_property;
+
+                const search_tag_string = element.dataset.searchTag;
+                if (!search_tag_string) return;
+                const search_tag = search_tag_string.replaceAll(", ", "").replaceAll("  ", "").replaceAll(" ", ",").split(",");
+                for (let i = 0; i < search_tag.length; i++) {
+                    console.log("111");
+                    if (search_tag[i].indexOf(query) !== -1) {
+                        element.style.display = default_display_property;
+                    }
+                }
             });
         }, false);
     }
