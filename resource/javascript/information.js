@@ -34,6 +34,21 @@ function compare_and_return_latest_version_num(version1, version2) {
 }
 
 async function load_information() {
+    function sanitize(string) {
+        const sanitize_table = {
+            "&": '&amp;',
+            "'": '&#x27;',
+            "`": '&#x60;',
+            "\"": '&quot;',
+            "<": '&lt;',
+            ">": '&gt;',
+        };
+        Object.keys(sanitize_table).forEach((key) => {
+            string.replaceAll(key, sanitize_table[key]);
+        });
+        return string;
+    }
+
     const fetch_response = await fetch("../information.json");
     const information_content = await fetch_response.json();
 
@@ -47,7 +62,7 @@ async function load_information() {
     const release_data = await eel.get_release(information_content.Channel)();
     const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
 
-    document.getElementById("update_status").innerHTML = version_information === latest_version ? "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。" : `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`;
+    document.getElementById("update_status").innerHTML = version_information === latest_version ? "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。" : `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${sanitize(latest_version)}" target="_blank" rel="noopener noreferrer">${sanitize(latest_version)}</a>にアップデート可能です。`;
 }
 
 load_information();
