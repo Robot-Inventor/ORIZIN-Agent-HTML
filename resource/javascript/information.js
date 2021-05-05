@@ -58,11 +58,16 @@ async function load_information() {
         information_area.insertAdjacentHTML("beforeend", `${key}: ${information_content[key]}<br>`);
     });
 
-    const version_information = information_content.Version;
+    const version_information = sanitize(information_content.Version);
     const release_data = await eel.get_release(information_content.Channel)();
     const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
 
-    document.getElementById("update_status").innerHTML = version_information === latest_version ? "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。" : `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${sanitize(latest_version)}" target="_blank" rel="noopener noreferrer">${sanitize(latest_version)}</a>にアップデート可能です。`;
+    const update_status = document.getElementById("update_status");
+    if (latest_version === version_information) {
+        update_status.innerHTML = "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。";
+    } else {
+        update_status.innerHTML = `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`;
+    }
 }
 
 load_information();
