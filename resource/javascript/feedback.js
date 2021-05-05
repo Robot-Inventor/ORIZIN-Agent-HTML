@@ -34,9 +34,9 @@ function show_error(message_content) {
 }
 
 async function get_oa_info() {
-    const fetch_response = await fetch("../information.txt");
-    const information_content = await fetch_response.text();
-    return information_content.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+    const fetch_response = await fetch("../information.json");
+    const information_content = await fetch_response.json();
+    return information_content;
 }
 
 async function get_system_info() {

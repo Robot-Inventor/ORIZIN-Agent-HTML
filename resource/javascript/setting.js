@@ -126,15 +126,34 @@ document.querySelectorAll("mwc-radio[name='search_engine_list']").forEach((eleme
 });
 
 document.getElementById("check_update").addEventListener("click", async function () {
+    function sanitize(string) {
+        const sanitize_table = {
+            "&": '&amp;',
+            "'": '&#x27;',
+            "`": '&#x60;',
+            "\"": '&quot;',
+            "<": '&lt;',
+            ">": '&gt;',
+        };
+        Object.keys(sanitize_table).forEach((key) => {
+            string.replaceAll(key, sanitize_table[key]);
+        });
+        return string;
+    }
+
     document.getElementById("update_detail").innerHTML = "アップデートを確認中です...";
-    const response = await fetch("../information.txt");
-    const information_data = await response.text();
-    const version_information = information_data.match(/Version:.*/)[0].replace("Version:", "");
-    const release_data = version_information.indexOf("dev") === -1 ? await eel.get_release("stable")() : await eel.get_release("develop")();
+    const response = await fetch("../information.json");
+    const information_data = await response.json();
+    const version_information = information_data.Version;
+    const release_data = await eel.get_release(information_data.Channel)();
 
     const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
-    const update_detail = latest_version === version_information ? "利用可能なアップデートはありません。最新のバージョンを使用中です。" : `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
-    document.getElementById("update_detail").innerHTML = update_detail;
+    const update_detail = document.getElementById("update_detail");
+    if (latest_version === version_information) {
+        update_detail.innerHTML = "利用可能なアップデートはありません。最新のバージョンを使用中です。";
+    } else {
+        update_detail.innerHTML = `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
+    }
 });
 
 document.getElementById("reset_setting_button").addEventListener("click", () => {
