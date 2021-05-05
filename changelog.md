@@ -37,6 +37,10 @@ Edition: ORIZIN Agent HTML
 
 ### [v5.2.148.0dev-Eagle] - 2021-05-05
 
+#### 追加
+
+- ショートカットキーの一覧にスペースキーを追加しました　[#122](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/122)
+
 #### 変更
 
 - 設定ページのアップデートのダウンロードボタンをMaterial Web Componentに変更しました　[#136](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/136)
