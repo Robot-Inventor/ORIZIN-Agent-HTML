@@ -35,6 +35,8 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.2.147.0dev-Eagle] - 2021-05-05
+
 ### [v5.1.145.0dev-Eagle] - 2021-05-05
 
 #### 追加
