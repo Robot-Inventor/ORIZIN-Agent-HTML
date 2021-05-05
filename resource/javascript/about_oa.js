@@ -1,6 +1,7 @@
 async function load_info() {
     const fetch_data = await fetch("../information.json");
     const response = await fetch_data.json();
+    console.log(response);
     Object.keys(response).forEach((key) => {
         document.getElementById("information").insertAdjacentText("beforeend", `${key}: ${response[key]}\n`);
     });
