@@ -51,6 +51,10 @@ Edition: ORIZIN Agent HTML
 
 #### 修正
 
+- デバッグ用使ったまま残っているconsole.log()を削除しました　[#144](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/144)
+
+#### 修正
+
 - 試験機能ページの検索対象に試験機能のタイトルが含まれていなかったため修正しました　[#131](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/131)
 
 #### 修正
