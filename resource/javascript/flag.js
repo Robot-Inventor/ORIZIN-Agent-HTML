@@ -48,7 +48,7 @@ Object.keys(experiment_list).forEach((experiment_name) => {
     card.setAttribute("icon", experiment.icon);
     card.setAttribute("experiment-title", experiment.title);
     card.setAttribute("experiment-name", experiment_name);
-    card.setAttribute("data-search-tag", experiment.tag.join(", "));
+    card.setAttribute("data-search-tag", experiment.tag.join(", ") + `, ${experiment.title}, ${experiment.icon}`);
     card.textContent = experiment.information;
 
     document.getElementById("section_outer").appendChild(card);

@@ -50,6 +50,10 @@ Edition: ORIZIN Agent HTML
 
 #### 修正
 
+- 試験機能ページの検索対象に試験機能のタイトルが含まれていなかったため修正しました　[#131](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/131)
+
+#### 修正
+
 - 「オープンソースソフトウェアライセンス」ページのデータをjson化しました　[#124](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/124)
 - オープンソースソフトウェアライセンスに[Material Web Components](https://github.com/material-components/material-components-web-components)が抜けていたため修正しました　[#128](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/128)
 
