@@ -35,6 +35,12 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.2.147.0dev-Eagle] - 2021-05-05
+
+#### 変更
+
+- 設定ページのアップデートのダウンロードボタンのリンク先を個別のリリースページに変更しました　[#137](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/137)
+
 ### [v5.1.145.0dev-Eagle] - 2021-05-05
 
 #### 追加
