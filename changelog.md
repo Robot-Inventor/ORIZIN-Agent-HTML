@@ -7,7 +7,7 @@
 Series Name: ORIZIN Agent  
 Edition: ORIZIN Agent HTML
 
-他の情報を読むには、resource/information.txtを参照してください。
+他の情報を読むには、resource/information.jsonを参照してください。
 
 ## バージョニング
 
@@ -47,6 +47,7 @@ Edition: ORIZIN Agent HTML
 #### 変更
 
 - フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+- information.txtはinformation.jsonに変わりました　[#133](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/133)
 
 #### 修正
 
