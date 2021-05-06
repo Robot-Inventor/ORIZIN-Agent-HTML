@@ -46,6 +46,7 @@ Edition: ORIZIN Agent HTML
 
 - 設定ページのアップデートのダウンロードボタンをMaterial Web Componentに変更しました　[#136](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/136)
 - 設定ページのアップデートのダウンロードボタンのリンク先を個別のリリースページに変更しました　[#137](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/137)
+- バージョン情報をコピーしたときにボタンのアイコンが変更されるようになりました　[#146](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/146)
 
 #### 追加
 

@@ -16,7 +16,14 @@ document.getElementById("open_splash_screen_button").addEventListener("click", f
     window.open("information.html", "_blank", window_option);
 });
 
-document.getElementById("copy_information_button").addEventListener("click", () => {
+const copy_button = document.getElementById("copy_information_button");
+let change_copy_button_timer;
+copy_button.addEventListener("click", () => {
+    clearTimeout(change_copy_button_timer);
     navigator.clipboard.writeText(document.getElementById("information").textContent);
     document.getElementById("copied_message_snackbar").show();
+    copy_button.icon = "checked";
+    change_copy_button_timer = setTimeout(() => {
+        copy_button.icon = "content_copy";
+    }, 5000);
 });
