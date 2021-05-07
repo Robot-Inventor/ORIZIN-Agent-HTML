@@ -71,11 +71,11 @@ function load_script(url) {
 
 document.querySelector("header").innerHTML = `
 <div id="top_app_bar">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る" id="app_name">ORIZIN Agent HTML</a></span>
+    <mwc-icon-button icon="menu" onclick="open_menu()" id="menu_open_button"></mwc-icon-button><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る" id="app_name">ORIZIN Agent HTML</a></span>
 </div>
 <div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
-    <button id="menu_close_button" class="ripple_effect" onclick="close_menu()" title="メニューを閉じる"><i class="material_icon">arrow_forward</i></button>
+    <mwc-icon-button id="menu_close_button" onclick="close_menu()" icon="arrow_forward"></mwc-icon-button>
     <div class="ripple_effect" onclick="move_page('index.html')" title="ホーム画面に戻る">
         <i class="material_icon">home</i>ホーム
     </div>
