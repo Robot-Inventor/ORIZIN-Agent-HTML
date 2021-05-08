@@ -551,7 +551,7 @@ mwc-checkbox {
 
 mwc-icon {
     --mdc-icon-size: 1em;
-    vertical-align: bottom;
+    vertical-align: sub;
     transform: translateY(-10%);
     color: inherit;
 }
@@ -561,6 +561,16 @@ h3 {
     mwc-icon {
         margin-right: 0.5em;
     }
+}
+
+mwc-icon-button {
+    --mdc-theme-text-disabled-on-light: var(--text);
+    --mdc-icon-size: 1em;
+    color: inherit;
+}
+
+mwc-icon-button[disabled] {
+    opacity: 0.3;
 }
 
 /* ここからはマテリアルデザインのElevationの設定 */

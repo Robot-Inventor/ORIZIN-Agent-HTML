@@ -125,25 +125,16 @@ body {
 }
 
 #startButton {
-    border: none;
-    padding: 0;
-    margin-left: 1rem;
-    transform: translateY(-0.5rem);
-    vertical-align: top;
-    font-size: 1.5rem;
+    transform: translateY(-0.5em);
     transition: 0.3s;
-    background: none;
+    color: var(--theme_color);
+    opacity: 1;
+    cursor: pointer;
 
-    &:disabled {
+    &[disabled] {
         color: var(--text);
         opacity: 0.3;
         cursor: default;
-    }
-
-    &:enabled {
-        color: var(--theme_color);
-        opacity: 1;
-        cursor: pointer;
     }
 }
 
@@ -157,26 +148,19 @@ body {
 
 #start_recognition {
     float: right;
-    font-size: 1.5rem;
+    transform: translateY(-0.5em);
     transition: 0.3s;
-    background: none;
-    padding: 0;
-    margin: 0;
-    border: none;
+    color: var(--text);
+    cursor: pointer;
+    opacity: 1;
 
-    &:enabled {
-        color: var(--text);
-        cursor: pointer;
-        opacity: 1;
-    }
-
-    &:disabled:not(.listening) {
+    &[disabled]:not(.listening) {
         color: var(--text);
         opacity: 0.3;
         cursor: default;
     }
 
-    &.listening i {
+    &.listening {
         color: var(--theme_color);
     }
 }
