@@ -124,11 +124,11 @@ async function response(content) {
 }
 
 async function read_setting() {
-    continuous_speech_recognition_user_setting = (await eel.read_setting("continuous_speech_recognition")() == "True");
+    continuous_speech_recognition_user_setting = await eel.read_setting("continuous_speech_recognition")();
 
-    pitch = Number(await eel.read_setting("pitch")());
-    speed = Number(await eel.read_setting("speed")());
-    volume = Number(await eel.read_setting("volume")());
+    pitch = await eel.read_setting("pitch")();
+    speed = await eel.read_setting("speed")();
+    volume = await eel.read_setting("volume")();
 }
 
 function listening_status(status = false) {
@@ -173,7 +173,7 @@ function change_send_button_status() {
 }
 
 async function show_tips() {
-    if (await eel.read_setting("show_tips")() == "True") {
+    if (await eel.read_setting("show_tips")()) {
         const tips_list = [
             "知っていましたか？　[設定] の [テーマ] から画面の配色をカスタマイズできるんです！🎨",
             "知っていましたか？　[設定] の [アップデートを確認] からアップデート可能か確認できます。常に最新の状態にしましょう！",

@@ -48,33 +48,33 @@ def check_current_css_theme_information() -> list[str]:
 
 
 @eel.expose
-def read_setting(setting_name: typing.Union[str, int, bool]) -> str:
-    value = core.read_setting("resource/setting/setting.otfd", setting_name)
+def read_setting(setting_name: str) -> typing.Any:
+    value = core.read_setting("resource/setting/setting.json", setting_name)
     print_log_if_dev_mode("Read setting.", OrderedDict(
         SettingName=setting_name, SettingValue=value))
     return value
 
 
 @eel.expose
-def write_setting(setting_name: typing.Union[str, int, bool], setting_value: typing.Union[str, int, bool]) -> None:
+def write_setting(setting_name: str, setting_value: typing.Any) -> None:
     print_log_if_dev_mode("Write setting.", OrderedDict(
         SettingName=setting_name, SettingValue=setting_value))
-    core.write_setting("resource/setting/setting.otfd",
+    core.write_setting("resource/setting/setting.json",
                        setting_name, setting_value)
     return
 
 
 @eel.expose
-def read_flag(flag_name: typing.Any) -> bool:
-    value = core.read_flag("resource/setting/flag.otfd", flag_name)
+def read_flag(flag_name: str) -> bool:
+    value = core.read_flag("resource/setting/flag.json", flag_name)
     print_log_if_dev_mode("Read flag.", OrderedDict(
         FlagName=flag_name, FlagValue=value))
     return value
 
 
 @eel.expose
-def set_flag(flag_name: typing.Any, flag_value: typing.Any) -> None:
-    core.set_flag("resource/setting/flag.otfd", flag_name, flag_value)
+def set_flag(flag_name: str, flag_value: bool) -> None:
+    core.set_flag("resource/setting/flag.json", flag_name, flag_value)
     print_log_if_dev_mode("Set flag.", OrderedDict(
         FlagName=flag_name, FlagValue=flag_value))
     return
@@ -732,15 +732,15 @@ if __name__ == "__main__":
     IS_CUI_MODE = args.cui_mode
     print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
 
-    if os.path.exists("resource/setting/setting.otfd") is False:
+    if os.path.exists("resource/setting/setting.json") is False:
         change_theme("theme/auto_theme.css")
         print_log_if_dev_mode("Reset theme setting.", OrderedDict(
             ResetedTheme="theme/auto_theme.css"))
 
     core.solve_setting_conflict(
-        "resource/setting/default_setting.otfd", "resource/setting/setting.otfd")
+        "resource/setting/default_setting.json", "resource/setting/setting.json")
     core.solve_setting_conflict(
-        "resource/setting/default_flag.otfd", "resource/setting/flag.otfd")
+        "resource/setting/default_flag.json", "resource/setting/flag.json")
     print_log_if_dev_mode("Solve setting conflict.", OrderedDict(Status="OK"))
 
     if IS_CUI_MODE:

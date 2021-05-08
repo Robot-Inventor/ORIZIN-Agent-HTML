@@ -17,7 +17,7 @@ def change(css_theme_path: str) -> None:
             new_theme.write(light_theme)
     with open("resource/css/theme_setting.css", mode="w", encoding="utf-8_sig") as css_file:
         css_file.write(f"@import url('{css_theme_path}');")
-    core.write_setting("resource/setting/setting.otfd",
+    core.write_setting("resource/setting/setting.json",
                        "theme", css_theme_path)
     return
 
@@ -46,7 +46,7 @@ def write_custom(theme_dictionary: dict[str, str]) -> None:
 
 
 def current() -> OrderedDict:
-    css_file_path = core.read_setting("resource/setting/setting.otfd", "theme")
+    css_file_path = core.read_setting("resource/setting/setting.json", "theme")
     with open(f"resource/css/{css_file_path}", mode="r", encoding="utf-8_sig") as f:
         css = f.read()
         pattern = re.compile(r"( *?--.*?:.*?;(\n|))+",
