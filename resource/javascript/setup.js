@@ -41,7 +41,7 @@ async function set_to_current_setting() {
 }
 
 function save_setting() {
-    eel.write_setting("setup_finished", "True");
+    eel.write_setting("setup_finished", true);
 
     eel.change_theme(document.getElementById("theme").value);
     eel.write_setting("user_name", document.getElementById("user_name").value);

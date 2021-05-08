@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.1.145.0dev-Eagle] - 2021-05-07
+### [v5.1.145.0dev-Eagle] - 2021-05-09
 
 #### 追加
 
@@ -48,6 +48,7 @@ Edition: ORIZIN Agent HTML
 
 - フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
 - information.txtはinformation.jsonに変わりました　[#133](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/133)
+- 設定ファイルをjson形式に移行しました　[#162](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/162)
 
 #### 修正
 
