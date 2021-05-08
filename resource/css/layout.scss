@@ -86,23 +86,6 @@
         0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 
-.material_icon {
-    font-family: "Material Icons";
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transform: translateY(0.15em);
-    margin: 0 0.4em;
-}
-
 * {
     overflow: scroll;
     scrollbar-width: none;
@@ -126,24 +109,6 @@
 
 #chat_area::-webkit-scrollbar-corner {
     display: none;
-}
-
-.important {
-    color: var(--theme_color);
-
-    .material_icon,
-    * {
-        color: var(--theme_color);
-    }
-}
-
-.warning {
-    color: var(--error_text_color);
-
-    .material_icon,
-    * {
-        color: var(--error_text_color);
-    }
 }
 
 html,
@@ -191,7 +156,6 @@ header {
         }
 
         #menu_open_button {
-            height: 5vh;
             cursor: pointer;
             margin-right: 1rem;
             transition: 0.3s;
@@ -262,8 +226,8 @@ header {
             transition: 0.3s;
             cursor: pointer;
 
-            .material_icon {
-                color: var(--text);
+            mwc-icon {
+                margin-right: 0.5em;
             }
         }
 
@@ -273,10 +237,6 @@ header {
             position: relative;
             top: 0;
             left: 0;
-
-            .material_icon {
-                color: var(--theme_color);
-            }
 
             &::before {
                 content: "";
@@ -308,8 +268,6 @@ header {
         }
 
         #menu_close_button {
-            border: none;
-            font-size: 2rem;
             margin: 2vh;
             overflow: visible;
             --mdc-icon-size: 2rem;
@@ -354,10 +312,6 @@ hr {
 a {
     color: var(--theme_color);
     text-decoration: none;
-
-    .material_icon {
-        color: var(--theme_color);
-    }
 }
 
 .button,
@@ -517,6 +471,10 @@ details {
         padding: 1em 0;
         transform: translate(-1.5rem) !important;
         transition: 0.3s;
+
+        mwc-icon {
+            margin-right: 0.5em;
+        }
     }
 }
 
@@ -589,6 +547,20 @@ mwc-switch {
 
 mwc-checkbox {
     --mdc-checkbox-unchecked-color: var(--text);
+}
+
+mwc-icon {
+    --mdc-icon-size: 1em;
+    vertical-align: bottom;
+    transform: translateY(-10%);
+    color: inherit;
+}
+
+h2,
+h3 {
+    mwc-icon {
+        margin-right: 0.5em;
+    }
 }
 
 /* ここからはマテリアルデザインのElevationの設定 */
