@@ -12,10 +12,9 @@ class SearchBox extends HTMLElement {
         const search_icon_outer = document.createElement("div");
         search_icon_outer.setAttribute("id", "search_icon_outer");
 
-        const search_icon_element = document.createElement("i");
+        const search_icon_element = document.createElement("mwc-icon");
         search_icon_element.textContent = "search";
         search_icon_element.setAttribute("id", "search_icon");
-        search_icon_element.setAttribute("class", "material_icon");
 
         this.text_box_outer = document.createElement("div");
         this.text_box_outer.setAttribute("id", "text_box_outer");
@@ -89,21 +88,11 @@ class SearchBox extends HTMLElement {
     opacity: 0.75;
 }
 
-.material_icon {
-    font-family: "Material Icons";
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transform: translateY(0.15em);
-    color: var(--text);
+mwc-icon {
+    --mdc-icon-size: 1em;
+    transform: translateY(15%);
+    margin-right: 0.5em;
+    color: inherit;
 }
 
 #search_icon_outer {

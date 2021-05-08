@@ -1,0 +1,8 @@
+﻿{
+    "add_readable_text_setting": false,
+    "fast_start": false,
+    "get_news_from_google_news": true,
+    "show_feedback_button": true,
+    "show_tips_setting": true,
+    "use_fast_response_mode": false
+}
