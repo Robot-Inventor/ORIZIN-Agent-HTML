@@ -9,6 +9,12 @@ const experiment_list = {
         information: "設定ページにテキストを読みやすくするための項目を追加します。",
         tag: ["text", "太く", "太さ", "大きく", "大きい", "文字"]
     },
+    enable_readonly_support: {
+        icon: "auto_stories",
+        title: "読み取り専用モードのサポートの有効化",
+        information: "読み取り専用モードのコマンドライン引数を使用可能にします。",
+        tag: ["readonly", "command", "line", "mode", "argument"]
+    },
     fast_start: {
         icon: "power_settings_new",
         title: "高速起動を有効にする",
@@ -21,12 +27,6 @@ const experiment_list = {
         information: "ユーザーがニュースを要求した際、GoogleニュースのWebページを開くのではなくGoogle News RSSを使用してインターネットからニュースを自動で取得します。",
         tag: ["feed", "フィード"]
     },
-    use_fast_response_mode: {
-        icon: "two_wheeler",
-        title: "高速モードを有効にする",
-        information: "高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり、適切な応答が見つからなかったことを示す「そうですか」という応答を返す頻度が高くなります。",
-        tag: ["インテリジェントマッチ"]
-    },
     show_feedback_button: {
         icon: "feedback",
         title: "フィードバックボタンを表示する",
@@ -38,6 +38,12 @@ const experiment_list = {
         title: "ヒントの設定を表示する",
         information: "ホームに表示されるヒントについての設定を表示します。",
         tag: ["hint", "tips", "home", "使い方", "使いかた", "つかいかた", "豆知識"]
+    },
+    use_fast_response_mode: {
+        icon: "two_wheeler",
+        title: "高速モードを有効にする",
+        information: "高速かつ低負荷で応答を返すようにします。Intelligent Match機構は無効になり、適切な応答が見つからなかったことを示す「そうですか」という応答を返す頻度が高くなります。",
+        tag: ["インテリジェントマッチ"]
     }
 };
 

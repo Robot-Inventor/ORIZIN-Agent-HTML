@@ -29,7 +29,8 @@ import platform
 
 @eel.expose
 def change_theme(css_theme_path: str) -> None:
-    theme.change(css_theme_path)
+    if IS_READ_ONLY_MODE is False:
+        theme.change(css_theme_path)
 
 
 @eel.expose
@@ -39,7 +40,8 @@ def return_theme_dict() -> dict[str, str]:
 
 @eel.expose
 def write_custom_css_theme(value: dict[str, str]) -> None:
-    theme.write_custom(value)
+    if IS_READ_ONLY_MODE is False:
+        theme.write_custom(value)
 
 
 @eel.expose
@@ -57,10 +59,11 @@ def read_setting(setting_name: str) -> typing.Any:
 
 @eel.expose
 def write_setting(setting_name: str, setting_value: typing.Any) -> None:
-    print_log_if_dev_mode("Write setting.", OrderedDict(
-        SettingName=setting_name, SettingValue=setting_value))
-    core.write_setting("resource/setting/setting.json",
-                       setting_name, setting_value)
+    if IS_READ_ONLY_MODE is False:
+        print_log_if_dev_mode("Write setting.", OrderedDict(
+            SettingName=setting_name, SettingValue=setting_value))
+        core.write_setting("resource/setting/setting.json",
+                           setting_name, setting_value)
     return
 
 
@@ -74,25 +77,29 @@ def read_flag(flag_name: str) -> bool:
 
 @eel.expose
 def set_flag(flag_name: str, flag_value: bool) -> None:
-    core.set_flag("resource/setting/flag.json", flag_name, flag_value)
-    print_log_if_dev_mode("Set flag.", OrderedDict(
-        FlagName=flag_name, FlagValue=flag_value))
+    if IS_READ_ONLY_MODE is False:
+        core.set_flag("resource/setting/flag.json", flag_name, flag_value)
+        print_log_if_dev_mode("Set flag.", OrderedDict(
+            FlagName=flag_name, FlagValue=flag_value))
     return
 
 
 @eel.expose
 def reset_setting() -> None:
-    reset.setting()
+    if IS_READ_ONLY_MODE is False:
+        reset.setting()
 
 
 @eel.expose
 def reset_flag() -> None:
-    reset.flag()
+    if IS_READ_ONLY_MODE is False:
+        reset.flag()
 
 
 @eel.expose
 def factory_reset() -> None:
-    reset.factory_reset()
+    if IS_READ_ONLY_MODE is False:
+        reset.factory_reset()
 
 
 @eel.expose
@@ -500,12 +507,14 @@ def make_response(not_normalized_query: str) -> list[typing.Union[str, bool]]:
                     else:
                         splited_memo.pop(memo_index - 1)
                         with open("memo.txt", mode="w", newline="") as f:
-                            f.write("\n".join(splited_memo))
+                            if IS_READ_ONLY_MODE is False:
+                                f.write("\n".join(splited_memo))
                         response = [f"{memo_index}つ目のメモを削除しました。",
                                     f"{memo_index}つ目のメモを削除しました。"]
                 else:
                     with open("memo.txt", mode="w", newline="") as f:
-                        f.write("")
+                        if IS_READ_ONLY_MODE is False:
+                            f.write("")
                     response = ["覚えているメモをすべて消去しました。", "覚えているメモをすべて消去しました。"]
         print_log_if_dev_mode_template()
         return response
@@ -540,7 +549,8 @@ def make_response(not_normalized_query: str) -> list[typing.Union[str, bool]]:
             "(て(|下さい|ください)|てお(け|きなさい|いて(|ください|下さい))|と(け|いて(|ください|下さい))(|よ|や)|ろ|)|)(|。|.)$",
             "", not_normalized_query)
         with open("memo.txt", mode="a", newline="") as f:
-            f.write(f"{memo_content}\n")
+            if IS_READ_ONLY_MODE is False:
+                f.write(f"{memo_content}\n")
         if memo_content == "":
             response = ["申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。",
                         "申し訳ありません。処理に失敗しました。別の言い方をお試し下さい。"]
@@ -716,6 +726,7 @@ def generate_node_license_report():
 
 IS_DEV_MODE = False
 IS_CUI_MODE = False
+IS_READ_ONLY_MODE = False
 
 dictionary = dictlib.load("resource/dictionary/dictionary.otfd")
 
@@ -727,9 +738,12 @@ if __name__ == "__main__":
                         help="enable development mode")
     parser.add_argument("-C", "--cui_mode",
                         action="store_true", help="enable CUI mode")
+    parser.add_argument("-R", "--read-only",
+                        action="store_true", help="enable read-only mode")
     args = parser.parse_args()
     IS_DEV_MODE = args.dev_mode
     IS_CUI_MODE = args.cui_mode
+    IS_READ_ONLY_MODE = args.read_only
     print_log_if_dev_mode("Program start.", OrderedDict(Status="OK"))
 
     if os.path.exists("resource/setting/setting.json") is False:
@@ -742,6 +756,9 @@ if __name__ == "__main__":
     core.solve_setting_conflict(
         "resource/setting/default_flag.json", "resource/setting/flag.json")
     print_log_if_dev_mode("Solve setting conflict.", OrderedDict(Status="OK"))
+
+    if read_flag("enable_readonly_support") is False:
+        IS_READ_ONLY_MODE = False
 
     if IS_CUI_MODE:
         print("\nProgram started. Please input query.\n")

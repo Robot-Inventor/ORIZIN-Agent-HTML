@@ -1,5 +1,6 @@
 {
     "add_readable_text_setting": false,
+    "enable_readonly_support": false,
     "fast_start": false,
     "get_news_from_google_news": false,
     "show_feedback_button": false,
