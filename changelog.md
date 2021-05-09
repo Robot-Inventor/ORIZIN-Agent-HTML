@@ -59,6 +59,7 @@ Edition: ORIZIN Agent HTML
 - オープンソースソフトウェアライセンスに[Material Web Components](https://github.com/material-components/material-components-web-components)が抜けていたため修正しました　[#128](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/128)
 - 試験機能ページの検索対象に試験機能のタイトルが含まれていなかったため修正しました　[#131](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/131)
 - デバッグ用に使ったまま残っているconsole.log()を削除しました　[#144](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/144)
+- flag.js内の試験機能一覧をjson化しました　[#174](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/174)
 
 ### [v5.0.144.11dev-Eagle] - 2021-05-03
 
