@@ -43,6 +43,7 @@ Edition: ORIZIN Agent HTML
 - ホーム画面に使い方を表示する試験機能を追加しました　[#53](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/53)
 - フィードバックにシステム情報を含めるオプションを追加しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
 - 設定の検索にタグ機能を追加しました　[#99](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/99)
+- stylelintを導入しました　[#171](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/171)
 
 #### 変更
 
