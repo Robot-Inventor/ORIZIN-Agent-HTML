@@ -1,10 +1,10 @@
 async function readable_text_setting() {
     const use_bold_text = await eel.read_setting("bold_text")();
-    if (use_bold_text === "True") {
+    if (use_bold_text) {
         document.body.style.fontWeight = "bold";
     }
     const use_bigger_text = await eel.read_setting("bigger_text")();
-    if (use_bigger_text === "True") {
+    if (use_bigger_text) {
         document.body.style.fontSize = "1.1em";
     }
 }

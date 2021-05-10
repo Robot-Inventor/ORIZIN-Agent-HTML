@@ -173,9 +173,8 @@ mwc-icon {
 
                 const search_tag_string = element.dataset.searchTag;
                 if (!search_tag_string) return;
-                const search_tag = search_tag_string.replaceAll(", ", "").replaceAll("  ", "").replaceAll(" ", ",").split(",");
+                const search_tag = search_tag_string.replaceAll(", ", ",").replaceAll("  ", " ").replaceAll(" ", ",").split(",");
                 for (let i = 0; i < search_tag.length; i++) {
-                    console.log("111");
                     if (search_tag[i].indexOf(query) !== -1) {
                         element.style.display = default_display_property;
                     }

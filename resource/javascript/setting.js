@@ -45,24 +45,13 @@ async function set_to_current_setting() {
     document.getElementById("speed").value = document.getElementById("speed_value").innerHTML = await eel.read_setting("speed")();
     document.getElementById("volume").value = document.getElementById("volume_value").innerHTML = await eel.read_setting("volume")();
 
-    if (await eel.read_setting("bold_text")() == "True") {
-        document.getElementById("bold_text").checked = true;
-    }
-    if (await eel.read_setting("bigger_text")() == "True") {
-        document.getElementById("bigger_text").checked = true;
-    }
-    if (await eel.read_setting("continuous_speech_recognition")() == "True") {
-        document.getElementById("continuous_speech_recognition").checked = true;
-    }
-    if (await eel.read_setting("show_tips")() == "True") {
-        document.getElementById("show_tips").checked = true;
-    }
-    if (await eel.read_flag("add_readable_text_setting")()) {
-        document.getElementById("readable_text_setting").style.display = "block";
-    }
-    if (await eel.read_flag("show_tips_setting")()) {
-        document.getElementById("tips_setting").style.display = "block";
-    }
+    document.getElementById("bold_text").checked = await eel.read_setting("bold_text")();
+    document.getElementById("bigger_text").checked = await eel.read_setting("bigger_text")();
+    document.getElementById("continuous_speech_recognition").checked = await eel.read_setting("continuous_speech_recognition")();
+    document.getElementById("show_tips").checked = await eel.read_setting("show_tips")();
+
+    if (await eel.read_flag("add_readable_text_setting")()) document.getElementById("readable_text_setting").style.display = "block";
+    if (await eel.read_flag("show_tips_setting")()) document.getElementById("tips_setting").style.display = "block";
 }
 
 set_to_current_setting();

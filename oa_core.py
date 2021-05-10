@@ -15,6 +15,7 @@ import html
 import typing
 import pathlib
 import shutil
+import json
 
 
 def normalize(sentence: str) -> str:
@@ -182,34 +183,35 @@ def convert_to_bool(value: typing.Any) -> bool:
         return False
 
 
-def read_setting(_setting_file_path: str, setting_name: typing.Any) -> typing.Optional[str]:
+def read_setting(_setting_file_path: str, setting_name: str = "") -> typing.Any:
     if os.path.exists(_setting_file_path) is False:
         return
     else:
-        root = otfdlib.Otfd()
-        root.load(_setting_file_path)
-        root.parse()
-        return root.get_value(setting_name)
+        with open(_setting_file_path, encoding="utf-8_sig", mode="r") as f:
+            json_dictionary = json.load(f)
+            if setting_name:
+                return json_dictionary[setting_name]
+            else:
+                return json_dictionary
 
 
-def write_setting(_setting_file_path: str, setting_name: typing.Any, setting_value: typing.Any) -> None:
+def write_setting(_setting_file_path: str, setting_name: str, setting_value: typing.Any) -> None:
     if os.path.exists(_setting_file_path) is False:
         with open(_setting_file_path, mode="w", encoding="utf-8_sig") as f:
-            f.write("")
-    root = otfdlib.Otfd()
-    root.load(_setting_file_path)
-    root.parse()
-    root.add(str(setting_name), str(setting_value))
-    root.write()
-    return
+            json.dump({}, f)
+    with open(_setting_file_path, encoding="utf-8_sig", mode="r") as f:
+        json_dictionary = json.load(f)
+    json_dictionary[setting_name] = setting_value
+    with open(_setting_file_path, encoding="utf-8_sig", mode="w") as f:
+        json.dump(json_dictionary, f, indent=4)
 
 
-def read_flag(_flag_file_path: str, flag_name: typing.Any) -> bool:
-    return convert_to_bool(read_setting(_flag_file_path, flag_name))
+def read_flag(_flag_file_path: str, flag_name: str) -> bool:
+    return read_setting(_flag_file_path, flag_name)
 
 
-def set_flag(_flag_file_path: str, flag_name: typing.Any, flag_value: typing.Any) -> None:
-    write_setting(_flag_file_path, str(flag_name), convert_to_bool(flag_value))
+def set_flag(_flag_file_path: str, flag_name: str, flag_value: bool) -> None:
+    write_setting(_flag_file_path, flag_name, flag_value)
     return
 
 
@@ -222,26 +224,15 @@ def solve_setting_conflict(default_setting_file_path: str, current_setting_file_
                 current.write(default.read())
                 return
     else:
-        default_setting = otfdlib.Otfd()
-        default_setting.load(default_setting_file_path)
-        default_setting.parse()
-        default_index_list = default_setting.get_index_list()
-        current_setting = otfdlib.Otfd()
-        current_setting.load(current_setting_file_path)
-        current_setting.parse()
-        current_index_list = current_setting.get_index_list()
-        need_to_add = list(set(default_index_list) - set(current_index_list))
-        current_setting.update(
-            {index: default_setting.get_value(index) for index in need_to_add})
-        need_to_delete = list(set(current_index_list) -
-                              set(default_index_list))
+        default_setting = read_setting(default_setting_file_path)
+        current_setting = read_setting(current_setting_file_path)
+        need_to_delete = list(
+            set(current_setting.keys()) - set(default_setting.keys()))
         for index in need_to_delete:
             current_setting.pop(index)
-        default_setting.sorted()
-        current_setting.sorted()
-        default_setting.write()
-        current_setting.write()
-        return
+        solved_setting = default_setting | current_setting
+        with open(current_setting_file_path, encoding="utf-8_sig", mode="w") as f:
+            json.dump(solved_setting, f, indent=4)
 
 
 def generate_search_engine_url(search_engine: str = "google", keyword: str = None, define: bool = False) -> str:

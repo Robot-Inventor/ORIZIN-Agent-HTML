@@ -1,0 +1,15 @@
+{
+    "bigger_text": false,
+    "bold_text": false,
+    "continuous_speech_recognition": false,
+    "news_site_url": "https://news.google.com/?hl=ja&gl=JP&ceid=JP:ja",
+    "pitch": 1,
+    "python_interpreter": "python",
+    "search_engine": "Google",
+    "setup_finished": false,
+    "show_tips": false,
+    "speed": 1,
+    "theme": "theme/auto_theme.css",
+    "user_name": "ゲスト",
+    "volume": 1
+}
