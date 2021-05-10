@@ -35,6 +35,12 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.1.146.1dev-Eagle] - 2021-05-11
+
+#### 修正
+
+- 安定版のアップデートの確認時にアップデートとして開発版が表示されることがあるバグを修正しました　[#178](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/178)
+
 ### [v5.1.145.0dev-Eagle] - 2021-05-10
 
 #### 追加

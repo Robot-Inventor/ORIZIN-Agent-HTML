@@ -20,7 +20,7 @@ def get_latest_version(channel: typing.Literal["stable", "develop"]) -> str:
 
     atom_file = html.unescape(urllib.request.urlopen(RSS_URL).read().decode())
     if channel == "stable":
-        if(latest_version := re.search("<title>v(\d|\.).*?(?!dev)-\w*?</title>", atom_file)):
+        if(latest_version := re.search("<title>v(\d|\.).*?(?<!dev)-\w*?</title>", atom_file)):
             return latest_version.group().replace("<title>", "").replace("</title>", "")
         else:
             raise ValueError("指定されたチャンネルの最新バージョンを取得できませんでした。")
