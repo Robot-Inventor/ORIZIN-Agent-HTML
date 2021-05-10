@@ -49,6 +49,17 @@
                         <label for="entry.99636056" class="question_text"><i class="material_icon">link</i>GitHubに上記と同じ内容のIssuesやPull Requestsを送信した場合、そのURLを書いてください。</label>
                         <underlined-textbox name="entry.99636056" placeholder="https://github.com/で始まるURLを入力..."></underlined-textbox>
                     </div>
+                    <div class="question_group">
+                        <label class="question_text"><i class="material_icon">settings</i>システム情報を送信しますか。*</label>
+                        <mwc-formfield label="システム情報を送信する" id="system_info_field">
+                            <mwc-checkbox id="send_system_info" checked></mwc-checkbox>
+                        </mwc-formfield>
+                        <p class="information">
+                            <i class="material_icon">info</i>システム情報にはWebブラウザーのユーザーエージェント文字列、それを解析して取得したWebブラウザーの名称とバージョン・レンダリングエンジンの名称とバージョン・OSの名称とバージョン・CPUのアーキテクチャー・デバイスの種類とベンダー、Pythonのバージョン、Pythonを使用して取得したOSの名称とバージョン、ORIZIN Agent HTMLのバージョンが含まれます。これらの情報は問題の特定に役立ちます。また、システム情報から<b>個人を特定することはできません</b>。
+                        </p>
+                        <mwc-button label="送信されるシステム情報を見る" icon="visibility" id="show_system_info" trailingIcon></mwc-button>
+                        <pre id="system_info_preview"></pre>
+                    </div>
                     <warning-message id="error_message"></warning-message>
                     <mwc-button label="送信" icon="send" id="submit" unelevated></mwc-button>
                 </form>
@@ -68,6 +79,7 @@
         <script src="../javascript/bundle.js"></script>
         <script src="../javascript/mousetrap.min.js"></script>
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>
+        <script src="../javascript/ua-parser.min.js"></script>
         <script src="/eel.js"></script>
         <script src="../javascript/feedback.js"></script>
     </body>

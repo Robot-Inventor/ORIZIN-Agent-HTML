@@ -1,4 +1,12 @@
-load_file("../information.txt", "#information");
+async function load_info() {
+    const fetch_data = await fetch("../information.json");
+    const response = await fetch_data.json();
+    Object.keys(response).forEach((key) => {
+        document.getElementById("information").insertAdjacentText("beforeend", `${key}: ${response[key]}\n`);
+    });
+}
+
+load_info();
 
 document.getElementById("open_splash_screen_button").addEventListener("click", function () {
     const screen_width = screen.availWidth;

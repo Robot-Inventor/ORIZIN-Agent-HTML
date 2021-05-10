@@ -7,7 +7,7 @@
 Series Name: ORIZIN Agent  
 Edition: ORIZIN Agent HTML
 
-他の情報を読むには、resource/information.txtを参照してください。
+他の情報を読むには、resource/information.jsonを参照してください。
 
 ## バージョニング
 
@@ -34,6 +34,96 @@ Edition: ORIZIN Agent HTML
 |開発コードネーム|メジャー（マイナー）バージョンのコードネーム|
 
 ## リリース
+
+### [v5.1.147.2-Eagle] - 2021-05-11
+
+#### 追加
+
+- 設定の検索時に検索対象・検索キーワードの両方に対し、半角・全角の正規化とひらがな・カタカナの正規化を行う機能を追加しました　[#120](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/120)
+- 次の試験機能を追加しました
+  - ヒントの設定を表示する　[#53](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/53)
+  - 読み取り専用モードのサポートの有効化　[#173](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/173)
+- フィードバックにシステム情報を含めるオプションを追加しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+- 設定の検索にタグ機能を追加しました　[#99](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/99)
+- stylelintを導入しました　[#171](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/171)
+
+#### 変更
+
+- 試験機能ページの各項目をコンポーネント化しました　[#101](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/101)
+- コンポーネント関連のJavaScriptを別ファイルに分けました　[#105](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/105)
+- フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+- information.txtはinformation.jsonに変わりました　[#133](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/133)
+- 設定ファイルをjson形式に移行しました　[#162](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/162)
+
+#### 削除
+
+- 「改善されたカスタムテーマの編集ページを使用する」試験機能を削除しました　[#98](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/98)
+
+#### 修正
+
+- 試験機能ページで続行確認後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
+- 検索機能が動作しないバグを修正しました　[#110](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/110)
+- 初期設定画面でメニューを開くと背景をクリックしてもメニューが閉じないバグを修正しました　[#94](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/94)
+- 「オープンソースソフトウェアライセンス」ページのデータをjson化しました　[#124](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/124)
+- オープンソースソフトウェアライセンスに[Material Web Components](https://github.com/material-components/material-components-web-components)が抜けていたため修正しました　[#128](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/128)
+- 試験機能ページの検索対象に試験機能のタイトルが含まれていなかったため修正しました　[#131](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/131)
+- デバッグ用に使ったまま残っているconsole.log()を削除しました　[#144](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/144)
+- flag.js内の試験機能一覧をjson化しました　[#174](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/174)
+- アップデートの確認時にリリースチャンネルが無視されるバグを修正しました　[#178](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/178)
+
+#### Notice
+
+- このバージョンは、v5.0.144.11dev-Eagleからv5.1.146.1dev-Eagleまでのアップデートの正式版です
+- このバージョンでは設定ファイルのファイル形式が変更されており、後方互換性はありません。アップデートではなく再ダウンロードを推奨します
+
+### [v5.1.146.1dev-Eagle] - 2021-05-11
+
+#### 修正
+
+- アップデートの確認時にリリースチャンネルが無視されるバグを修正しました　[#178](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/178)
+
+### [v5.1.145.0dev-Eagle] - 2021-05-10
+
+#### 追加
+
+- 設定の検索時に検索対象・検索キーワードの両方に対し、半角・全角の正規化とひらがな・カタカナの正規化を行う機能を追加しました　[#120](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/120)
+- 次の試験機能を追加しました
+  - ヒントの設定を表示する　[#53](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/53)
+  - 読み取り専用モードのサポートの有効化　[#173](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/173)
+- フィードバックにシステム情報を含めるオプションを追加しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+- 設定の検索にタグ機能を追加しました　[#99](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/99)
+- stylelintを導入しました　[#171](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/171)
+
+#### 変更
+
+- フィードバックの送信時にシステムの情報を送信するオプションが追加されたため、プライバシーポリシーを改定しました　[#116](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/116)
+- information.txtはinformation.jsonに変わりました　[#133](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/133)
+- 設定ファイルをjson形式に移行しました　[#162](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/162)
+
+#### 修正
+
+- 「オープンソースソフトウェアライセンス」ページのデータをjson化しました　[#124](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/124)
+- オープンソースソフトウェアライセンスに[Material Web Components](https://github.com/material-components/material-components-web-components)が抜けていたため修正しました　[#128](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/128)
+- 試験機能ページの検索対象に試験機能のタイトルが含まれていなかったため修正しました　[#131](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/131)
+- デバッグ用に使ったまま残っているconsole.log()を削除しました　[#144](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/144)
+- flag.js内の試験機能一覧をjson化しました　[#174](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/174)
+
+### [v5.0.144.11dev-Eagle] - 2021-05-03
+
+#### 変更
+
+- 試験機能ページの各項目をコンポーネント化しました　[#101](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/101)
+- コンポーネント関連のJavaScriptを別ファイルに分けました　[#105](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/105)
+
+#### 削除
+
+- 「改善されたカスタムテーマの編集ページを使用する」試験機能を削除しました　[#98](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/98)
+
+#### 修正
+
+- 試験機能ページで続行確認後にメッセージが切り替わらないバグを修正しました　[#100](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/100)
+- 検索機能が動作しないバグを修正しました　[#110](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/110)
+- 初期設定画面でメニューを開くと背景をクリックしてもメニューが閉じないバグを修正しました　[#94](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/94)
 
 ### [v5.0.143.10-Eagle] - 2021-03-08
 

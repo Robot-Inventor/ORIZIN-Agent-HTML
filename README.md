@@ -19,4 +19,4 @@ ORIZIN Agent HTML is an open-source AI assistant using Python programing languag
 
 ## ライセンスとバージョンについて
 
-ライセンスはMITライセンスです。ライセンス全文はLICENSE.txt、バージョン等の情報はresource/information.txtにあります。これらは、ORIZIN Agentのメニューの「ORIZIN Agentについて」からも見られます。
+ライセンスはMITライセンスです。ライセンス全文はLICENSE.txt、バージョン等の情報はresource/information.jsonにあります。これらは、ORIZIN Agentのメニューの「ORIZIN Agentについて」からも見られます。

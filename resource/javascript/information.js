@@ -34,16 +34,40 @@ function compare_and_return_latest_version_num(version1, version2) {
 }
 
 async function load_information() {
-    const fetch_response = await fetch("../information.txt");
-    const information_content = await fetch_response.text();
+    function sanitize(string) {
+        const sanitize_table = {
+            "&": '&amp;',
+            "'": '&#x27;',
+            "`": '&#x60;',
+            "\"": '&quot;',
+            "<": '&lt;',
+            ">": '&gt;',
+        };
+        Object.keys(sanitize_table).forEach((key) => {
+            string.replaceAll(key, sanitize_table[key]);
+        });
+        return string;
+    }
 
-    document.getElementById("information_area").innerHTML = information_content.replace(/\n/g, "<br>");
+    const fetch_response = await fetch("../information.json");
+    const information_content = await fetch_response.json();
 
-    const version_information = information_content.match(/Version:.*/)[0].replace("Version:", "");
-    const release_data = version_information.indexOf("dev") === -1 ? await eel.get_release("stable")() : await eel.get_release("develop")();
+    const information_area = document.getElementById("information_area");
+    information_area.textContent = "";
+    Object.keys(information_content).forEach((key) => {
+        information_area.insertAdjacentHTML("beforeend", `${key}: ${information_content[key]}<br>`);
+    });
+
+    const version_information = sanitize(information_content.Version);
+    const release_data = await eel.get_release(information_content.Channel)();
     const latest_version = compare_and_return_latest_version_num(version_information, release_data[0]);
 
-    document.getElementById("update_status").innerHTML = version_information === latest_version ? "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。" : `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`
+    const update_status = document.getElementById("update_status");
+    if (latest_version === version_information) {
+        update_status.innerHTML = "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。";
+    } else {
+        update_status.innerHTML = `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`;
+    }
 }
 
 load_information();

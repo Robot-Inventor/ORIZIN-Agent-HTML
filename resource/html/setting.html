@@ -25,7 +25,7 @@
                         <i class="material_icon">format_size</i>大きい文字を使用する　<toggle-switch id="bigger_text" onchange="save_setting()"></toggle-switch>
                     </details>
                 </section>
-                <section title="画面の配色（テーマ）を設定します。">
+                <section title="画面の配色（テーマ）を設定します。" data-search-tag="color, background, theme, dark, light">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">palette</i>テーマ</summary>
                         <select id="theme" onchange="eel.change_theme(document.getElementById('theme').value);">
@@ -34,13 +34,13 @@
                         <a href="set_custom_css_theme.html" id="edit_theme"><mwc-button label="カスタムテーマの編集" icon="edit"></mwc-button></a>
                     </details>
                 </section>
-                <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。">
+                <section title="ORIZIN Agentがあなたのことを何と呼ぶかを設定します。" data-search-tag="user, name, 名前">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">person</i>ユーザー名</summary>
                         <underlined-textbox id="user_name" placeholder="ユーザー名を入力" onchange="save_setting()"></underlined-textbox>
                     </details>
                 </section>
-                <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。">
+                <section title="ORIZIN Agentがあなたの要求に応じて検索する際の検索エンジンを設定します。" data-search-tag="engine, google, bing, yahoo!, japan, duckduckgo">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">search</i>検索エンジン</summary>
                         <mwc-formfield label="Google（デフォルト）">
@@ -60,7 +60,7 @@
                         </mwc-formfield>
                     </details>
                 </section>
-                <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。">
+                <section title="ORIZIN Agentがあなたに要求されてニュースを開く際のサイトのURLを設定します。" data-search-tag="news">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">link</i>ニュースサイトのURL</summary>
                         <underlined-textbox id="news_site_url" placeholder="URLを入力" onchange="save_setting()"></underlined-textbox>
@@ -82,14 +82,20 @@
                         <mwc-button outlined label="テスト" icon="hearing" onclick="sound_test()"></mwc-button>
                     </details>
                 </section>
-                <section title="Pythonのインタープリターを設定します。">
+                <section title="ヒントに関する設定をします。" id="tips_setting" data-search-tag="豆知識, tips, home, hint, 使い方, 使いかた, つかいかた">
+                    <details>
+                        <summary class="ripple_effect"><i class="material_icon">lightbulb</i>ヒント</summary>
+                        ホームにヒントを表示する　<mwc-switch id="show_tips" onchange="save_setting()"></mwc-switch>
+                    </details>
+                </section>
+                <section title="Pythonのインタープリターを設定します。" data-search-tag="Interpreter">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">api</i>インタープリター</summary>
                         Python3のインタープリターを設定します。Python3の実行ファイルへの絶対パスかエイリアスを入力してください。<br>
                         <underlined-textbox id="python_interpreter" placeholder="絶対パスかエイリアスを入力" onchange="save_setting()"></underlined-textbox>
                     </details>
                 </section>
-                <section title="設定ではありませんが、アップデート可能かどうかを確認します。">
+                <section title="設定ではありませんが、アップデート可能かどうかを確認します。" data-search-tag="update, upgrade, アップグレード, 更新, リリース">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">upgrade</i>アップデートを確認</summary>
                         <p class="information">
@@ -100,7 +106,7 @@
                         <p id="update_detail"></p>
                     </details>
                 </section>
-                <section title="利用可能なショートカットキーの一覧です。">
+                <section title="利用可能なショートカットキーの一覧です。" data-search-tag="shortcut">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">keyboard</i>ショートカットキーの一覧</summary>
                         ORIZIN Agent HTMLでは、Webブラウザーでサポートされているショートカットキーの他に、次のショートカットキーをサポートしています。
@@ -136,7 +142,7 @@
                         </table>
                     </details>
                 </section>
-                <section title="初期化します。">
+                <section title="初期化します。" data-search-tag="削除, 消去, factory, reset, リセット">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">delete</i>初期化</summary>
                         ORIZIN Agent HTMLをダウンロード時の状態に初期化します。
@@ -144,7 +150,7 @@
                         <mwc-button label="初期化する" id="factory_reset_button" unelevated></mwc-button>
                     </details>
                 </section>
-                <section title="試験機能の有効・無効を設定します。">
+                <section title="試験機能の有効・無効を設定します。" data-search-tag="実験機能, experiment">
                     <details>
                         <summary class="ripple_effect"><i class="material_icon">science</i>試験機能</summary>
                         <a href="flag.html"><mwc-button label="試験機能の設定" icon="arrow_forward" trailingIcon></mwc-button></a>

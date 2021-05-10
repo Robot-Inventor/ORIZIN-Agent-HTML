@@ -124,11 +124,11 @@ async function response(content) {
 }
 
 async function read_setting() {
-    continuous_speech_recognition_user_setting = (await eel.read_setting("continuous_speech_recognition")() == "True");
+    continuous_speech_recognition_user_setting = await eel.read_setting("continuous_speech_recognition")();
 
-    pitch = Number(await eel.read_setting("pitch")());
-    speed = Number(await eel.read_setting("speed")());
-    volume = Number(await eel.read_setting("volume")());
+    pitch = await eel.read_setting("pitch")();
+    speed = await eel.read_setting("speed")();
+    volume = await eel.read_setting("volume")();
 }
 
 function listening_status(status = false) {
@@ -169,6 +169,30 @@ function change_send_button_status() {
     if (listening_status()) {
         auto_recognition_abort = true;
         click_recognition_button();
+    }
+}
+
+async function show_tips() {
+    if (await eel.read_setting("show_tips")()) {
+        const tips_list = [
+            "知っていましたか？　[設定] の [テーマ] から画面の配色をカスタマイズできるんです！🎨",
+            "知っていましたか？　[設定] の [アップデートを確認] からアップデート可能か確認できます。常に最新の状態にしましょう！",
+            "実は、[設定] の [音声に関する設定] からORIZIN Agentの声をカスタマイズできます(≧▽≦)",
+            "123456面サイコロを振ってもらいましょう！普通の6面サイコロを使いたい人なんていませんよね？？？？🎲",
+            "ORIZIN Agent HTMLのほとんどの機能はオフラインでも使用できます",
+            "いくつかのショートカットキーを使用できます。詳細は [設定] の [ショートカットキーの一覧] へGO！🚗",
+            "ORIZIN Agentが質問に応じて検索するときに使用する検索エンジンは [設定] から変更できます！",
+            "ORIZIN Agent HTMLは多くのオープンソースソフトウェア（OSS）によって支えられています。どんなOSSを使用しているか、メニューの [オープンソースソフトウェアライセンス] からチェックしてみましょう！",
+            "ORIZIN Agent HTMLはMITライセンスの下提供されています。ライセンスに従う限り、あなたは自由です！",
+            "実は、ORIZIN Agent HTMLのコードネームは鳥の名前を表す英単語がアルファベット順に使われているんです。🐣",
+            "もともとはRaspberry Piでのみ動作するORIZIN AgentというAIアシスタントがありました。ORIZIN Agent HTMLは、ORIZIN Agentをベースに開発された、つよつよアシスタントです💪",
+            "ORIZIN Agent HTMLのGUIは、Webの技術を使っています。",
+            "ORIZIN Agentはルールベースなので、低スペックのマシンでも動作します💨",
+            "ORIZIN Agent HTMLのGUIの表示にはWebブラウザーを使用しているので、Webブラウザーのショートカットキーも使用できます！"];
+        add_chat((() => {
+            const random_index = Math.floor(Math.random() * (tips_list.length - 0) + 0);
+            return "ヒント💡<br>" + tips_list[random_index];
+        })());
     }
 }
 
@@ -227,6 +251,8 @@ recognition.onspeechstart = () => {
 recognition.onspeechend = () => {
     document.getElementById("user_speaking_status").style.opacity = "0";
 };
+
+show_tips();
 
 Mousetrap.bind({
     "space": () => {
