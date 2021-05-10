@@ -6,8 +6,7 @@ class ExperimentCard extends HTMLElement {
 
         const section = document.createElement("section");
 
-        this.icon_element = document.createElement("i");
-        this.icon_element.setAttribute("class", "material_icon");
+        this.icon_element = document.createElement("mwc-icon");
         this.icon_element.textContent = this.getAttribute("icon");
 
         this.experiment_title = document.createElement("span");
@@ -32,21 +31,11 @@ section {
     display: block;
 }
 
-.material_icon {
-    font-family: "Material Icons";
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transform: translateY(0.15em);
-    margin: 0 0.4em;
+mwc-icon {
+    --mdc-icon-size: 1em;
+    transform: translateY(10%);
+    margin-right: 0.5em;
+    color: inherit;
 }
 
 mwc-switch {
