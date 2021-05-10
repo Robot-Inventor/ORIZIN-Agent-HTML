@@ -1,8 +1,8 @@
 {
     "Series Name": "ORIZIN Agent",
     "Edition": "ORIZIN Agent HTML",
-    "Version": "v5.1.146.1dev",
-    "Channel": "develop",
+    "Version": "v5.1.147.2",
+    "Channel": "stable",
     "Code Name": "Eagle",
     "Date": "2021-05-11 JST"
 }
