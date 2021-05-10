@@ -22,12 +22,12 @@
                         *が付いている項目は必須です。
                     </p>
                     <p class="information">
-                        <mwc-icon>info</mwc-icon>フィードバックはこのフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また、このフォームに入力された内容は自動でGoogleフォームに送信されます。フォームには、個人情報やパスワードなどを入力しないでください。
+                        <i class="material_icon">info</i>フィードバックはこのフォームまたは<a href="https://forms.gle/s3npSdtrvuF9WTgH8" target="_blank" rel="noreferrer noopener">Googleフォーム</a>から行えます。送信できる内容はどちらも同じです。また、このフォームに入力された内容は自動でGoogleフォームに送信されます。フォームには、個人情報やパスワードなどを入力しないでください。
                     </p>
                 </div>
                 <form id="feedback" target="dummy_send_target">
                     <div class="question_group">
-                        <label for="entry.1463225208" class="question_text"><mwc-icon>feedback</mwc-icon>フィードバックの種類を選択してください。*</label>
+                        <label for="entry.1463225208" class="question_text"><i class="material_icon">feedback</i>フィードバックの種類を選択してください。*</label>
                         <mwc-formfield label="バグの報告">
                             <mwc-radio name="entry.1463225208" value="バグの報告"></mwc-radio>
                         </mwc-formfield>
@@ -42,20 +42,20 @@
                         </mwc-formfield>
                     </div>
                     <div class="question_group">
-                        <label for="entry.166666813" class="question_text"><mwc-icon>rate_review</mwc-icon>上記内容について詳しく教えてください。*</label>
+                        <label for="entry.166666813" class="question_text"><i class="material_icon">rate_review</i>上記内容について詳しく教えてください。*</label>
                         <underlined-textbox name="entry.166666813" placeholder="ここに入力..."></underlined-textbox>
                     </div>
                     <div class="question_group">
-                        <label for="entry.99636056" class="question_text"><mwc-icon>link</mwc-icon>GitHubに上記と同じ内容のIssuesやPull Requestsを送信した場合、そのURLを書いてください。</label>
+                        <label for="entry.99636056" class="question_text"><i class="material_icon">link</i>GitHubに上記と同じ内容のIssuesやPull Requestsを送信した場合、そのURLを書いてください。</label>
                         <underlined-textbox name="entry.99636056" placeholder="https://github.com/で始まるURLを入力..."></underlined-textbox>
                     </div>
                     <div class="question_group">
-                        <label class="question_text"><mwc-icon>settings</mwc-icon>システム情報を送信しますか。*</label>
+                        <label class="question_text"><i class="material_icon">settings</i>システム情報を送信しますか。*</label>
                         <mwc-formfield label="システム情報を送信する" id="system_info_field">
                             <mwc-checkbox id="send_system_info" checked></mwc-checkbox>
                         </mwc-formfield>
                         <p class="information">
-                            <mwc-icon>info</mwc-icon>システム情報にはWebブラウザーのユーザーエージェント文字列、それを解析して取得したWebブラウザーの名称とバージョン・レンダリングエンジンの名称とバージョン・OSの名称とバージョン・CPUのアーキテクチャー・デバイスの種類とベンダー、Pythonのバージョン、Pythonを使用して取得したOSの名称とバージョン、ORIZIN Agent HTMLのバージョンが含まれます。これらの情報は問題の特定に役立ちます。また、システム情報から<b>個人を特定することはできません</b>。
+                            <i class="material_icon">info</i>システム情報にはWebブラウザーのユーザーエージェント文字列、それを解析して取得したWebブラウザーの名称とバージョン・レンダリングエンジンの名称とバージョン・OSの名称とバージョン・CPUのアーキテクチャー・デバイスの種類とベンダー、Pythonのバージョン、Pythonを使用して取得したOSの名称とバージョン、ORIZIN Agent HTMLのバージョンが含まれます。これらの情報は問題の特定に役立ちます。また、システム情報から<b>個人を特定することはできません</b>。
                         </p>
                         <mwc-button label="送信されるシステム情報を見る" icon="visibility" id="show_system_info" trailingIcon></mwc-button>
                         <pre id="system_info_preview"></pre>

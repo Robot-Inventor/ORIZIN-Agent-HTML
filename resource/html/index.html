@@ -21,13 +21,13 @@
                     <div class="chat_outer">
                         <div class="chat">
                                 新型コロナウイルスにかからない・うつさないためにマスクをし、他の人との距離を保ちましょう。
-                                <mwc-icon>person</mwc-icon><mwc-icon>person</mwc-icon><br>
+                                <i class="material_icon">person</i><i class="material_icon">person</i><br>
                                 <ul>
                                     <li>
-                                        <a href="https://corona.go.jp/" target="_blank" rel="noreferrer noopener">新型コロナウイルスに関する厚生労働省ホームページ<mwc-icon>open_in_new</mwc-icon></a>
+                                        <a href="https://corona.go.jp/" target="_blank" rel="noreferrer noopener">新型コロナウイルスに関する厚生労働省ホームページ<i class="material_icon">open_in_new</i></a>
                                     </li>
                                     <li>
-                                        <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html" target="_blank" rel="noreferrer noopener">新型コロナウイルス接触確認アプリ（COCOA）について<mwc-icon>open_in_new</mwc-icon></a>
+                                        <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/cocoa_00138.html" target="_blank" rel="noreferrer noopener">新型コロナウイルス接触確認アプリ（COCOA）について<i class="material_icon">open_in_new</i></a>
                                     </li>
                                 </ul>
                         </div>
@@ -35,16 +35,19 @@
                 </div>
                 <div id="message_input">
                     <underlined-textbox placeholder="質問を入力" id="requestForm" oninput="change_send_button_status()"></underlined-textbox>
-                    <mwc-icon-button id="startButton" icon="send" disabled></mwc-icon-button>
-                    <mwc-icon-button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ" icon="mic"></mwc-icon-button>
+                    <button id="startButton" disabled>
+                        <i class="material_icon">send</i>
+                    </button>
+                    <button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ">
+                        <i class="material_icon">mic</i>
+                    </button>
                     <span id="listening_message">聞いています。</span>
-                    <mwc-icon id="user_speaking_status">radio_button_checked</mwc-icon>
+                    <i class="material_icon" id="user_speaking_status">radio_button_checked</i>
                 </div>
             </div>
         </main>
         <script src="../javascript/orizin_ui.min.js"></script>
         <script src="../javascript/basic.js"></script>
-        <script src="../javascript/bundle.js"></script>
         <script src="../javascript/konami.js"></script>
         <script src="../javascript/mousetrap.min.js"></script>
         <script src="../javascript//mousetrap-bind-dictionary.min.js"></script>

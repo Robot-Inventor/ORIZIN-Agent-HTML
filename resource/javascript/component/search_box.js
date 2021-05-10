@@ -9,34 +9,19 @@ class SearchBox extends HTMLElement {
         const outer_element = document.createElement("div");
         outer_element.setAttribute("id", "outer");
 
-        const search_icon_outer = document.createElement("div");
-        search_icon_outer.setAttribute("id", "search_icon_outer");
-
-        const search_icon_element = document.createElement("mwc-icon");
+        const search_icon_element = document.createElement("i");
         search_icon_element.textContent = "search";
         search_icon_element.setAttribute("id", "search_icon");
-
-        this.text_box_outer = document.createElement("div");
-        this.text_box_outer.setAttribute("id", "text_box_outer");
+        search_icon_element.setAttribute("class", "material_icon");
 
         this.text_box = document.createElement("input");
         this.text_box.setAttribute("id", "search_box");
-        this.text_box_outer_width = {
-            not_entered: "calc(100% - 2rem)",
-            entered: "calc(100% - 3.6rem)"
-        };
         this.text_box.setAttribute("placeholder", "設定項目を検索");
         this.text_box.addEventListener("input", () => {
             const value = this.text_box.value;
             this.setAttribute("value", value);
             this.dispatchEvent(input_event);
-            if (value) {
-                this.clear_icon_outer.style.display = "inline-block";
-                this.text_box_outer.style.width = this.text_box_outer_width.entered;
-            } else {
-                this.clear_icon_outer.style.display = "none";
-                this.text_box_outer.style.width = this.text_box_outer_width.not_entered;
-            }
+            clear_icon_element.style.display = value ? "inline-block" : "none";
         });
         this.text_box.addEventListener("focusin", () => {
             outer_element.classList.add("focused");
@@ -45,14 +30,15 @@ class SearchBox extends HTMLElement {
             outer_element.classList.remove("focused");
         });
 
-        this.clear_icon_outer = document.createElement("div");
-        this.clear_icon_outer.setAttribute("id", "clear_icon_outer");
-
-        const clear_icon_element = document.createElement("mwc-icon-button");
-        clear_icon_element.setAttribute("icon", "clear");
+        const clear_icon_element = document.createElement("i");
+        clear_icon_element.textContent = "clear";
         clear_icon_element.setAttribute("id", "clear_icon");
+        clear_icon_element.setAttribute("class", "material_icon ripple_effect");
         clear_icon_element.addEventListener("click", () => {
             this.setAttribute("value", "");
+            this.text_box.value = "";
+            this.text_box.dispatchEvent(input_event);
+            clear_icon_element.style.display = "none";
         });
 
         const style_element = document.createElement("style");
@@ -60,6 +46,7 @@ class SearchBox extends HTMLElement {
 #outer {
     background: var(--card_bg);
     width: 50%;
+    padding: 0.25rem 0.5rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     position: relative;
@@ -88,29 +75,28 @@ class SearchBox extends HTMLElement {
     opacity: 0.75;
 }
 
-mwc-icon {
-    --mdc-icon-size: 1em;
-    transform: translateY(15%);
-    margin-right: 0.5em;
-    color: inherit;
-}
-
-#search_icon_outer {
-    padding: 0 0.5rem;
-    width: 1rem;
-    height: 1.5rem;
+.material_icon {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
     display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateY(0.15em);
+    color: var(--text);
 }
 
 #search_icon {
+    margin: 0 0.4em;
+    margin-right: 0.5rem;
     cursor: default;
     transition: 0.3s;
-}
-
-#text_box_outer {
-    width: ${this.text_box_outer_width.not_entered};
-    height: 1.75rem;
-    display: inline-block;
 }
 
 #outer.focused #search_icon {
@@ -118,13 +104,12 @@ mwc-icon {
 }
 
 #search_box {
-    width: 100%;
+    width: calc(100% - 4rem);
     height: 100%;
     background: transparent;
     outline: none;
     border: none;
     color: var(--text);
-    padding: 0;
 }
 
 #search_box:placeholder {
@@ -132,26 +117,16 @@ mwc-icon {
     opacity: 0.5;
 }
 
-#clear_icon_outer {
-    display: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    vertical-align: super;
-}
-
 #clear_icon {
     cursor: pointer;
-    --mdc-icon-button-size: 1.5rem;
-    --mdc-icon-size: 1rem;
+    display: none;
+    margin-left: 0.5rem;
 }
         `;
 
-        search_icon_outer.appendChild(search_icon_element);
-        this.text_box_outer.appendChild(this.text_box);
-        this.clear_icon_outer.appendChild(clear_icon_element);
-        outer_element.appendChild(search_icon_outer);
-        outer_element.appendChild(this.text_box_outer);
-        outer_element.appendChild(this.clear_icon_outer);
+        outer_element.appendChild(search_icon_element);
+        outer_element.appendChild(this.text_box);
+        outer_element.appendChild(clear_icon_element);
         shadow.appendChild(outer_element);
         shadow.appendChild(style_element);
     }
@@ -162,7 +137,7 @@ mwc-icon {
             element.dataset.defaultDisplayProperty = display_property;
         });
 
-        this.addEventListener("input", () => {
+        this.text_box.addEventListener("input", () => {
             const query = this.normalize_text(this.value);
 
             document.querySelectorAll(selector).forEach((element) => {
@@ -204,18 +179,6 @@ mwc-icon {
         });
     }
 
-    change_text_box_value(value) {
-        this.text_box.value = value;
-        this.text_box.dispatchEvent(new Event("input"));
-        if (value) {
-            this.clear_icon_outer.style.display = "inline-block";
-            this.text_box_outer.style.width = this.text_box_outer_width.entered;
-        } else {
-            this.clear_icon_outer.style.display = "none";
-            this.text_box_outer.style.width = this.text_box_outer_width.not_entered;
-        }
-    }
-
     static get observedAttributes() {
         return ["value"];
     }
@@ -223,7 +186,7 @@ mwc-icon {
     attributeChangedCallback(name, old_value, new_value) {
         switch (name) {
             case "value":
-                this.change_text_box_value(new_value);
+                this.text_box.value = new_value;
                 break;
         }
     }

@@ -64,7 +64,7 @@ async function load_information() {
 
     const update_status = document.getElementById("update_status");
     if (latest_version === version_information) {
-        update_status.innerHTML = "<mwc-icon>check_circle_outline</mwc-icon>最新版をご利用中です。";
+        update_status.innerHTML = "<i class='material_icon'>check_circle_outline</i>最新版をご利用中です。";
     } else {
         update_status.innerHTML = `<a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}" target="_blank" rel="noopener noreferrer">${latest_version}</a>にアップデート可能です。`;
     }

@@ -18,7 +18,6 @@ p {
 
 #reset_setting_button {
     float: right;
-    padding-bottom: 2vh;
 }
 
 #tips_setting {
@@ -26,7 +25,11 @@ p {
 }
 
 .reset_sound_setting {
-    transform: translateY(-25%);
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.1rem;
+    border-radius: 0.1rem;
+    vertical-align: bottom;
 }
 
 section {
