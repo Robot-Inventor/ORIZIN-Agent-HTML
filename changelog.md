@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.2.148.0dev-Eagle] - 2021-05-07
+### [v5.2.148.0dev-Eagle] - 2021-05-11
 
 #### 追加
 
@@ -52,6 +52,7 @@ Edition: ORIZIN Agent HTML
 - メニューの開閉ボタンをmwc-icon-buttonに置き換えました　[#145](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/145)
 - すべてのアイコンをmwc-iconに置き換えました　[#158](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/158)
 - すべてのアイコンボタンをmwc-icon-buttonに置き換えました　[#159](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/159)
+- search-boxコンポーネントにグリッドレイアウトを採用しました　[#180](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/180)
 
 ### [v5.1.147.2-Eagle] - 2021-05-11
 
