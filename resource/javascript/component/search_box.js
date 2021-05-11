@@ -63,7 +63,7 @@ class SearchBox extends HTMLElement {
     left: 0;
     overflow: visible;
     display: grid;
-    grid-template-rows: 2rem;
+    grid-template-rows: 2.25rem;
     grid-template-columns: 2rem 1fr 2rem;
 }
 
@@ -79,7 +79,7 @@ class SearchBox extends HTMLElement {
     border: solid 1px var(--text);
     opacity: 0.2;
     pointer-events: none;
-    transition: 0.3s;
+    transition: 0.15s;
     box-sizing: border-box;
 }
 
