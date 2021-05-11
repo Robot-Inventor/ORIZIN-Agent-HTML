@@ -6,6 +6,9 @@ class ExperimentCard extends HTMLElement {
 
         const section = document.createElement("section");
 
+        const icon_outer = document.createElement("div");
+        icon_outer.setAttribute("id", "icon_outer");
+
         this.icon_element = document.createElement("mwc-icon");
         this.icon_element.textContent = this.getAttribute("icon");
 
@@ -28,18 +31,24 @@ class ExperimentCard extends HTMLElement {
         style.textContent = `
 section {
     border-bottom: solid 0.05em var(--text);
-    padding: 1em;
-    padding-left: 0;
+    padding: 1rem;
     font-weight: bold;
     display: grid;
-    grid-template-columns: 2rem;
+    grid-template-columns: 2.3rem;
+}
+
+#icon_outer {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    position: relative;
 }
 
 mwc-icon {
     --mdc-icon-size: 1.5rem;
     color: inherit;
-    grid-row: 1;
-    grid-column: 1;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #top_outer {
@@ -59,13 +68,16 @@ mwc-switch {
     display: block;
     grid-row: 2;
     grid-column: 2;
+    margin-top: 0.2rem;
 }
         `;
+
+        icon_outer.appendChild(this.icon_element);
 
         top_outer.appendChild(this.experiment_title);
         top_outer.appendChild(this.mwc_switch);
 
-        section.appendChild(this.icon_element);
+        section.appendChild(icon_outer);
         section.appendChild(top_outer);
         section.appendChild(information);
         shadow.appendChild(section);
