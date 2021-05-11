@@ -6,8 +6,7 @@ class WarningMessage extends HTMLElement {
 
         this.slot_element = document.createElement("slot");
 
-        const icon_element = document.createElement("i");
-        icon_element.setAttribute("class", "material_icon");
+        const icon_element = document.createElement("mwc-icon");
         icon_element.textContent = "warning";
 
         const style_element = document.createElement("style");
@@ -21,21 +20,11 @@ class WarningMessage extends HTMLElement {
     font-weight: bold;
 }
 
-i.material_icon {
-    font-family: "Material Icons";
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transform: translateY(0.15em);
-    margin: 0 0.4em 0 0;
+mwc-icon {
+    --mdc-icon-size: 1em;
+    transform: translateY(10%);
+    margin-right: 0.5em;
+    color: var(--error_text_color);
 }
         `;
 
