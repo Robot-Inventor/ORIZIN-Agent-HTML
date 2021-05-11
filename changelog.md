@@ -53,6 +53,7 @@ Edition: ORIZIN Agent HTML
 - すべてのアイコンをmwc-iconに置き換えました　[#158](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/158)
 - すべてのアイコンボタンをmwc-icon-buttonに置き換えました　[#159](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/159)
 - search-boxコンポーネントにグリッドレイアウトを採用しました　[#180](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/180)
+- search-boxのデザインを改善しました　[#190](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/190)
 
 ### [v5.1.147.2-Eagle] - 2021-05-11
 
