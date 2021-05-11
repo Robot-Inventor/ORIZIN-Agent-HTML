@@ -30,10 +30,9 @@ class SearchBox extends HTMLElement {
             outer_element.classList.remove("focused");
         });
 
-        const clear_icon_element = document.createElement("i");
-        clear_icon_element.textContent = "clear";
+        const clear_icon_element = document.createElement("mwc-icon-button");
+        clear_icon_element.setAttribute("icon", "clear");
         clear_icon_element.setAttribute("id", "clear_icon");
-        clear_icon_element.setAttribute("class", "material_icon ripple_effect");
         clear_icon_element.addEventListener("click", () => {
             this.setAttribute("value", "");
             this.text_box.value = "";
@@ -121,6 +120,8 @@ class SearchBox extends HTMLElement {
     cursor: pointer;
     display: none;
     margin-left: 0.5rem;
+    --mdc-icon-button-size: 1.2rem;
+    --mdc-icon-size: 1rem;
 }
         `;
 
