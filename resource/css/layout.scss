@@ -214,8 +214,10 @@ header {
         #menu_open_button {
             height: 5vh;
             cursor: pointer;
-            margin-right: 1.5rem;
+            margin-right: 1rem;
             transition: 0.3s;
+            --mdc-icon-size: 2rem;
+            overflow: visible;
 
             &.open {
                 transform: rotate(180deg);
@@ -328,7 +330,9 @@ header {
         #menu_close_button {
             border: none;
             font-size: 2rem;
-            margin: 2vh 0 2vh 0;
+            margin: 2vh;
+            overflow: visible;
+            --mdc-icon-size: 2rem;
             transition: 0.3s;
             transform: rotate(0deg);
 
