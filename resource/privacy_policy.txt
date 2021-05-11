@@ -10,7 +10,7 @@
 
 ・resource/dictionary/unknownQuestions.txtに会話の一部をログとして保存します。
 ・memo.txtに会話の一部をメモ機能のために保存します。
-・resource/setting/setting.otfdとresource/setting/flag.otfdに設定内容を設定を保持するために保存します。
+・resource/setting/setting.jsonとresource/setting/flag.jsonに設定内容を設定を保持するために保存します。
 
 2. フィードバック機能について
 フィードバック機能を使用するとユーザーがフォームに入力した内容がGoogleフォームに送信されます。また、ユーザーがシステムの情報を送信することを選択した場合、フィードバックページで明示された情報が本ソフトウェアの開発者に送信されます。

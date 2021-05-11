@@ -129,8 +129,8 @@ dmypy.json
 .pyre/
 
 # ORIZIN Agent settings and other files
-resource/setting/flag.otfd
-resource/setting/setting.otfd
+resource/setting/flag.json
+resource/setting/setting.json
 resource/css/theme_setting.css
 resource/css/theme/user/*.css
 resource/dictionary/unknownQuestions.txt

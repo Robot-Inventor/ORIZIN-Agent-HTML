@@ -17,10 +17,6 @@
     box-sizing: border-box;
 }
 
-.chat_outer + .chat_outer:not(.user) .chat {
-    margin-top: 2em;
-}
-
 .chat_outer {
     padding-top: 2rem;
     width: 80%;
@@ -83,6 +79,10 @@
             margin: 0;
         }
     }
+
+    & + &:not(.user) .chat {
+        margin-top: 2em;
+    }
 }
 
 body {
@@ -98,7 +98,6 @@ body {
     background: var(--card_bg);
     box-sizing: border-box;
     vertical-align: center;
-    overflow: hidden;
     position: relative;
     top: 0;
     left: 0;

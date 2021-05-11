@@ -111,6 +111,11 @@
     display: none;
 }
 
+a {
+    color: var(--theme_color);
+    text-decoration: none;
+}
+
 html,
 body {
     font-family: "League Spartan", "Yu Gothic UI", sans-serif;
@@ -127,6 +132,18 @@ main {
     top: 0;
     left: 0;
     margin-top: 10vh;
+}
+
+hr {
+    background: var(--text);
+    border: none;
+    height: 0.05rem;
+}
+
+
+img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 header {
@@ -247,7 +264,6 @@ header {
                 top: 0;
                 left: 0;
                 background: var(--mdc-theme-on-surface);
-                opacity: 0;
                 pointer-events: none;
                 transition: 0.3s;
                 opacity: 0.1;
@@ -303,17 +319,6 @@ pre {
     white-space: pre-wrap;
 }
 
-hr {
-    background: var(--text);
-    border: none;
-    height: 0.05rem;
-}
-
-a {
-    color: var(--theme_color);
-    text-decoration: none;
-}
-
 .button,
 button {
     display: inline-block;
@@ -349,11 +354,6 @@ button {
 
 .pre {
     white-space: pre-wrap;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 li {
@@ -404,6 +404,10 @@ progress {
     -webkit-appearance: none;
     border-radius: 0.5rem;
 
+    &::-webkit-progress-bar {
+        background: var(--bg);
+    }
+
     &:not([value]) {
         -webkit-appearance: none;
         background: var(--theme_color);
@@ -412,10 +416,6 @@ progress {
         &::-webkit-progress-bar {
             background: none;
         }
-    }
-
-    &::-webkit-progress-bar {
-        background: var(--bg);
     }
 
     &[value]::-webkit-progress-value {
