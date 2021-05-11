@@ -21,10 +21,6 @@ class SearchBox extends HTMLElement {
 
         this.text_box = document.createElement("input");
         this.text_box.setAttribute("id", "search_box");
-        this.text_box_outer_width = {
-            not_entered: "calc(100% - 2rem)",
-            entered: "calc(100% - 3.6rem)"
-        };
         this.text_box.setAttribute("placeholder", "設定項目を検索");
         this.text_box.addEventListener("input", () => {
             const value = this.text_box.value;
@@ -32,10 +28,10 @@ class SearchBox extends HTMLElement {
             this.dispatchEvent(input_event);
             if (value) {
                 this.clear_icon_outer.style.display = "inline-block";
-                this.text_box_outer.style.width = this.text_box_outer_width.entered;
+                this.text_box_outer.style.gridColumn = "2";
             } else {
                 this.clear_icon_outer.style.display = "none";
-                this.text_box_outer.style.width = this.text_box_outer_width.not_entered;
+                this.text_box_outer.style.gridColumn = "2 / 4";
             }
         });
         this.text_box.addEventListener("focusin", () => {
@@ -66,6 +62,9 @@ class SearchBox extends HTMLElement {
     top: 0;
     left: 0;
     overflow: visible;
+    display: grid;
+    grid-template-rows: 2rem;
+    grid-template-columns: 2rem 1fr 2rem;
 }
 
 #outer::before {
@@ -81,6 +80,7 @@ class SearchBox extends HTMLElement {
     opacity: 0.2;
     pointer-events: none;
     transition: 0.3s;
+    box-sizing: border-box;
 }
 
 #outer.focused::before {
@@ -96,21 +96,23 @@ mwc-icon {
 }
 
 #search_icon_outer {
-    padding: 0 0.5rem;
-    width: 1rem;
-    height: 1.5rem;
-    display: inline-block;
+    grid-row: 1;
+    grid-column: 1;
+    position: relative;
 }
 
 #search_icon {
     cursor: default;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     transition: 0.3s;
 }
 
 #text_box_outer {
-    width: ${this.text_box_outer_width.not_entered};
-    height: 1.75rem;
-    display: inline-block;
+    grid-row: 1;
+    grid-column: 2 / 4;
 }
 
 #outer.focused #search_icon {
@@ -134,13 +136,17 @@ mwc-icon {
 
 #clear_icon_outer {
     display: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    vertical-align: super;
+    grid-row: 1;
+    grid-column: 3;
+    position: relative;
 }
 
 #clear_icon {
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     --mdc-icon-button-size: 1.5rem;
     --mdc-icon-size: 1rem;
 }
@@ -175,7 +181,6 @@ mwc-icon {
                 if (!search_tag_string) return;
                 const search_tag = search_tag_string.replaceAll(", ", ",").replaceAll("  ", " ").replaceAll(" ", ",").split(",");
                 for (let i = 0; i < search_tag.length; i++) {
-                    console.log("111");
                     if (search_tag[i].indexOf(query) !== -1) {
                         element.style.display = default_display_property;
                     }
@@ -210,10 +215,10 @@ mwc-icon {
         this.text_box.dispatchEvent(new Event("input"));
         if (value) {
             this.clear_icon_outer.style.display = "inline-block";
-            this.text_box_outer.style.width = this.text_box_outer_width.entered;
+            this.text_box_outer.style.gridColumn = "2";
         } else {
             this.clear_icon_outer.style.display = "none";
-            this.text_box_outer.style.width = this.text_box_outer_width.not_entered;
+            this.text_box_outer.style.gridColumn = "2 / 4";
         }
     }
 
