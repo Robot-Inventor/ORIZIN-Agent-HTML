@@ -35,12 +35,13 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.2.148.0dev-Eagle] - 2021-05-06
+### [v5.2.148.0dev-Eagle] - 2021-05-07
 
 #### 追加
 
 - ショートカットキーの一覧にスペースキーを追加しました　[#122](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/122)
 - 検索ボックスのXにリップルエフェクトを追加しました　[#113](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/113)
+- 設定と試験機能ページの下部にパディングを追加しました　[#151](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/151)
 
 #### 変更
 
