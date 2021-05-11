@@ -35,12 +35,8 @@
                 </div>
                 <div id="message_input">
                     <underlined-textbox placeholder="質問を入力" id="requestForm" oninput="change_send_button_status()"></underlined-textbox>
-                    <button id="startButton" disabled>
-                        <mwc-icon>send</mwc-icon>
-                    </button>
-                    <button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ">
-                        <mwc-icon>mic</mwc-icon>
-                    </button>
+                    <mwc-icon-button id="startButton" icon="send" disabled></mwc-icon-button>
+                    <mwc-icon-button id="start_recognition" onclick="start_recognition()" title="音声認識をスタート/ストップ" icon="mic"></mwc-icon-button>
                     <span id="listening_message">聞いています。</span>
                     <mwc-icon id="user_speaking_status">radio_button_checked</mwc-icon>
                 </div>
