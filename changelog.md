@@ -35,6 +35,37 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
+### [v5.2.149.1-Eagle] - 2021-05-13
+
+#### 追加
+
+- ショートカットキーの一覧にスペースキーを追加しました　[#122](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/122)
+- 検索ボックスのXにリップルエフェクトを追加しました　[#113](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/113)
+- 設定と試験機能ページの下部にパディングを追加しました　[#151](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/151)
+
+#### 変更
+
+- 設定ページのアップデートのダウンロードボタンをMaterial Web Componentに変更しました　[#136](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/136)
+- 設定ページのアップデートのダウンロードボタンのリンク先を個別のリリースページに変更しました　[#137](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/137)
+- バージョン情報をコピーしたときにボタンのアイコンが変更されるようになりました　[#146](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/146)
+- 設定の検索ボックスが未入力のときに入力可能領域を右端まで伸ばすことで使いやすくしました　[#142](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/142)
+- メニューの開閉ボタンをmwc-icon-buttonに置き換えました　[#145](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/145)
+- すべてのアイコンをmwc-iconに置き換えました　[#158](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/158)
+- すべてのアイコンボタンをmwc-icon-buttonに置き換えました　[#159](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/159)
+- search-boxコンポーネントにグリッドレイアウトを採用しました　[#180](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/180)
+- search-boxコンポーネントのデザインを改善しました　[#190](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/190)
+- experiment-cardコンポーネントにグリッドレイアウトを採用しました　[#181](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/181)
+- experiment-cardコンポーネントのデザインを改善しました　[#193](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/193)
+- details要素のデザインを改善し、アニメーションを追加ました　[#195](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/195)
+
+#### 修正
+
+- リファクタリングを行いました
+
+#### Notice
+
+- このバージョンは、v5.2.148.0dev-Eagleのアップデートの正式版です
+
 ### [v5.2.148.0dev-Eagle] - 2021-05-13
 
 #### 追加
