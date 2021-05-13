@@ -1,6 +1,5 @@
 async function insert_license() {
-    const fetch_response = await fetch("../json/oss_license.json");
-    const response_content = await fetch_response.json();
+    const response_content = await load_json("../json/oss_license.json");
 
     Object.keys(response_content).forEach((oss_name) => {
         document.getElementById("license_section").insertAdjacentHTML("beforeend", `

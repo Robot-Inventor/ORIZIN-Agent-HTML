@@ -35,7 +35,7 @@ Edition: ORIZIN Agent HTML
 
 ## リリース
 
-### [v5.2.148.0dev-Eagle] - 2021-05-12
+### [v5.2.148.0dev-Eagle] - 2021-05-13
 
 #### 追加
 
@@ -57,6 +57,10 @@ Edition: ORIZIN Agent HTML
 - experiment-cardコンポーネントにグリッドレイアウトを採用しました　[#181](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/181)
 - experiment-cardコンポーネントのデザインを改善しました　[#193](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/193)
 - details要素のデザインを改善し、アニメーションを追加ました　[#195](https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/issues/195)
+
+#### 修正
+
+- リファクタリングを行いました
 
 ### [v5.1.147.2-Eagle] - 2021-05-11
 

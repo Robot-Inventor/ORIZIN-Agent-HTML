@@ -34,8 +34,7 @@ function show_error(message_content) {
 }
 
 async function get_oa_info() {
-    const fetch_response = await fetch("../information.json");
-    const information_content = await fetch_response.json();
+    const information_content = await load_json("../information.json");
     return information_content;
 }
 

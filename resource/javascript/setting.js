@@ -131,8 +131,7 @@ document.getElementById("check_update").addEventListener("click", async function
     }
 
     document.getElementById("update_detail").innerHTML = "アップデートを確認中です...";
-    const response = await fetch("../information.json");
-    const information_data = await response.json();
+    const information_data = await load_json("../information.json");
     const version_information = information_data.Version;
     const release_data = await eel.get_release(information_data.Channel)();
 

@@ -68,6 +68,13 @@ function load_script(url) {
     document.body.appendChild(script_element);
 }
 
+// eslint-disable-next-line no-unused-vars
+async function load_json(path) {
+    const fetch_response = await fetch(path);
+    const result = await fetch_response.json();
+    return result;
+}
+
 
 document.querySelector("header").innerHTML = `
 <div id="top_app_bar">

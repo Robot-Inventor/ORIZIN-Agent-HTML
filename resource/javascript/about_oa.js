@@ -1,8 +1,7 @@
 async function load_info() {
-    const fetch_data = await fetch("../information.json");
-    const response = await fetch_data.json();
-    Object.keys(response).forEach((key) => {
-        document.getElementById("information").insertAdjacentText("beforeend", `${key}: ${response[key]}\n`);
+    const information = await load_json("../information.json");
+    Object.keys(information).forEach((key) => {
+        document.getElementById("information").insertAdjacentText("beforeend", `${key}: ${information[key]}\n`);
     });
 }
 
