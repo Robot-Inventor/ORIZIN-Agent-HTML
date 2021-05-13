@@ -68,41 +68,48 @@ function load_script(url) {
     document.body.appendChild(script_element);
 }
 
+// eslint-disable-next-line no-unused-vars
+async function load_json(path) {
+    const fetch_response = await fetch(path);
+    const result = await fetch_response.json();
+    return result;
+}
+
 
 document.querySelector("header").innerHTML = `
 <div id="top_app_bar">
-    <span class="ripple_effect"><img src="../image/menu_icon.svg" id="menu_open_button" onclick="open_menu()" title="メニューを開く"></span><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る" id="app_name">ORIZIN Agent HTML</a></span>
+    <mwc-icon-button icon="menu" onclick="open_menu()" id="menu_open_button"></mwc-icon-button><span class="ripple_effect"><a href="index.html" title="ホーム画面へ戻る" id="app_name">ORIZIN Agent HTML</a></span>
 </div>
 <div id="side_menu_bar_overlay" onclick="close_menu()"></div>
 <div id="side_menu_bar">
-    <button id="menu_close_button" class="ripple_effect" onclick="close_menu()" title="メニューを閉じる"><i class="material_icon">arrow_forward</i></button>
+    <mwc-icon-button id="menu_close_button" onclick="close_menu()" icon="arrow_forward"></mwc-icon-button>
     <div class="ripple_effect" onclick="move_page('index.html')" title="ホーム画面に戻る">
-        <i class="material_icon">home</i>ホーム
+        <mwc-icon>home</mwc-icon>ホーム
     </div>
     <hr>
     <div class="ripple_effect" onclick="move_page('setting.html')" title="様々な設定をする">
-        <i class="material_icon">settings</i>設定
+        <mwc-icon>settings</mwc-icon>設定
     </div>
     <hr>
     <div class="ripple_effect" onclick="move_page('oss_license.html')" title="使用しているOSSの名称とライセンスの一覧を見る">
-        <i class="material_icon">assignment</i>オープンソースソフトウェアライセンス
+        <mwc-icon>assignment</mwc-icon>オープンソースソフトウェアライセンス
     </div>
     <hr>
     <div class="ripple_effect" onclick="move_page('privacy_policy.html')" title="ユーザーの情報の扱い方について見る">
-        <i class="material_icon">privacy_tip</i>プライバシーポリシー
+        <mwc-icon>privacy_tip</mwc-icon>プライバシーポリシー
     </div>
     <hr>
     <div class="ripple_effect" onclick="move_page('feedback.html')" id="feedback_button" title="フィードバックを送信する">
-        <i class="material_icon">feedback</i>フィードバック
+        <mwc-icon>feedback</mwc-icon>フィードバック
     </div>
     <hr>
     <div class="ripple_effect" onclick="move_page('about_oa.html')" title="バージョンやソフトウェアの概要を見る">
-        <i class="material_icon">info</i>ORIZIN Agentについて
+        <mwc-icon>info</mwc-icon>ORIZIN Agentについて
     </div>
     <hr>
     <a href="https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/wiki" target="_blank" rel="noreferrer noopener">
         <div title="使い方が書かれているサイトを開く" class="ripple_effect">
-            <i class="material_icon">help</i>ヘルプ＆Wiki(GitHub)<i class="material_icon">open_in_new</i>
+            <mwc-icon>help</mwc-icon>ヘルプ＆Wiki(GitHub)<mwc-icon>open_in_new</mwc-icon>
         </div>
     </a>
     <hr>

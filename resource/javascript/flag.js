@@ -3,8 +3,7 @@ load_script("../javascript/component/search_box.js");
 load_script("../javascript/component/warning_message.js");
 
 (async () => {
-    const fetch_response = await fetch("../json/flag.json");
-    const experiment_list = await fetch_response.json();
+    const experiment_list = await load_json("../json/flag.json");
 
     Object.keys(experiment_list).forEach((experiment_name) => {
         const experiment = experiment_list[experiment_name];

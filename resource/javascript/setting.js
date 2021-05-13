@@ -131,8 +131,7 @@ document.getElementById("check_update").addEventListener("click", async function
     }
 
     document.getElementById("update_detail").innerHTML = "アップデートを確認中です...";
-    const response = await fetch("../information.json");
-    const information_data = await response.json();
+    const information_data = await load_json("../information.json");
     const version_information = information_data.Version;
     const release_data = await eel.get_release(information_data.Channel)();
 
@@ -141,7 +140,7 @@ document.getElementById("check_update").addEventListener("click", async function
     if (latest_version === version_information) {
         update_detail.innerHTML = "利用可能なアップデートはありません。最新のバージョンを使用中です。";
     } else {
-        update_detail.innerHTML = `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases' target='_blank' rel='noreferrer noopener' class='ripple_effect'>ダウンロード<i class='material_icon'>open_in_new</i></a>`;
+        update_detail.innerHTML = `<h1>${release_data[0]}</h1>${release_data[1]}<br><a href='https://github.com/Robot-Inventor/ORIZIN-Agent-HTML/releases/tag/${latest_version}' target='_blank' rel='noreferrer noopener' class='ripple_effect'><mwc-button label="ダウンロード" icon="open_in_new" trailingIcon></mwc-button></a>`;
     }
 });
 

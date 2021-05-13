@@ -6,9 +6,14 @@ class ExperimentCard extends HTMLElement {
 
         const section = document.createElement("section");
 
-        this.icon_element = document.createElement("i");
-        this.icon_element.setAttribute("class", "material_icon");
+        const icon_outer = document.createElement("div");
+        icon_outer.setAttribute("id", "icon_outer");
+
+        this.icon_element = document.createElement("mwc-icon");
         this.icon_element.textContent = this.getAttribute("icon");
+
+        const top_outer = document.createElement("div");
+        top_outer.setAttribute("id", "top_outer");
 
         this.experiment_title = document.createElement("span");
         this.experiment_title.textContent = this.getAttribute("experiment-title");
@@ -26,27 +31,29 @@ class ExperimentCard extends HTMLElement {
         style.textContent = `
 section {
     border-bottom: solid 0.05em var(--text);
-    padding: 1em;
-    padding-left: 0;
+    padding: 1rem;
     font-weight: bold;
-    display: block;
+    display: grid;
+    grid-template-columns: 2.3rem;
 }
 
-.material_icon {
-    font-family: "Material Icons";
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transform: translateY(0.15em);
-    margin: 0 0.4em;
+#icon_outer {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    position: relative;
+}
+
+mwc-icon {
+    --mdc-icon-size: 1.5rem;
+    color: inherit;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#top_outer {
+    grid-row: 1;
+    grid-column: 2;
 }
 
 mwc-switch {
@@ -54,18 +61,24 @@ mwc-switch {
 }
 
 .information {
-    padding-left: 1.5rem;
     font-weight: normal;
     font-size: 0.9em;
     opacity: 0.7;
     color: var(--text);
     display: block;
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 0.2rem;
 }
         `;
 
-        section.appendChild(this.icon_element);
-        section.appendChild(this.experiment_title);
-        section.appendChild(this.mwc_switch);
+        icon_outer.appendChild(this.icon_element);
+
+        top_outer.appendChild(this.experiment_title);
+        top_outer.appendChild(this.mwc_switch);
+
+        section.appendChild(icon_outer);
+        section.appendChild(top_outer);
         section.appendChild(information);
         shadow.appendChild(section);
         shadow.appendChild(style);

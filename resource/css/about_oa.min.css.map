@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,EAAE,CAAC,CAAC,AAAA,cAAc,AAAC,CACf,WAAW,CAAE,CAAC,CACjB",
+    "mappings": "",
     "sources": [
         "about_oa.scss"
     ],
