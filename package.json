@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Robot-Inventor/ORIZIN-Agent-HTML#readme",
   "dependencies": {
     "@material/mwc-button": "^0.21.0",
-    "@material/mwc-checkbox": "^0.21.0",
+    "@material/mwc-checkbox": "^0.22.1",
     "@material/mwc-dialog": "^0.21.0",
     "@material/mwc-formfield": "^0.22.1",
     "@material/mwc-icon-button": "^0.21.0",
