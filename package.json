@@ -26,7 +26,7 @@
     "@material/mwc-radio": "^0.25.0",
     "@material/mwc-snackbar": "^0.25.0",
     "@material/mwc-switch": "^0.25.0",
-    "eslint": "^7.30.0",
+    "eslint": "^8.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-scss": "^3.19.0",
