@@ -27,7 +27,7 @@
     "@material/mwc-snackbar": "^0.27.0",
     "@material/mwc-switch": "^0.27.0",
     "eslint": "^8.0.0",
-    "stylelint": "^14.0.0",
+    "stylelint": "^15.0.0",
     "stylelint-config-recommended-scss": "^8.0.0",
     "stylelint-scss": "^4.0.0",
     "webpack": "^5.43.0",
